@@ -1,4 +1,4 @@
-# PrimusIchiGirls
+# PrimusInsurance
 
 ## Cách thao tác với Github của Team 1<br>
 
