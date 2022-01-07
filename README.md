@@ -27,10 +27,11 @@
    ![Mô tả pull request](https://i.ibb.co/LJm9V6z/image.png)
    
    - Chỉ tạo pull request sau khi phát triển hoàn thiện tính năng của mình và chạy thành công
-   - Chỉ được phép tạo pull request merge trên remote github, không tự merge vào main ở local trên máy rồi tự ý push lên main
-   - Tạo pull request và ghi comment đầy đủ lên github, không trao đổi bên ngoài, (mọi điều, ghi chú, trao đổi liên quan tới việc merge vào main)
+   - Chỉ được phép tạo pull request merge trên remote github, **KHÔNG** tự merge vào main ở local trên máy rồi tự ý push lên main
+   - Tạo pull request và ghi comment đầy đủ lên github, không trao đổi bên ngoài, (mọi điều, ghi chú, trao đổi liên quan tới việc merge vào main thì thông qua comment)
 2. Assignee theo dõi và kiểm tra merge<br>
-   *(Assignee có thể là leader hoặc là thành viên phụ trách, **KHÔNG** tự ý phê duyệt code mình)*
+   *(Assignee có thể là leader hoặc là thành viên phụ trách)*
+   - **KHÔNG** tự ý phê duyệt code của bản thân mỗi khi merge vào main
    - Nếu assignee reject, comment và yêu cầu sửa code thì người phụ trách phát triển branch ấy sẽ sửa lại code và push lại. Việc này sẽ tiến hành tới khi nào được assignee chấp nhận.
    - Khi không còn vấn đề nào nữa thì assignee sẽ merge và delete branch ấy đi.
 
