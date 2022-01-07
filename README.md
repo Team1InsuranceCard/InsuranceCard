@@ -10,7 +10,7 @@
    - Đặt theo tên của người làm. Mỗi người khi phát triển sẽ đặt theo [tên]-[Mã tính năng] VD: Huy-Login
    - Khi cần tạo thêm 1 brach phụ để phát triển song song thì tạo mới kể từ bản thứ 2 với mẫu [tên]-[Mã tính năng]-[số thứ tự] VD: Huy-Login-1. branch này và branch con chính có thể được tự merge vào nhau mà không cần leader phê duyệt, sau khi merge vào branch con chính thì tiếp tục như bình thường
    - Mỗi lần phát triển xong 1 tính năng thì push lên github trước, rồi mới tạo pull request (Create pull request)
-   - Sau khi được leader duyệt và merge vào main thì xóa branch con liên quan của mình đi
+   - Sau khi được assignee duyệt và merge vào main thì xóa branch con liên quan của mình đi
    - Mỗi lần tiếp tục bắt đầu phát triển một tính năng mới thì tạo một branch mới và merge từ branch main vào để được phiên bản mới nhất
 
 ### Quy ước khi push code lên remote
@@ -30,7 +30,7 @@
    - Chỉ được phép tạo pull request merge trên remote github, không tự merge vào main ở local trên máy rồi tự ý push lên main
    - Tạo pull request và ghi comment đầy đủ lên github, không trao đổi bên ngoài, (mọi điều, ghi chú, trao đổi liên quan tới việc merge vào main)
 2. Assignee theo dõi và kiểm tra merge<br>
-   *(Assignee có thể là leader hoặc là thành viên phụ trách, *không tự ý phê duyệt code mình)*
+   *(Assignee có thể là leader hoặc là thành viên phụ trách, **KHÔNG** tự ý phê duyệt code mình)*
    - Nếu assignee reject, comment và yêu cầu sửa code thì người phụ trách phát triển branch ấy sẽ sửa lại code và push lại. Việc này sẽ tiến hành tới khi nào được assignee chấp nhận.
    - Khi không còn vấn đề nào nữa thì assignee sẽ merge và delete branch ấy đi.
 
