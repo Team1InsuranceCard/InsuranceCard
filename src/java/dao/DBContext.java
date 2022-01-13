@@ -31,7 +31,7 @@ public class DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
             //Day Github :v
-            //Dạy Github 2
+        
         }
     }
 }
