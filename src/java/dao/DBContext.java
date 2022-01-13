@@ -29,8 +29,7 @@ public class DBContext {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-            //Day Github :v
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);        
         }
     }
 }
