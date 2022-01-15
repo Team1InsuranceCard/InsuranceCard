@@ -1,0 +1,86 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 15, 2022, 12:29:59 AM
+    Author     : ADMIN
+*/
+.limiter {
+    width: 600px;
+    height: 674px;
+    margin: auto;
+    background-color: bisque;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+}
+
+.logo-group {
+    justify-content: space-between;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.username {
+    position: absolute;
+    width: 600px;
+    height: 85px;
+    left: 420px;
+    top: 321px;
+
+    mix-blend-mode: luminosity;
+}
+
+.password {
+    position: absolute;
+    width: 600px;
+    height: 85px;
+    left: 420px;
+    top: 420px;
+
+    mix-blend-mode: luminosity;
+}
+
+.logbutton {
+    position: absolute;
+    width: 600px;
+    height: 86px;
+    left: 420px;
+    top: 549px;
+
+    mix-blend-mode: luminosity;
+}
+
+.forgot-sign {
+    position: absolute;
+    width: 299.5px;
+    height: 54px;
+    /*left: 421px;*/ /*FORGET*/
+    /*left: 719.5px;*/ /*SIGN*/
+    top: 702px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.quick-log {
+    position: absolute;
+    width: 288.48px;
+    height: 59px;
+    /*left: 421px;*/ /*fb*/
+    /*left: 730.52px;*/ /*gg*/
+    top: 790px;
+}
