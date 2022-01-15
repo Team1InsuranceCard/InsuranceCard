@@ -37,12 +37,12 @@ body {
 }
 .user-role img{
     margin: 5px
-}
+  }
 
-.header-element .active {
+  .header-element .active {
     color: #fc6376;
-}
-ul.breadcrumb {
+  }
+  ul.breadcrumb {
     padding-top: 1.5em;
     /* margin-right: 5em; */
     list-style: none;
