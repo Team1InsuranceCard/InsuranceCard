@@ -11,58 +11,126 @@ and open the template in the editor.
     width: 600px;
     height: 674px;
     margin: auto;
-    background-color: bisque;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    
+
 }
 
 .logo-group {
+    margin-top: 20px;
     justify-content: space-between;
-    padding-right: 20px;
     text-align: center;
+}
+
+.login100-form-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fdb1a6;
+    line-height: 1.2;
+    text-align: center;
+
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+    padding-bottom: 39px;
+    cursor: default;
 }
 
 .username {
     position: absolute;
     width: 600px;
     height: 85px;
-    left: 420px;
-    top: 321px;
-
+    left: 0;
+    top: 170px;
     mix-blend-mode: luminosity;
+    z-index: 1;
+}
+.username img {
+    position: absolute;
+    background: url(../asset/image/user_1.png) no-repeat scroll 7px 7px;
+    padding-left: 540px;
+    margin-top: -65px;
+    cursor: text;
+    z-index: 2;
+}
+
+.input100 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    color: #1b3815;
+    line-height: 1.2;
+
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 85px;
+    background: rgba(153, 150, 170, 0.7);
+    border-radius: 10px;
+    padding: 0 35px 0 35px;
 }
 
 .password {
     position: absolute;
     width: 600px;
     height: 85px;
-    left: 420px;
-    top: 420px;
-
+    left: 0;
+    top: 270px;
     mix-blend-mode: luminosity;
+    z-index: 1;
+}
+.password img {
+    position: absolute;
+    background: url(../asset/image/password_1.png) no-repeat scroll 7px 7px;
+    padding-left: 540px;
+    margin-top: -65px;
+    cursor: text;
+    z-index: 2;
+}
+
+.remember {
+    position: absolute;
+    width: 225px;
+    height: 30px;
+    left: 41px;
+    top: 375px;
+}
+
+.remember input[type=checkbox] {
+    border-radius: 7px;
+    background-color: red;
+    cursor: pointer;
 }
 
 .logbutton {
     position: absolute;
-    width: 600px;
-    height: 86px;
-    left: 420px;
-    top: 549px;
+    left: 0;
+    top: 420px;
+    cursor: pointer;
+}
 
+.logbutton input[type=submit] {
+    width: 600px;
+    height: 85px;
+    background: no-repeat scroll 7px 7px;
+    background-color: rgba(66, 49, 83, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
     mix-blend-mode: luminosity;
 }
 
 .forgot-sign {
     position: absolute;
-    width: 299.5px;
     height: 54px;
-    /*left: 421px;*/ /*FORGET*/
-    /*left: 719.5px;*/ /*SIGN*/
-    top: 702px;
+    top: 510px;
 
     font-family: Roboto;
     font-style: normal;
@@ -71,16 +139,37 @@ and open the template in the editor.
     line-height: 26px;
     display: flex;
     align-items: center;
-    text-align: center;
-
-    color: #000000;
 }
+
+.forgot a{
+    margin-left: 70px;
+    text-decoration: none;
+
+}
+
+.sign a{
+    margin-left: 200px;
+    text-decoration: none;
+}
+
 
 .quick-log {
     position: absolute;
-    width: 288.48px;
-    height: 59px;
-    /*left: 421px;*/ /*fb*/
-    /*left: 730.52px;*/ /*gg*/
-    top: 790px;
+    display: flex;
+    top: 590px;
+}
+
+.facebook input[type=button]{
+    height: 50px;
+    border-radius: 10px;
+    padding: 0 110px 0 110px;
+    cursor: pointer;
+}
+
+.google input[type=button]{
+    margin-left: 50px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0 110px 0 110px;
+    cursor: pointer;
 }
