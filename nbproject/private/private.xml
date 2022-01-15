@@ -12,8 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Github/InsuranceCard/web/view/header_customer.jsp</file>
-            <file>file:/D:/Github/InsuranceCard/web/view/customer/testHeader.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/dao/CustomerDBContext.java</file>
+            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/web/view/common/register.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/web/view/staff/CustomerDetail.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/model/Accident.java</file>
+            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/model/Account.java</file>
         </group>
     </open-files>
 </project-private>
