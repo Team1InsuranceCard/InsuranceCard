@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>web/view/header_customer.jsp</url>
+            <bookmark id="1">
+                <name/>
+                <line>21</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/OneDrive/Documents/GitHub/InsuranceCard/web/asset/style/login.css</file>
-            <file>file:/C:/Users/ADMIN/OneDrive/Documents/GitHub/InsuranceCard/web/view/header_customer.jsp</file>
-            <file>file:/C:/Users/ADMIN/OneDrive/Documents/GitHub/InsuranceCard/web/asset/style/header_customer.css</file>
-            <file>file:/C:/Users/ADMIN/OneDrive/Documents/GitHub/InsuranceCard/web/view/login.jsp</file>
+            <file>file:/D:/Github/InsuranceCard/web/view/header_customer.jsp</file>
+            <file>file:/D:/Github/InsuranceCard/web/view/customer/testHeader.jsp</file>
         </group>
     </open-files>
 </project-private>
