@@ -11,5 +11,4 @@ package dao;
  */
 public class CustomerDBContext extends DBContext {
 
-   
 }
