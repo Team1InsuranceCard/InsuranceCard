@@ -9,6 +9,7 @@ package dao;
  *
  * @author area1
  */
-public class CustomerDBContext {
-    
+public class CustomerDBContext extends DBContext {
+
+   
 }
