@@ -3,12 +3,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>JSP Page</title>
+    <base href="${pageContext.servletContext.contextPath}/" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
-      href="${pageContext.request.contextPath}/asset/style/customer/customer_dashboard.css"
+      href="${pageContext.servletContext.contextPath}/asset/style/customer/customer_dashboard.css"
     />
     <script
-      src="${pageContext.request.contextPath}/asset/script/customer/customer_dashboard.js"
+      src="${pageContext.servletContext.contextPath}/asset/script/customer/customer_dashboard.js"
       defer
     ></script>
   </head>
@@ -19,70 +26,110 @@
       </jsp:include>
     </header>
     <main>
-      <div class="main-body-dashboard">
-        <div class="slideshow-container">
-          <!-- Full-width images with number and caption text -->
-          <div class="mySlides fade">
-            <div class="numbertext">1 / 3</div>
-            <img
-              src="https://www.w3schools.com/howto/img_mountains_wide.jpg"
-              style="width: 100%"
-            />
-            <div class="text">Caption Text</div>
-          </div>
-          <div class="mySlides fade">
-            <div class="numbertext">2 / 3</div>
-            <img
-              src="https://www.w3schools.com/howto/img_nature_wide.jpg"
-              style="width: 100%"
-            />
-            <div class="text">Caption Two</div>
-          </div>
-          <div class="mySlides fade">
-            <div class="numbertext">3 / 3</div>
-            <img
-              src="https://www.w3schools.com/howto/img_band_chicago.jpg"
-              style="width: 100%"
-            />
-            <div class="text">Caption Three</div>
-          </div>
-          <!-- Next and previous buttons -->
-          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-          <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
-        <br />
-        <!-- The dots/circles -->
-        <!-- <div style="text-align: center">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-              </div> -->
-
-        <div class="service-dashboard">
-          <div class="dashboard-title">
-            <h2>Current service</h2>
-            <a href="">All></a>
-          </div>
-          <div class="dashboard-content">
-            <div class="dashboard-card">
-              <div class="dashboard-card-info">
-                <div class="dashboard-card-header">Service 1</div>
-                <div class="dashboard-card-description">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec eget nunc euismod, porttitor nisl eu, tincidunt nunc.
-                  </p>
-                </div>
-              </div>
-              <div class="dashboard-card-goto">
-                <button class="dashboard-btn">More Info</button>
-              </div>
+      <div class="container main-container">
+        <div class="row user-welcome">
+          <div class="col-md-5 user-card-info">
+            <div class="name-card-image">
+              <img
+                src="asset/image/customer/cutomer_dashboard/image2.png"
+                alt="customericon"
+              />
+            </div>
+            <div class="name-card-content">
+              <h2>Nguyen Khanh Hung</h2>
             </div>
           </div>
+          <div class="col-md-7 image-welcome">
+            <!-- <img
+              src="asset/image/customer/cutomer_dashboard/image4.jpg"
+              alt=""
+            /> -->
+            <img
+              src="https://us.123rf.com/450wm/maxborovkov/maxborovkov1809/maxborovkov180900067/110330061-autumn-welcome-sign-with-colorful-maple-leaves-vector-background-.jpg?ver=6"
+              alt=""
+            />
+          </div>
         </div>
-        <div class="service-dashboard"></div>
+        <div class="row">
+          <div class="col-md-8 container statistic-calendar">
+            <div class="row">
+              <div class="col-md-4 statistic-card">
+                <div class="statistic-title">Amount spent</div>
+                <div class="statistic-number">100000</div>
+              </div>
+              <div class="col-md-4 statistic-card">
+                <div class="statistic-title">Amount spent</div>
+                <div class="statistic-number">100000</div>
+              </div>
+              <div class="col-md-4 statistic-card">
+                <div class="statistic-title">Amount spent</div>
+                <div class="statistic-number">100000</div>
+              </div>
+            </div>
+            <div class="row calendar-card">
+              <ul class="weekdays">
+                <li>Mo</li>
+                <li>Tu</li>
+                <li>We</li>
+                <li>Th</li>
+                <li>Fr</li>
+                <li>Sa</li>
+                <li>Su</li>
+              </ul>
+
+              <ul class="days">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li><span class="active">10</span></li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 container staff-info-zone">
+            <div class="staff-name-card">
+              <div class="staff-icon">
+                <img
+                  src="asset/image/customer/cutomer_dashboard/image1.png"
+                  alt="customericon"
+                />
+              </div>
+              <div class="staff-name">
+                <h3>Nguyen Khanh Ha</h3>
+              </div>
+            </div>
+            <div class="staff-phone">0929029073</div>
+            <div class="staff-email">butchi3mau@gmail.com</div>
+          </div>
+        </div>
       </div>
     </main>
-    <footer></footer>
+    <jsp:include page="../footer_full.jsp"></jsp:include>
   </body>
 </html>
