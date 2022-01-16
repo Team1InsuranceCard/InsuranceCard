@@ -13,13 +13,12 @@ import java.sql.Date;
  */
 public class Customer {
 
-    private int accountID;
+    private Account account;
     private String firstName;
     private String lastName;
     private String address;
     private Date dob;
     private Date joinDate;
-    private int staffID;
     private String phone;
     private String personalID;
     private String province;
@@ -28,26 +27,25 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int accountID, String firstName, String lastName, String address, Date dob, Date joinDate, int staffID, String phone, String personalID, String province, String district) {
-        this.accountID = accountID;
+    public Customer(Account account, String firstName, String lastName, String address, Date dob, Date joinDate, int staffID, String phone, String personalID, String province, String district) {
+        this.account = account;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.dob = dob;
         this.joinDate = joinDate;
-        this.staffID = staffID;
         this.phone = phone;
         this.personalID = personalID;
         this.province = province;
         this.district = district;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getFirstName() {
@@ -88,14 +86,6 @@ public class Customer {
 
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
-    }
-
-    public int getStaffID() {
-        return staffID;
-    }
-
-    public void setStaffID(int staffID) {
-        this.staffID = staffID;
     }
 
     public String getPhone() {
