@@ -11,7 +11,7 @@ package model;
  */
 public class Staff {
 
-    private int accountID;
+    private Account accountID;
     private String firstName;
     private String lastName;
     private String phone;
@@ -19,18 +19,18 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(int accountID, String firstName, String lastName, String phone) {
+    public Staff(Account accountID, String firstName, String lastName, String phone) {
         this.accountID = accountID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
     }
 
-    public int getAccountID() {
+    public Account getAccountID() {
         return accountID;
     }
 
-    public void setAccountID(int accountID) {
+    public void setAccountID(Account accountID) {
         this.accountID = accountID;
     }
 

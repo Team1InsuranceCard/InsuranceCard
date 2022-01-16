@@ -6,10 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
-        <link rel="icon" href="../asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-        <link href="../asset/style/register.css" rel="stylesheet" type="text/css"/>
+        <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
         
     </head>
 
@@ -35,10 +35,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <input type="password" name="password" 
+                               pattern="[a-zA-Z0-9]+" 
+                               minlength="8" maxlength="32"
                                placeholder="Password *" required/>
                     </div>
                     <div class="col-md-6">
-                        <input type="number" name="personalID" 
+                        <input type="text" name="personalID" pattern="[0-9]+"
+                               minlength="12" maxlength="12"
                                placeholder="Personal ID *" required/>
                     </div>
                 </div>
@@ -47,10 +50,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <input type="password" name="password2" 
+                               pattern="[a-zA-Z0-9]+" 
+                               minlength="8" maxlength="32"
                                placeholder="Confirm password *" required/>
                     </div>
                     <div class="col-md-6">
                         <input type="text" name="address" 
+                               pattern="[a-zA-Z0-9,/ ]+"
                                placeholder="Address *" required/>
                     </div>
                 </div>

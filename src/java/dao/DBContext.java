@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class DBContext {
     protected Connection connection;
 
-    public  DBContext() throws SQLException {
+    public  DBContext() {
         try {
            String user = "sa";
            String password = "sa";

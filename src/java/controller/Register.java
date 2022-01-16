@@ -3,25 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.staff;
+package controller;
 
-import dao.ContractDBContext;
-import dao.CustomerDBContext;
-import dao.CustomerStaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Customer;
-import model.CustomerStaff;
 
 /**
  *
  * @author ASUS
  */
-public class ViewCustomer extends HttpServlet {
+public class Register extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -36,17 +31,7 @@ public class ViewCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        CustomerStaffDBContext csdb = new CustomerStaffDBContext();
-        CustomerStaff viewCustomer = csdb.viewCustomer(id);
-        
-        ContractDBContext cdb = new ContractDBContext();
-        int totalContract = cdb.totalContracts(id);
-        
-        request.setAttribute("viewCustomer", viewCustomer);
-        request.setAttribute("totalContract", totalContract);
-        request.getRequestDispatcher("../../view/staff/customer_detail.jsp").forward(request, response);
+        request.getRequestDispatcher("view/register.jsp").forward(request, response);
     }
 
     /**
@@ -60,6 +45,7 @@ public class ViewCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String email = request.getParameter("email").trim();
         
     }
 

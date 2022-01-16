@@ -75,3 +75,8 @@ body {
     margin-left: 49%;
     font-size: 16px;
 }
+
+::autocomplete {
+    background-color: #FFDCCC;
+    color: #FC6376;
+}

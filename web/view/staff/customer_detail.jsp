@@ -13,7 +13,9 @@
 
     </head>
     <body>
-        <c:set var="c" value="${requestScope.customer}"/>
+        <c:set var="c" value="${requestScope.viewCustomer.customer}"/>
+        <c:set var="s" value="${requestScope.viewCustomer.staff}"/>
+
         <jsp:include page="../header_staff.jsp">
             <jsp:param name="currentscreen" value="customer"/>
         </jsp:include>
@@ -21,7 +23,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="../../asset/image/staff/icon member.png" alt="member icon"/>
-                    <h3 id="name">${c.firstName}</h3>
+                    <h3 id="name">${c.firstName} ${c.lastName}</h3>
                     <p>Join date: ${c.joinDate}</p>
                     <form action="customerEdit" method="POST">
                         <input type="submit" id="edit" value="Edit"/>
@@ -33,58 +35,62 @@
                         <div class="container">
                             <div class="left">
                                 <p class="info-label">Email</p>
-                                <p class="info-content">${c.accountID.id}</p>
+                                <p class="info-content">${c.accountID.email}</p>
                             </div>
                             <div class="right">
                                 <p class="info-label">Status</p>
-                                <p class="info-content">Active</p>
+                                <p class="info-content" 
+                                   style="${c.accountID.status?
+                                            "color:#0DC858;":"color:red;"}">
+                                       ${c.accountID.status?"Active":"Deactive"}
+                                   </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="person info">
-                        <p class="type-info">Personal information</p>
-                        <div class="container">
-                            <div class="left">
-                                <p class="info-label">DOB</p>
-                                <p class="info-content">17/02/2001</p>
+                        <div class="person info">
+                            <p class="type-info">Personal information</p>
+                            <div class="container">
+                                <div class="left">
+                                    <p class="info-label">DOB</p>
+                                    <p class="info-content">${c.dob}</p>
+                                </div>
+                                <div class="right">
+                                    <p class="info-label">Address</p>
+                                    <p class="info-content">${c.address}</p>
+                                </div>
                             </div>
-                            <div class="right">
-                                <p class="info-label">Phone</p>
-                                <p class="info-content">0355070517</p>
+                            <div class="container">
+                                <div class="left">
+                                    <p class="info-label">Phone</p>
+                                    <p class="info-content">${c.phone}</p>
+                                </div>
+                                <div class="right">
+                                    <p class="info-label">Personal ID</p>
+                                    <p class="info-content">${c.personalID}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="left">
-                                <p class="info-label">Address</p>
-                                <p class="info-content">Yen Phu, Tay Ho, Ha Noi</p>
-                            </div>
-                            <div class="right">
-                                <p class="info-label">Personal ID</p>
-                                <p class="info-content">027301000028</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="contract info">
-                        <p class="type-info">Contract information</p>
-                        <div class="container">
-                            <div class="left">
-                                <p class="info-label">Staff</p>
-                                <p class="info-content">Nguyen Van A</p>
-                            </div>
-                            <div class="right">
-                                <p class="info-label">Toal contracts</p>
-                                <p class="info-content">17
-                                    <a href="#" style="margin-left:10px;
-                                       text-decoration: underline;">View</a>
-                                </p>
+                        <div class="contract info">
+                            <p class="type-info">Contract information</p>
+                            <div class="container">
+                                <div class="left">
+                                    <p class="info-label">Staff</p>
+                                    <p class="info-content">${s.firstName} ${s.lastName}</p>
+                                </div>
+                                <div class="right">
+                                    <p class="info-label">Toal contracts</p>
+                                    <p class="info-content">${requestScope.totalContract}
+                                        <a href="#" style="margin-left:10px;
+                                           text-decoration: underline;">View</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <jsp:include page="../footer_full.jsp"/>
-</body>
+        </section>
+        <jsp:include page="../footer_full.jsp"/>
+    </body>
 </html>
