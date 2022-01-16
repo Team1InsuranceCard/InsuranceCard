@@ -5,10 +5,12 @@
  */
 package dao;
 
-/**
- *
- * @author area1
- */
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Customer;
+
 public class CustomerDBContext extends DBContext {
 
 }
