@@ -63,7 +63,7 @@ public class CustomerStaffDBContext extends DBContext{
                 account.setEmail(rs.getString("Email"));
                 account.setStatus(rs.getBoolean("Status"));
                 
-                customer.setAccountID(account);
+                customer.setAccount(account);
                 
                 Staff staff = new Staff();
                 staff.setFirstName(rs.getString("staff_FirstName"));

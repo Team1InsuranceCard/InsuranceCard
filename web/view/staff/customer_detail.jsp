@@ -35,14 +35,14 @@
                         <div class="container">
                             <div class="left">
                                 <p class="info-label">Email</p>
-                                <p class="info-content">${c.accountID.email}</p>
+                                <p class="info-content">${c.account.email}</p>
                             </div>
                             <div class="right">
                                 <p class="info-label">Status</p>
                                 <p class="info-content" 
-                                   style="${c.accountID.status?
+                                   style="${c.account.status?
                                             "color:#0DC858;":"color:red;"}">
-                                       ${c.accountID.status?"Active":"Deactive"}
+                                       ${c.account.status?"Active":"Deactive"}
                                    </p>
                                 </div>
                             </div>

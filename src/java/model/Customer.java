@@ -44,7 +44,7 @@ public class Customer {
         return account;
     }
 
-    public void setAccountID(Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
