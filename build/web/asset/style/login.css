@@ -7,62 +7,223 @@ and open the template in the editor.
     Created on : Jan 15, 2022, 12:29:59 AM
     Author     : ADMIN
 */
+/* Frame of Login*/
 .limiter {
     width: 600px;
     height: 674px;
     margin: auto;
-    background-color: bisque;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    
 }
+/*====*/
 
+/*Group logo*/
 .logo-group {
+    margin-top: 20px;
     justify-content: space-between;
-    padding-right: 20px;
     text-align: center;
 }
+/*====*/
 
+/*Sign In*/
+.login100-form-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    color: #fdb1a6;
+    line-height: 1.2;
+    text-align: center;
+
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+    padding-bottom: 39px;
+    cursor: default;
+}
+/*====*/
+
+/*Username & Password*/
 .username {
     position: absolute;
     width: 600px;
     height: 85px;
-    left: 420px;
-    top: 321px;
-
+    left: 0;
+    top: 170px;
     mix-blend-mode: luminosity;
+    z-index: 1;
+}
+.username img {
+    position: absolute;
+    background: url(../asset/image/user_1.png) no-repeat scroll 7px 7px;
+    padding-left: 540px;
+    margin-top: -65px;
+    cursor: text;
+    z-index: 2;
+}
+
+.username:hover input[type=email] {
+    background-color: #ccc;
 }
 
 .password {
     position: absolute;
     width: 600px;
     height: 85px;
-    left: 420px;
-    top: 420px;
-
+    left: 0;
+    top: 270px;
     mix-blend-mode: luminosity;
+    z-index: 1;
+}
+.password img {
+    position: absolute;
+    background: url(../asset/image/password_1.png) no-repeat scroll 7px 7px;
+    padding-left: 540px;
+    margin-top: -65px;
+    cursor: text;
+    z-index: 2;
 }
 
+.password:hover input[type=password] {
+    background-color: #ccc;
+}
+
+.input100 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 25px;
+    line-height: 1.2;
+    color: #eee;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 85px;
+    background: rgba(153, 150, 170, 0.3);
+    border-radius: 10px;
+    padding: 0 35px 0 35px;
+}
+/*====*/
+
+/* Remember me */
+.remember {
+    position: absolute;
+    width: 225px;
+    height: 30px;
+    left: 41px;
+    top: 375px;
+    display: block;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.remember input[type=checkbox]{
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.remember label {
+    cursor: pointer;
+}
+
+.remember span {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    border: black;
+    border-radius: 7px;
+    background: rgba(153, 150, 170, 0.3);
+    mix-blend-mode: luminosity;
+}
+/* On mouse-over, add a grey background color */
+.remember:hover input[type=checkbox]~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.remember input[type=checkbox]:checked~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.remember input[type=checkbox]:checked~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.remember .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/*=====*/
+
+/*Login submit*/
 .logbutton {
     position: absolute;
-    width: 600px;
-    height: 86px;
-    left: 420px;
-    top: 549px;
+    left: 0;
+    top: 420px;
+    cursor: pointer;
+}
 
+.logbutton input[type=submit] {
+    font-size: 30px;
+    color: #eee;
+    width: 600px;
+    height: 85px;
+    background: no-repeat scroll 7px 7px;
+    background-color: rgba(66, 49, 83, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
     mix-blend-mode: luminosity;
 }
 
+.logbutton:hover input[type=submit] {
+    background-color: #45554e;
+}
+/*=====*/
+
+/*Forgot - Sign Up*/
 .forgot-sign {
     position: absolute;
-    width: 299.5px;
+    width: 600px;
     height: 54px;
-    /*left: 421px;*/ /*FORGET*/
-    /*left: 719.5px;*/ /*SIGN*/
-    top: 702px;
+    top: 510px;
 
     font-family: Roboto;
     font-style: normal;
@@ -71,16 +232,80 @@ and open the template in the editor.
     line-height: 26px;
     display: flex;
     align-items: center;
-    text-align: center;
-
-    color: #000000;
 }
 
+.forgot a{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: black;
+    margin-left: 70px;
+    text-decoration: none;
+}
+
+.forgot a:hover {
+    color: lightsteelblue;
+}
+
+.sign a{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    /*font-weight: 300;*/
+    color: black;
+    margin-left: 180px;
+    text-decoration: none;
+}
+
+.sign a:hover {
+    color: lightsteelblue;
+}
+/*=======*/
+
+/*Quick Login FB & GG*/
 .quick-log {
     position: absolute;
-    width: 288.48px;
-    height: 59px;
-    /*left: 421px;*/ /*fb*/
-    /*left: 730.52px;*/ /*gg*/
-    top: 790px;
+    display: flex;
+    top: 590px;
 }
+
+.facebook input[type=button]{
+    height: 60px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 0 80px 0 100px;
+    color: white;
+    cursor: pointer;
+    background-color: #2a71da;
+}
+
+.facebook:hover input[type=button] {
+    background-color: #3e7fde;
+}
+
+.facebook img {
+    position: absolute;
+    background: url(../asset/image/fb_icon.png) no-repeat scroll 7px 7px;
+    padding-left: 40px;
+    margin-top: 7px;
+}
+
+.google input[type=button]{
+    font-size: 20px;
+    margin-left: 60px;
+    height: 60px;
+    border-radius: 10px;
+    padding: 0 100px 0 100px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.google:hover input[type=button] {
+    background-color: #e9e9ed;
+}
+
+.google img {
+    position: absolute;
+    background: url(../asset/image/gg_icon.png) no-repeat scroll 7px 7px;
+    padding-left: 90px;
+    margin-top: 7px;
+}
+/*======*/
