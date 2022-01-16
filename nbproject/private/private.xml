@@ -12,11 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/dao/CustomerDBContext.java</file>
-            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/model/Customer.java</file>
-            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/web/view/register.jsp</file>
-            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/controller/Register.java</file>
-            <file>file:/C:/Users/ASUS/Documents/GitHub/InsuranceCard/src/java/controller/staff/ViewCustomer.java</file>
+            <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/src/java/controller/Register.java</file>
+            <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/web/view/register.jsp</file>
         </group>
     </open-files>
 </project-private>
