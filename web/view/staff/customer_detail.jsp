@@ -1,5 +1,6 @@
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,96 +9,11 @@
         <title>InsuranceCard</title>
         <link rel="icon" href="../../asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href="../../asset/style/staff/customer_detail.css" rel="stylesheet" type="text/css"/>
 
-        <style>
-            body {
-                background-color: #F8F8F8;
-                overflow-x: hidden;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            }
-
-            section {
-                width: 1100px;
-                height: 630px;
-                margin-left: 370px;
-                margin-top: 117px;
-                background: #FFF9EC;
-                color: #5C2941;
-            }
-
-            .col-md-4 {
-                text-align: center;
-                margin-top: 150px;
-            }
-
-            .col-md-4 #name {
-                display: block;
-                word-break: break-all;
-            }
-
-            #edit {
-                margin-top: 60px;
-                width: 142px;
-                height: 62px;
-                background: #FFDCCC;
-                border-radius: 20px;
-                font-size: 25px;
-                font-weight: bold;
-                border: none;
-            }
-
-            #edit:hover {
-                color: #ffffff;
-                background: #FC6376;
-            }
-
-            #name {
-                margin-bottom: 15px;
-            }
-
-            .row .col-md-8{
-                border-left: 2px solid #E5E5E5;
-                margin-top: 30px;
-            }
-
-            .info {
-                margin-top: 35px;
-                margin-left: 30px;
-                padding-bottom: 30px;
-                border-bottom: 1px solid #E5E5E5;
-            }
-
-            .type-info {
-                font-size: 16px;
-            }
-
-            .info-label {
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-            .container .left {
-                display: block;
-                float: left;
-                width: 200px;
-                margin-right: 100px;
-                word-break: break-all;
-            }
-
-            .container .right {
-                float: left;
-                width: 300px;
-                word-break: break-all;
-            }
-
-            .contract {
-                border: none;
-            }
-
-        </style>
     </head>
     <body>
+        <c:set var="c" value="${requestScope.customer}"/>
         <jsp:include page="../header_staff.jsp">
             <jsp:param name="currentscreen" value="customer"/>
         </jsp:include>
@@ -105,9 +21,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="../../asset/image/staff/icon member.png" alt="member icon"/>
-                    <h3 id="name">Do Phuong Loan</h3>
-                    <p>Join date: 17/01/2022</p>
-                    <form action="customerEdit" method="GET">
+                    <h3 id="name">${c.firstName}</h3>
+                    <p>Join date: ${c.joinDate}</p>
+                    <form action="customerEdit" method="POST">
                         <input type="submit" id="edit" value="Edit"/>
                     </form>
                 </div>
@@ -117,7 +33,7 @@
                         <div class="container">
                             <div class="left">
                                 <p class="info-label">Email</p>
-                                <p class="info-content">loandphe150131@fpt.edu.vn</p>
+                                <p class="info-content">${c.accountID.id}</p>
                             </div>
                             <div class="right">
                                 <p class="info-label">Status</p>
@@ -169,5 +85,6 @@
             </div>
         </div>
     </section>
+    <jsp:include page="../footer_full.jsp"/>
 </body>
 </html>
