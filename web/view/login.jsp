@@ -4,7 +4,8 @@
     body {
         background-image: url('../asset/image/login_background.jpg');
         background-repeat: no-repeat;
-        background-size: 1950px 1024px;
+        position: center;
+        background-size: contain;
     }
 </style>
 <!DOCTYPE html>
@@ -17,19 +18,17 @@
         <!--        <header>
                     <a href="header_moderator.jsp"></a>
                 </header>-->
-        <div class="logo-group">
-            <div class="car">
-                <img src="../asset/image/icon_car.png" alt="LogoIcon"/>
-            </div>
-            <div class="insurance-card">
-                <img src="../asset/image/InsuranceCard.png" alt="LogoTitle"/>
-            </div>
-        </div>
+
 
         <div class="limiter">
             <form action="login" method="POST" class="limiter">
-                <div class="login100-form-title">
-                    Sign In
+                <div class="logo-group">
+                    <div class="car">
+                        <img src="../asset/image/icon_car.png" alt="LogoIcon"/>
+                    </div>
+                    <div class="insurance-card">
+                        <img src="../asset/image/InsuranceCard.png" alt="LogoTitle"/>
+                    </div>
                 </div>
                 <div class="username">
                     <input class="input100" id="u" type="email" name="user" placeholder="Email" required/>
