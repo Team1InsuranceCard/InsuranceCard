@@ -19,7 +19,6 @@ public class Customer {
     private String address;
     private Date dob;
     private Date joinDate;
-    private int staffID;
     private String phone;
     private String personalID;
     private String province;
@@ -35,7 +34,6 @@ public class Customer {
         this.address = address;
         this.dob = dob;
         this.joinDate = joinDate;
-        this.staffID = staffID;
         this.phone = phone;
         this.personalID = personalID;
         this.province = province;
@@ -46,7 +44,7 @@ public class Customer {
         return account;
     }
 
-    public void setAccountID(Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
@@ -88,14 +86,6 @@ public class Customer {
 
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
-    }
-
-    public int getStaffID() {
-        return staffID;
-    }
-
-    public void setStaffID(int staffID) {
-        this.staffID = staffID;
     }
 
     public String getPhone() {
