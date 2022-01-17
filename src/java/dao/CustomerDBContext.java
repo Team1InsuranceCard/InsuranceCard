@@ -6,15 +6,17 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Customer;
 
 /**
  *
  * @author area1
  */
-public class CustomerDBContext {
+public class CustomerDBContext extends DBContext {
 
 }
