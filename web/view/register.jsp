@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-6">
                         <input type="text" name="address" 
-                               pattern="[a-zA-Z0-9,/ ]+"
+                               pattern="^[^-\s][\S\s]+$"
                                placeholder="Address *" required/>
                     </div>
                 </div>
