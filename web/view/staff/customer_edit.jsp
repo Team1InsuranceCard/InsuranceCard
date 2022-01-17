@@ -20,52 +20,101 @@ contentType="text/html" pageEncoding="UTF-8"%>
         <div class="form-list">
           <div class="form-item">
             <p class="label">First Name</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              id=""
+              pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+              required
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Last Name</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              id=""
+              pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+              required
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Personal ID</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              id=""
+              pattern="[0-9]+"
+              minlength="12"
+              maxlength="12"
+              required
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Email</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              id=""
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              required
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Date of Birth</p>
-            <input class="form-input" type="date" name="" id="" />
+            <input class="form-input" type="date" name="" id="" required />
           </div>
 
           <div class="form-item">
             <p class="label">Phone</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              id=""
+              pattern="0[0-9]{9}"
+              required
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Province</p>
-            <input class="form-input" type="text" name="" id="" />
+            <select class="form-input" name="calc_shipping_provinces" required>
+              <option value=""></option>
+            </select>
+            <input class="billing_address_1" name="" type="hidden" value="" />
           </div>
 
           <div class="form-item">
             <p class="label">District</p>
-            <input class="form-input" type="text" name="" id="" />
+            <select class="form-input" name="calc_shipping_district" required>
+              <option value=""></option>
+            </select>
+            <input class="billing_address_2" name="" type="hidden" value="" />
           </div>
 
           <div class="form-item">
             <p class="label">Address</p>
-            <input class="form-input" type="text" name="" id="" />
+            <input class="form-input" type="text" name="" id="" required />
           </div>
 
           <div class="form-item">
             <p class="label">Joining Date</p>
-            <input class="form-input" type="datetime-local" name="" id="" />
+            <input
+              class="form-input"
+              type="datetime-local"
+              name=""
+              id=""
+              required
+            />
           </div>
         </div>
 
