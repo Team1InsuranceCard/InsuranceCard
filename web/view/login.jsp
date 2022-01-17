@@ -4,8 +4,8 @@
     body {
         background-image: url('../asset/image/login_background.jpg');
         background-repeat: no-repeat;
-        position: center;
-        background-size: contain;
+        position: relative;
+        background-size: 1560px 894px;
     }
 </style>
 <!DOCTYPE html>
@@ -15,11 +15,6 @@
         <title>Login</title>
     </head>
     <body>
-        <!--        <header>
-                    <a href="header_moderator.jsp"></a>
-                </header>-->
-
-
         <div class="limiter">
             <form action="login" method="POST" class="limiter">
                 <div class="logo-group">
