@@ -28,7 +28,7 @@
     <main>
       <div class="container main-container">
         <div class="row user-welcome">
-          <div class="col-md-5 user-card-info">
+          <div class="col-md-5 dashboard-card user-card-info">
             <div class="name-card-image">
               <img
                 src="asset/image/customer/cutomer_dashboard/image2.png"
@@ -39,80 +39,90 @@
               <h2>Nguyen Khanh Hung</h2>
             </div>
           </div>
-          <div class="col-md-7 image-welcome">
+          <div class="col-md-7">
             <!-- <img
               src="asset/image/customer/cutomer_dashboard/image4.jpg"
               alt=""
             /> -->
-            <img
+            <!-- <img
               src="https://us.123rf.com/450wm/maxborovkov/maxborovkov1809/maxborovkov180900067/110330061-autumn-welcome-sign-with-colorful-maple-leaves-vector-background-.jpg?ver=6"
               alt=""
-            />
+            /> -->
+            <div class="slideshow-container">
+              <div class="mySlides fade">
+                <img src="https://us.123rf.com/450wm/maxborovkov/maxborovkov1809/maxborovkov180900067/110330061-autumn-welcome-sign-with-colorful-maple-leaves-vector-background-.jpg?ver=6" style="width:100%">
+              </div>
+              <div class="mySlides fade">
+                <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
+              </div>
+              <div class="mySlides fade">
+                <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
+              </div>
+              </div>
+              <br>
+              
+              <div style="text-align:center">
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+                <span class="dot"></span> 
+              </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-8 container statistic-calendar">
-            <div class="row">
-              <div class="col-md-4 statistic-card">
+            <div class="row statistic-group">
+              <div class="col dashboard-card statistic-card">
                 <div class="statistic-title">Amount spent</div>
                 <div class="statistic-number">100000</div>
               </div>
-              <div class="col-md-4 statistic-card">
-                <div class="statistic-title">Amount spent</div>
+              <div class="col dashboard-card statistic-card">
+                <div class="statistic-title">Requests</div>
                 <div class="statistic-number">100000</div>
               </div>
-              <div class="col-md-4 statistic-card">
-                <div class="statistic-title">Amount spent</div>
+              <div class="col dashboard-card statistic-card ">
+                <div class="statistic-title">Contracts</div>
                 <div class="statistic-number">100000</div>
               </div>
             </div>
-            <div class="row calendar-card">
-              <ul class="weekdays">
-                <li>Mo</li>
-                <li>Tu</li>
-                <li>We</li>
-                <li>Th</li>
-                <li>Fr</li>
-                <li>Sa</li>
-                <li>Su</li>
-              </ul>
-
-              <ul class="days">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li><span class="active">10</span></li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li>16</li>
-                <li>17</li>
-                <li>18</li>
-                <li>19</li>
-                <li>20</li>
-                <li>21</li>
-                <li>22</li>
-                <li>23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
-              </ul>
+            <div class="row dashboard-card calendar-card">
+              <div class="calendar">
+                <div class="calendar-header">
+                    <span class="month-picker" id="month-picker">February</span>
+                    <div class="year-picker">
+                        <span class="year-change" id="prev-year">
+                            <pre><</pre>
+                        </span>
+                        <span id="year">2021</span>
+                        <span class="year-change" id="next-year">
+                            <pre>></pre>
+                        </span>
+                    </div>
+                </div>
+                <div class="calendar-body">
+                    <div class="calendar-week-day">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="calendar-days"></div>
+                </div>
+                <div class="calendar-footer">
+                    <div class="toggle">
+                        <!-- <span>Dark Mode</span>
+                        <div class="dark-mode-switch">
+                            <div class="dark-mode-switch-ident"></div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="month-list"></div>
+            </div>
             </div>
           </div>
-          <div class="col-md-4 container staff-info-zone">
+          <div class="col-md-4 dashboard-card container staff-info-zone">
             <div class="staff-name-card">
               <div class="staff-icon">
                 <img
@@ -121,11 +131,12 @@
                 />
               </div>
               <div class="staff-name">
+                <h4 class="staff-tag">Staff</h3>
                 <h3>Nguyen Khanh Ha</h3>
               </div>
             </div>
-            <div class="staff-phone">0929029073</div>
-            <div class="staff-email">butchi3mau@gmail.com</div>
+            <div class="staff-phone staff-contact">0929029073</div>
+            <div class="staff-email staff-contact">butchi3mau@gmail.com</div>
           </div>
         </div>
       </div>
