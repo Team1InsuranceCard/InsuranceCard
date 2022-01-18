@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="icon" href="../asset/image/favicon.png" type="image/png" sizes="16x16">
     </head>
     <body>
         <div class="limiter">
