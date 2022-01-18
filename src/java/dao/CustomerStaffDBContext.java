@@ -19,9 +19,9 @@ import model.Staff;
  *
  * @author area1
  */
-public class CustomerStaffDBContext extends DBContext{
+public class CustomerStaffDBContext extends DBContext {
 
-    public CustomerStaff viewCustomer(int id){
+    public CustomerStaff viewCustomer(int id) {
         CustomerStaff cs = new CustomerStaff();
         try {
             String sql = "SELECT Customer_Staff.CustomerID\n"
@@ -57,18 +57,18 @@ public class CustomerStaffDBContext extends DBContext{
                 customer.setJoinDate(rs.getDate("JoinDate"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
-                
+
                 Account account = new Account();
                 account.setId(rs.getInt("CustomerID"));
                 account.setEmail(rs.getString("Email"));
                 account.setStatus(rs.getBoolean("Status"));
-                
+
                 customer.setAccount(account);
-                
+
                 Staff staff = new Staff();
                 staff.setFirstName(rs.getString("staff_FirstName"));
                 staff.setLastName(rs.getString("staff_LastName"));
-                
+
                 cs.setCustomer(customer);
                 cs.setStaff(staff);
                 return cs;
@@ -77,5 +77,20 @@ public class CustomerStaffDBContext extends DBContext{
             Logger.getLogger(CustomerStaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void create(CustomerStaff cs) {
+        try {
+            String sql = "insert into Customer_Staff\n"
+                    + "(CustomerID, StaffID, StartDate)\n"
+                    + "values (?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, cs.getCustomer().getAccount().getId());
+            ps.setInt(2, cs.getStaff().getAccount().getId());
+            ps.setDate(3, cs.getStartDate());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

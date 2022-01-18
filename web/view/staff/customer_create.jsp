@@ -16,15 +16,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <main>
       <h1>NEW CUSTOMER</h1>
 
-      <form>
+      <form action="" method="POST">
         <div class="form-list">
           <div class="form-item">
             <p class="label">First Name</p>
             <input
               class="form-input"
               type="text"
-              name=""
-              id=""
+              name="fname"
               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
               required
             />
@@ -35,8 +34,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="text"
-              name=""
-              id=""
+              name="lname"
               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
               required
             />
@@ -47,8 +45,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="text"
-              name=""
-              id=""
+              name="pid"
               pattern="[0-9]+"
               minlength="12"
               maxlength="12"
@@ -61,8 +58,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="text"
-              name=""
-              id=""
+              name="email"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               required
             />
@@ -70,7 +66,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
 
           <div class="form-item">
             <p class="label">Date of Birth</p>
-            <input class="form-input" type="date" name="" id="" required />
+            <input class="form-input" type="date" name="dob" required />
           </div>
 
           <div class="form-item">
@@ -78,8 +74,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="text"
-              name=""
-              id=""
+              name="phone"
               pattern="0[0-9]{9}"
               required
             />
@@ -90,7 +85,12 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <select class="form-input" name="calc_shipping_provinces" required>
               <option value=""></option>
             </select>
-            <input class="billing_address_1" name="" type="hidden" value="" />
+            <input
+              class="billing_address_1"
+              name="province"
+              type="hidden"
+              value=""
+            />
           </div>
 
           <div class="form-item">
@@ -98,12 +98,23 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <select class="form-input" name="calc_shipping_district" required>
               <option value=""></option>
             </select>
-            <input class="billing_address_2" name="" type="hidden" value="" />
+            <input
+              class="billing_address_2"
+              name="district"
+              type="hidden"
+              value=""
+            />
           </div>
 
           <div class="form-item">
             <p class="label">Address</p>
-            <input class="form-input" type="text" name="" id="" required />
+            <input
+              class="form-input"
+              type="text"
+              name="address"
+              pattern="^[^-\s][\w\s-]+$"
+              required
+            />
           </div>
 
           <div class="form-item">
@@ -111,8 +122,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="datetime-local"
-              name=""
-              id=""
+              name="joinDate"
               required
             />
           </div>

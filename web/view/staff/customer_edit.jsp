@@ -103,7 +103,13 @@ contentType="text/html" pageEncoding="UTF-8"%>
 
           <div class="form-item">
             <p class="label">Address</p>
-            <input class="form-input" type="text" name="" id="" required />
+            <input
+              class="form-input"
+              type="text"
+              name=""
+              pattern="^[^-\s][\S\s]+$"
+              required
+            />
           </div>
 
           <div class="form-item">

@@ -9,7 +9,7 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-        <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/style/register.css" rel="stylesheet" type="text/css"/>
         
     </head>
 
