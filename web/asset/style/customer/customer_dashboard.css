@@ -16,8 +16,8 @@ body {
 .main-container {
   margin-top: 5em;
   margin-bottom: 5em;
-  padding-left: 10em;
-  padding-right: 10em;
+  padding-left: 5em;
+  padding-right: 5em;
 }
 
 .name-card-content h2 {
@@ -26,6 +26,7 @@ body {
 .dashboard-card {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 20px;
+  margin-bottom: 2em;
 }
 .statistic-calendar {
   /* margin-right: 1em; */
@@ -134,6 +135,7 @@ body {
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   color: var(--color-txt);
+  place-items: center;
 }
 
 .calendar-days div {
@@ -300,7 +302,7 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: var(--bg-main);
+  background-color: var(--light-main);
   padding: 20px;
   grid-template-columns: repeat(3, auto);
   gap: 5px;
@@ -452,28 +454,36 @@ img {vertical-align: middle;}
   margin-left: 10px;
   margin-right: 10px;
 }
+.statistic-card .statistic-number {
+  overflow-wrap: break-word;
+}
 
 .staff-info-zone {
   text-align: center;
-  background-color: #fff9ec;
   padding: 40px 0 0 0;
   margin-top: 1.5em;
+  border: none;
 }
 .staff-name-card {
-  margin-bottom: 25px;
+  background-color: #fff9ec;
+  border-radius: 20px 20px 0 0;
+  padding: 2em 1em;
 }
 .staff-icon {
   margin-bottom: 20px;
 }
 .staff-contact {
   padding: 20px 5px;
+  overflow-wrap: break-word;
 }
 .staff-phone {
   background-color: #ffe4bb;
+  border-radius: 0;
+
 }
 .staff-email {
   background-color: #f89595;
-  /* border-radius: 0 0 20px 20px; */
+  border-radius: 0 0 20px 20px;
 }
 
 .calendar-card .days {
@@ -482,4 +492,33 @@ img {vertical-align: middle;}
 
 .calendar-card .month {
   border-radius: 20px 20px 0 0;
+}
+.wrapper-desciption-service {
+  height: 6em;
+  margin-bottom: 1em;
+}
+
+.desciption-service-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.dashboard-service-card {
+  padding: 2em;
+}
+
+.service-sub-card {
+  background-color: #fff1f1;
+  margin-bottom: 1.5em;
+}
+
+.service-title {
+  padding: 0  1em 1.5em 1em;
+}
+
+.service-sub-card .go-to-button {
+  background-color: #5c2941;
+  border-color: #5c2941;
 }
