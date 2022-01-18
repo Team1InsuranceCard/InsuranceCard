@@ -7,10 +7,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
-        <link rel="icon" href="../../asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="../../asset/style/staff/customer_detail.css" rel="stylesheet" type="text/css"/>
-
+        <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
         <c:set var="c" value="${requestScope.viewCustomer.customer}"/>
@@ -22,7 +22,7 @@
         <section>
             <div class="row">
                 <div class="col-md-4">
-                    <img src="../../asset/image/staff/icon member.png" alt="member icon"/>
+                    <img src="asset/image/staff/icon member.png" alt="member icon"/>
                     <h3 id="name">${c.firstName} ${c.lastName}</h3>
                     <p>Join date: ${c.joinDate}</p>
                     <form action="customerEdit" method="POST">
@@ -35,14 +35,14 @@
                         <div class="container">
                             <div class="left">
                                 <p class="info-label">Email</p>
-                                <p class="info-content">${c.accountID.email}</p>
+                                <p class="info-content">${c.account.email}</p>
                             </div>
                             <div class="right">
                                 <p class="info-label">Status</p>
                                 <p class="info-content" 
-                                   style="${c.accountID.status?
+                                   style="${c.account.status?
                                             "color:#0DC858;":"color:red;"}">
-                                       ${c.accountID.status?"Active":"Deactive"}
+                                       ${c.account.status?"Active":"Deactive"}
                                    </p>
                                 </div>
                             </div>

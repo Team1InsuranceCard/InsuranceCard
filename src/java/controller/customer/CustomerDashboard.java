@@ -38,7 +38,7 @@ public class CustomerDashboard extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CustomerDashboard</title>");
+            out.println("<title>Servlet CustomerDashboard</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CustomerDashboard at " + request.getContextPath() + "</h1>");
@@ -59,7 +59,7 @@ public class CustomerDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        //        processRequest(request, response);
         ProductDBContext productDBC = new ProductDBContext();
         ArrayList<Product> buyableProducts = productDBC.getProducts();
         
