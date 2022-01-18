@@ -1,16 +1,6 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jan 15, 2022, 12:29:59 AM
-    Author     : ADMIN
-*/
-/* Frame of Login*/
 .limiter {
-    width: 600px;
-    height: 674px;
+    width: 37%;
+    height: 70%;
     margin: auto;
     position: absolute;
     top: 0;
@@ -18,59 +8,50 @@ and open the template in the editor.
     left: 0;
     right: 0;
 }
-/*====*/
 
-/*Group logo*/
 .logo-group {
-    margin-top: -20px;
+    margin-top: -10%;
     justify-content: space-between;
     text-align: center;
 }
-/*====*/
 
-/*Username & Password*/
+
 .username {
     position: absolute;
-    width: 600px;
-    height: 85px;
+    width: 100%;
     left: 0;
-    top: 170px;
+    top: 15%;
     mix-blend-mode: luminosity;
-    z-index: 1;
-}
-.username img {
-    position: absolute;
-    background: url(../asset/image/user_1.png) no-repeat scroll 7px 7px;
-    padding-left: 540px;
-    margin-top: -65px;
-    cursor: text;
-    z-index: 2;
 }
 
-.username:hover input[type=email] {
-    background-color: #ccc;
+.img-user {
+    position: absolute;
+    right: 5%;
+    bottom: 74%;
+    background: url(../asset/image/user_1.png) no-repeat scroll 7px 7px;
 }
 
 .password {
     position: absolute;
-    width: 600px;
-    height: 85px;
+    width: 100%;
     left: 0;
-    top: 270px;
+    top: 33%;
     mix-blend-mode: luminosity;
-    z-index: 1;
-}
-.password img {
-    position: absolute;
-    background: url(../asset/image/password_1.png) no-repeat scroll 7px 7px;
-    padding-left: 540px;
-    margin-top: -65px;
-    cursor: text;
-    z-index: 2;
 }
 
-.password:hover input[type=password] {
-    background-color: #ccc;
+.img-pass {
+    position: absolute;
+    right: 5%;
+    bottom: 56%;
+    background: url(../asset/image/user_1.png) no-repeat scroll 7px 7px;
+}
+
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 .input100 {
@@ -82,25 +63,24 @@ and open the template in the editor.
     position: relative;
     display: block;
     width: 100%;
-    height: 85px;
-    background: rgba(153, 150, 170, 0.3);
+    height: 3em;
+    background: rgba(153, 150, 170, 0.5);
     border-radius: 10px;
     padding: 0 35px 0 35px;
+    border-style: none;
 }
-/*====*/
 
-/* Remember me */
 .remember {
     position: absolute;
-    width: 225px;
-    height: 30px;
-    left: 41px;
-    top: 375px;
+    /*width: 50%;*/
+    /*height: 30px;*/
+    left: 7%;
+    top: 50%;
     display: block;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding-left: 5%;
+    /*margin-bottom: 3%;*/
     cursor: pointer;
-    font-size: 22px;
+    font-size: 1.2rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -170,54 +150,51 @@ and open the template in the editor.
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-/*=====*/
 
-/*Login submit*/
 .logbutton {
     position: absolute;
     left: 0;
-    top: 420px;
+    top: 60%;
     cursor: pointer;
+    width: 100%;
 }
 
 .logbutton input[type=submit] {
     font-size: 30px;
     color: #eee;
-    width: 600px;
-    height: 85px;
+    width: 100%;
+    height: 2.3em;
+
     background: no-repeat scroll 7px 7px;
-    background-color: rgba(66, 49, 83, 0.5);
+    background-color: rgba(66, 49, 83, 0.7);
     border-radius: 10px;
+    border-style: none;
     cursor: pointer;
     mix-blend-mode: luminosity;
 }
 
-.logbutton:hover input[type=submit] {
-    background-color: #45554e;
-}
-/*=====*/
-
-/*Forgot - Sign Up*/
 .forgot-sign {
     position: absolute;
-    width: 600px;
-    height: 54px;
-    top: 510px;
+    width: 100%;
+    height: 3rem;
+    top: 75%;
 
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
     font-size: 22px;
-    line-height: 26px;
     display: flex;
     align-items: center;
+}
+.forgot-sign .forgot {
+    width: 100%;
+    margin-left: 15%;
 }
 
 .forgot a{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     color: black;
-    margin-left: 70px;
     text-decoration: none;
 }
 
@@ -225,66 +202,46 @@ and open the template in the editor.
     color: lightsteelblue;
 }
 
+.forgot-sign .sign {
+    width: 100%;
+    margin-left: 20%;
+}
+
 .sign a{
+    width: 50%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     /*font-weight: 300;*/
     color: black;
-    margin-left: 180px;
     text-decoration: none;
 }
 
 .sign a:hover {
     color: lightsteelblue;
 }
-/*=======*/
 
-/*Quick Login FB & GG*/
 .quick-log {
     position: absolute;
-    display: flex;
-    top: 590px;
-}
-
-.facebook input[type=button]{
-    height: 60px;
-    border-radius: 10px;
-    font-size: 20px;
-    padding: 0 80px 0 100px;
-    color: white;
-    cursor: pointer;
-    background-color: #2a71da;
-}
-
-.facebook:hover input[type=button] {
-    background-color: #3e7fde;
-}
-
-.facebook img {
-    position: absolute;
-    background: url(../asset/image/fb_icon.png) no-repeat scroll 7px 7px;
-    padding-left: 40px;
-    margin-top: 7px;
+    /*display: flex;*/
+    top: 87%;
+    width: 100%;
 }
 
 .google input[type=button]{
+    /*width: 100%;*/
     font-size: 20px;
-    margin-left: 60px;
-    height: 60px;
-    border-radius: 10px;
-    padding: 0 100px 0 100px;
+    margin-left: 30%;
+    height: 3rem;
+    border-radius: 7px;
+    padding: 0 4rem 0 6rem;
     cursor: pointer;
-    background-color: white;
-}
-
-.google:hover input[type=button] {
-    background-color: #e9e9ed;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
 }
 
 .google img {
     position: absolute;
     background: url(../asset/image/gg_icon.png) no-repeat scroll 7px 7px;
-    padding-left: 90px;
-    margin-top: 7px;
+    padding-left: 36%;
+    margin-top: 0.1rem;
 }
-/*======*/
