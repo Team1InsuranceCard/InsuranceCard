@@ -12,6 +12,10 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="${pageContext.servletContext.contextPath}/asset/style/customer/customer_dashboard.css"
     />
     <script
@@ -131,7 +135,7 @@
               </div>
             </div>
           </div>
-          <div class="card  col-lg-4  staff-info-zone">
+          <div class="card col-lg-4 staff-info-zone">
             <div class="dashboard-card">
               <div class="card staff-name-card">
                 <div class="staff-icon">
@@ -146,7 +150,9 @@
                 </div>
               </div>
               <div class="card staff-phone staff-contact">0929029073</div>
-              <div class="card staff-email staff-contact">butchi3mau@gmail.com</div>
+              <div class="card staff-email staff-contact">
+                butchi3mau@gmail.com
+              </div>
             </div>
           </div>
         </div>
@@ -154,7 +160,7 @@
         <div class="dashboard-card dashboard-service-card">
           <div class="service-title"><h2>Current service</h2></div>
           <div class="row row-cols-1 row-cols-lg-3">
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -170,11 +176,13 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
               </div>
             </div>
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -190,11 +198,13 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
               </div>
             </div>
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -210,7 +220,9 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
               </div>
             </div>
@@ -220,7 +232,7 @@
         <div class="dashboard-card dashboard-service-card">
           <div class="service-title"><h2>Explore more service</h2></div>
           <div class="row row-cols-1 row-cols-lg-3">
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -236,11 +248,13 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
               </div>
             </div>
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -256,11 +270,13 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
               </div>
             </div>
-            <div class="col ">
+            <div class="col">
               <div class="card service-sub-card">
                 <img
                   class="card-img-top"
@@ -276,8 +292,70 @@
                       little bit longerạpq ạdklfjq qjefioja s ịqrf .
                     </p>
                   </div>
-                  <a href="#" class="btn btn-primary go-to-button">Go somewhere</a>
+                  <a href="#" class="btn btn-primary go-to-button"
+                    >Go somewhere</a
+                  >
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-card dashboard-service-card">
+          <div class="service-title"><h2>About Us</h2></div>
+          <div class="card-group">
+            <div class="card mb-3">
+              <div class="card-header about-header-icon">
+                <i class="far fa-building"></i>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">About us</h5>
+                <p class="card-text">About the InsuraceCard system.</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header about-header-icon">
+                <i class="far fa-newspaper"></i>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Press release</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-header about-header-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Reward</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="service-title"><h2>Help center</h2></div>
+          <div class="card-group">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title help-desk-icon"><i class="far fa-credit-card"></i></h5>
+                <p class="card-text">
+                  How to pay insurance services
+                </p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title help-desk-icon"><i class="fas fa-file-download"></i></h5>
+                <p class="card-text">
+                  Commonly used forms
+                </p>
+                <!-- <a href="#"  class="btn btn-primary">Go somewhere</a> -->
               </div>
             </div>
           </div>

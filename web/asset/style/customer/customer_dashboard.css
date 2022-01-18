@@ -11,8 +11,6 @@ body {
   color: #5c2941;
 }
 
-
-
 .main-container {
   margin-top: 5em;
   margin-bottom: 5em;
@@ -521,4 +519,12 @@ img {vertical-align: middle;}
 .service-sub-card .go-to-button {
   background-color: #5c2941;
   border-color: #5c2941;
+}
+
+.about-header-icon{
+  font-size: 5em;
+}
+
+.help-desk-icon {
+  font-size: 3em;
 }
