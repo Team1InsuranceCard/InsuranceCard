@@ -1,4 +1,11 @@
 /* Style the list */
+
+:root{
+    --color1: #ffdccc00;
+    --color2: #fdb1a6;
+    --color3: #fc6376;
+    --color4: #5c2941;
+}
 body {
     margin: 0;
 }
@@ -6,7 +13,7 @@ body {
 .header_customer {
     /* background-color: antiquewhite; */
     background-color: white;
-    background-image: linear-gradient(to bottom, #ffdccc00, #fdb1a6);
+    background-image: linear-gradient(to bottom, var(--color1), var(--color2));
     position: sticky;
     top: 0;
     box-shadow: 0 1px 10px 1px gray;
@@ -39,8 +46,8 @@ body {
     margin: 5px
 }
 
-.header-element .active {
-    color: #fc6376;
+.header-element ul.breadcrumb a.active {
+    color: var(--color3);
 }
 .header-element ul.breadcrumb {
     padding-top: 1.5em;
@@ -60,13 +67,13 @@ body {
 /* Add a slash symbol (/) before/behind each list item */
 .header-element ul.breadcrumb li + li:before {
     padding: 20px;
-    color: #5c2941;
+    color: var(--color4);
     content: "/\00a0";
 }
 
 /* Add a color to all links inside the list */
 .header-element ul.breadcrumb li a {
-    color: #5c2941;
+    color: var(--color4);
     text-decoration: none;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -79,7 +86,7 @@ body {
 
 /* Add a color on mouse-over */
 .header-element ul.breadcrumb li a:hover {
-    color: #fc6376;
+    color: var(--color3);
     text-decoration: none;
 }
 .header-element .user-role {
@@ -96,7 +103,7 @@ body {
 .header-element .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #5C2941;
+    background-color: var(--color4));
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -114,7 +121,7 @@ body {
 }
 
 .header-element .dropdown-content a:hover {
-    background-color: #5C2941;
+    background-color: var(--color4);
 
 }
 
