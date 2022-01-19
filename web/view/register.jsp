@@ -1,5 +1,6 @@
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,113 +12,129 @@
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
+        <c:set var="rs" value="${requestScope}"/>
+
     </head>
 
     <body>
-        <div class="signUp">
-            <h1>Sign Up</h1>
-        </div>
-        <form action="register" method="POST">
-            <div>
-                <%-- Email + Phone --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="email" name="email" 
-                               placeholder="Email *" required/>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
-                               placeholder="Phone *" required/>
-                    </div>
-                </div>
+        <div>
+            <div class="signUp">
+                <h1>Sign Up</h1>
+                <p id="mess">${requestScope.mess}</p>
+            </div>
 
-                <%-- Pass + PersonalID --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="password" name="password" 
-                               pattern="[a-zA-Z0-9]+" 
-                               minlength="8" maxlength="32"
-                               placeholder="Password *" required/>
+            <form id="myForm" action="register" method="POST">
+                <div>
+                    <%-- Email + Phone --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="email" name="email" value="${rs.email}"
+                                   placeholder="Email *" required/>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
+                                   value="${rs.phone}" 
+                                   placeholder="Phone *" required/>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <input type="text" name="personalID" pattern="[0-9]+"
-                               minlength="12" maxlength="12"
-                               placeholder="Personal ID *" required/>
-                    </div>
-                </div>
 
-                <%-- Pass2 + Address --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="password" name="password2" 
-                               pattern="[a-zA-Z0-9]+" 
-                               minlength="8" maxlength="32"
-                               placeholder="Confirm password *" required/>
+                    <%-- Pass + PersonalID --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="password" name="password" 
+                                   pattern="[a-zA-Z0-9]+" 
+                                   minlength="8" maxlength="32"
+                                   placeholder="Password *" 
+                                   value="${rs.pass}" required/>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="personalID" pattern="[0-9]+"
+                                   minlength="12" maxlength="12"
+                                   placeholder="Personal ID *" 
+                                   value="${rs.personalID}"
+                                   required/>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <input type="text" name="address" 
-                               pattern="^[^-\s][\S\s]+$"
-                               placeholder="Address *" required/>
-                    </div>
-                </div>
 
-                <%-- First name + Province --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="firstName" 
-                               placeholder="First name *" 
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               required/>
+                    <%-- Pass2 + Address --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="password" name="password2" 
+                                   pattern="[a-zA-Z0-9]+" 
+                                   minlength="8" maxlength="32"
+                                   placeholder="Confirm password *" 
+                                   value="${rs.pass}"
+                                   required/>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="address" 
+                                   pattern="^[^-\s][\S\s]+$"
+                                   placeholder="Address *" 
+                                   value="${rs.address}" required/>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <select name="calc_shipping_provinces" required>
-                        </select>
-                        <input class="billing_address_1" name="province" 
-                               type="hidden" value=""/>
-                    </div>
-                </div>
 
-                <%-- Last name + District --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="lastName" 
-                               placeholder="Last name *" 
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               required/>
+                    <%-- First name + Province --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="firstName" 
+                                   placeholder="First name *" 
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   value="${rs.firstName}" required/>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="calc_shipping_provinces" required>
+                                <option hidden>Province</option>
+                            </select>
+                            <input class="billing_address_1" name="province" 
+                                   type="hidden" value=""/>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <select name="calc_shipping_district" required>
-                            <option hidden>District</option>
-                        </select>
-                        <input class="billing_address_2" name="district" 
-                               type="hidden" value=""/>
-                    </div>
-                </div>
 
-                <%-- DOB --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="date" name="dob" placeholder="DOB *" 
-                               required/>
+                    <%-- Last name + District --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="lastName" 
+                                   placeholder="Last name *" 
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   value="${rs.lastName}" required/>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="calc_shipping_district" required>
+                                <option hidden>District</option>
+                            </select>
+                            <input class="billing_address_2" name="district" 
+                                   type="hidden" value=""/>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="icon-login">
-                            <p style="color:#5C2941;font-size:15px;
-                               font-weight:bold;">Or register by</p>
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-google-plus"></i>
+
+                    <%-- DOB --%>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="date" name="dob" placeholder="DOB *" 
+                                   min="${requestScope.dateMin}" 
+                                   max="${requestScope.dateMax}" 
+                                   value="${rs.dob}" required/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="icon-login">
+                                <p style="color:#5C2941;font-size:15px;
+                                   font-weight:bold;">Or register by</p>
+                                <i class="fab fa-facebook"></i>
+                                <i class="fab fa-google-plus"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="register">
-                <input type="submit" value="Register"/>
-            </div>
-            <div class="login">
-                <a href="login">Login</a>
-            </div>
-        </form>
+                <div class="register">
+                    <input type="submit" value="Register"/>
+                </div>
+                <div class="login">
+                    <a href="login">Login</a>
+                </div>
+            </form>
+        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
