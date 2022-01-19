@@ -233,28 +233,28 @@
                     <div class="dashboard-card dashboard-service-card">
                         <div class="service-title"><h2>Explore more service</h2></div>
                         <div class="row row-cols-1 row-cols-lg-3">
+                            <c:forEach items="${buyable_products}" var="product">
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img
                                         class="card-img-top"
-                                        src="https://via.placeholder.com/278x200"
-                                        alt="Card image cap"
+                                        src="${product.imageURL}"
+                                        alt="${product.title}"
                                         />
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
+                                        <h5 class="card-title">${product.title}</h5>
                                         <div class="wrapper-desciption-service">
                                             <p class="card-text desciption-service-text">
-                                                This is a longer card with supporting text below as a
-                                                natural lead-in to additional content. This content is a
-                                                little bit longerạpq ạdklfjq qjefioja s ịqrf .
+                                                ${product.description}
                                             </p>
                                         </div>
                                         <a href="#" class="btn btn-primary go-to-button"
-                                           >Go somewhere</a
+                                           >More</a
                                         >
                                     </div>
                                 </div>
                             </div>
+                        </c:forEach>
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img

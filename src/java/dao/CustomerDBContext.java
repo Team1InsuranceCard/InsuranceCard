@@ -18,5 +18,16 @@ import model.Customer;
  * @author area1
  */
 public class CustomerDBContext extends DBContext {
-
+    public void getCustomer(int customerID){
+        try {
+            String sql_Select_Customer = "";
+            PreparedStatement psm_Select_Customer = connection.prepareStatement(sql_Select_Customer);
+            ResultSet rs_select_customer = psm_Select_Customer.executeQuery();
+            if(rs_select_customer.next()){
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
