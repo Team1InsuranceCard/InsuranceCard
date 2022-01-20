@@ -9,8 +9,8 @@
         <servlet-class>controller.Register</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerCreate</servlet-name>
-        <servlet-class>controller.staff.CreateCustomer</servlet-class>
+        <servlet-name>CustomerDashboard</servlet-name>
+        <servlet-class>controller.customer.CustomerDashboard</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -21,8 +21,8 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerCreate</servlet-name>
-        <url-pattern>/staff/customer/create</url-pattern>
+        <servlet-name>CustomerDashboard</servlet-name>
+        <url-pattern>/customer/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
