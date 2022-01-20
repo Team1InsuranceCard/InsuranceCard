@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * @author area1
  */
 public class Customer {
-
+    
     private Account account;
     private String firstName;
     private String lastName;
