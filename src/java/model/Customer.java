@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Customer {
     private String lastName;
     private String address;
     private Date dob;
-    private Date joinDate;
+    private Timestamp joinDate;
     private String phone;
     private String personalID;
     private String province;
@@ -27,7 +28,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Account account, String firstName, String lastName, String address, Date dob, Date joinDate, int staffID, String phone, String personalID, String province, String district) {
+    public Customer(Account account, String firstName, String lastName, String address, Date dob, Timestamp joinDate, int staffID, String phone, String personalID, String province, String district) {
         this.account = account;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,11 +81,11 @@ public class Customer {
         this.dob = dob;
     }
 
-    public Date getJoinDate() {
+    public Timestamp getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(Date joinDate) {
+    public void setJoinDate(Timestamp joinDate) {
         this.joinDate = joinDate;
     }
 

@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,9 +16,9 @@ public class Accident {
 
     private int id;
     private Compensation compensation;
-    private Date accidentDate;
+    private Timestamp accidentDate;
     private String title;
-    private Date createdDate;
+    private Timestamp createdDate;
     private String humanDamage;
     private String vehicleDamage;
     private String attatchment;
@@ -25,7 +26,7 @@ public class Accident {
     public Accident() {
     }
 
-    public Accident(int id, Compensation compensation, Date accidentDate, String title, Date createdDate, String humanDamage, String vehicleDamage, String attatchment) {
+    public Accident(int id, Compensation compensation, Timestamp accidentDate, String title, Timestamp createdDate, String humanDamage, String vehicleDamage, String attatchment) {
         this.id = id;
         this.compensation = compensation;
         this.accidentDate = accidentDate;
@@ -52,11 +53,11 @@ public class Accident {
         this.compensation = compensation;
     }
 
-    public Date getAccidentDate() {
+    public Timestamp getAccidentDate() {
         return accidentDate;
     }
 
-    public void setAccidentDate(Date accidentDate) {
+    public void setAccidentDate(Timestamp accidentDate) {
         this.accidentDate = accidentDate;
     }
 
@@ -68,11 +69,11 @@ public class Accident {
         this.title = title;
     }
 
-    public Date getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
