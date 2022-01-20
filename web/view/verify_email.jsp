@@ -19,18 +19,6 @@
     </head>
     <body>
         <form action="verify_email" method="POST">
-            <div>
-                <input type="hidden" name="email" value="${rs.email}"/>
-                <input type="hidden" name="phone" value="${rs.phone}"/>
-                <input type="hidden" name="personalID" value="${rs.personalID}"/>
-                <input type="hidden" name="address" value="${rs.address}"/>
-                <input type="hidden" name="firstName" value="${rs.firstName}"/>
-                <input type="hidden" name="lastName" value="${rs.lastName}"/>
-                <input type="hidden" name="dob" value="${rs.dob}"/>
-                <input type="hidden" name="pass" value="${rs.pass}"/>
-                <input type="hidden" name="province" value="${rs.province}"/>
-                <input type="hidden" name="district" value="${rs.district}"/>
-            </div>
             <div class="container">
                 <div>
                     <p id="title">
@@ -44,9 +32,14 @@
                     <p style="color:red;">${requestScope.mess}</p>
                     <input type="text" name="code" placeholder="verify code"
                            id="input-code" minlength="8" maxlength="8"
-                           required/>
+                           required
+                           ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <br/>
-                    <input id="btn-submit" type="submit" value="Submit"/>
+                    <input id="btn-submit" type="submit" value="Submit"
+                           ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
+                    <a href="login" style="padding-bottom:10px;"
+                       ${requestScope.mess != "Register succesfully!"?"hidden":""}
+                       >Login</a>
                 </div>    
             </div>    
         </form>

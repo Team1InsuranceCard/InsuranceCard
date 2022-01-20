@@ -7,6 +7,7 @@ package model;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -17,8 +18,8 @@ public class Compensation {
     private int id;
     private Contract contract;
     private String driverName;
-    private Date createDate;
-    private Date resolveDate;
+    private Timestamp createDate;
+    private Timestamp resolveDate;
     private String resolveNote;
     private boolean decision;
     private String description;
@@ -27,7 +28,7 @@ public class Compensation {
     public Compensation() {
     }
 
-    public Compensation(int id, Contract contract, String driverName, Date createDate, Date resolveDate, String resolveNote, boolean decision, String description, String attachment) {
+    public Compensation(int id, Contract contract, String driverName, Timestamp createDate, Timestamp resolveDate, String resolveNote, boolean decision, String description, String attachment) {
         this.id = id;
         this.contract = contract;
         this.driverName = driverName;
@@ -63,19 +64,19 @@ public class Compensation {
         this.driverName = driverName;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
-    public Date getResolveDate() {
+    public Timestamp getResolveDate() {
         return resolveDate;
     }
 
-    public void setResolveDate(Date resolveDate) {
+    public void setResolveDate(Timestamp resolveDate) {
         this.resolveDate = resolveDate;
     }
 

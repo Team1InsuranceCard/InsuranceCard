@@ -119,9 +119,9 @@
                         <div class="col-md-6">
                             <div class="icon-login">
                                 <p style="color:#5C2941;font-size:15px;
-                                   font-weight:bold;">Or register by</p>
-                                <i class="fab fa-facebook"></i>
-                                <i class="fab fa-google-plus"></i>
+                                   font-weight:bold;">Or register by
+                                    <i class="fab fa-google-plus"></i></p>
+
                             </div>
                         </div>
                     </div>

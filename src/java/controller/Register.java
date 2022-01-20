@@ -35,6 +35,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         LocalDate d = java.time.LocalDate.now();
         int day = d.getDayOfMonth();
         int month = d.getMonth().getValue();
@@ -62,7 +63,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email").trim();
         String phone = request.getParameter("phone");
         String pass = request.getParameter("password");
@@ -96,15 +97,6 @@ public class Register extends HttpServlet {
             }
         }
 
-        request.setAttribute("email", email);
-        request.setAttribute("phone", phone);
-        request.setAttribute("personalID", personalID);
-        request.setAttribute("address", address);
-        request.setAttribute("firstName", firstName);
-        request.setAttribute("lastName", lastName);
-        request.setAttribute("dob", dob);
-        request.setAttribute("pass", pass);
-
         if (!mess.equals("")) {
             LocalDate d = java.time.LocalDate.now();
             int day = d.getDayOfMonth();
@@ -115,11 +107,19 @@ public class Register extends HttpServlet {
             String dateMin = (year - 120) + "-" + month + "-" + day;
 
             request.setAttribute("dateMax", Date.valueOf(dateMax));
-            request.setAttribute("dateMin", Date.valueOf(dateMin));           
+            request.setAttribute("dateMin", Date.valueOf(dateMin));
+            request.setAttribute("email", email);
+            request.setAttribute("phone", phone);
+            request.setAttribute("personalID", personalID);
+            request.setAttribute("address", address);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("dob", dob);
+            request.setAttribute("pass", pass);
             request.setAttribute("mess", mess);
             request.getRequestDispatcher("view/register.jsp").forward(request, response);
         } else {
-            int n = 8;
+            /*int n = 8;
             String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     + "0123456789"
                     + "abcdefghijklmnopqrstuvxyz";
@@ -148,10 +148,18 @@ public class Register extends HttpServlet {
                     + "\n"
                     + "</html>";
             SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
-
-            request.setAttribute("province", province);
-            request.setAttribute("district", district);
-            request.getSession().setAttribute("authCode", sb.toString());
+            */
+            request.getSession().setAttribute("email", email);
+            request.getSession().setAttribute("phone", phone);
+            request.getSession().setAttribute("personalID", personalID);
+            request.getSession().setAttribute("address", address);
+            request.getSession().setAttribute("firstName", firstName);
+            request.getSession().setAttribute("lastName", lastName);
+            request.getSession().setAttribute("dob", dob);
+            request.getSession().setAttribute("pass", pass);
+            request.getSession().setAttribute("province", province);
+            request.getSession().setAttribute("district", district);
+            //request.getSession().setAttribute("authCode", sb.toString());
             request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);
         }
 
