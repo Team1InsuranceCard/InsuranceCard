@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="customer" value="${customer_staff.customer}"/>
+<c:set var="staff" value="${customer_staff.staff}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,7 +44,7 @@
                                 />
                         </div>
                         <div class="name-card-content">
-                            <h2>Nguyen Khanh Hung</h2>
+                            <h2>${customer.firstName}  ${customer.lastName}</h2>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -147,12 +150,12 @@
                                 </div>
                                 <div class="staff-name">
                                     <h4 class="staff-tag">Staff</h4>
-                                    <h3>Nguyen Khanh Ha</h3>
+                                    <h3>${staff.firstName}  ${staff.lastName}</h3>
                                 </div>
                             </div>
-                            <div class="card staff-phone staff-contact">0929029073</div>
+                            <div class="card staff-phone staff-contact">${staff.phone}</div>
                             <div class="card staff-email staff-contact">
-                                butchi3mau@gmail.com
+                                ${staff.account.email}
                             </div>
                         </div>
                     </div>
