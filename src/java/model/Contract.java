@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -16,14 +17,14 @@ public class Contract {
     private int id;
     private Product product;
     private Customer customerID;
-    private Date startDate;
-    private Date endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private boolean isDelete;
     private double contractFee;
     private String cancelComment;
     private String cancelReason;
-    private Date cancelDate;
-    private Date cancelRequestDate;
+    private Timestamp cancelDate;
+    private Timestamp cancelRequestDate;
     private String vehicleType;
     private String engine;
     private String licensePlate;
@@ -32,14 +33,14 @@ public class Contract {
     private String brand;
     private String owner;
     private String chassis;
-    private Date requestDate;
-    private Date resolveDate;
+    private Timestamp requestDate;
+    private Timestamp resolveDate;
     private short status;
 
     public Contract() {
     }
 
-    public Contract(int id, Product product, Customer customerID, Date startDate, Date endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Date cancelDate, Date cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Date requestDate, Date resolveDate, short status) {
+    public Contract(int id, Product product, Customer customerID, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status) {
         this.id = id;
         this.product = product;
         this.customerID = customerID;
@@ -88,19 +89,19 @@ public class Contract {
         this.customerID = customerID;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 
@@ -136,19 +137,19 @@ public class Contract {
         this.cancelReason = cancelReason;
     }
 
-    public Date getCancelDate() {
+    public Timestamp getCancelDate() {
         return cancelDate;
     }
 
-    public void setCancelDate(Date cancelDate) {
+    public void setCancelDate(Timestamp cancelDate) {
         this.cancelDate = cancelDate;
     }
 
-    public Date getCancelRequestDate() {
+    public Timestamp getCancelRequestDate() {
         return cancelRequestDate;
     }
 
-    public void setCancelRequestDate(Date cancelRequestDate) {
+    public void setCancelRequestDate(Timestamp cancelRequestDate) {
         this.cancelRequestDate = cancelRequestDate;
     }
 
@@ -216,19 +217,19 @@ public class Contract {
         this.chassis = chassis;
     }
 
-    public Date getRequestDate() {
+    public Timestamp getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public void setRequestDate(Timestamp requestDate) {
         this.requestDate = requestDate;
     }
 
-    public Date getResolveDate() {
+    public Timestamp getResolveDate() {
         return resolveDate;
     }
 
-    public void setResolveDate(Date resolveDate) {
+    public void setResolveDate(Timestamp resolveDate) {
         this.resolveDate = resolveDate;
     }
 
