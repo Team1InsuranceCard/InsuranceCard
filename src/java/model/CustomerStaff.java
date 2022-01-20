@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -14,14 +15,14 @@ import java.sql.Date;
 public class CustomerStaff {
     private Customer customer;
     private Staff staff;
-    private Date startDate;
-    private Date endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private Staff next;
 
     public CustomerStaff() {
     }
 
-    public CustomerStaff(Customer customer, Staff staff, Date startDate, Date endDate, Staff next) {
+    public CustomerStaff(Customer customer, Staff staff, Timestamp startDate, Timestamp endDate, Staff next) {
         this.customer = customer;
         this.staff = staff;
         this.startDate = startDate;
@@ -45,19 +46,19 @@ public class CustomerStaff {
         this.staff = staff;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 
