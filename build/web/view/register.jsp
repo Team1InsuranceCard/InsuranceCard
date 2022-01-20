@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
-        
+        <base href="${pageContext.servletContext.contextPath}/">
     </head>
 
     <body>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-6">
                         <input type="text" name="address" 
-                               pattern="[a-zA-Z0-9,/ ]+"
+                               pattern="^[^-\s][\S\s]+$"
                                placeholder="Address *" required/>
                     </div>
                 </div>
@@ -66,7 +66,8 @@
                     <div class="col-md-6">
                         <input type="text" name="firstName" 
                                placeholder="First name *" 
-                               pattern="[a-zA-Z]+[ a-zA-Z]*" required/>
+                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                               required/>
                     </div>
                     <div class="col-md-6">
                         <select name="calc_shipping_provinces" required>
@@ -81,7 +82,8 @@
                     <div class="col-md-6">
                         <input type="text" name="lastName" 
                                placeholder="Last name *" 
-                               pattern="[a-zA-Z]+[ a-zA-Z]*" required/>
+                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                               required/>
                     </div>
                     <div class="col-md-6">
                         <select name="calc_shipping_district" required>
