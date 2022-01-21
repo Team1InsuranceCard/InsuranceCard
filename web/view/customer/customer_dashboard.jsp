@@ -89,16 +89,16 @@
                     <div class="col-lg-8 container statistic-calendar">
                         <div class="row statistic-group">
                             <div class="col dashboard-card statistic-card">
-                                <div class="statistic-title">Amount spent</div>
-                                <div class="statistic-number">100000</div>
+                                <div class="statistic-title">Total amount spent</div>
+                                <div class="statistic-number">${total_amount}</div>
                             </div>
                             <div class="col dashboard-card statistic-card">
-                                <div class="statistic-title">Requests</div>
-                                <div class="statistic-number">100000</div>
+                                <div class="statistic-title">Compensation requests</div>
+                                <div class="statistic-number">${compensation_quantity}</div>
                             </div>
                             <div class="col dashboard-card statistic-card">
                                 <div class="statistic-title">Contracts</div>
-                                <div class="statistic-number">100000</div>
+                                <div class="statistic-number">${total_contracts}</div>
                             </div>
                         </div>
                         <div class="row dashboard-card calendar-card">
@@ -164,19 +164,19 @@
                 <div class="dashboard-card dashboard-service-card">
                     <div class="service-title"><h2>Current service</h2></div>
                     <div class="row row-cols-1 row-cols-lg-3">
-                        <c:forEach items="${buyable_products}" var="product">
+                        <c:forEach items="${current_products}" var="eachproduct">
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img
-                                        class="card-img-top"
-                                        src="${product.imageURL}"
-                                        alt="${product.title}"
+                                        class="card-img-top product-image-cover"
+                                        src="${eachproduct.imageURL}"
+                                        alt="${eachproduct.title}"
                                         />
                                     <div class="card-body">
-                                        <h5 class="card-title">${product.title}</h5>
+                                        <h5 class="card-title">${eachproduct.title}</h5>
                                         <div class="wrapper-desciption-service">
                                             <p class="card-text desciption-service-text">
-                                                ${product.description}
+                                                ${eachproduct.description}
                                             </p>
                                         </div>
                                         <a href="#" class="btn btn-primary go-to-button"
@@ -240,9 +240,9 @@
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img
-                                        class="card-img-top"
+                                        class="card-img-top product-image-cover"
                                         src="${product.imageURL}"
-                                        alt="${product.title}"
+                                        alt="${product.title}" 
                                         />
                                     <div class="card-body">
                                         <h5 class="card-title">${product.title}</h5>
