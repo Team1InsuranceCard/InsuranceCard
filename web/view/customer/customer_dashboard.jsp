@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="customer" value="${customer_staff.customer}"/>
+<c:set var="staff" value="${customer_staff.staff}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,7 +44,7 @@
                                 />
                         </div>
                         <div class="name-card-content">
-                            <h2>Nguyen Khanh Hung</h2>
+                            <h2>${customer.firstName}  ${customer.lastName}</h2>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -147,12 +150,12 @@
                                 </div>
                                 <div class="staff-name">
                                     <h4 class="staff-tag">Staff</h4>
-                                    <h3>Nguyen Khanh Ha</h3>
+                                    <h3>${staff.firstName}  ${staff.lastName}</h3>
                                 </div>
                             </div>
-                            <div class="card staff-phone staff-contact">0929029073</div>
+                            <div class="card staff-phone staff-contact">${staff.phone}</div>
                             <div class="card staff-email staff-contact">
-                                butchi3mau@gmail.com
+                                ${staff.account.email}
                             </div>
                         </div>
                     </div>
@@ -233,28 +236,28 @@
                     <div class="dashboard-card dashboard-service-card">
                         <div class="service-title"><h2>Explore more service</h2></div>
                         <div class="row row-cols-1 row-cols-lg-3">
+                            <c:forEach items="${buyable_products}" var="product">
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img
                                         class="card-img-top"
-                                        src="https://via.placeholder.com/278x200"
-                                        alt="Card image cap"
+                                        src="${product.imageURL}"
+                                        alt="${product.title}"
                                         />
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
+                                        <h5 class="card-title">${product.title}</h5>
                                         <div class="wrapper-desciption-service">
                                             <p class="card-text desciption-service-text">
-                                                This is a longer card with supporting text below as a
-                                                natural lead-in to additional content. This content is a
-                                                little bit longerạpq ạdklfjq qjefioja s ịqrf .
+                                                ${product.description}
                                             </p>
                                         </div>
                                         <a href="#" class="btn btn-primary go-to-button"
-                                           >Go somewhere</a
+                                           >More</a
                                         >
                                     </div>
                                 </div>
                             </div>
+                        </c:forEach>
                             <div class="col">
                                 <div class="card service-sub-card">
                                     <img
