@@ -12,8 +12,11 @@
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
+<<<<<<< Updated upstream
         <c:set var="rs" value="${requestScope}"/>
 
+=======
+>>>>>>> Stashed changes
     </head>
 
     <body>
@@ -38,6 +41,7 @@
                         </div>
                     </div>
 
+<<<<<<< Updated upstream
                     <%-- Pass + PersonalID --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -54,8 +58,23 @@
                                    value="${rs.personalID}"
                                    required/>
                         </div>
+=======
+                <%-- Pass2 + Address --%>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="password" name="password2" 
+                               pattern="[a-zA-Z0-9]+" 
+                               minlength="8" maxlength="32"
+                               placeholder="Confirm password *" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="address" 
+                               pattern="^[^-\s][\S\s]+$"
+                               placeholder="Address *" required/>
+>>>>>>> Stashed changes
                     </div>
 
+<<<<<<< Updated upstream
                     <%-- Pass2 + Address --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -72,8 +91,24 @@
                                    placeholder="Address *" 
                                    value="${rs.address}" required/>
                         </div>
+=======
+                <%-- First name + Province --%>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="firstName" 
+                               placeholder="First name *" 
+                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                               required/>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="calc_shipping_provinces" required>
+                        </select>
+                        <input class="billing_address_1" name="province" 
+                               type="hidden" value=""/>
+>>>>>>> Stashed changes
                     </div>
 
+<<<<<<< Updated upstream
                     <%-- First name + Province --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -89,6 +124,22 @@
                             <input class="billing_address_1" name="province" 
                                    type="hidden" value=""/>
                         </div>
+=======
+                <%-- Last name + District --%>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="lastName" 
+                               placeholder="Last name *" 
+                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                               required/>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="calc_shipping_district" required>
+                            <option hidden>District</option>
+                        </select>
+                        <input class="billing_address_2" name="district" 
+                               type="hidden" value=""/>
+>>>>>>> Stashed changes
                     </div>
 
                     <%-- Last name + District --%>

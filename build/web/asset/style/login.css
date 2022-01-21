@@ -10,12 +10,20 @@
 }
 
 .logo-group {
+<<<<<<< Updated upstream
     margin-top: -10%;
+=======
+    margin-top: -20px;
+>>>>>>> Stashed changes
     justify-content: space-between;
     text-align: center;
 }
 
+<<<<<<< Updated upstream
 
+=======
+/*Username & Password*/
+>>>>>>> Stashed changes
 .username {
     position: absolute;
     width: 100%;
