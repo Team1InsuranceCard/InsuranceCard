@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>setEncode</filter-name>
+        <filter-class>filter.setEncode</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>setEncode</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>ViewCustomer</servlet-name>
         <servlet-class>controller.staff.ViewCustomer</servlet-class>
@@ -8,6 +16,14 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>controller.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyEmail</servlet-name>
+        <servlet-class>controller.VerifyEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerDashboard</servlet-name>
+        <servlet-class>controller.customer.CustomerDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -15,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyEmail</servlet-name>
+        <url-pattern>/verify_email</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDashboard</servlet-name>
+        <url-pattern>/customer/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
