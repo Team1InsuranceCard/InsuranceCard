@@ -528,3 +528,8 @@ img {vertical-align: middle;}
 .help-desk-icon {
   font-size: 3em;
 }
+
+.product-image-cover {
+    height: 15rem;
+    object-fit: cover;
+}
