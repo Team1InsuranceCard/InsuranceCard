@@ -81,4 +81,30 @@ public class ProductDBContext extends DBContext {
         }
         return null;
     }
+
+    public Product getProductByID(int pID) {
+        try {
+            String sql_select_product = "SELECT Product.ID AS ProductID\n"
+                    + "	  ,Product.ImageURL AS ProductImage\n"
+                    + "	  ,Product.Title AS ProductTitle\n"
+                    + "	  ,Product.Description AS ProductDescription\n"
+                    + "\n"
+                    + "  FROM Product \n"
+                    + "  WHERE ID = ?\n";
+            PreparedStatement psm_select_product = connection.prepareStatement(sql_select_product);
+            psm_select_product.setInt(1, pID);
+            ResultSet rs_select_product = psm_select_product.executeQuery();
+            if (rs_select_product.next()) {
+                Product product = new Product();
+                product.setId(rs_select_product.getInt("ProductID"));
+                product.setImageURL(rs_select_product.getString("ProductImage"));
+                product.setTitle(rs_select_product.getString("ProductTitle"));
+                product.setDescription(rs_select_product.getString("ProductDescription"));
+                return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
