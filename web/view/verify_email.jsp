@@ -27,14 +27,16 @@
                 </div>
                 <div class="content">
                     <p id="c1">Please check your email and enter verify code</p>
-                    <p id="c2">To be able to confirm the real account, we need to sure about 
-                        your email. Thank you so much!</p>
+                    <p id="c2">To be able to confirm the real account, we need 
+                        to sure about your email. Thank you so much!</p>
                     <p style="color:red;">${requestScope.mess}</p>
                     <input type="text" name="code" placeholder="verify code"
                            id="input-code" minlength="8" maxlength="8"
                            required
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <br/>
+                    <p style="text-decoration:underline;cursor:pointer;" 
+                       onclick="">Resend code</p>
                     <input id="btn-submit" type="submit" value="Submit"
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <a href="login" style="padding-bottom:10px;"

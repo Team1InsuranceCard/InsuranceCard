@@ -119,7 +119,7 @@ public class Register extends HttpServlet {
             request.setAttribute("mess", mess);
             request.getRequestDispatcher("view/register.jsp").forward(request, response);
         } else {
-            /*int n = 8;
+            int n = 8;
             String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     + "0123456789"
                     + "abcdefghijklmnopqrstuvxyz";
@@ -148,7 +148,7 @@ public class Register extends HttpServlet {
                     + "\n"
                     + "</html>";
             SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
-            */
+            
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("phone", phone);
             request.getSession().setAttribute("personalID", personalID);
@@ -159,7 +159,7 @@ public class Register extends HttpServlet {
             request.getSession().setAttribute("pass", pass);
             request.getSession().setAttribute("province", province);
             request.getSession().setAttribute("district", district);
-            //request.getSession().setAttribute("authCode", sb.toString());
+            request.getSession().setAttribute("authCode", sb.toString());
             request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);
         }
 

@@ -54,7 +54,7 @@ public class CustomerStaffDBContext extends DBContext{
                 customer.setLastName(rs.getString("customer_LastName"));
                 customer.setAddress(rs.getString("Address"));
                 customer.setDob(rs.getDate("Dob"));
-                customer.setJoinDate(rs.getDate("JoinDate"));
+                customer.setJoinDate(rs.getTimestamp("JoinDate"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
                 

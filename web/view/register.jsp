@@ -18,6 +18,16 @@
 
     <body>
         <div>
+            <a href="homepage">
+                <img class="logo-icon"
+                    src="asset/image/icon_car.png"
+                     alt="LogoIcon" />
+               <br/>
+                <img class="logo-title"
+                    src="asset/image/InsuranceCard.png"
+                     alt="LogoTitle" />
+            </a>
+
             <div class="signUp">
                 <h1>Sign Up</h1>
                 <p id="mess">${requestScope.mess}</p>
@@ -34,6 +44,7 @@
                         <div class="col-md-6">
                             <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
                                    value="${rs.phone}" 
+                                   minlength="10" maxlength="10"
                                    placeholder="Phone *" required/>
                         </div>
                     </div>
