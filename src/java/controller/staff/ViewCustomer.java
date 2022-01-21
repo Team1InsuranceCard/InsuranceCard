@@ -7,7 +7,6 @@ package controller.staff;
 
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
-import dao.CustomerStaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,7 +37,7 @@ public class ViewCustomer extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         
-        CustomerStaffDBContext csdb = new CustomerStaffDBContext();
+        CustomerDBContext csdb = new CustomerDBContext();
         CustomerStaff viewCustomer = csdb.viewCustomer(id);
         
         ContractDBContext cdb = new ContractDBContext();

@@ -5,6 +5,10 @@
  */
 package controller.customer;
 
+import dao.CompensationDBContext;
+import dao.ContractDBContext;
+import dao.CustomerDBContext;
+import dao.PaymentDBContext;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Customer;
+import model.CustomerStaff;
 import model.Product;
 
 /**
@@ -38,7 +46,7 @@ public class CustomerDashboard extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CustomerDashboard</title>");            
+            out.println("<title>Servlet CustomerDashboard</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CustomerDashboard at " + request.getContextPath() + "</h1>");
@@ -60,9 +68,26 @@ public class CustomerDashboard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //        processRequest(request, response);
+        HttpSession session = request.getSession();
+//        Account account = (Account)   session.getAttribute("currentuser");
+        int customerID = 1;
         ProductDBContext productDBC = new ProductDBContext();
         ArrayList<Product> buyableProducts = productDBC.getProducts();
+        CustomerDBContext customerDBC = new CustomerDBContext();
+        CustomerStaff customerStaff = customerDBC.getCustomerDashboard(customerID);
+        ArrayList<Product> currentProducts = productDBC.getProductsByCustomer(customerID);
+        PaymentDBContext paymentDBC = new PaymentDBContext();
+        double totalAmount = paymentDBC.totalAmountSpent(customerID);
+        ContractDBContext contractDBC = new ContractDBContext();
+        int totalContracts = contractDBC.totalContracts(customerID);
+        CompensationDBContext compensationDBC = new CompensationDBContext();
+        int compensationQuantity = compensationDBC.getCompensationQuantity(customerID);
         
+        request.setAttribute("compensation_quantity", compensationQuantity);
+        request.setAttribute("total_contracts", totalContracts);
+        request.setAttribute("total_amount", totalAmount);
+        request.setAttribute("current_products", currentProducts);
+        request.setAttribute("customer_staff", customerStaff);
         request.setAttribute("buyable_products", buyableProducts);
         request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
     }
@@ -79,6 +104,7 @@ public class CustomerDashboard extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
