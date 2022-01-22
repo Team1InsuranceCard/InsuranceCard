@@ -71,10 +71,6 @@ public class CreateCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account demo = new Account();
-        demo.setId(1);
-        request.getSession().setAttribute("account", demo);
-
         String email = request.getParameter("email");
         String pass = getAlphaNumericString(8);
         String fname = request.getParameter("fname");
