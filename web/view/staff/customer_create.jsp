@@ -16,7 +16,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <main>
       <h1>NEW CUSTOMER</h1>
 
-      <form action="" method="POST">
+      <form action="staff/customer/create" method="POST">
         <div class="form-list">
           <div class="form-item">
             <p class="label">First Name</p>
@@ -24,6 +24,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="fname"
+              value="${requestScope.fname}"
               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
               required
             />
@@ -35,6 +36,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="lname"
+              value="${requestScope.lname}"
               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
               required
             />
@@ -46,6 +48,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="pid"
+              value="${requestScope.pid}"
               pattern="[0-9]+"
               minlength="12"
               maxlength="12"
@@ -59,6 +62,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="email"
+              value="${requestScope.email}"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               required
             />
@@ -66,7 +70,13 @@ contentType="text/html" pageEncoding="UTF-8"%>
 
           <div class="form-item">
             <p class="label">Date of Birth</p>
-            <input class="form-input" type="date" name="dob" required />
+            <input
+              class="form-input"
+              type="date"
+              name="dob"
+              value="${requestScope.dob}"
+              required
+            />
           </div>
 
           <div class="form-item">
@@ -75,6 +85,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="phone"
+              value="${requestScope.phone}"
               pattern="0[0-9]{9}"
               required
             />
@@ -112,6 +123,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="form-input"
               type="text"
               name="address"
+              value="${requestScope.address}"
               pattern="^[^-\s][\w\s-]+$"
               required
             />
@@ -122,7 +134,9 @@ contentType="text/html" pageEncoding="UTF-8"%>
             <input
               class="form-input"
               type="datetime-local"
+              id="joinDate"
               name="joinDate"
+              value="${requestScope.joinDate}"
               required
             />
           </div>
@@ -139,6 +153,32 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <jsp:param name="currentscreen" value="customer" />
     </jsp:include>
 
+    <!-- auto joinDate -->
+    <script>
+      var joinDateElm = document.getElementById("joinDate");
+      var now = new Date();
+      var utcString = now.toISOString().substring(0, 19);
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var day = now.getDate();
+      var hour = now.getHours();
+      var minute = now.getMinutes();
+      var second = now.getSeconds();
+      var localDatetime =
+        year +
+        "-" +
+        (month < 10 ? "0" + month.toString() : month) +
+        "-" +
+        (day < 10 ? "0" + day.toString() : day) +
+        "T" +
+        (hour < 10 ? "0" + hour.toString() : hour) +
+        ":" +
+        (minute < 10 ? "0" + minute.toString() : minute) +
+        utcString.substring(16, 19);
+      joinDateElm.value = localDatetime;
+    </script>
+
+    <!-- province, district -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
     <script>

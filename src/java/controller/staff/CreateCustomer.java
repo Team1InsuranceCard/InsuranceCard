@@ -6,11 +6,10 @@
 package controller.staff;
 
 import dao.AccountDBContext;
-import dao.CustomerDBContext;
-import dao.CustomerStaffDBContext;
+import dao.StaffDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -71,14 +70,19 @@ public class CreateCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {     
+        Account demo = new Account();
+        demo.setId(1);
+        request.getSession().setAttribute("account", demo);
+        
         String email = request.getParameter("email");
         String pass = getAlphaNumericString(8);
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
         String address = request.getParameter("address");
         Date dob = Date.valueOf(request.getParameter("dob"));
-        Date joinDate = Date.valueOf(request.getParameter("joinDate"));
+        String joinDate_raw = request.getParameter("joinDate").replace("T", " ") + ":00";
+        Timestamp joinDate = Timestamp.valueOf(joinDate_raw);
         String phone = request.getParameter("phone");
         String pid = request.getParameter("pid");
         String province = request.getParameter("province");
@@ -87,14 +91,13 @@ public class CreateCustomer extends HttpServlet {
         AccountDBContext adb = new AccountDBContext();
         // check if exist account is active with same email
         // true => notify user and re-input
-        if (adb.checkExist(email)) {
-
-        }
+//        if (adb.checkExist(email)) {
+//            
+//        }
 
         Account a_cus = new Account();
         a_cus.setEmail(email);
         a_cus.setPassword(pass);
-        a_cus.setId(adb.create(a_cus));
 
         Customer c = new Customer();
         c.setAccount(a_cus);
@@ -107,22 +110,18 @@ public class CreateCustomer extends HttpServlet {
         c.setPersonalID(pid);
         c.setProvince(province);
         c.setDistrict(district);
-        
+
         Account a_staff = (Account) request.getSession().getAttribute("account");
         
         Staff s = new Staff();
         s.setAccount(a_staff);
-        
+
         CustomerStaff cs = new CustomerStaff();
         cs.setCustomer(c);
         cs.setStaff(s);
-        cs.setStartDate(joinDate);
-        
-        CustomerDBContext cdb = new CustomerDBContext();
-        cdb.create(c);
-        
-        CustomerStaffDBContext csdb = new CustomerStaffDBContext();
-        csdb.create(cs);
+
+        StaffDBContext db = new StaffDBContext();
+        db.createCustomer(cs);
     }
 
     /**
