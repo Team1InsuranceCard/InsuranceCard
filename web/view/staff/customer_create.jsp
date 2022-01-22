@@ -16,7 +16,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <main>
       <h1>NEW CUSTOMER</h1>
 
-      <form action="" method="POST">
+      <form action="staff/customer/create" method="POST">
         <div class="form-list">
           <div class="form-item">
             <p class="label">First Name</p>
