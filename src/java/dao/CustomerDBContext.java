@@ -22,6 +22,133 @@ import model.Staff;
  */
 public class CustomerDBContext extends DBContext {
 
+    public Customer getCustomerByEmailNGoogleID(Account acc) {
+        try {
+            Customer customer = new Customer();
+            connection.setAutoCommit(false);
+            String sql_select_account = "SELECT [ID]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[Password]\n"
+                    + "      ,[Role]\n"
+                    + "      ,[Status]\n"
+                    + "      ,[GoogleID]\n"
+                    + "  FROM [Account]\n"
+                    + "  WHERE (Email=? OR GoogleID=?) AND Status=1 AND isDelete=0";
+            PreparedStatement psm_select_account = connection.prepareStatement(sql_select_account);
+            psm_select_account.setNString(1, acc.getEmail());
+            psm_select_account.setNString(2, acc.getGoogleID());
+            ResultSet rs_select_account = psm_select_account.executeQuery();
+            Account account = null;
+            if (rs_select_account.next()) {
+                account = new Account();
+
+                account.setId(rs_select_account.getInt("ID"));
+                account.setEmail(rs_select_account.getNString("Email"));
+                account.setPassword(rs_select_account.getNString("Password"));
+                account.setRole(rs_select_account.getBoolean("Role"));
+                account.setStatus(rs_select_account.getShort("Status"));
+                account.setGoogleID(rs_select_account.getNString("GoogleID"));
+            }
+
+            if (account != null) {
+                if (account.getGoogleID() == null) {
+                    String sql_update_googleID = "UPDATE [Account]\n"
+                            + "   SET[GoogleID] = ?\n"
+                            + " WHERE ID=?";
+                    PreparedStatement psm_update_googleID = connection.prepareStatement(sql_update_googleID);
+                    psm_update_googleID.setString(1, account.getGoogleID());
+                    psm_update_googleID.setInt(2, account.getId());
+                    psm_update_googleID.executeUpdate();
+                }
+
+                customer.setAccount(account);;
+
+                //query get Info Customer from AccountID
+                ////
+            }
+            connection.commit();
+            if (account != null) {
+                return customer;
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+
+//    public void insertCustomerByGoogle(Customer customer) {
+//        try {
+//            connection.setAutoCommit(false);
+//            String sql_insert_account = "INSERT INTO [Account]\n"
+//                    + "           ([Email]\n"
+//                    + "           ,[Role]\n"
+//                    + "           ,[Status]\n"
+//                    + "           ,[GoogleID])\n"
+//                    + "     VALUES\n"
+//                    + "           (?\n"
+//                    + "           ,0\n"
+//                    + "           ,1\n"
+//                    + "           ,?)";
+//            PreparedStatement psm_insert_account = connection.prepareStatement(sql_insert_account);
+//            psm_insert_account.setString(1, customer.getAccount().getEmail());
+//            psm_insert_account.setString(2, customer.getAccount().getGoogleID());
+//            psm_insert_account.executeUpdate();
+//            //select accountId to insert into customer table
+//            String sql_get_accountid = "select @@identity as account_id";
+//            PreparedStatement stm_get_accountid = connection.prepareStatement(sql_get_accountid);
+//            ResultSet rs_accountid = stm_get_accountid.executeQuery();
+//            if (rs_accountid.next()) {
+//                customer.getAccount().setId(rs_accountid.getInt("account_id"));
+//            }
+//            //
+//
+//            String sql_insert_customer = "INSERT INTO [dbo].[Customer]\n"
+//                    + "           ([AccountID]\n"
+//                    + "           ,[FirstName]\n"
+//                    + "           ,[LastName]\n"
+//                    + "           ,[JoinDate])\n"
+//                    + "     VALUES\n"
+//                    + "           (?\n"
+//                    + "           ,?\n"
+//                    + "           ,?\n"
+//                    + "           ,?)";
+//            PreparedStatement psm_insert_customer = connection.prepareStatement(sql_insert_customer);
+//            psm_insert_customer.setInt(1, customer.getAccount().getId());
+//            psm_insert_customer.setNString(2, customer.getFirstName());
+//            psm_insert_customer.setNString(3, customer.getLastName());
+//            psm_insert_customer.setTimestamp(4, customer.getJoinDate());
+//
+//            psm_insert_customer.executeUpdate();
+//            connection.commit();
+//
+//        } catch (SQLException ex) {
+//            try {
+//                connection.rollback();
+//            } catch (SQLException ex1) {
+//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+//            }
+//            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                connection.setAutoCommit(true);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//    }
     public CustomerStaff getCustomerDashboard(int customerID) {
         try {
 //            connection.setAutoCommit(false);
@@ -110,22 +237,25 @@ public class CustomerDBContext extends DBContext {
     public void register(Customer customer, Account account) {
         try {
             connection.setAutoCommit(false);
-            String sql_account = "INSERT INTO [Account]\n"
-                    + "           ([Email]\n"
-                    + "           ,[Password]\n"
-                    + "           ,[Role]\n"
-                    + "           ,[Status]\n"
-                    + "     VALUES\n"
-                    + "           (?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?)";
+            String sql_account = "INSERT INTO [Account]\n" +
+"	([Email]\n" +
+"	,[Password]\n" +
+"	,[Role]\n" +
+"	,[Status]\n" +
+"	,[GoogleID])\n" +
+"	VALUES\n" +
+"	(?\n" +
+"	,?\n" +
+"	,?\n" +
+"	,?\n" +
+"	,?)";
 
             PreparedStatement stm_account = connection.prepareStatement(sql_account);
             stm_account.setString(1, account.getEmail());
             stm_account.setString(2, account.getPassword());
             stm_account.setBoolean(3, false);
             stm_account.setBoolean(4, true);
+            stm_account.setString(5, account.getGoogleID());
             stm_account.executeUpdate();
 
             String sql_get_accountid = "select @@identity as account_id";
@@ -267,7 +397,7 @@ public class CustomerDBContext extends DBContext {
                 Account account = new Account();
                 account.setId(rs.getInt("CustomerID"));
                 account.setEmail(rs.getString("Email"));
-                account.setStatus(rs.getBoolean("Status"));
+                account.setStatus(rs.getShort("Status"));
 
                 customer.setAccount(account);
 
