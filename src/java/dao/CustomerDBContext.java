@@ -328,7 +328,7 @@ public class CustomerDBContext extends DBContext {
             String sql_custaff = "INSERT INTO [Customer_Staff]\n"
                     + "           ([CustomerID]\n"
                     + "           ,[StaffID]\n"
-                    + "           ,[StartDate]\n"
+                    + "           ,[StartDate])\n"
                     + "     VALUES\n"
                     + "           (?\n"
                     + "           ,?\n"
@@ -338,7 +338,8 @@ public class CustomerDBContext extends DBContext {
             stm_custaff.setInt(1, customer.getAccount().getId());
             stm_custaff.setInt(2, staffID);
             stm_custaff.setTimestamp(3, customer.getJoinDate());
-
+            stm_custaff.executeUpdate();
+            
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);

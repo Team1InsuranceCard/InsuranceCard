@@ -56,50 +56,50 @@ public class VerifyEmail extends HttpServlet {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = myDateObj.format(dtf);
         Timestamp ts = Timestamp.valueOf(formattedDate);
-        
+
         request.setCharacterEncoding("UTF-8");
-        
+
         String authCode = (String) request.getSession().getAttribute("authCode");
         String code = request.getParameter("code");
 
         String mess = "";
-        if (code.equals("")) {
+        if (!code.equals(authCode.trim())) {
             mess = "Wrong code! Please check again!";
         } else {
             mess = "Register succesfully!";
-            // xóa seesion
+            // delete seesion
             request.getSession().removeAttribute("authCode");
             Account account = new Account();
             Customer customer = new Customer();
-            
+
             try {
-            String email = (String) request.getSession().getAttribute("email");
-            String phone = (String) request.getSession().getAttribute("phone");
-            String personalID = (String) request.getSession().getAttribute("personalID");
-            String address = (String) request.getSession().getAttribute("address");
-            String firstName = (String) request.getSession().getAttribute("firstName");
-            String lastName = (String) request.getSession().getAttribute("lastName");
-            String dob = (String) request.getSession().getAttribute("dob");
-            String pass = (String) request.getSession().getAttribute("pass");
-            String province = (String) request.getSession().getAttribute("province");
-            String district = (String) request.getSession().getAttribute("district");
+                String email = (String) request.getSession().getAttribute("email");
+                String phone = (String) request.getSession().getAttribute("phone");
+                String personalID = (String) request.getSession().getAttribute("personalID");
+                String address = (String) request.getSession().getAttribute("address");
+                String firstName = (String) request.getSession().getAttribute("firstName");
+                String lastName = (String) request.getSession().getAttribute("lastName");
+                String dob = (String) request.getSession().getAttribute("dob");
+                String pass = (String) request.getSession().getAttribute("pass");
+                String province = (String) request.getSession().getAttribute("province");
+                String district = (String) request.getSession().getAttribute("district");
 
-            account.setEmail(email);
-            account.setPassword(pass);
+                account.setEmail(email);
+                account.setPassword(pass);
 
-            customer.setAccount(account);
-            customer.setPhone(phone);
-            customer.setPersonalID(personalID);
-            customer.setAddress(address);
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.setDob(Date.valueOf(dob));
-            customer.setProvince(province);
-            customer.setDistrict(district);
-            customer.setJoinDate(ts);
-            
-            CustomerDBContext cdb = new CustomerDBContext();
-            cdb.register(customer, account);
+                customer.setAccount(account);
+                customer.setPhone(phone);
+                customer.setPersonalID(personalID);
+                customer.setAddress(address);
+                customer.setFirstName(firstName);
+                customer.setLastName(lastName);
+                customer.setDob(Date.valueOf(dob));
+                customer.setProvince(province);
+                customer.setDistrict(district);
+                customer.setJoinDate(ts);
+
+                CustomerDBContext cdb = new CustomerDBContext();
+                cdb.register(customer, account);
             } catch (IllegalArgumentException iae) {
                 iae.printStackTrace();
             }
