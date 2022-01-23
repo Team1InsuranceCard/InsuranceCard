@@ -10,10 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.Customer;
 import model.CustomerStaff;
-import model.Staff;
 
 /**
  *
