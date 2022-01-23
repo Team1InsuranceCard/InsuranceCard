@@ -5,12 +5,12 @@
  */
 package controller.staff;
 
+import controller.SendMail;
 import dao.AccountDBContext;
-import dao.CustomerDBContext;
-import dao.CustomerStaffDBContext;
+import dao.StaffDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -71,58 +71,99 @@ public class CreateCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         String email = request.getParameter("email");
         String pass = getAlphaNumericString(8);
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
         String address = request.getParameter("address");
         Date dob = Date.valueOf(request.getParameter("dob"));
-        Date joinDate = Date.valueOf(request.getParameter("joinDate"));
+        String joinDate_raw = request.getParameter("joinDate");
+        Timestamp joinDate = Timestamp.valueOf(joinDate_raw.replace("T", " ") + ":00");
         String phone = request.getParameter("phone");
         String pid = request.getParameter("pid");
         String province = request.getParameter("province");
         String district = request.getParameter("district");
+        Boolean isExistEmail = false;
+        Boolean isSuccess = false;
 
         AccountDBContext adb = new AccountDBContext();
         // check if exist account is active with same email
         // true => notify user and re-input
         if (adb.checkExist(email)) {
+            isExistEmail = true;
+        } else {
+            Account a_cus = new Account();
+            a_cus.setEmail(email);
+            a_cus.setPassword(pass);
 
+            Customer cus = new Customer();
+            cus.setAccount(a_cus);
+            cus.setFirstName(fname);
+            cus.setLastName(lname);
+            cus.setAddress(address);
+            cus.setDob(dob);
+            cus.setJoinDate(joinDate);
+            cus.setPhone(phone);
+            cus.setPersonalID(pid);
+            cus.setProvince(province);
+            cus.setDistrict(district);
+
+            Account a_staff = (Account) request.getSession().getAttribute("account");
+
+            Staff s = new Staff();
+            s.setAccount(a_staff);
+
+            CustomerStaff cs = new CustomerStaff();
+            cs.setCustomer(cus);
+            cs.setStaff(s);
+
+            StaffDBContext sdb = new StaffDBContext();
+            sdb.createCustomer(cs);
+            isSuccess = true;
+            request.setAttribute("pass", a_cus.getPassword());
         }
 
-        Account a_cus = new Account();
-        a_cus.setEmail(email);
-        a_cus.setPassword(pass);
-        a_cus.setId(adb.create(a_cus));
+        // set attribute
+        request.setAttribute("fname", fname);
+        request.setAttribute("lname", lname);
+        request.setAttribute("pid", pid);
+        request.setAttribute("email", email);
+        request.setAttribute("dob", dob);
+        request.setAttribute("phone", phone);
+        request.setAttribute("address", address);
+        request.setAttribute("joinDate", joinDate_raw);
+        request.setAttribute("isExistEmail", isExistEmail);
+        request.setAttribute("isSuccess", isSuccess);
 
-        Customer c = new Customer();
-        c.setAccount(a_cus);
-        c.setFirstName(fname);
-        c.setLastName(lname);
-        c.setAddress(address);
-        c.setDob(dob);
-        c.setJoinDate(joinDate);
-        c.setPhone(phone);
-        c.setPersonalID(pid);
-        c.setProvince(province);
-        c.setDistrict(district);
-        
-        Account a_staff = (Account) request.getSession().getAttribute("account");
-        
-        Staff s = new Staff();
-        s.setAccount(a_staff);
-        
-        CustomerStaff cs = new CustomerStaff();
-        cs.setCustomer(c);
-        cs.setStaff(s);
-        cs.setStartDate(joinDate);
-        
-        CustomerDBContext cdb = new CustomerDBContext();
-        cdb.create(c);
-        
-        CustomerStaffDBContext csdb = new CustomerStaffDBContext();
-        csdb.create(cs);
+        if (isSuccess) {
+            // send email for customer: email, password
+            String subject = "INSURANCE CARD SYSTEM";
+            String message = "<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "  <head> </head>\n"
+                    + "  <body>\n"
+                    + "    <h4>Dear,</h4>\n"
+                    + "    <p>\n"
+                    + "      Welcome to Insurace Card. To log in when visiting our site just click\n"
+                    + "      <a href=\"\">Login</a>, and then enter your e-mail address and password.\n"
+                    + "    </p>\n"
+                    + "    <p>Use the following values when prompted to log in:</p>\n"
+                    + "    <p><strong>E-mail</strong>: " + email + "</p>\n"
+                    + "    <p><strong>Password</strong>: " + pass + "</p>\n"
+                    + "    <p>\n"
+                    + "      If you have any questions about your account or any other matter, please\n"
+                    + "      feel free to contact us at\n"
+                    + "      <a href=\"mailto:insurancecard1517@gmail.com\"\n"
+                    + "        >insurancecard1517@gmail.com</a\n"
+                    + "      >.\n"
+                    + "    </p>\n"
+                    + "  </body>\n"
+                    + "</html>";
+            SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
+        }
+
+        request.getRequestDispatcher("../../view/staff/customer_create.jsp").forward(request, response);
     }
 
     /**
