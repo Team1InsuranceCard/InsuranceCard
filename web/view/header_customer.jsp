@@ -40,14 +40,15 @@
                 </li>
                 <li>
                     <a <c:if test="${current == 'contacts'}">class="active"</c:if> href="">Contacts</a>
-                </li>
-            </ul>
-        </div>
-        <div class="header-element" style="width: 20em;">
-            <div class="user-role">
-                <a href=""><img src="${root}/asset/image/icon_bell.png" alt="bell" /></a>
+            </li>
+        </ul>
+    </div>
+    <div class="header-element" style="width: 20em;">
+        <div class="user-role">
+            <a href=""><img src="${root}/asset/image/icon_bell.png" alt="bell" /></a>
             <a href=""><img src="${root}/asset/image/icon_user.png" alt="bell" /></a>
         </div>
     </div>
 </div>
 
+        
