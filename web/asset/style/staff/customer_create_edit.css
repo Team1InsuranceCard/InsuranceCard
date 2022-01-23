@@ -7,8 +7,7 @@ body {
 main {
   margin-top: 73px;
   margin-left: 290px;
-  padding: 50px 10px 50px 70px;
-  box-sizing: border-box;
+  padding: 50px 70px 60px 70px;
 }
 
 h1 {
@@ -52,6 +51,7 @@ h1 {
   display: flex;
   justify-content: flex-end;
   margin-right: 150px;
+  margin-bottom: 35px;
 }
 
 .btn {
@@ -59,8 +59,9 @@ h1 {
   padding: 10px 12px;
   font-size: 18px;
   border-radius: 4px;
-  width: 98px;
+  min-width: 80px;
   text-align: center;
+  box-sizing: content-box;
 }
 
 .form-btn .create-btn {
@@ -84,4 +85,39 @@ h1 {
 .form-btn .create-btn:hover,
 .form-btn .cancel-btn:hover {
   opacity: 0.6;
+}
+
+.mess-box {
+  display: none;
+  align-items: center;
+  padding: 20px 15px;
+  border-radius: 3px;
+}
+
+.mess-warning {
+  background-color: rgba(220, 123, 123, 0.51);
+  border: 1px solid #7b0b0b;
+}
+
+.mess-success {
+  background-color: rgba(149, 230, 136, 0.51);
+  border: 1px solid #057e18;
+}
+
+.mess-icon {
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+.mess {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mess-warning .mess {
+  color: #941010;
+}
+
+.mess-success .mess {
+  color: #237d15;
 }

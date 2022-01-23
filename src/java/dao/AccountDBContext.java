@@ -11,13 +11,40 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
-import model.Customer;
 
 /**
  *
  * @author area1
  */
 public class AccountDBContext extends DBContext {
+
+    public Account getAccount(String user, String pass) {
+        try {
+            String sql = "select ID, Email, [Password], [Role], [Status]\n"
+                    + "from Account\n"
+                    + "where Email = ?\n"
+                    + "and [Password] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user);
+            stm.setString(2, pass);
+            ResultSet rs = stm.executeQuery();
+            Account a = null;
+            while (rs.next()) {
+                if (a == null) {
+                    a = new Account();
+                    a.setId(rs.getInt("ID"));
+                    a.setEmail(rs.getString("Email"));
+                    a.setPassword(rs.getString("Password"));
+                    a.setRole(rs.getBoolean("Role"));
+                    a.setStatus(rs.getBoolean("Status"));
+                }
+            }
+            return a;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public boolean checkExist(String email) {
         try {
@@ -33,29 +60,6 @@ public class AccountDBContext extends DBContext {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-
-    public int create(Account a) {
-        try {
-            String sql = "INSERT INTO Account\n"
-                    + "(Email, Password, Role, Status, isDelete)\n"
-                    + "VALUES (?, ?, 0, 1, 0)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, a.getEmail());
-            ps.setString(2, a.getPassword());
-            ps.executeUpdate();
-            
-            // get account id            
-            String sql_get_id = "select @@IDENTITY as aid";
-            PreparedStatement ps_get_id = connection.prepareStatement(sql);
-            ResultSet rs_get_id = ps_get_id.executeQuery();
-            if (rs_get_id.next()) {
-                return rs_get_id.getInt("aid");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return -1;
     }
 
 }
