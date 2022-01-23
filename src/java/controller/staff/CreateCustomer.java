@@ -71,7 +71,7 @@ public class CreateCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         String pass = getAlphaNumericString(8);
         String fname = request.getParameter("fname");
@@ -133,6 +133,8 @@ public class CreateCustomer extends HttpServlet {
         request.setAttribute("phone", phone);
         request.setAttribute("address", address);
         request.setAttribute("joinDate", joinDate_raw);
+        request.setAttribute("province", province);
+        request.setAttribute("district", district);
         request.setAttribute("isExistEmail", isExistEmail);
         request.setAttribute("isSuccess", isSuccess);
 
