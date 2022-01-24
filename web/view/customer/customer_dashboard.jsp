@@ -9,6 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com"/>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="asset/script/google_login.js" defer></script>
         <title>JSP Page</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -372,20 +373,5 @@
             </div>
         </main>
         <jsp:include page="../footer_full.jsp"></jsp:include>
-        <script>
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    console.log('User signed out.');
-                    auth2.disconnect();
-                });
-            }
-            function onLoad() {
-                gapi.load('auth2', function () {
-                    gapi.auth2.init();
-                });
-            }
-            onLoad();
-        </script>
     </body>
 </html>
