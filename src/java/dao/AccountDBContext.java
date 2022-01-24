@@ -36,7 +36,7 @@ public class AccountDBContext extends DBContext {
                     a.setEmail(rs.getString("Email"));
                     a.setPassword(rs.getString("Password"));
                     a.setRole(rs.getBoolean("Role"));
-                    a.setStatus(rs.getBoolean("Status"));
+                    a.setStatus(rs.getShort("Status"));
                 }
             }
             return a;
