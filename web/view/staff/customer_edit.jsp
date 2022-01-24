@@ -26,7 +26,7 @@
                 <div class="mess-box mess-success" 
                      style="${requestScope.isSuccess ? "display:flex;" : ""}">
                     <img src="asset/image/icon_approve.png" alt="" class="mess-icon" />
-                    <p class="mess">Your customer has been sucessfully created!</p>
+                    <p class="mess">Success! Your submission has been saved!</p>
                 </div>
 
                 <form>
@@ -52,18 +52,6 @@
                                     <option value="0">Inactive</option>
                                     <option value="1">Active</option>
                                 </select>
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Joining Date</p>
-                                <input
-                                    class="form-input"
-                                    type="datetime-local"
-                                    id="joinDate"
-                                    name="joinDate"
-                                    value="${requestScope.joinDate}"
-                                    required
-                                    />
                             </div>
                         </div>
 
@@ -169,7 +157,34 @@
                                     />
                             </div>
                         </div>
-                    </div>
+
+                        <h2>Other Information</h2>
+                        <hr>
+                        <div class="section">
+                            <div class="form-item">
+                                <p class="label">Staff</p>
+                                <input
+                                    class="form-input"
+                                    type="text"
+                                    name="staff"
+                                    value="${requestScope.staff}"
+                                    required
+                                    />
+                            </div>
+
+                            <div class="form-item">
+                                <p class="label">Joining Date</p>
+                                <input
+                                    class="form-input"
+                                    type="datetime-local"
+                                    id="joinDate"
+                                    name="joinDate"
+                                    value="${requestScope.joinDate}"
+                                    required
+                                    />
+                            </div>
+                        </div>
+                    </div>                    
 
                     <div class="form-btn">
                         <input class="btn save-btn" type="submit" value="Update" />
