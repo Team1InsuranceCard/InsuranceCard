@@ -72,37 +72,36 @@ public class VerifyEmail extends HttpServlet {
             Account account = new Account();
             Customer customer = new Customer();
 
-            try {
-                String email = (String) request.getSession().getAttribute("email");
-                String phone = (String) request.getSession().getAttribute("phone");
-                String personalID = (String) request.getSession().getAttribute("personalID");
-                String address = (String) request.getSession().getAttribute("address");
-                String firstName = (String) request.getSession().getAttribute("firstName");
-                String lastName = (String) request.getSession().getAttribute("lastName");
-                String dob = (String) request.getSession().getAttribute("dob");
-                String pass = (String) request.getSession().getAttribute("pass");
-                String province = (String) request.getSession().getAttribute("province");
-                String district = (String) request.getSession().getAttribute("district");
+            String email = (String) request.getSession().getAttribute("email");
+            String phone = (String) request.getSession().getAttribute("phone");
+            String personalID = (String) request.getSession().getAttribute("personalID");
+            String address = (String) request.getSession().getAttribute("address");
+            String firstName = (String) request.getSession().getAttribute("firstName");
+            String lastName = (String) request.getSession().getAttribute("lastName");
+            String dob = (String) request.getSession().getAttribute("dob");
+            String pass = (String) request.getSession().getAttribute("pass");
+            String province = (String) request.getSession().getAttribute("province");
+            String district = (String) request.getSession().getAttribute("district");
+            String googleID = (String) request.getSession().getAttribute("google_id");
 
-                account.setEmail(email);
-                account.setPassword(pass);
+            account.setEmail(email);
+            account.setPassword(pass);
+            account.setGoogleID(googleID);
 
-                customer.setAccount(account);
-                customer.setPhone(phone);
-                customer.setPersonalID(personalID);
-                customer.setAddress(address);
-                customer.setFirstName(firstName);
-                customer.setLastName(lastName);
-                customer.setDob(Date.valueOf(dob));
-                customer.setProvince(province);
-                customer.setDistrict(district);
-                customer.setJoinDate(ts);
+            customer.setAccount(account);
+            customer.setPhone(phone);
+            customer.setPersonalID(personalID);
+            customer.setAddress(address);
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.setDob((dob == null) ? null : Date.valueOf(dob));
+            customer.setProvince(province);
+            customer.setDistrict(district);
+            customer.setJoinDate(ts);
 
-                CustomerDBContext cdb = new CustomerDBContext();
-                cdb.register(customer, account);
-            } catch (IllegalArgumentException iae) {
-                iae.printStackTrace();
-            }
+            CustomerDBContext cdb = new CustomerDBContext();
+            cdb.register(customer, account);
+
         }
         request.setAttribute("mess", mess);
         request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);

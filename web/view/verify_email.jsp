@@ -9,9 +9,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <base href="${pageContext.request.contextPath}/"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
-        <link rel="icon" href="../asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <Link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/verify_email.css" rel="stylesheet" type="text/css"/>
         <c:set var="rs" value="${requestScope}"/>

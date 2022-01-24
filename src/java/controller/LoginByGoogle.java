@@ -91,24 +91,71 @@ public class LoginByGoogle extends HttpServlet {
         String given_name = request.getParameter("given_name");
         String googleID = request.getParameter("id");
 
-        Account account = new Account();
-        account.setEmail(email);
-        account.setGoogleID(googleID);
-
+//        Account account = new Account();
+//        account.setEmail(email);
+//        account.setGoogleID(googleID);
         CustomerDBContext customerDBC = new CustomerDBContext();
-        Customer customer = customerDBC.getCustomerByEmailNGoogleID(account);
+        Account customer = customerDBC.getCustomerByEmailNGoogleID(email, googleID);
         if (customer != null) {
-            request.getSession().setAttribute("current_user", customer);
+            request.getSession().setAttribute("account", customer);
+            response.sendRedirect("../customer/dashboard");
         } else {
-            Customer signupCustomer = new Customer();
-            signupCustomer.setFirstName(family_name);
-            signupCustomer.setLastName(given_name);
+//            Customer signupCustomer = new Customer();
+//            signupCustomer.setFirstName(family_name);
+//            signupCustomer.setLastName(given_name);
+//
+//            LocalDateTime myDateObj = LocalDateTime.now();
+//            Timestamp joinDate = Timestamp.valueOf(myDateObj);
+//            signupCustomer.setJoinDate(joinDate);
 
-            LocalDateTime myDateObj = LocalDateTime.now();
-            Timestamp joinDate = Timestamp.valueOf(myDateObj);
-            signupCustomer.setJoinDate(joinDate);
+//            Account account = new Account();
+//            account.setEmail(email);
+//            account.setGoogleID(googleID);
+            int n = 8;
+            String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    + "0123456789"
+                    + "abcdefghijklmnopqrstuvxyz";
+            StringBuilder sb = new StringBuilder(n);
+            
+            for (int i = 0; i < n; i++) {
+                int index = (int) (AlphaNumericString.length() * Math.random());
+                sb.append(AlphaNumericString.charAt(index));
+            }
 
-            customerDBC.register(customer, account);
+            String subject = "INSURANCE CARD SYSTEM";
+            String message = "<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "\n"
+                    + "<head>\n"
+                    + "</head>\n"
+                    + "\n"
+                    + "<body>\n"
+                    + "    <div style=\"font-weight: bold;\">Your verify code: "
+                    + "</div>\n"
+                    + "    <div style=\"font-weight: bold;\">" + sb.toString()
+                    + "</div>\n"
+                    + "\n"
+                    + "</body>\n"
+                    + "\n"
+                    + "</html>";
+            SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
+        
+            request.getSession().setAttribute("email", email);
+//            request.getSession().setAttribute("phone", phone);
+//            request.getSession().setAttribute("personalID", personalID);
+//            request.getSession().setAttribute("address", address);
+            request.getSession().setAttribute("firstName", family_name);
+            request.getSession().setAttribute("lastName", given_name);
+//            request.getSession().setAttribute("dob", dob);
+//            request.getSession().setAttribute("pass", pass);
+//            request.getSession().setAttribute("province", province);
+//            request.getSession().setAttribute("district", district);
+            request.getSession().setAttribute("google_id", googleID);
+            request.getSession().setAttribute("authCode", sb.toString());
+            request.getRequestDispatcher("../view/verify_email.jsp").forward(request, response);
+            
+           
+//            customerDBC.register(signupCustomer, account);
         }
     }
 

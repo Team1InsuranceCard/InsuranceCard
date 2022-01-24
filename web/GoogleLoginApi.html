@@ -5,24 +5,38 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
-
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>Document</title>
     </head>
     <body>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <script>
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+            }
+        </script>
+        <script>
             function onSignIn(googleUser) {
                 var profile = googleUser.getBasicProfile();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-                console.log('Family Name: ' + profile.getFamilyName());
-                console.log('Given Name: ' + profile.getGivenName());
+//                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//                console.log('Name: ' + profile.getName());
+//                console.log('Image URL: ' + profile.getImageUrl());
+//                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+//                console.log('Family Name: ' + profile.getFamilyName());
+//                console.log('Given Name: ' + profile.getGivenName());
 
+
+                var id = profile.getId();
+                var name = !profile.getName()? "" : profile.getName();
+                var image = !profile.getImageUrl() ? "" : profile.getImageUrl();
+                var email = (!profile.getEmail()) ? "" : profile.getEmail();
+                var family_name = !profile.getFamilyName() ? "" : profile.getFamilyName();
+                var given_name = !profile.getGivenName() ? "" : profile.getGivenName();
                 post_to_url("login/google",
-                        {submit: "submit", id: profile.getId(), name: profile.getName(), email: profile.getEmail(), family_name: profile.getFamilyName(), given_name: profile.getGivenName()});
+                        {submit: "submit", id: id, name: name, email: email, family_name: family_name, given_name: given_name});
             }
             function post_to_url(path, params, method) {
                 method = method || "post";
