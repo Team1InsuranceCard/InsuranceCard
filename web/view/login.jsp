@@ -30,17 +30,15 @@
                 </div>
 
                 <c:if test="${requestScope.alert != null}">
-                <div class="alert">
-                    <div class="alert-danger">
-                        ${requestScope.alert}
+                    <div class="alert">
+                        <div class="alert-danger">
+                            ${requestScope.alert}
+                        </div>
                     </div>
-                </div>
                 </c:if>
 
                 <div class="username"><input class="input100" type="email" name="user" value="${requestScope.username}" placeholder="Email" required/></div>
                 <div class="img-user"><img src="asset/image/user_1.png" alt="UserIcon"/></div>
-
-
                 <div class="password"><input class="input100" type="password" name="pass" pattern="[a-zA-Z0-9@]+" value="${requestScope.password}" placeholder="Password" required></div>
                 <div class="img-pass"><img src="asset/image/password_1.png" alt="PassIcon"/></div>
 
@@ -49,22 +47,18 @@
                         <span class="checkmark"></span><span>Remember Me?</span>
                     </label>
                 </div>
-
                 <div class="logbutton">
                     <input type="submit" name="log" value="LOGIN">
                 </div>
-
                 <div class="forgot-sign">
                     <div class="forgot"><a href="#">Forgot Password?</a></div>
                     <div class="sign"><a href="#">Sign Up</a></div>
                 </div>
-
                 <div class="quick-log">
                     <div class="google">
                         <img src="asset/image/gg_icon.png" alt=""/>
                         <input type="button" name="gg" value="Google">
                     </div>
-
                 </div>
             </form>
         </div>
