@@ -16,7 +16,8 @@ import model.Account;
  *
  * @author area1
  */
-public class AccountDBContext extends DBContext{
+public class AccountDBContext extends DBContext {
+
     public Account getAccount(String user, String pass) {
         try {
             String sql = "select ID, Email, [Password], [Role], [Status]\n"
@@ -44,4 +45,21 @@ public class AccountDBContext extends DBContext{
         }
         return null;
     }
+
+    public boolean checkExist(String email) {
+        try {
+            String sql = "select * from Account\n"
+                    + "where Email = ? and Status = 1";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }
