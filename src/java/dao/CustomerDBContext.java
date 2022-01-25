@@ -8,6 +8,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,7 +88,8 @@ public class CustomerDBContext extends DBContext {
                     + "	   ,Account.Email\n"
                     + "  FROM [Customer]\n"
                     + "  INNER JOIN Account\n"
-                    + "  ON Account.ID = Customer.AccountID";
+                    + "  ON Account.ID = Customer.AccountID"
+                    + "  WHERE Customer.PersonalID is not NULL";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
 
@@ -209,7 +211,7 @@ public class CustomerDBContext extends DBContext {
             stm_custaff.setInt(2, staffID);
             stm_custaff.setTimestamp(3, customer.getJoinDate());
             stm_custaff.executeUpdate();
-            
+
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
