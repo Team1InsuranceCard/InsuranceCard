@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.GoogleAuthen;
 
+import controller.*;
 import dao.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +24,7 @@ import model.Customer;
  *
  * @author ASUS
  */
-public class VerifyEmail extends HttpServlet {
+public class VerifyGoogleEmail extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,7 +39,7 @@ public class VerifyEmail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/google/verify_email.jsp").forward(request, response);
     }
 
     /**
@@ -82,17 +83,19 @@ public class VerifyEmail extends HttpServlet {
             String pass = (String) request.getSession().getAttribute("pass");
             String province = (String) request.getSession().getAttribute("province");
             String district = (String) request.getSession().getAttribute("district");
+            String googleID = (String) request.getSession().getAttribute("google_id");
 
             account.setEmail(email);
             account.setPassword(pass);
+            account.setGoogleID(googleID);
 
             customer.setAccount(account);
             customer.setPhone(phone);
             customer.setPersonalID(personalID);
             customer.setAddress(address);
-            customer.setDob(Date.valueOf(dob));
             customer.setFirstName(firstName);
             customer.setLastName(lastName);
+            customer.setDob((dob == null) ? null : Date.valueOf(dob));
             customer.setProvince(province);
             customer.setDistrict(district);
             customer.setJoinDate(ts);
@@ -102,7 +105,7 @@ public class VerifyEmail extends HttpServlet {
 
         }
         request.setAttribute("mess", mess);
-        request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/google/verify_email.jsp").forward(request, response);
     }
 
     /**
