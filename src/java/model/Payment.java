@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,17 +16,17 @@ public class Payment {
 
     private int id;
     private Contract contractID;
-    private Date paidDate;
+    private Timestamp paidDate;
     private String paymentMethod;
     private String note;
     private double amount;
-    private Date startDate;
+    private Timestamp startDate;
 
     public Payment() {
     }
 
     
-    public Payment(int id, Contract contractID, Date paidDate, String paymentMethod, String note, double amount, Date startDate) {
+    public Payment(int id, Contract contractID, Timestamp paidDate, String paymentMethod, String note, double amount, Timestamp startDate) {
         this.id = id;
         this.contractID = contractID;
         this.paidDate = paidDate;
@@ -52,11 +53,11 @@ public class Payment {
         this.contractID = contractID;
     }
 
-    public Date getPaidDate() {
+    public Timestamp getPaidDate() {
         return paidDate;
     }
 
-    public void setPaidDate(Date paidDate) {
+    public void setPaidDate(Timestamp paidDate) {
         this.paidDate = paidDate;
     }
 
@@ -84,12 +85,11 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
-    
 }
