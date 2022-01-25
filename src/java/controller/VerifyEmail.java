@@ -52,56 +52,79 @@ public class VerifyEmail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = myDateObj.format(dtf);
-        Timestamp ts = Timestamp.valueOf(formattedDate);
-
         request.setCharacterEncoding("UTF-8");
-
-        String authCode = (String) request.getSession().getAttribute("authCode");
-        String code = request.getParameter("code");
-
+        
+        String btn = request.getParameter("btn-submit");
         String mess = "";
-        if (!code.equals(authCode.trim())) {
-            mess = "Wrong code! Please check again!";
+        String authCode = (String) request.getSession().getAttribute("authCode");
+        String email = (String) request.getSession().getAttribute("email");
+        
+        if (btn.equals("Submit")) {
+            LocalDateTime myDateObj = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = myDateObj.format(dtf);
+            Timestamp ts = Timestamp.valueOf(formattedDate);           
+            
+            String code = request.getParameter("code");
+
+            if (!code.equals(authCode.trim())) {
+                mess = "Wrong code! Please check again!";
+            } else {
+                mess = "Register succesfully!";
+                // delete seesion
+                request.getSession().removeAttribute("authCode");
+                Account account = new Account();
+                Customer customer = new Customer();
+                
+                String phone = (String) request.getSession().getAttribute("phone");
+                String personalID = (String) request.getSession().getAttribute("personalID");
+                String address = (String) request.getSession().getAttribute("address");
+                String firstName = (String) request.getSession().getAttribute("firstName");
+                String lastName = (String) request.getSession().getAttribute("lastName");
+                String dob = (String) request.getSession().getAttribute("dob");
+                String pass = (String) request.getSession().getAttribute("pass");
+                String province = (String) request.getSession().getAttribute("province");
+                String district = (String) request.getSession().getAttribute("district");
+                String googleID = (String) request.getSession().getAttribute("google_id");
+
+                account.setEmail(email);
+                account.setPassword(pass);
+                account.setGoogleID(googleID);
+
+                customer.setAccount(account);
+                customer.setPhone(phone);
+                customer.setPersonalID(personalID);
+                customer.setAddress(address);
+                customer.setFirstName(firstName);
+                customer.setLastName(lastName);
+                customer.setDob((dob == null) ? null : Date.valueOf(dob));
+                customer.setProvince(province);
+                customer.setDistrict(district);
+                customer.setJoinDate(ts);
+
+                CustomerDBContext cdb = new CustomerDBContext();
+                cdb.register(customer, account);
+
+            }
         } else {
-            mess = "Register succesfully!";
-            // delete seesion
-            request.getSession().removeAttribute("authCode");
-            Account account = new Account();
-            Customer customer = new Customer();
-
-            String email = (String) request.getSession().getAttribute("email");
-            String phone = (String) request.getSession().getAttribute("phone");
-            String personalID = (String) request.getSession().getAttribute("personalID");
-            String address = (String) request.getSession().getAttribute("address");
-            String firstName = (String) request.getSession().getAttribute("firstName");
-            String lastName = (String) request.getSession().getAttribute("lastName");
-            String dob = (String) request.getSession().getAttribute("dob");
-            String pass = (String) request.getSession().getAttribute("pass");
-            String province = (String) request.getSession().getAttribute("province");
-            String district = (String) request.getSession().getAttribute("district");
-            String googleID = (String) request.getSession().getAttribute("google_id");
-
-            account.setEmail(email);
-            account.setPassword(pass);
-            account.setGoogleID(googleID);
-
-            customer.setAccount(account);
-            customer.setPhone(phone);
-            customer.setPersonalID(personalID);
-            customer.setAddress(address);
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.setDob((dob == null) ? null : Date.valueOf(dob));
-            customer.setProvince(province);
-            customer.setDistrict(district);
-            customer.setJoinDate(ts);
-
-            CustomerDBContext cdb = new CustomerDBContext();
-            cdb.register(customer, account);
-
+            String subject = "INSURANCE CARD SYSTEM";
+            String message = "<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "\n"
+                    + "<head>\n"
+                    + "</head>\n"
+                    + "\n"
+                    + "<body>\n"
+                    + "    <div style=\"font-weight: bold;\">Your verify code: "
+                    + "</div>\n"
+                    + "    <div style=\"font-weight: bold;\">" + authCode
+                    + "</div>\n"
+                    + "\n"
+                    + "</body>\n"
+                    + "\n"
+                    + "</html>";
+            SendMail.send(email,subject, message, "insurancecard1517@gmail.com", "team1se1517");
+            mess = "Code had resent. Please check again!";
         }
         request.setAttribute("mess", mess);
         request.getRequestDispatcher("view/verify_email.jsp").forward(request, response);
