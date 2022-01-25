@@ -49,7 +49,7 @@ public class CustomerDBContext extends DBContext {
                 account.setRole(rs_select_account.getBoolean("Role"));
                 account.setStatus(rs_select_account.getShort("Status"));
                 String gettingGoogleID = rs_select_account.getString("GoogleID");
-                if(gettingGoogleID == null){
+                if (gettingGoogleID == null) {
                     gettingGoogleID = "";
                 }
                 account.setGoogleID(gettingGoogleID);
