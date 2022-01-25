@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.GoogleAuthen;
 
+import controller.SendMail;
 import dao.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,40 +78,19 @@ public class LoginByGoogle extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-
-//        ID: 117772045812347420828
-//GoogleLoginApi.html:18 Name: Khánh Huy Nguyễn
-//GoogleLoginApi.html:19 Image URL: https://lh3.googleusercontent.com/a-/AOh14Gi4Fe_SU0NH7xKANJ8QoE6N8BShoZ-AesR8_CnbFw=s96-c
-//GoogleLoginApi.html:20 Email: area1110@outlook.com
-//GoogleLoginApi.html:21 Family Name: Nguyễn
-//GoogleLoginApi.html:22 Given Name: Khánh Huy
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String family_name = request.getParameter("family_name");
         String given_name = request.getParameter("given_name");
         String googleID = request.getParameter("id");
 
-//        Account account = new Account();
-//        account.setEmail(email);
-//        account.setGoogleID(googleID);
+
         CustomerDBContext customerDBC = new CustomerDBContext();
         Account customer = customerDBC.getCustomerByEmailNGoogleID(email, googleID);
         if (customer != null) {
             request.getSession().setAttribute("account", customer);
             response.sendRedirect("../customer/dashboard");
         } else {
-//            Customer signupCustomer = new Customer();
-//            signupCustomer.setFirstName(family_name);
-//            signupCustomer.setLastName(given_name);
-//
-//            LocalDateTime myDateObj = LocalDateTime.now();
-//            Timestamp joinDate = Timestamp.valueOf(myDateObj);
-//            signupCustomer.setJoinDate(joinDate);
-
-//            Account account = new Account();
-//            account.setEmail(email);
-//            account.setGoogleID(googleID);
             int n = 8;
             String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     + "0123456789"
@@ -139,23 +119,12 @@ public class LoginByGoogle extends HttpServlet {
                     + "\n"
                     + "</html>";
             SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
-        
             request.getSession().setAttribute("email", email);
-//            request.getSession().setAttribute("phone", phone);
-//            request.getSession().setAttribute("personalID", personalID);
-//            request.getSession().setAttribute("address", address);
             request.getSession().setAttribute("firstName", family_name);
             request.getSession().setAttribute("lastName", given_name);
-//            request.getSession().setAttribute("dob", dob);
-//            request.getSession().setAttribute("pass", pass);
-//            request.getSession().setAttribute("province", province);
-//            request.getSession().setAttribute("district", district);
             request.getSession().setAttribute("google_id", googleID);
             request.getSession().setAttribute("authCode", sb.toString());
-            request.getRequestDispatcher("../view/verify_email.jsp").forward(request, response);
-            
-           
-//            customerDBC.register(signupCustomer, account);
+            request.getRequestDispatcher("../../view/google/verify_google_email.jsp").forward(request, response);          
         }
     }
 
