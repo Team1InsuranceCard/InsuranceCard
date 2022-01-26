@@ -239,6 +239,21 @@
                     });
                 });
             });
+
+            var district = $('select[name="calc_shipping_district"]').html();
+            $('select[name="calc_shipping_district"]').on(
+                    "change",
+                    function () {
+                        var target = $(this).children("option:selected");
+                        target.attr("selected", "");
+                        $('select[name="calc_shipping_district"] option')
+                                .not(target)
+                                .removeAttr("selected");
+                        var address_2 = target.text();
+                        $("input.billing_address_2").attr("value", address_2);
+                        district = $('select[name="calc_shipping_district"]').html();
+                    }
+            );
         </script>
 
         <!-- set previous value for province, district -->
