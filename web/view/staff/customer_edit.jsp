@@ -132,7 +132,9 @@
 
                             <div class="form-item">
                                 <p class="label">District</p>
-                                <select class="form-input" name="calc_shipping_district" id="district" required>
+                                <select class="form-input" 
+                                        name="calc_shipping_district" 
+                                        id="district" required>
                                     <option value=""></option>
                                 </select>
                                 <input
@@ -338,38 +340,46 @@
                                 i = $this.children("option:selected").index() - 1;
                                 var str = "",
                                         r = $this.val();
-                                if (r != "") {
-                                    arr[i].forEach(function (el) {
-                                        str += '<option value="' + el + '">' + el + "</option>";
-                                        $('select[name="calc_shipping_district"]').html(
-                                                '<option value="">Districts</option>' + str
-                                                );
-                                    });
-                                    var address_1 = $this.children("option:selected").text();
-                                    var district = $('select[name="calc_shipping_district"]').html();
-                                    $('select[name="calc_shipping_district"]').on(
-                                            "change",
-                                            function () {
-                                                var target = $(this).children("option:selected");
-                                                target.attr("selected", "");
-                                                $('select[name="calc_shipping_district"] option')
-                                                        .not(target)
-                                                        .removeAttr("selected");
-                                                var address_2 = target.text();
-                                                $("input.billing_address_2").attr("value", address_2);
-                                                district = $('select[name="calc_shipping_district"]').html();
-                                            }
-                                    );
-                                    $("input.billing_address_1").attr("value", address_1);
-                                } else {
+                                arr[i].forEach(function (el) {
+                                    str += '<option value="' + el + '">' + el + "</option>";
                                     $('select[name="calc_shipping_district"]').html(
-                                            '<option value="">Districts</option>'
+                                            '<option value="">Districts</option>' + str
                                             );
-                                    district = $('select[name="calc_shipping_district"]').html();
-                                }
+                                });
+                                var address_1 = $this.children("option:selected").text();
+                                var district = $('select[name="calc_shipping_district"]').html();
+                                $('select[name="calc_shipping_district"]').on(
+                                        "change",
+                                        function () {
+                                            var target = $(this).children("option:selected");
+                                            target.attr("selected", "");
+                                            $('select[name="calc_shipping_district"] option')
+                                                    .not(target)
+                                                    .removeAttr("selected");
+                                            var address_2 = target.text();
+                                            $("input.billing_address_2").attr("value", address_2);
+                                            district = $('select[name="calc_shipping_district"]').html();
+                                        }
+                                );
+                                $("input.billing_address_1").attr("value", address_1);
                             });
                         });
                     });
+
+                    var district = $('select[name="calc_shipping_district"]').html();
+                    $('select[name="calc_shipping_district"]').on(
+                            "change",
+                            function () {
+                                var target = $(this).children("option:selected");
+                                target.attr("selected", "");
+                                $('select[name="calc_shipping_district"] option')
+                                        .not(target)
+                                        .removeAttr("selected");
+                                var address_2 = target.text();
+                                $("input.billing_address_2").attr("value", address_2);
+                                district = $('select[name="calc_shipping_district"]').html();
+                            }
+                    );
             </script>
 
             <!-- set previous value for province, district -->
