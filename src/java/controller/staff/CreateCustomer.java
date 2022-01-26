@@ -7,7 +7,7 @@ package controller.staff;
 
 import controller.SendMail;
 import dao.AccountDBContext;
-import dao.StaffDBContext;
+import dao.CustomerDBContext;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -46,6 +46,10 @@ public class CreateCustomer extends HttpServlet {
 
         return sb.toString();
     }
+    
+    private Timestamp datetimeLocalToTimestamp(String datetimeLocal) {
+        return Timestamp.valueOf(datetimeLocal.replace("T", " ") + ":00");
+    }
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -78,8 +82,7 @@ public class CreateCustomer extends HttpServlet {
         String lname = request.getParameter("lname");
         String address = request.getParameter("address");
         Date dob = Date.valueOf(request.getParameter("dob"));
-        String joinDate_raw = request.getParameter("joinDate");
-        Timestamp joinDate = Timestamp.valueOf(joinDate_raw.replace("T", " ") + ":00");
+        String joinDate = request.getParameter("joinDate");
         String phone = request.getParameter("phone");
         String pid = request.getParameter("pid");
         String province = request.getParameter("province");
@@ -87,23 +90,23 @@ public class CreateCustomer extends HttpServlet {
         Boolean isExistEmail = false;
         Boolean isSuccess = false;
 
-        AccountDBContext adb = new AccountDBContext();
+        AccountDBContext accDb = new AccountDBContext();
         // check if exist account is active with same email
         // true => notify user and re-input
-        if (adb.checkExist(email)) {
+        if (accDb.checkExist(email)) {
             isExistEmail = true;
         } else {
-            Account a_cus = new Account();
-            a_cus.setEmail(email);
-            a_cus.setPassword(pass);
+            Account cusAcc = new Account();
+            cusAcc.setEmail(email);
+            cusAcc.setPassword(pass);
 
             Customer cus = new Customer();
-            cus.setAccount(a_cus);
+            cus.setAccount(cusAcc);
             cus.setFirstName(fname);
             cus.setLastName(lname);
             cus.setAddress(address);
             cus.setDob(dob);
-            cus.setJoinDate(joinDate);
+            cus.setJoinDate(datetimeLocalToTimestamp(joinDate));
             cus.setPhone(phone);
             cus.setPersonalID(pid);
             cus.setProvince(province);
@@ -114,14 +117,14 @@ public class CreateCustomer extends HttpServlet {
             Staff s = new Staff();
             s.setAccount(a_staff);
 
-            CustomerStaff cs = new CustomerStaff();
-            cs.setCustomer(cus);
-            cs.setStaff(s);
+            CustomerStaff cusStaff = new CustomerStaff();
+            cusStaff.setCustomer(cus);
+            cusStaff.setStaff(s);
 
-            StaffDBContext sdb = new StaffDBContext();
-            sdb.createCustomer(cs);
+            CustomerDBContext cusDb = new CustomerDBContext();
+            cusDb.staffCreateCustomer(cusStaff);
             isSuccess = true;
-            request.setAttribute("pass", a_cus.getPassword());
+            request.setAttribute("pass", cusAcc.getPassword());
         }
 
         // set attribute
@@ -132,7 +135,7 @@ public class CreateCustomer extends HttpServlet {
         request.setAttribute("dob", dob);
         request.setAttribute("phone", phone);
         request.setAttribute("address", address);
-        request.setAttribute("joinDate", joinDate_raw);
+        request.setAttribute("joinDate", joinDate);
         request.setAttribute("province", province);
         request.setAttribute("district", district);
         request.setAttribute("isExistEmail", isExistEmail);

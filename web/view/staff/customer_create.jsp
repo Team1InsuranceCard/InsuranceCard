@@ -157,7 +157,7 @@
 
                 <div class="form-btn">
                     <input class="btn create-btn" type="submit" value="Create" />
-                    <a href="" class="btn cancel-btn">Cancel</a>
+                    <a href="staff/dashboard" class="btn cancel-btn">Cancel</a>
                 </div>
             </form>
         </main>
@@ -168,26 +168,28 @@
 
         <!-- auto joinDate = current date -->
         <script>
-            var joinDateElm = document.getElementById("joinDate");
-            var now = new Date();
-            var utcString = now.toISOString().substring(0, 19);
-            var year = now.getFullYear();
-            var month = now.getMonth() + 1;
-            var day = now.getDate();
-            var hour = now.getHours();
-            var minute = now.getMinutes();
-            var second = now.getSeconds();
-            var localDatetime =
-                    year +
-                    "-" +
-                    (month < 10 ? "0" + month.toString() : month) +
-                    "-" +
-                    (day < 10 ? "0" + day.toString() : day) +
-                    "T" +
-                    (hour < 10 ? "0" + hour.toString() : hour) +
-                    ":" +
-                    (minute < 10 ? "0" + minute.toString() : minute);
-            joinDateElm.value = localDatetime;
+            if (${empty requestScope.joinDate}) {
+                var joinDateElm = document.getElementById("joinDate");
+                var now = new Date();
+                var utcString = now.toISOString().substring(0, 19);
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var day = now.getDate();
+                var hour = now.getHours();
+                var minute = now.getMinutes();
+                var second = now.getSeconds();
+                var localDatetime =
+                        year +
+                        "-" +
+                        (month < 10 ? "0" + month.toString() : month) +
+                        "-" +
+                        (day < 10 ? "0" + day.toString() : day) +
+                        "T" +
+                        (hour < 10 ? "0" + hour.toString() : hour) +
+                        ":" +
+                        (minute < 10 ? "0" + minute.toString() : minute);
+                joinDateElm.value = localDatetime;
+            }
         </script>
 
         <!-- province, district -->
