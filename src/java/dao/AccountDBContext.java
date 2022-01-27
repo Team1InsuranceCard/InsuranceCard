@@ -62,4 +62,21 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    public boolean checkExistCusAccEmail(Account cusAcc) {
+        try {
+            String sql = "select * from Account\n"
+                    + "where Email = ? and Status = 1 and ID <> ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, cusAcc.getEmail());
+            ps.setInt(2, cusAcc.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

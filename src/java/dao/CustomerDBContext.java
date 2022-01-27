@@ -363,6 +363,7 @@ public class CustomerDBContext extends DBContext {
             CustomerStaff cs = new CustomerStaff();
 
             String sql = "SELECT Customer_Staff.CustomerID\n"
+                    + "       ,Customer_Staff.StaffID\n"
                     + "       ,Customer.[FirstName] as customer_FirstName\n"
                     + "       ,Customer.[LastName] as customer_LastName\n"
                     + "       ,[Address]\n"
@@ -372,6 +373,8 @@ public class CustomerDBContext extends DBContext {
                     + "       ,[PersonalID]\n"
                     + "       ,Account.Email\n"
                     + "       ,Account.[Status]\n"
+                    + "       ,Province\n"
+                    + "       ,District\n"
                     + "	   ,Staff.FirstName as staff_FirstName\n"
                     + "	   ,Staff.LastName as staff_LastName\n"
                     + "  FROM [Customer_Staff]\n"
@@ -395,15 +398,21 @@ public class CustomerDBContext extends DBContext {
                 customer.setJoinDate(rs.getTimestamp("JoinDate"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
+                customer.setProvince(rs.getString("Province"));
+                customer.setDistrict(rs.getString("District"));
 
-                Account account = new Account();
-                account.setId(rs.getInt("CustomerID"));
-                account.setEmail(rs.getString("Email"));
-                account.setStatus(rs.getShort("Status"));
+                Account cus_account = new Account();
+                cus_account.setId(rs.getInt("CustomerID"));
+                cus_account.setEmail(rs.getString("Email"));
+                cus_account.setStatus(rs.getShort("Status"));
 
-                customer.setAccount(account);
+                customer.setAccount(cus_account);
+
+                Account staff_account = new Account();
+                staff_account.setId(rs.getInt("StaffID"));
 
                 Staff staff = new Staff();
+                staff.setAccount(staff_account);
                 staff.setFirstName(rs.getString("staff_FirstName"));
                 staff.setLastName(rs.getString("staff_LastName"));
 
@@ -416,4 +425,142 @@ public class CustomerDBContext extends DBContext {
         }
         return null;
     }
+
+    public void staffCreateCustomer(CustomerStaff cusStaff) {
+        try {
+            Customer cus = cusStaff.getCustomer();
+            connection.setAutoCommit(false);
+            // create account for customer
+            String sql_acc = "INSERT INTO Account\n"
+                    + "(Email, Password, Role, Status, isDelete)\n"
+                    + "VALUES (?, ?, 0, 1, 0)";
+            PreparedStatement ps_acc = connection.prepareStatement(sql_acc);
+            ps_acc.setString(1, cus.getAccount().getEmail());
+            ps_acc.setString(2, cus.getAccount().getPassword());
+            ps_acc.executeUpdate();
+            // get customer's account id            
+            String sql_get_acc_id = "select @@IDENTITY as aid";
+            PreparedStatement ps_get_acc_id = connection.prepareStatement(sql_get_acc_id);
+            ResultSet rs_get_id = ps_get_acc_id.executeQuery();
+            if (rs_get_id.next()) {
+                cus.getAccount().setId(rs_get_id.getInt("aid"));
+            }
+            // insert customer
+            String sql_cus = "insert into Customer\n"
+                    + "(AccountID, FirstName, LastName, Address, Dob, \n"
+                    + "JoinDate, Phone, PersonalID, Province, District)\n"
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps_cus = connection.prepareStatement(sql_cus);
+            ps_cus.setInt(1, cus.getAccount().getId());
+            ps_cus.setString(2, cus.getFirstName());
+            ps_cus.setString(3, cus.getLastName());
+            ps_cus.setString(4, cus.getAddress());
+            ps_cus.setDate(5, cus.getDob());
+            ps_cus.setTimestamp(6, cus.getJoinDate());
+            ps_cus.setString(7, cus.getPhone());
+            ps_cus.setString(8, cus.getPersonalID());
+            ps_cus.setString(9, cus.getProvince());
+            ps_cus.setString(10, cus.getDistrict());
+            ps_cus.executeUpdate();
+            // insert cus_staff
+            String sql_cus_staff = "insert into Customer_Staff\n"
+                    + "(CustomerID, StaffID)\n"
+                    + "values (?, ?)";
+            PreparedStatement ps_cus_staff = connection.prepareStatement(sql_cus_staff);
+            ps_cus_staff.setInt(1, cus.getAccount().getId());
+            ps_cus_staff.setInt(2, cusStaff.getStaff().getAccount().getId());
+            ps_cus_staff.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void staffEditCustomer(CustomerStaff cusStaff) {
+        try {
+            connection.setAutoCommit(false);
+            Customer cus = cusStaff.getCustomer();
+            Account cusAcc = cus.getAccount();
+            Account staffAcc = cusStaff.getStaff().getAccount();
+            // update cus acc info
+            String sql_acc = "update Account\n"
+                    + "set Email = ?, Status = ?\n"
+                    + "where ID = ?";
+            PreparedStatement ps_acc = connection.prepareStatement(sql_acc);
+            ps_acc.setString(1, cusAcc.getEmail());
+            ps_acc.setInt(2, cusAcc.getStatus());
+            ps_acc.setInt(3, cusAcc.getId());
+            ps_acc.executeUpdate();
+            // update cus info
+            String sql_cus = "update Customer\n"
+                    + "set FirstName = ?, LastName = ?, Address = ?, \n"
+                    + "	Dob = ?, JoinDate = ?, Phone = ?, PersonalID = ?, \n"
+                    + "	Province = ?, District = ?\n"
+                    + "where AccountID = ?";
+            PreparedStatement ps_cus = connection.prepareStatement(sql_cus);
+            ps_cus.setString(1, cus.getFirstName());
+            ps_cus.setString(2, cus.getLastName());
+            ps_cus.setString(3, cus.getAddress());
+            ps_cus.setDate(4, cus.getDob());
+            ps_cus.setTimestamp(5, cus.getJoinDate());
+            ps_cus.setString(6, cus.getPhone());
+            ps_cus.setString(7, cus.getPersonalID());
+            ps_cus.setString(8, cus.getProvince());
+            ps_cus.setString(9, cus.getDistrict());
+            ps_cus.setInt(10, cusAcc.getId());
+            ps_cus.executeUpdate();
+            // if new staff
+            // update old cus_staff
+            String sql_update_cs = "update Customer_Staff\n"
+                    + "set NextStaff = ?, EndDate = GETDATE()\n"
+                    + "where CustomerID = ? and StaffID <> ? and EndDate is null";
+            PreparedStatement ps_update_cs = connection.prepareStatement(sql_update_cs);
+            ps_update_cs.setInt(1, staffAcc.getId());
+            ps_update_cs.setInt(2, cusAcc.getId());
+            ps_update_cs.setInt(3, staffAcc.getId());
+            ps_update_cs.executeUpdate();
+            // if new staff
+            // insert new cus_staff
+            String sql_insert_cs = "if exists (select *\n"
+                    + "			from Customer_Staff\n"
+                    + "			where CustomerID = ? and StaffID <> ? and EndDate is null)\n"
+                    + "begin\n"
+                    + "	insert into Customer_Staff\n"
+                    + "	(CustomerID, StaffID, StartDate)\n"
+                    + "	values (?, ?, GETDATE())\n"
+                    + "end";
+            PreparedStatement ps_insert_cs = connection.prepareStatement(sql_insert_cs);
+            ps_insert_cs.setInt(1, cusAcc.getId());
+            ps_insert_cs.setInt(2, staffAcc.getId());
+            ps_insert_cs.setInt(3, cusAcc.getId());
+            ps_insert_cs.setInt(4, staffAcc.getId());
+            ps_insert_cs.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }
