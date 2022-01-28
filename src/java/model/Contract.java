@@ -16,7 +16,8 @@ public class Contract {
 
     private int id;
     private Product product;
-    private Customer customerID;
+    private Customer customer;
+    private Staff staff;
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean isDelete;
@@ -40,10 +41,10 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, Product product, Customer customerID, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status) {
         this.id = id;
         this.product = product;
-        this.customerID = customerID;
+        this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isDelete = isDelete;
@@ -81,13 +82,22 @@ public class Contract {
         this.product = product;
     }
 
-    public Customer getCustomerID() {
-        return customerID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+ 
 
     public Timestamp getStartDate() {
         return startDate;
