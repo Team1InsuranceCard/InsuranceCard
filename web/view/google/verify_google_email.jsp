@@ -19,7 +19,7 @@
 
     </head>
     <body>
-        <form action="verify_email" method="POST">
+        <form action="login/google/verify" method="POST">
             <div class="container">
                 <div>
                     <p id="title">
@@ -33,15 +33,12 @@
                     <p style="color:red;">${requestScope.mess}</p>
                     <input type="text" name="code" placeholder="verify code"
                            id="input-code" minlength="8" maxlength="8"
+                           required
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <br/>
-                    <input style="text-decoration:underline;cursor:pointer;
-                           border:none;background-color:#E0E0E0;color:#5C2941;
-                           font-size:14px;margin-bottom:8px;" 
-                           type="submit" name="btn-submit" value="Resend code"
-                           ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
-                    <br/>
-                    <input id="btn-submit" type="submit" value="Submit" name="btn-submit"
+                    <p style="text-decoration:underline;cursor:pointer;" 
+                       onclick="">Resend code</p>
+                    <input id="btn-submit" type="submit" value="Submit"
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <a href="login" style="padding-bottom:10px;"
                        ${requestScope.mess != "Register succesfully!"?"hidden":""}

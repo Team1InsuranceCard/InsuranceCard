@@ -56,7 +56,6 @@ header {
   top: 73px;
   bottom: 0;
   width: 290px;
-  z-index: -1;
   background-image: linear-gradient(
     to bottom,
     var(--color4),

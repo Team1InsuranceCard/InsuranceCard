@@ -26,7 +26,7 @@
                     <img src="asset/image/staff/icon member.png" alt="member icon"/>
                     <h3 id="name">${c.firstName} ${c.lastName}</h3>
                     <p>Join date: <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
-                                                  value = "${c.joinDate}" /></p>
+                                    value = "${c.joinDate}" /></p>
                     <form action="customerEdit" method="POST">
                         <input type="submit" id="edit" value="Edit"/>
                     </form>
@@ -41,58 +41,68 @@
                             </div>
                             <div class="right">
                                 <p class="info-label">Status</p>
-                                <p class="info-content" 
-                                   style="${c.account.status?
-                                            "color:#0DC858;":"color:red;"}">
-                                       ${c.account.status?"Active":"Deactive"}
-                                   </p>
-                                </div>
+                                <c:set var="status" value="${c.account.status}"/>
+                                <c:choose>
+                                    <c:when test="${status==0}">
+                                        <p class="info-content" style="color:red;">
+                                            Deactive</p>
+                                        </c:when>
+                                        <c:when test="${status==1}">
+                                        <p class="info-content" style="color:#0DC858;">
+                                            Active</p>
+                                        </c:when>                                                 
+                                        <c:when test="${status==2}">
+                                        <p class="info-content" style="color:#cab608;">
+                                            Pending</p>
+                                        </c:when>
+                                    </c:choose>
                             </div>
                         </div>
-                        <div class="person info">
-                            <p class="type-info">Personal information</p>
-                            <div class="container">
-                                <div class="left">
-                                    <p class="info-label">DOB</p>
-                                    <p class="info-content">${c.dob}</p>
-                                </div>
-                                <div class="right">
-                                    <p class="info-label">Address</p>
-                                    <p class="info-content">${c.address}</p>
-                                </div>
+                    </div>
+                    <div class="person info">
+                        <p class="type-info">Personal information</p>
+                        <div class="container">
+                            <div class="left">
+                                <p class="info-label">DOB</p>
+                                <p class="info-content">${c.dob}</p>
                             </div>
-                            <div class="container">
-                                <div class="left">
-                                    <p class="info-label">Phone</p>
-                                    <p class="info-content">${c.phone}</p>
-                                </div>
-                                <div class="right">
-                                    <p class="info-label">Personal ID</p>
-                                    <p class="info-content">${c.personalID}</p>
-                                </div>
+                            <div class="right">
+                                <p class="info-label">Address</p>
+                                <p class="info-content">${c.address}</p>
                             </div>
                         </div>
+                        <div class="container">
+                            <div class="left">
+                                <p class="info-label">Phone</p>
+                                <p class="info-content">${c.phone}</p>
+                            </div>
+                            <div class="right">
+                                <p class="info-label">Personal ID</p>
+                                <p class="info-content">${c.personalID}</p>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="contract info">
-                            <p class="type-info">Contract information</p>
-                            <div class="container">
-                                <div class="left">
-                                    <p class="info-label">Staff</p>
-                                    <p class="info-content">${s.firstName} ${s.lastName}</p>
-                                </div>
-                                <div class="right">
-                                    <p class="info-label">Toal contracts</p>
-                                    <p class="info-content">${requestScope.totalContract}
-                                        <a href="#" style="margin-left:10px;
-                                           text-decoration: underline;">View</a>
-                                    </p>
-                                </div>
+                    <div class="contract info">
+                        <p class="type-info">Contract information</p>
+                        <div class="container">
+                            <div class="left">
+                                <p class="info-label">Staff</p>
+                                <p class="info-content">${s.firstName} ${s.lastName}</p>
+                            </div>
+                            <div class="right">
+                                <p class="info-label">Toal contracts</p>
+                                <p class="info-content">${requestScope.totalContract}
+                                    <a href="#" style="margin-left:10px;
+                                       text-decoration: underline;">View</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <jsp:include page="../footer_full.jsp"/>
-    </body>
+        </div>
+    </section>
+    <jsp:include page="../footer_full.jsp"/>
+</body>
 </html>

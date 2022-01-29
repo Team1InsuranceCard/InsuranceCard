@@ -5,10 +5,43 @@
  */
 package dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
+import model.Staff;
+
 /**
  *
  * @author area1
  */
-public class StaffDBContext {
-    
+public class StaffDBContext extends DBContext {
+
+    public ArrayList<Staff> getStaffs() {
+        ArrayList<Staff> staffs = new ArrayList<>();
+        try {
+            String sql = "select AccountID, FirstName, LastName\n"
+                    + "from Staff";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account acc = new Account();
+                acc.setId(rs.getInt("AccountID"));
+
+                Staff staff = new Staff();
+                staff.setAccount(acc);
+                staff.setFirstName(rs.getString("FirstName"));
+                staff.setLastName(rs.getString("LastName"));
+                
+                staffs.add(staff);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return staffs;
+    }
+
 }

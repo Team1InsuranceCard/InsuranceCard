@@ -69,8 +69,8 @@ public class CustomerDashboard extends HttpServlet {
             throws ServletException, IOException {
         //        processRequest(request, response);
         HttpSession session = request.getSession();
-//        Account account = (Account)   session.getAttribute("currentuser");
-        int customerID = 1;
+        Account account = (Account)   session.getAttribute("account");
+        int customerID = account.getId();
         ProductDBContext productDBC = new ProductDBContext();
         ArrayList<Product> buyableProducts = productDBC.getProducts();
         CustomerDBContext customerDBC = new CustomerDBContext();
