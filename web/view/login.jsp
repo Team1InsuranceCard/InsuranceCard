@@ -54,7 +54,7 @@
                 </div>
                 <div class="forgot-sign">
                     <div class="forgot"><a href="#">Forgot Password?</a></div>
-                    <div class="sign"><a href="#">Sign Up</a></div>
+                    <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
                     <div class="google">
