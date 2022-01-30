@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link href="asset/style/login.css" rel="stylesheet" type="text/css"/>
 <style>
     body {
-        background-image: url('asset/image/login_background.jpg');
+        background-image: url('${pageContext.servletContext.contextPath}/asset/image/login_background.jpg');
         background-repeat: no-repeat;
         background-position-y: 55%;
         background-size: cover;
@@ -13,9 +12,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <base href="${pageContext.servletContext.contextPath}/">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link href="asset/style/login.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <body>
         <div class="limiter">
@@ -52,7 +54,7 @@
                 </div>
                 <div class="forgot-sign">
                     <div class="forgot"><a href="#">Forgot Password?</a></div>
-                    <div class="sign"><a href="#">Sign Up</a></div>
+                    <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
                     <div class="google">
@@ -63,3 +65,4 @@
             </form>
         </div>
     </body>
+</html>

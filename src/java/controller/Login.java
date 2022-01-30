@@ -18,7 +18,7 @@ import model.Account;
  *
  * @author ADMIN
  */
-public class LoginController extends HttpServlet {
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
