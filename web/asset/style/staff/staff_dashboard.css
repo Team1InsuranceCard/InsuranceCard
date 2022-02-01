@@ -1,0 +1,14 @@
+section {
+    width: 76%;
+    height: 630px;
+    margin-left: 330px;
+    margin-top: 117px;
+    margin-bottom: 60px;
+    background: #FFF9EC;
+    color: #5C2941;
+}
+
+.staff-info {
+    border: solid;
+    width: 20%;
+}
