@@ -33,8 +33,6 @@
             </jsp:include>
         </header>
         <main>
-            <button onclick="signOut();">Sign out</button>
-
             <div class="container main-container">
                 <div class="row user-welcome">
                     <div class="col-lg-5 dashboard-card user-card-info">
