@@ -11,7 +11,7 @@
 />
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
-<nav class="navbar navbar-expand-lg header_customer">
+<nav class="navbar navbar-expand-lg fixed-top header_customer">
   <div class="container header-element">
     <a class="navbar-brand" href="#">
       <img
@@ -70,8 +70,8 @@
   </div>
 </nav>
 <script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+ src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"
 ></script>
 <script
@@ -84,3 +84,23 @@
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"
 ></script>
+<script>
+    $(document).ready(function () {
+  var a = $(window).scrollTop(),
+    i = $("nav").offset().top,
+    t = !0;
+  $(window).scroll(function () {
+    var o = $(this).scrollTop();
+    if (a < o) {
+      if (t) {
+        var n = (i -= 150);
+        $("nav").animate({ top: n }, 400), (t = !1);
+      }
+    } else if (!t) {
+      n = i += 150;
+      $("nav").animate({ top: n }, 400), (t = !0);
+    }
+    a = o;
+  });
+});
+</script>
