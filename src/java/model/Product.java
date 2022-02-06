@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author area1
@@ -18,6 +20,27 @@ public class Product {
     private String imageURL;
     private short status;
     private boolean isDelete;
+    private Timestamp startDate;
+    private Timestamp updateDate;
+    private String contentDetail;
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
+    
+    
 
     public Product() {
     }
