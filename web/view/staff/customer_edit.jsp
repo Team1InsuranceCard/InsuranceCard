@@ -4,7 +4,7 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>JSP Page</title>
+            <title>Insurance Card</title>
             <base href="${pageContext.servletContext.contextPath}/" />
             <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
             <link rel="stylesheet" href="asset/style/staff/customer_edit.css" />
@@ -19,13 +19,13 @@
 
                 <div class="mess-box mess-warning" 
                      style="${requestScope.isExistEmail ? "display:flex;" : ""}">
-                    <img src="asset/image/icon_close.png" alt="" class="mess-icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-icon" />
                     <p class="mess">The email address is already taken!</p>
                 </div>
 
                 <div class="mess-box mess-success" 
                      style="${requestScope.isSuccess ? "display:flex;" : ""}">
-                    <img src="asset/image/icon_approve.png" alt="" class="mess-icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_approve.png" alt="" class="mess-icon" />
                     <p class="mess">Success! Your submission has been saved!</p>
                 </div>
 
@@ -34,7 +34,7 @@
 
                     <div class="form-list">
                         <h2>Account Information</h2>
-                        <hr>
+
                         <div class="section">
                             <div class="form-item">
                                 <p class="label">Email</p>
@@ -62,7 +62,7 @@
                         </div>
 
                         <h2>Personal Information</h2>
-                        <hr>
+ 
                         <div class="section">
                             <div class="form-item">
                                 <p class="label">First Name</p>
@@ -171,7 +171,7 @@
                         </div>
 
                         <h2>Other Information</h2>
-                        <hr>
+
                         <div class="section">
                             <div class="form-item autocomplete">
                                 <p class="label">Staff</p>
