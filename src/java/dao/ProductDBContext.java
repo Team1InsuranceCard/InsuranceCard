@@ -32,7 +32,7 @@ public class ProductDBContext extends DBContext {
                     + "  FROM [dbo].[Product]";
             PreparedStatement psm_Select_Product = connection.prepareStatement(sql_Select_Product);
             ResultSet rs = psm_Select_Product.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Product product = new Product();
                 product.setId(rs.getInt("ID"));
                 product.setTitle(rs.getNString("Title"));
@@ -55,23 +55,24 @@ public class ProductDBContext extends DBContext {
         try {
             ArrayList<Product> products = new ArrayList<>();
             String sql_select_products = "SELECT DISTINCT\n"
-                    + "	   Product.ID AS ProductID\n"
-                    + "	  ,Product.ImageURL AS ProductImage\n"
-                    + "	  ,Product.Title AS ProductTitle\n"
-                    + "	  ,Product.Description AS ProductDescription\n"
-                    + "\n"
-                    + "  FROM [Contract] INNER JOIN Product ON Contract.ProductID=Product.ID\n"
-                    + "  WHERE [Contract].Status IN (1) AND [Contract].isDelete=0 AND Product.Status IN (1)\n"
-                    + "	AND Contract.CustomerID = ?";
+                    + "Product.ID AS ProductID\n"
+                    + ",Product.ImageURL AS ProductImage\n"
+                    + ",Product.Title AS ProductTitle\n"
+                    + ",Product.Description AS ProductDescription\n"
+                    + "                    \n"
+                    + "FROM [Contract] INNER JOIN Product ON Contract.ProductID=Product.ID\n"
+                    + "WHERE [Contract].Status IN (1) AND [Contract].isDelete=0 AND Product.Status IN (1)\n"
+                    + "AND Product.isDelete=0\n"
+                    + "AND Contract.CustomerID = ?";
             PreparedStatement psm_select_product = connection.prepareStatement(sql_select_products);
             psm_select_product.setInt(1, customerID);
             ResultSet rs_select_products = psm_select_product.executeQuery();
-            if (rs_select_products.next()) {
+            while (rs_select_products.next()) {
                 Product product = new Product();
-                product.setId(rs_select_products.getInt(""));
-                product.setImageURL(rs_select_products.getString(""));
-                product.setTitle(rs_select_products.getString(""));
-                product.setDescription(rs_select_products.getString(""));
+                product.setId(rs_select_products.getInt("ProductID"));
+                product.setImageURL(rs_select_products.getString("ProductImage"));
+                product.setTitle(rs_select_products.getString("ProductTitle"));
+                product.setDescription(rs_select_products.getString("ProductDescription"));
 
                 products.add(product);
             }

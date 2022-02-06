@@ -1,5 +1,6 @@
 
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +25,8 @@
                 <div class="col-md-4">
                     <img src="asset/image/staff/icon member.png" alt="member icon"/>
                     <h3 id="name">${c.firstName} ${c.lastName}</h3>
-                    <p>Join date: ${c.joinDate}</p>
+                    <p>Join date: <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                                  value = "${c.joinDate}" /></p>
                     <form action="customerEdit" method="POST">
                         <input type="submit" id="edit" value="Edit"/>
                     </form>
