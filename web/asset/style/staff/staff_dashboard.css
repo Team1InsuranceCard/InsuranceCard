@@ -8,7 +8,7 @@ section {
     color: #5C2941;
 }
 
-.staff-info {
+.row .staff-welcome {
     border: solid;
-    width: 20%;
+    width: 100%;
 }
