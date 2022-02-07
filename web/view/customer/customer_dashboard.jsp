@@ -10,7 +10,8 @@
         <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com"/>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="asset/script/google_login.js" defer></script>
-        <title>JSP Page</title>
+        <title>InsuranceCard</title>
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <link
             rel="stylesheet" 
@@ -24,14 +25,11 @@
             src="asset/script/customer/customer_dashboard.js"
             defer
         ></script>
-
     </head>
     <body>
-        <header>
-            <jsp:include page="../header_customer.jsp">
-                <jsp:param name="currentscreen" value="dashboard" />
-            </jsp:include>
-        </header>
+        <jsp:include page="../header_customer.jsp">
+            <jsp:param name="currentscreen" value="dashboard" />
+        </jsp:include>
         <main>
             <div class="container main-container">
                 <div class="row user-welcome">
