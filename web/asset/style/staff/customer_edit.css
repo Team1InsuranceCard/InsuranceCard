@@ -5,23 +5,23 @@ body {
 }
 
 main {
-  margin-top: 73px;
-  margin-left: 290px;
-  padding: 50px 70px 60px 70px;
+  margin-top: 4.5rem;
+  margin-left: 20rem;
+  padding: 3rem 3.2rem 3.5rem;
   background-color: #fff9ec;
 }
 
 h1 {
-  font-weight: bolder;
-  margin-bottom: 40px;
+  font-weight: 700;
+  margin-bottom: 2.8rem;
 }
 
 .mess-box {
   display: none;
   align-items: center;
-  padding: 20px 15px;
-  border-radius: 3px;
-  margin-bottom: 35px;
+  padding: 1.4rem 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
 }
 
 .mess-warning {
@@ -35,12 +35,12 @@ h1 {
 }
 
 .mess-icon {
-  margin-left: 40px;
-  margin-right: 20px;
+  margin-left: 2rem;
+  margin-right: 1rem;
 }
 
 .mess {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 
@@ -54,74 +54,82 @@ h1 {
 
 h2 {
   font-weight: 500;
-  margin-bottom: 5px;
+  border-bottom: 1px solid rgb(179, 178, 178);
+  padding-bottom: 0.2rem;
 }
 
 .section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 22px;
-  margin-bottom: 30px;
-  margin-left: 60px;
+  margin: 1.5rem 0 1rem 2rem;
 }
 
 .form-item {
   flex: 45%;
-  margin-bottom: 13px;
+  margin-bottom: 1.9rem;
 }
 
 .label {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 0.9rem;
 }
 
 .form-input {
   box-sizing: content-box;
-  width: 350px;
-  padding: 10px 5px;
+  width: 23rem;
+  padding: 0.8rem 0.6rem;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.45);
-  border-radius: 3px;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
 }
 
 .form-input option {
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .form-btn {
   display: flex;
   justify-content: flex-end;
-  margin-right: 100px;
-  margin-top: 30px;
+  margin-right: 12rem;
 }
 
 .btn {
-  border: 1px solid rgba(0, 0, 0, 0.45);
-  padding: 10px 12px;
-  font-size: 18px;
-  border-radius: 4px;
-  min-width: 80px;
+  border: none;
+  padding: 0.6rem 0.4rem;
+  font-size: 1.1rem;
+  border-radius: 0.3rem;
+  min-width: 5rem;
   text-align: center;
   box-sizing: content-box;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
-.form-btn .save-btn {
+.save-btn {
   margin-right: 30px;
   background-color: #5496d3;
   color: #fff;
+  transition: all 0.5s ease-out;
 }
 
-.form-btn .cancel-btn {
+.save-btn:hover {
+  box-shadow: rgba(5, 73, 117, 0.5) 3px 3px 6px 0px inset,
+    rgba(31, 130, 196, 0.5) -3px -3px 6px 1px inset;
+}
+
+.cancel-btn {
   background-color: #e7e1e1;
   color: #000;
   text-decoration: none;
+  transition: all 0.5s ease-out;
 }
 
-.form-btn .cancel-btn:hover,
-.form-btn .save-btn:hover {
-  opacity: 0.6;
+.cancel-btn:hover {
+  box-shadow: rgb(178, 180, 182) 3px 3px 6px 0px inset,
+    rgba(139, 139, 139, 0.5) -3px -3px 6px 1px inset;
 }
 
 /* staff auto complete */
