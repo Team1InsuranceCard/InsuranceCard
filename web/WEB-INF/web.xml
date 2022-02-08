@@ -29,10 +29,6 @@
         <servlet-class>controller.GoogleAuthen.LoginByGoogle</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>VerifyGoogleEmail</servlet-name>
         <servlet-class>controller.GoogleAuthen.VerifyGoogleEmail</servlet-class>
     </servlet>
@@ -45,8 +41,12 @@
         <servlet-class>controller.staff.EditCustomer</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ContractInformation</servlet-name>
-        <servlet-class>controller.customer.ContractInformation</servlet-class>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerViewInfo</servlet-name>
+        <servlet-class>controller.customer.ViewInfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -69,10 +69,6 @@
         <url-pattern>/login/google</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>VerifyGoogleEmail</servlet-name>
         <url-pattern>/login/google/verify</url-pattern>
     </servlet-mapping>
@@ -85,8 +81,12 @@
         <url-pattern>/staff/customer/edit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ContractInformation</servlet-name>
-        <url-pattern>/customer/contract/detail</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerViewInfo</servlet-name>
+        <url-pattern>/customer/info</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,13 +10,9 @@
         <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com"/>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="asset/script/google_login.js" defer></script>
-        <title>JSP Page</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous"
-            />
+        <title>InsuranceCard</title>
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <link
             rel="stylesheet" 
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -29,17 +25,12 @@
             src="asset/script/customer/customer_dashboard.js"
             defer
         ></script>
-
     </head>
     <body>
-        <header>
-            <jsp:include page="../header_customer.jsp">
-                <jsp:param name="currentscreen" value="dashboard" />
-            </jsp:include>
-        </header>
+        <jsp:include page="../header_customer.jsp">
+            <jsp:param name="currentscreen" value="dashboard" />
+        </jsp:include>
         <main>
-            <button onclick="signOut();">Sign out</button>
-
             <div class="container main-container">
                 <div class="row user-welcome">
                     <div class="col-lg-5 dashboard-card user-card-info">
@@ -145,9 +136,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card col-lg-4 staff-info-zone">
+                    <div class="col-lg-4 staff-info-zone">
                         <div class="dashboard-card">
-                            <div class="card staff-name-card">
+                            <div class=" staff-name-card">
                                 <div class="staff-icon">
                                     <img
                                         src="asset/image/customer/cutomer_dashboard/image1.png"
@@ -159,8 +150,8 @@
                                     <h3>${staff.firstName}  ${staff.lastName}</h3>
                                 </div>
                             </div>
-                            <div class="card staff-phone staff-contact">${staff.phone}</div>
-                            <div class="card staff-email staff-contact">
+                            <div class=" staff-phone staff-contact">${staff.phone}</div>
+                            <div class=" staff-email staff-contact">
                                 ${staff.account.email}
                             </div>
                         </div>
@@ -172,8 +163,8 @@
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${current_products}" var="eachproduct">
                             <div class="col">
-                                <div class="card service-sub-card">
-                                    <img
+                                <div class="service-sub-card">
+                                    <img 
                                         class="card-img-top product-image-cover"
                                         src="${eachproduct.imageURL}"
                                         alt="${eachproduct.title}"
@@ -192,50 +183,6 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <div class="col">
-                            <div class="card service-sub-card">
-                                <img
-                                    class="card-img-top"
-                                    src="https://via.placeholder.com/278x200"
-                                    alt="Card image cap"
-                                    />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <div class="wrapper-desciption-service">
-                                        <p class="card-text desciption-service-text">
-                                            This is a longer card with supporting text below as a
-                                            natural lead-in to additional content. This content is a
-                                            little bit longerạpq ạdklfjq qjefioja s ịqrf .
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary go-to-button"
-                                       >Go somewhere</a
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card service-sub-card">
-                                <img
-                                    class="card-img-top"
-                                    src="https://via.placeholder.com/278x200"
-                                    alt="Card image cap"
-                                    />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <div class="wrapper-desciption-service">
-                                        <p class="card-text desciption-service-text">
-                                            This is a longer card with supporting text below as a
-                                            natural lead-in to additional content. This content is a
-                                            little bit longerạpq ạdklfjq qjefioja s ịqrf .
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary go-to-button"
-                                       >Go somewhere</a
-                                    >
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -244,7 +191,7 @@
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${buyable_products}" var="product">
                             <div class="col">
-                                <div class="card service-sub-card">
+                                <div class="service-sub-card">
                                     <img
                                         class="card-img-top product-image-cover"
                                         src="${product.imageURL}"
@@ -264,50 +211,8 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <div class="col">
-                            <div class="card service-sub-card">
-                                <img
-                                    class="card-img-top"
-                                    src="https://via.placeholder.com/278x200"
-                                    alt="Card image cap"
-                                    />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <div class="wrapper-desciption-service">
-                                        <p class="card-text desciption-service-text">
-                                            This is a longer card with supporting text below as a
-                                            natural lead-in to additional content. This content is a
-                                            little bit longerạpq ạdklfjq qjefioja s ịqrf .
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary go-to-button"
-                                       >Go somewhere</a
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card service-sub-card">
-                                <img
-                                    class="card-img-top"
-                                    src="https://via.placeholder.com/278x200"
-                                    alt="Card image cap"
-                                    />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <div class="wrapper-desciption-service">
-                                        <p class="card-text desciption-service-text">
-                                            This is a longer card with supporting text below as a
-                                            natural lead-in to additional content. This content is a
-                                            little bit longerạpq ạdklfjq qjefioja s ịqrf .
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary go-to-button"
-                                       >Go somewhere</a
-                                    >
-                                </div>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
                 <div class="dashboard-card dashboard-service-card">
