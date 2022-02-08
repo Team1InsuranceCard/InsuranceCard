@@ -3,15 +3,18 @@
 }
 main {
     margin-top: 5em;
+    color: #5C2941;
+
 }
 
 .head-image {
     padding: 10em 10em 5em;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-bottom: 7em;
 }
 
-.head-image h1, p{
+.head-image h1, .head-image p{
     color: white;
 }
 
@@ -29,4 +32,85 @@ main {
     size: 20px;
     width: 20em;
     margin-left: 5em;
+}
+
+.short-intro {
+    text-align: center;
+    margin-bottom: 7em;
+}
+
+.short-intro-title  {
+    margin-bottom: 1em;
+}
+
+.short-intro-text {
+    margin-bottom: 2em;
+}
+.card-subtitle-custom {
+    margin-bottom: 2em !important;
+}
+
+.intro-project {
+    background-color: #FFF9EC;
+    margin-bottom: 7em;
+    text-align: center;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.intro-project-title {
+    margin-bottom: 2em;
+}
+
+.intro-team {
+    margin-bottom: 7em;
+}
+
+.intro-team-title {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.card-image-custom {
+    margin-bottom: 2em;
+}
+
+.card-customer-child-group .card-image-custom {
+    max-width: 33.333%;
+}
+
+.card-customer-child-group .card-image-custom:first-child {
+    margin-left: auto;
+}
+
+.card-customer-child-group .card-image-custom:last-child {
+    margin-right: auto;
+}
+
+.card-image-custom img {
+    object-fit: cover;
+    height: 25em ;
+}
+
+.achivement-showoff {
+    background-color: #FFF9EC;
+    text-align: center;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.achivement-card {
+    background-color: #ffffff00 !important;
+}
+
+.achivement-title, .achivement-text {
+    margin-bottom: 2em;
+}
+
+.achivement-card .card-subtitle-custom {
+    margin-bottom: 1em !important;
+}
+
+.achivement-card img {
+    width: 30%;
 }
