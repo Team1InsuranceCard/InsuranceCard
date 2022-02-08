@@ -41,6 +41,10 @@
         <servlet-class>controller.staff.EditCustomer</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ContractInformation</servlet-name>
+        <servlet-class>controller.customer.ContractInformation</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.Login</servlet-class>
     </servlet>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>StaffEditCustomer</servlet-name>
         <url-pattern>/staff/customer/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContractInformation</servlet-name>
+        <url-pattern>/customer/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>

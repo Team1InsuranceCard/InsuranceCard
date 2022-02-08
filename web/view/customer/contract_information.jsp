@@ -26,6 +26,7 @@
 
             .product-label {
                 font-weight: bold;
+                margin-top: 9rem;
             }
 
             .label-title {
