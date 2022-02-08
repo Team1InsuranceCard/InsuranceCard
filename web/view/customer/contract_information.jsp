@@ -12,107 +12,10 @@
         <title>InsuranceCard</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-                color: #5C2941;
-            }
-
-            section {
-                margin: 3rem 6rem;
-            }
-
-            .product-label {
-                font-weight: bold;
-                margin-top: 9rem;
-            }
-
-            .label-title {
-                font-size: 25px;
-                padding-left: 5rem;
-            }
-
-            .label-fee {
-                font-size: 17px;
-                padding-top: 8px;
-                text-align: right;
-                padding-right: 10rem;
-            }
-
-            .title {
-                background-color: #FD8291;
-            }
-
-            .title p {
-                color: #ffffff;
-                font-size: 18px;
-                padding: 0.5rem 2rem;
-                font-weight: bold;
-            }
-
-            section .cus-content {
-                margin: 3rem 8rem;
-            }
-
-            section .bold {
-                color: #5C2941;
-                font-size: 18px;
-                font-weight: 500;
-            }
-
-            section .cus-content .row .underline {
-                border-bottom: 0.25px solid rgba(7, 7, 7, 0.8);
-                margin-left: 1rem;
-            }
-
-            section .cus-content .row .space {
-                margin-left: 25rem;
-            }
-
-            section .contract-content, section .vehicle-content, section .product-content{
-                margin: 3rem 4rem;
-            }         
-
-            section .contract-content .row .underline, section .vehicle-content .row .underline {
-                border-bottom: 0.25px solid rgba(7, 7, 7, 0.8);
-            }
-
-            section .contract-content .row .space {
-                margin-left: 17rem;
-            }
-
-            section .vehicle-content .row .space {
-                margin-left: 5rem;
-            }
-
-            section .product-content {
-                text-align: justify;
-            }
-
-            section .submit {
-                text-align: center;
-            }
-
-            section .submit input {
-                background: #18A0FB;
-                border: 2px solid black;
-                border-radius: 20px;
-                width: 12rem;
-                height: 4rem;
-                color: #5C2941;
-                font-weight: bold;
-                font-size: 18px;
-            }
-            
-            section .submit input:hover {
-                cursor: pointer;
-                background-color: #FD8291;
-                color: #ffffff;
-            }
-        </style>
     </head>
+    
     <body>
         <header>
             <jsp:include page="../header_customer.jsp">
@@ -125,7 +28,7 @@
                 <div class="product-label">
                     <div class="row">
                         <p class="col-md-8 label-title">PRODUCT TITLE</p>
-                        <p class="col-lg-4 label-fee">Fee: 5.000.000 VND</p>
+                        <p class="col-md-4 label-fee">Fee: 5.000.000 VND</p>
                     </div>
                 </div>
 
@@ -185,9 +88,9 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel reason:</p>
-                            <p class="col-md-3 underline"></p>
+                            <textarea class="col-md-3 text-area" disabled></textarea>
                             <p class="col-md-2 space bold">Cancel comment:</p>
-                            <p class="col-md-2 underline"></p>
+                            <textarea class="col-md-2 text-area" disabled></textarea>
                         </div>
                     </div>
                 </div>
