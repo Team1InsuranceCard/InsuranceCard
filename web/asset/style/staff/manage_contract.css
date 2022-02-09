@@ -1,0 +1,30 @@
+main {
+  margin-top: 6em;
+  margin-left: 23em;
+  margin-right: 4em;
+}
+
+.seach-bar,
+.create-contract-button {
+  display: inline-block;
+  margin: auto;
+
+}
+
+.contract-action {
+  margin-bottom: 4em;
+  text-align: center;
+  padding-left: 20em;
+}
+
+.create-contract-button a {
+  background-color: rgba(24, 160, 251, 0.7);
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFF9EC;
+  padding: 10px 15px;
+  border-radius: 20px;
+  display: block;
+  width: fit-content;
+}
