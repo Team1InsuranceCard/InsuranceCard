@@ -17,7 +17,6 @@ public class Contract {
     private int id;
     private Product product;
     private Customer customer;
-    private Staff staff;
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean isDelete;
@@ -43,11 +42,10 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, Product product, Customer customer, Staff staff, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
         this.id = id;
         this.product = product;
         this.customer = customer;
-        this.staff = staff;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isDelete = isDelete;
@@ -87,8 +85,6 @@ public class Contract {
         this.cancelStaff = cancelStaff;
     }
 
-
-
     public int getId() {
         return id;
     }
@@ -112,15 +108,6 @@ public class Contract {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
- 
 
     public Timestamp getStartDate() {
         return startDate;
