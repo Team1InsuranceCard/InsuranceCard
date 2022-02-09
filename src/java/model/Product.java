@@ -111,4 +111,12 @@ public class Product {
         this.isDelete = isDelete;
     }
 
+    public String getContentDetail() {
+        return contentDetail;
+    }
+
+    public void setContentDetail(String contentDetail) {
+        this.contentDetail = contentDetail;
+    }
+    
 }
