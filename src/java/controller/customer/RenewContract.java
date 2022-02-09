@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-public class ContractInformation extends HttpServlet {
+public class RenewContract extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -31,7 +31,7 @@ public class ContractInformation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
 
     /**
