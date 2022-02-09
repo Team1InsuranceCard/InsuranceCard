@@ -43,7 +43,7 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public Contract getContract(int accountID, int contractID) {
+    public Contract getContractDetail(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
             String sql = "SELECT Product.[Title]\n"
@@ -125,8 +125,20 @@ public class ContractDBContext extends DBContext {
                 contract.setEndDate(rs.getTimestamp("EndDate"));
                 contract.setStatus(rs.getShort("Status"));
                 contract.setCancelComment(rs.getString("CancelComment"));
+                contract.setCancelReason(rs.getString("CancelReason"));
+                contract.setCancelDate(rs.getTimestamp("CancelDate"));
+                contract.setCancelRequestDate(rs.getTimestamp("CancelRequestDate"));
+                contract.setVehicleType(rs.getString("VehicleType"));
+                contract.setEngine(rs.getString("Engine"));
+                contract.setLicensePlate(rs.getString("LicensePlate"));
+                contract.setColor(rs.getString("Color"));
+                contract.setCertImage(rs.getString("CertImage"));
+                contract.setBrand(rs.getString("Brand"));
+                contract.setOwner(rs.getString("Owner"));
+                contract.setChassis(rs.getString("Chassis"));
+                contract.setRequestDate(rs.getTimestamp("RequestDate"));
+                contract.setResolveDate(rs.getTimestamp("ResolveDate"));
                 
-                        
                 return contract;
             }
         } catch (SQLException ex) {

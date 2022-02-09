@@ -284,7 +284,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="button" value="Renew" onclick="renew()"/>
+                    <input type="button" value="Submit" onclick="renew()"/>
                 </div>
             </form>
         </section>
