@@ -20,10 +20,10 @@
                 <div class="row staff-welcome">
                     <div class="col-lg-4 dashboard-card user-card-info">
                         <div class="name-card-image">
-                            
+
                         </div>
                         <div class="name-card-content">
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -38,14 +38,29 @@
                     </div>
                 </div>
                 <div class="row task-container">
-                    <div class="col-lg-3 task">
-                        
+                    <div class="col-lg-3 task" style="">
+                        <div class="total-limiter">
+                            <div class="illustration">
+                                <img src="asset/image/staff/User.png" alt="user_icon"/>
+                            </div>
+                            <div class="total">
+                                <div class="total-num">
+                                    26
+                                </div>
+                                <div class="total-name">
+                                    Customers
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unhold-limiter">
+                            
+                        </div>
                     </div>
                     <div class="col-lg-3 task">
-                        
+
                     </div>
                     <div class="col-lg-3 task">
-                        
+
                     </div>
                 </div>
             </div>
