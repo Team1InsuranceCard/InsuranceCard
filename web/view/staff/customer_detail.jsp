@@ -44,15 +44,15 @@
                                 <c:set var="status" value="${c.account.status}"/>
                                 <c:choose>
                                     <c:when test="${status==0}">
-                                        <p class="info-content" style="color:red;">
-                                            Deactive</p>
+                                        <p class="info-content" style="color:#E02A2A;">
+                                            Inactive</p>
                                         </c:when>
                                         <c:when test="${status==1}">
                                         <p class="info-content" style="color:#0DC858;">
                                             Active</p>
                                         </c:when>                                                 
                                         <c:when test="${status==2}">
-                                        <p class="info-content" style="color:#cab608;">
+                                        <p class="info-content" style="color:#FF7D42;">
                                             Pending</p>
                                         </c:when>
                                     </c:choose>
