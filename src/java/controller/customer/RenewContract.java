@@ -5,21 +5,18 @@
  */
 package controller.customer;
 
-import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Contract;
 
 /**
  *
  * @author ASUS
  */
-public class ContractInformation extends HttpServlet {
+public class RenewContract extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,24 +31,7 @@ public class ContractInformation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int contractID = Integer.parseInt(request.getParameter("id"));
-
-        Account acc = (Account) request.getSession().getAttribute("account");
-        ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetail(1, contractID);
-
-        String btn = "";
-        if (contract.getStatus() == 3) {
-            btn += "No cancel more";
-        } else if (contract.getStatus() == 1 || contract.getStatus() == 2) {
-            btn += "Cancel";
-        } else {
-            btn += "Renew";
-        }
-
-        request.setAttribute("contract", contract);
-        request.setAttribute("btn", btn);
-        request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
 
     /**
@@ -66,7 +46,6 @@ public class ContractInformation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.sendRedirect("renew");
     }
 
     /**

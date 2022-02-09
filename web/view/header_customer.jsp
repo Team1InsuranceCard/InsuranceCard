@@ -3,7 +3,8 @@
     rel="stylesheet"
     href="${pageContext.request.contextPath}/asset/style/header_customer.css"
     />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
@@ -26,14 +27,11 @@
                     <a <c:if test="${current == 'dashboard'}">class="active"</c:if> href="">DashBoard</a>
                     </li>
                     <li class="nav-item">
-                        <a <c:if test="${current == 'services'}">class="active"</c:if> href="">Services</a>
-                    </li>
-                    <li class="nav-item">
                         <a <c:if test="${current == 'contract'}">class="active"</c:if> href="">Contract</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a
-                            class="dropdown-toggle <c:if test="${current == 'contract'}">active</c:if>"
+                            class="dropdown-toggle <c:if test="${current == 'history'}">active</c:if>"
                             href="#"
                             id="navbarDropdown"
                             role="button"
