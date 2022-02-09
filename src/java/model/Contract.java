@@ -20,7 +20,6 @@ public class Contract {
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean isDelete;
-    private double contractFee;
     private String cancelComment;
     private String cancelReason;
     private Timestamp cancelDate;
@@ -42,14 +41,13 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
         this.id = id;
         this.product = product;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isDelete = isDelete;
-        this.contractFee = contractFee;
         this.cancelComment = cancelComment;
         this.cancelReason = cancelReason;
         this.cancelDate = cancelDate;
@@ -131,14 +129,6 @@ public class Contract {
 
     public void setIsDelete(boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public double getContractFee() {
-        return contractFee;
-    }
-
-    public void setContractFee(double contractFee) {
-        this.contractFee = contractFee;
     }
 
     public String getCancelComment() {
