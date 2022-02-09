@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,7 @@
         </script>
     </head>
     <body>
+    <c:set var="c" value="${requestScope.contract}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
