@@ -29,7 +29,7 @@ public class ProductDBContext extends DBContext {
                     + "      ,[ImageURL]\n"
                     + "      ,[Status]\n"
                     + "      ,[isDelete]\n"
-                    + "  FROM [dbo].[Product]";
+                    + "  FROM [Product] WHERE Status IN (1) AND isDelete = 0";
             PreparedStatement psm_Select_Product = connection.prepareStatement(sql_Select_Product);
             ResultSet rs = psm_Select_Product.executeQuery();
             while (rs.next()) {
