@@ -55,7 +55,8 @@ public class ContractDBContext extends DBContext {
                     + "      ,[Dob]\n"
                     + "      ,Customer.[Phone]\n"
                     + "      ,[PersonalID]\n"
-                    + "	  ,Contract.[StartDate]\n"
+                    + "	     ,Contract.[ProductID]"
+                    + "      ,Contract.[StartDate]\n"
                     + "      ,[EndDate]\n"
                     + "      ,Contract.[Status]\n"
                     + "      ,[CancelComment]\n"
@@ -97,6 +98,7 @@ public class ContractDBContext extends DBContext {
 
             if (rs.next()) {
                 Product product = new Product();
+                product.setId(rs.getInt("ProductID"));
                 product.setTitle(rs.getString("Title"));
                 product.setPrice(rs.getDouble("Price"));
                 product.setContentDetail(rs.getString("ContentDetail"));
