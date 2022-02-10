@@ -47,8 +47,8 @@ area1 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
       <div class="contract-list">
         <div class="contract-list-title"><h2>Contract List</h2></div>
         <div class="contract-list-content">
-          <table class="table table-striped">
-            <thead>
+          <table class="contract-list-table table table-striped">
+            <thead class="contract-list-header">
               <th scope="col">STT</th>
               <th scope="col">Customers</th>
               <th scope="col">Product</th>
@@ -110,14 +110,17 @@ area1 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         </div>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            <li class="page-item   disabled">
+              <a class="page-link" href="#" tabindex="-1">First</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#"><</a></li>
+            <li class="page-item"><a class="page-link active" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
+            <li class="page-item"><a class="page-link" href="#">></a></li>
+
+            <li class="page-item item-last">
+              <a class="page-link" href="#">Last</a>
             </li>
           </ul>
         </nav>

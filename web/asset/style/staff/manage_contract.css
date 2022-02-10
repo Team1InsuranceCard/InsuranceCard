@@ -2,6 +2,7 @@ main {
   margin-top: 6em;
   margin-left: 23em;
   margin-right: 4em;
+  color: #5C2941;
 }
 
 .seach-bar,
@@ -27,4 +28,30 @@ main {
   border-radius: 20px;
   display: block;
   width: fit-content;
+}
+
+.contract-list-table th, .contract-list-table td{
+  border: none !important;
+}
+
+.contract-list-header th {
+  background-color: #FAAEB7;
+}
+.contract-list-header th:first-child  {
+  border-radius: 10px 0 0 10px;
+}
+
+.contract-list-header th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.page-link {
+  background-color: #F2F2F2;
+  border: none;
+  margin: 0 10px;
+  border-radius: 10px;
+  color: #5C2941;
+}
+.page-link.active {
+  background-color: #FAAEB7;
 }
