@@ -30,7 +30,12 @@
 
             <div class="signUp">
                 <h1>Sign Up</h1>
-                <p id="mess">${requestScope.mess}</p>
+                <p class="mess" style="${requestScope.mess_pass==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_pass}</p>
+                <p class="mess" Style="${requestScope.mess_pID==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_pID}</p>
+                <p class="mess" style="${requestScope.mess_email==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_email}</p>
             </div>
 
             <form id="myForm" action="register" method="POST">
