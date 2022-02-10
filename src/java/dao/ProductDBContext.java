@@ -82,4 +82,26 @@ public class ProductDBContext extends DBContext {
         }
         return null;
     }
+
+    public short checkStatus(int id) {
+        short check = 0;
+
+        try {
+            String sql = "SELECT [Status]\n"
+                    + "  FROM [Product]\n"
+                    + "  WHERE ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            
+            if (rs.next()) {
+                if (rs.getShort("Status") == 1) {
+                    check = 1;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check;
+    }
 }

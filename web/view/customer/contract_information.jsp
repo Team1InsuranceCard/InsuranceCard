@@ -138,9 +138,11 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel reason:</p>
-                            <textarea class="col-md-3 text-area" disabled>${c.cancelReason}</textarea>
+                            <textarea class="col-md-3 text-area" disabled>
+                                ${c.cancelReason}</textarea>
                             <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>${c.cancelComment}</textarea>
+                            <textarea class="col-md-2 text-area" disabled>
+                                ${c.cancelComment}</textarea>
                         </div>
                     </div>
                 </div>
@@ -203,7 +205,10 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="submit" value="${requestScope.btn}"/>
+                    <input type="${requestScope.pro==0?"hidden":"submit"}" value="${requestScope.btn}"/>
+                    <h4 style="color:#FFFFFF; background-color:#E5333A;display: inline;
+                        padding: 0.5rem 1rem;">
+                        ${requestScope.mess}</h4>
                 </div>
             </form>
         </section>

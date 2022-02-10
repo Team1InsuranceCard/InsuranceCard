@@ -6,6 +6,7 @@
 package controller.customer;
 
 import dao.ContractDBContext;
+import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,8 +39,11 @@ public class ContractInformation extends HttpServlet {
 
         Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetail(1, contractID);
+        Contract contract = cdb.getContractDetail(1, contractID); //change to acc.id
 
+        ProductDBContext pdb = new ProductDBContext();
+        short proID = pdb.checkStatus(contract.getProduct().getId());
+        
         String btn = "";
         if (contract.getStatus() == 3) {
             btn += "No cancel more";
@@ -48,9 +52,11 @@ public class ContractInformation extends HttpServlet {
         } else {
             btn += "Renew";
         }
-
+        
         request.setAttribute("contract", contract);
         request.setAttribute("btn", btn);
+        request.setAttribute("pro", proID);
+        request.setAttribute("mess", proID==0?"Product is inactive!":"");
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
@@ -66,7 +72,6 @@ public class ContractInformation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.sendRedirect("renew");
     }
 
     /**
