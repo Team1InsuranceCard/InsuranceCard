@@ -5,23 +5,22 @@ body {
 }
 
 main {
-  margin-top: 4.5rem;
-  margin-left: 20rem;
-  padding: 3rem 3.2rem 3.5rem;
-  background-color: #fff9ec;
+  margin-top: 73px;
+  margin-left: 290px;
+  padding: 50px 70px 60px 70px;
 }
 
 h1 {
   font-weight: 700;
-  margin-bottom: 2.8rem;
+  margin-bottom: 38px;
 }
 
 .mess-box {
   display: none;
   align-items: center;
-  padding: 1.4rem 1rem;
-  border-radius: 0.25rem;
-  margin-bottom: 2rem;
+  padding: 20px 15px;
+  border-radius: 3px;
+  margin-bottom: 35px;
 }
 
 .mess-warning {
@@ -35,12 +34,12 @@ h1 {
 }
 
 .mess-icon {
-  margin-left: 2rem;
-  margin-right: 1rem;
+  margin-left: 40px;
+  margin-right: 20px;
 }
 
 .mess {
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -55,53 +54,53 @@ h1 {
 h2 {
   font-weight: 500;
   border-bottom: 1px solid rgb(179, 178, 178);
-  padding-bottom: 0.2rem;
+  padding-bottom: 3px;
 }
 
 .section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 1.5rem 0 1rem 2rem;
+  margin: 18px 0 16px 20px;
 }
 
 .form-item {
   flex: 45%;
-  margin-bottom: 1.9rem;
+  margin-bottom: 30px;
 }
 
 .label {
-  font-size: 1.1rem;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 0.9rem;
+  margin-bottom: 15px;
 }
 
 .form-input {
   box-sizing: content-box;
-  width: 23rem;
-  padding: 0.8rem 0.6rem;
+  width: 300px;
+  padding: 10px 5px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.45);
-  border-radius: 0.25rem;
-  font-size: 0.9rem;
+  border-radius: 3px;
+  font-size: 16px;
 }
 
 .form-input option {
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 .form-btn {
   display: flex;
   justify-content: flex-end;
-  margin-right: 12rem;
+  margin-right: 150px;
 }
 
 .btn {
   border: none;
-  padding: 0.6rem 0.4rem;
-  font-size: 1.1rem;
-  border-radius: 0.3rem;
-  min-width: 5rem;
+  padding: 10px 12px;
+  font-size: 18px;
+  border-radius: 4px;
+  min-width: 80px;
   text-align: center;
   box-sizing: content-box;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
