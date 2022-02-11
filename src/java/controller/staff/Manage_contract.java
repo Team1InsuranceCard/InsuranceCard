@@ -5,12 +5,17 @@
  */
 package controller.staff;
 
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Contract;
 
 /**
  *
@@ -35,7 +40,7 @@ public class Manage_contract extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Manage_contract</title>");            
+            out.println("<title>Servlet Manage_contract</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Manage_contract at " + request.getContextPath() + "</h1>");
@@ -57,6 +62,34 @@ public class Manage_contract extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+
+//        HttpSession session = request.getSession();
+//        Account currentStaffAccount = (Account) session.getAttribute("account");
+//        int staffAccountID = currentStaffAccount.getId();
+int staffAccountID = 2;
+        String query = request.getParameter("query");
+        String customerNameOrdered = request.getParameter("nameorder");
+        String startDateOrdered = request.getParameter("startoder");
+        String endDateOrdered = request.getParameter("endorder");
+        String contractStatusCode = request.getParameter("status");
+        String rawpageIndex = request.getParameter("page");
+        rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
+        int pageIndex = Integer.parseInt(rawpageIndex);
+        contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? "0,1,2,3,4,5" : contractStatusCode;
+
+        ContractDBContext contractDBC = new ContractDBContext();
+        HashMap<Integer, Contract> contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
+                customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
+
+        request.setAttribute("contract_list", contractList);
+        request.setAttribute("query", this);
+        request.setAttribute("nameorder", this);
+        request.setAttribute("startoder", this);
+        request.setAttribute("endorder", this);
+        request.setAttribute("status", this);
+        request.setAttribute("page", this);
+
+        request.getRequestDispatcher("../../view/staff/manage_contract.jsp").forward(request, response);
     }
 
     /**
