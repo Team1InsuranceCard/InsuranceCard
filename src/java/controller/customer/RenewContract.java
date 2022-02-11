@@ -5,12 +5,16 @@
  */
 package controller.customer;
 
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Contract;
 
 /**
  *
@@ -31,6 +35,15 @@ public class RenewContract extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        LocalDate d = java.time.LocalDate.now();
+
+        int contractID = (int) request.getSession().getAttribute("contractID");
+        Account acc = (Account) request.getSession().getAttribute("account");
+        ContractDBContext cdb = new ContractDBContext();
+        Contract contract = cdb.getContractDetail(1, contractID); //change to acc.id
+
+        request.setAttribute("contract", contract);
+        request.setAttribute("minDate", d);
         request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
 
