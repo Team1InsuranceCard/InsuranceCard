@@ -206,8 +206,7 @@
                 </div>
                 <div class="submit">
                     <input type="${requestScope.pro==0?"hidden":"submit"}" value="${requestScope.btn}"/>
-                    <h4 style="color:#FFFFFF; background-color:#E5333A;display: inline;
-                        padding: 0.5rem 1rem;">
+                    <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
                 </div>
             </form>
