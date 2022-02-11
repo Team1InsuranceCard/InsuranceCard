@@ -9,6 +9,10 @@ import dao.ContractDBContext;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +47,7 @@ public class ContractInformation extends HttpServlet {
 
         ProductDBContext pdb = new ProductDBContext();
         short proID = pdb.checkStatus(contract.getProduct().getId());
-        
+
         String btn = "";
         if (contract.getStatus() == 3) {
             btn += "No cancel more";
@@ -52,11 +56,32 @@ public class ContractInformation extends HttpServlet {
         } else {
             btn += "Renew";
         }
+
+        Date date1 = null;
+        Date date2 = null;
+        long getDaysDiff = 0;
         
+        try {
+            DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String startDate = simpleDateFormat.format(contract.getStartDate());
+            String endDate = simpleDateFormat.format(contract.getEndDate());
+
+            date1 = (Date) simpleDateFormat.parse(startDate);
+            date2 = (Date) simpleDateFormat.parse(endDate);
+
+            long getDiff = date2.getTime() - date1.getTime();
+
+            getDaysDiff = getDiff / (24 * 60 * 60 * 1000) / 365;
+
+        } catch (ParseException e) {
+        }
+
         request.setAttribute("contract", contract);
         request.setAttribute("btn", btn);
         request.setAttribute("pro", proID);
-        request.setAttribute("mess", proID==0?"Product is inactive!":"");
+        request.setAttribute("mess", proID == 0 ? "Product is inactive!" : "");
+        request.setAttribute("contractID", contractID);
+        request.setAttribute("duration", getDaysDiff);
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
@@ -72,6 +97,17 @@ public class ContractInformation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        String btn = request.getParameter("btn");
+        int contractID = Integer.parseInt(request.getParameter("id"));
+
+        if (btn.equals("Renew")) {
+            request.getSession().setAttribute("contractID", contractID);
+            response.sendRedirect("renew");
+        } else if (btn.equals("Cancel")) {
+            //Quý
+        } else if (btn.equals("No cancel more")) {
+
+        }
     }
 
     /**
