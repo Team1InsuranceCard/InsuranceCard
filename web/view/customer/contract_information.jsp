@@ -28,6 +28,7 @@
 
         <section>
             <form action="customer/contract/detail" method="POST">
+                <input type="hidden" name="id" value="${requestScope.contractID}"/>
                 <div class="product-label">
                     <div class="row">
                         <p class="col-md-8 label-title">${c.product.title}</p>
@@ -105,6 +106,8 @@
                             <p class="col-md-2 bold">Cancel Staff:</p>
                             <p class="col-md-3 underline">${c.cancelStaff.firstName} 
                                 ${c.cancelStaff.lastName}</p>
+                            <p class="col-md-2 space bold">Duration:</p>
+                            <p class="col-md-2 underline">${requestScope.duration} year</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
@@ -205,7 +208,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="${requestScope.pro==0?"hidden":"submit"}" value="${requestScope.btn}"/>
+                    <input type="${requestScope.pro==0?"hidden":"submit"}" name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
                 </div>
