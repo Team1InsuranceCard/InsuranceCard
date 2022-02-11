@@ -80,7 +80,7 @@ public class CustomerDashboard extends HttpServlet {
             PaymentDBContext paymentDBC = new PaymentDBContext();
             double totalAmount = paymentDBC.totalAmountSpent(customerID);
             ContractDBContext contractDBC = new ContractDBContext();
-            int totalContracts = contractDBC.totalContracts(customerID);
+            int totalContracts = contractDBC.totalContractsByCustomer(customerID);
             CompensationDBContext compensationDBC = new CompensationDBContext();
             int compensationQuantity = compensationDBC.getCompensationQuantity(customerID);
 
