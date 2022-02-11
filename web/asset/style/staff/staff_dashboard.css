@@ -43,7 +43,6 @@ body {
 }
 
 .task {
-  position: absolute;
   margin: 0 auto;
   background-color: #ffdccc;
   text-align: center;
@@ -52,7 +51,7 @@ body {
 
 .illustration>img {
 /*    margin-left: -10em;
-    margin-top: 1em;*/
+    */margin-top: 1em;
     position: absolute;
     right: 10em;
     top: 1em;
@@ -67,7 +66,7 @@ body {
 
 .unhold-limiter {
     border: solid;
-    /*position: absolute;*/
+    position: absolute;
     top: 7em;
     left: 0;
     height: 3em;
