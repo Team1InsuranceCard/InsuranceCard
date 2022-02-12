@@ -44,6 +44,9 @@ main {
 .contract-list-header th:last-child {
   border-radius: 0 10px 10px 0;
 }
+.contract-list-header th a {
+  color: #5C2941;
+}
 
 .page-link {
   background-color: #F2F2F2;
@@ -54,4 +57,16 @@ main {
 }
 .page-link.active {
   background-color: #FAAEB7;
+}
+
+.status-select {
+  border: none;
+  border-radius: 5px;
+  background-color: #ffffff00;
+  font-weight: 700;
+  color: #5C2941;
+
+}
+.status-select:focus-visible{
+  /* border:none; */
 }

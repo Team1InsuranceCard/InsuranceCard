@@ -19,29 +19,37 @@ area1 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
       sizes="16x16"
     />
     <link rel="stylesheet" href="asset/style/staff/manage_contract.css" />
+    <!-- <script src="asset/script/staff/manage_contracts.js" defer></script> -->
   </head>
   <body>
     <jsp:include page="../header_staff.jsp">
       <jsp:param name="currentscreen" value="contract" />
     </jsp:include>
-    
+
     <main>
       <div class="container contract-action">
         <div class="row">
           <div class="col seach-bar">
-            <form class="form-inline">
+            <form class="form-inline" action="view" method="GET">
               <input
+              id="search-box"
                 class="form-control mr-sm-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value=""
               />
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              <button
+                class="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+              >
                 Search
               </button>
             </form>
           </div>
-          <div class="col create-contract-button"><a href="">New Contract</a></div>
+          <div class="col create-contract-button">
+            <a href="">New Contract</a>
+          </div>
         </div>
       </div>
       <div class="contract-list">
@@ -50,11 +58,18 @@ area1 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
           <table class="contract-list-table table table-striped">
             <thead class="contract-list-header">
               <th scope="col">STT</th>
-              <th scope="col">Customers</th>
-              <th scope="col">Product</th>
-              <th scope="col">Start date</th>
-              <th scope="col">End date</th>
-              <th scope="col">Status</th>
+              <th scope="col"><a  title="ASC" id="customer-filter" href="javascript:void()">Customers</a></th>
+              <th scope="col"><a  title="ASC" id="product-filter" href="javascript:void()">Products</a></th>
+              <th scope="col"><a  title="ASC" id="start-date-filter" href="javascript:void()">Start date</a></th>
+              <th scope="col"><a  title="ASC" id="end-date-filter" href="javascript:void()">End date</a></th>
+              <th scope="col">
+                <select class="status-select" name="" id="status-filter">
+                  <option value="">Status</option>
+                  <option value="3">Pending</option>
+                  <option value="4">Active</option>
+                  <option value="6">Canceled</option>
+                </select>
+              </th>
             </thead>
             <tbody>
               <tr>
@@ -109,24 +124,31 @@ area1 --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
           </table>
         </div>
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-end">
-            <li class="page-item   disabled">
+          <ul id="page-list" class="pagination justify-content-end">
+            <!-- <li class="page-item disabled">
               <a class="page-link" href="#" tabindex="-1">First</a>
             </li>
             <li class="page-item"><a class="page-link" href="#"><</a></li>
-            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+            <li class="page-item">
+              <a class="page-link active" href="#">1</a>
+            </li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">></a></li>
 
             <li class="page-item item-last">
               <a class="page-link" href="#">Last</a>
-            </li>
+            </li> -->
           </ul>
         </nav>
       </div>
     </main>
 
     <%--<jsp:include page="../footer_full.jsp" />--%>
+    <script src="asset/script/staff/manage_contracts.js"></script>
+
+    <script>
+      createPager("page-list", 99, 100, window.location.href);
+    </script>
   </body>
 </html>
