@@ -31,7 +31,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="container contract-action">
                 <div class="row">
                     <div class="col seach-bar">
-                        <form class="form-inline" action="view" method="GET">
+                        <form class="form-inline" action="staff/contract/view" method="GET">
                             <input
                                 id="search-box"
                                 class="form-control mr-sm-2"
@@ -71,7 +71,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                             >
                         </th>
                         <th scope="col">
-                            <a title="${startoder}" id="start-date-filter" href="javascript:void()"
+                            <a title="${startorder}" id="start-date-filter" href="javascript:void()"
                                >Start date</a
                             >
                         </th>
@@ -82,9 +82,10 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </th>
                         <th scope="col">
                             <select class="status-select" name="" id="status-filter">
+                                <option value="" >Status</option>
                                 <c:forEach var="statuscode" items="${status_codes}">
-                                    <option value="${statuscode.statusCode}">
-                                        ${statusName}
+                                    <option <c:if  test="${status == statuscode.statusCode}">selected</c:if> value="${statuscode.statusCode}">
+                                        ${statuscode.statusName}
                                     </option>
                                 </c:forEach>
                             </select>
@@ -94,12 +95,12 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         <tbody>
                             <c:forEach var="contractMap" items="${contract_list}">
                                 <tr>
-                                    <th scope="row">contractMap.Key</th>
+                                    <th scope="row">${contractMap.key}</th>
                                         <c:set var="contract" value="${contractMap.value}" />
                                     <td>
-                                        contract.customer.firstName contract.customer.lastName
+                                        ${contract.customer.firstName} ${contract.customer.lastName}
                                     </td>
-                                    <td>contract.product.title</td>
+                                    <td>${contract.product.title}</td>
                                     <td>
                             <fmt:formatDate type="both" value="${contract.startDate}" />
                             </td>
@@ -136,48 +137,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                 <a href="staff/contract/detail?id=${contract.id}">Detail</a>
                                 </tr>
                             </c:forEach>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Khánh Huy</td>
-                            <td>Bảo hiểm đầu xe</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td><span>Pending</span></td>
-                            <td><a href="staff/contract/detail">Detail</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Khánh Huy</td>
-                            <td>Bảo hiểm đầu xe</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td><span>Pending</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Khánh Huy</td>
-                            <td>Bảo hiểm đầu xe</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td><span>Pending</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Khánh Huy</td>
-                            <td>Bảo hiểm đầu xe</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td><span>Pending</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Khánh Huy</td>
-                            <td>Bảo hiểm đầu xe</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td>2022-10-11 11:02:22</td>
-                            <td><span>Pending</span></td>
-                        </tr>
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
                 <nav aria-label="Page navigation example">
@@ -204,7 +164,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="../footer_full.jsp" />
         <script src="asset/script/staff/manage_contracts.js"></script>
         <script>
-        createPager("page-list", ${page}, ${totalpage}, window.location.href);
+            createPager("page-list", ${page}, ${totalpage}, window.location.href);
         </script>
     </body>
 </html>
