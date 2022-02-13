@@ -16,11 +16,10 @@ public class Contract {
 
     private int id;
     private Product product;
-    private Customer customerID;
+    private Customer customer;
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean isDelete;
-    private double contractFee;
     private String cancelComment;
     private String cancelReason;
     private Timestamp cancelDate;
@@ -36,18 +35,30 @@ public class Contract {
     private Timestamp requestDate;
     private Timestamp resolveDate;
     private short status;
+    private Staff startStaff;
+    private Staff cancelStaff;
+    private ContractStatusCode statusCode;
+
+    public ContractStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(ContractStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    
 
     public Contract() {
     }
 
-    public Contract(int id, Product product, Customer customerID, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
         this.id = id;
         this.product = product;
-        this.customerID = customerID;
+        this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isDelete = isDelete;
-        this.contractFee = contractFee;
         this.cancelComment = cancelComment;
         this.cancelReason = cancelReason;
         this.cancelDate = cancelDate;
@@ -63,6 +74,24 @@ public class Contract {
         this.requestDate = requestDate;
         this.resolveDate = resolveDate;
         this.status = status;
+        this.startStaff = startStaff;
+        this.cancelStaff = cancelStaff;
+    }
+
+    public Staff getStartStaff() {
+        return startStaff;
+    }
+
+    public void setStartStaff(Staff startStaff) {
+        this.startStaff = startStaff;
+    }
+
+    public Staff getCancelStaff() {
+        return cancelStaff;
+    }
+
+    public void setCancelStaff(Staff cancelStaff) {
+        this.cancelStaff = cancelStaff;
     }
 
     public int getId() {
@@ -81,12 +110,12 @@ public class Contract {
         this.product = product;
     }
 
-    public Customer getCustomerID() {
-        return customerID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Timestamp getStartDate() {
@@ -111,14 +140,6 @@ public class Contract {
 
     public void setIsDelete(boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public double getContractFee() {
-        return contractFee;
-    }
-
-    public void setContractFee(double contractFee) {
-        this.contractFee = contractFee;
     }
 
     public String getCancelComment() {

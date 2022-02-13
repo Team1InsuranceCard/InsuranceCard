@@ -69,27 +69,32 @@ public class CustomerDashboard extends HttpServlet {
             throws ServletException, IOException {
         //        processRequest(request, response);
         HttpSession session = request.getSession();
-//        Account account = (Account)   session.getAttribute("currentuser");
-        int customerID = 1;
-        ProductDBContext productDBC = new ProductDBContext();
-        ArrayList<Product> buyableProducts = productDBC.getProducts();
-        CustomerDBContext customerDBC = new CustomerDBContext();
-        CustomerStaff customerStaff = customerDBC.getCustomerDashboard(customerID);
-        ArrayList<Product> currentProducts = productDBC.getProductsByCustomer(customerID);
-        PaymentDBContext paymentDBC = new PaymentDBContext();
-        double totalAmount = paymentDBC.totalAmountSpent(customerID);
-        ContractDBContext contractDBC = new ContractDBContext();
-        int totalContracts = contractDBC.totalContracts(customerID);
-        CompensationDBContext compensationDBC = new CompensationDBContext();
-        int compensationQuantity = compensationDBC.getCompensationQuantity(customerID);
-        
-        request.setAttribute("compensation_quantity", compensationQuantity);
-        request.setAttribute("total_contracts", totalContracts);
-        request.setAttribute("total_amount", totalAmount);
-        request.setAttribute("current_products", currentProducts);
-        request.setAttribute("customer_staff", customerStaff);
-        request.setAttribute("buyable_products", buyableProducts);
-        request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
+        try {
+            Account account = (Account) session.getAttribute("account");
+            int customerID = account.getId();
+            ProductDBContext productDBC = new ProductDBContext();
+            ArrayList<Product> buyableProducts = productDBC.getProducts();
+            CustomerDBContext customerDBC = new CustomerDBContext();
+            CustomerStaff customerStaff = customerDBC.getCustomerDashboard(customerID);
+            ArrayList<Product> currentProducts = productDBC.getProductsByCustomer(customerID);
+            PaymentDBContext paymentDBC = new PaymentDBContext();
+            double totalAmount = paymentDBC.totalAmountSpent(customerID);
+            ContractDBContext contractDBC = new ContractDBContext();
+            int totalContracts = contractDBC.totalContractsByCustomer(customerID);
+            CompensationDBContext compensationDBC = new CompensationDBContext();
+            int compensationQuantity = compensationDBC.getCompensationQuantity(customerID);
+
+            request.setAttribute("compensation_quantity", compensationQuantity);
+            request.setAttribute("total_contracts", totalContracts);
+            request.setAttribute("total_amount", totalAmount);
+            request.setAttribute("current_products", currentProducts);
+            request.setAttribute("customer_staff", customerStaff);
+            request.setAttribute("buyable_products", buyableProducts);
+            request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
+        } catch (NullPointerException ex) {
+//            response.getWriter().print("<h1>Please login first</h1>");
+            response.sendRedirect("../login");
+        }
     }
 
     /**

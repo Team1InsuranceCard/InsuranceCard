@@ -12,18 +12,30 @@
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/register.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-<<<<<<< Updated upstream
         <c:set var="rs" value="${requestScope}"/>
 
-=======
->>>>>>> Stashed changes
     </head>
 
     <body>
         <div>
+            <a href="homepage">
+                <img class="logo-icon"
+                     src="asset/image/icon_car.png"
+                     alt="LogoIcon" />
+                <br/>
+                <img class="logo-title"
+                     src="asset/image/InsuranceCard.png"
+                     alt="LogoTitle" />
+            </a>
+
             <div class="signUp">
                 <h1>Sign Up</h1>
-                <p id="mess">${requestScope.mess}</p>
+                <p class="mess" style="${requestScope.mess_pass==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_pass}</p>
+                <p class="mess" Style="${requestScope.mess_pID==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_pID}</p>
+                <p class="mess" style="${requestScope.mess_email==null?"":"padding: 1rem 2rem;"}"
+                   >${requestScope.mess_email}</p>
             </div>
 
             <form id="myForm" action="register" method="POST">
@@ -37,11 +49,11 @@
                         <div class="col-md-6">
                             <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
                                    value="${rs.phone}" 
+                                   minlength="10" maxlength="10"
                                    placeholder="Phone *" required/>
                         </div>
                     </div>
 
-<<<<<<< Updated upstream
                     <%-- Pass + PersonalID --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -58,23 +70,8 @@
                                    value="${rs.personalID}"
                                    required/>
                         </div>
-=======
-                <%-- Pass2 + Address --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="password" name="password2" 
-                               pattern="[a-zA-Z0-9]+" 
-                               minlength="8" maxlength="32"
-                               placeholder="Confirm password *" required/>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="address" 
-                               pattern="^[^-\s][\S\s]+$"
-                               placeholder="Address *" required/>
->>>>>>> Stashed changes
                     </div>
 
-<<<<<<< Updated upstream
                     <%-- Pass2 + Address --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -91,24 +88,8 @@
                                    placeholder="Address *" 
                                    value="${rs.address}" required/>
                         </div>
-=======
-                <%-- First name + Province --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="firstName" 
-                               placeholder="First name *" 
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               required/>
-                    </div>
-                    <div class="col-md-6">
-                        <select name="calc_shipping_provinces" required>
-                        </select>
-                        <input class="billing_address_1" name="province" 
-                               type="hidden" value=""/>
->>>>>>> Stashed changes
                     </div>
 
-<<<<<<< Updated upstream
                     <%-- First name + Province --%>
                     <div class="row">
                         <div class="col-md-6">
@@ -122,24 +103,9 @@
                                 <option hidden>Province</option>
                             </select>
                             <input class="billing_address_1" name="province" 
+
                                    type="hidden" value=""/>
                         </div>
-=======
-                <%-- Last name + District --%>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="lastName" 
-                               placeholder="Last name *" 
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               required/>
-                    </div>
-                    <div class="col-md-6">
-                        <select name="calc_shipping_district" required>
-                            <option hidden>District</option>
-                        </select>
-                        <input class="billing_address_2" name="district" 
-                               type="hidden" value=""/>
->>>>>>> Stashed changes
                     </div>
 
                     <%-- Last name + District --%>
@@ -171,7 +137,8 @@
                             <div class="icon-login">
                                 <p style="color:#5C2941;font-size:15px;
                                    font-weight:bold;">Or register by
-                                    <i class="fab fa-google-plus"></i></p>
+                                    <i class="fab fa-google-plus"
+                                       style="cursor:pointer;"></i></p>
 
                             </div>
                         </div>
@@ -190,46 +157,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
         <script>
-            if ((address_2 = localStorage.getItem("address_2_saved"))) {
-                $('select[name="calc_shipping_district"] option').each(function () {
-                    if ($(this).text() == address_2) {
-                        $(this).attr("selected", "");
-                    }
-                });
-                $("input.billing_address_2").attr("value", address_2);
-            }
-            if ((district = localStorage.getItem("district"))) {
-                $('select[name="calc_shipping_district"]').html(district);
-                $('select[name="calc_shipping_district"]').on("change", function () {
-                    var target = $(this).children("option:selected");
-                    target.attr("selected", "");
-                    $('select[name="calc_shipping_district"] option')
-                            .not(target)
-                            .removeAttr("selected");
-                    address_2 = target.text();
-                    $("input.billing_address_2").attr("value", address_2);
-                    district = $('select[name="calc_shipping_district"]').html();
-                    localStorage.setItem("district", district);
-                    localStorage.setItem("address_2_saved", address_2);
-                });
-            }
             $('select[name="calc_shipping_provinces"]').each(function () {
                 var $this = $(this),
                         stc = "";
                 c.forEach(function (i, e) {
                     e += +1;
                     stc += "<option value=" + e + ">" + i + "</option>";
-                    $this.html('<option value="">Province</option>' + stc);
-                    if ((address_1 = localStorage.getItem("address_1_saved"))) {
-                        $('select[name="calc_shipping_provinces"] option').each(
-                                function () {
-                                    if ($(this).text() == address_1) {
-                                        $(this).attr("selected", "");
-                                    }
-                                }
-                        );
-                        $("input.billing_address_1").attr("value", address_1);
-                    }
+                    $this.html('<option value="">Provinces</option>' + stc);
                     $this.on("change", function (i) {
                         i = $this.children("option:selected").index() - 1;
                         var str = "",
@@ -238,13 +172,11 @@
                             arr[i].forEach(function (el) {
                                 str += '<option value="' + el + '">' + el + "</option>";
                                 $('select[name="calc_shipping_district"]').html(
-                                        '<option value="">District</option>' + str
+                                        '<option value="">Districts</option>' + str
                                         );
                             });
                             var address_1 = $this.children("option:selected").text();
                             var district = $('select[name="calc_shipping_district"]').html();
-                            localStorage.setItem("address_1_saved", address_1);
-                            localStorage.setItem("district", district);
                             $('select[name="calc_shipping_district"]').on(
                                     "change",
                                     function () {
@@ -256,17 +188,14 @@
                                         var address_2 = target.text();
                                         $("input.billing_address_2").attr("value", address_2);
                                         district = $('select[name="calc_shipping_district"]').html();
-                                        localStorage.setItem("district", district);
-                                        localStorage.setItem("address_2_saved", address_2);
                                     }
                             );
+                            $("input.billing_address_1").attr("value", address_1)
                         } else {
                             $('select[name="calc_shipping_district"]').html(
-                                    '<option value="">District</option>'
+                                    '<option value="">Districts</option>'
                                     );
                             district = $('select[name="calc_shipping_district"]').html();
-                            localStorage.setItem("district", district);
-                            localStorage.removeItem("address_1_saved", address_1);
                         }
                     });
                 });

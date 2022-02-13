@@ -14,19 +14,42 @@ public class Account {
     private String email;
     private String password;
     private boolean role;
-    private boolean status;
+    private short status;
+    private String googleID;
+    private AccountStatusCode statusCode;
+
+    public AccountStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(AccountStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    
 
     public Account() {
     }
 
-    public Account(int id, String email, String password, boolean role, boolean status) {
+    public String getGoogleID() {
+        return googleID;
+    }
+
+    public void setGoogleID(String googleID) {
+        this.googleID = googleID;
+    }
+
+    public Account(int id, String email, String password, boolean role, short status, String googleID) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.googleID = googleID;
     }
-    
+
+ 
+
     
 
     public int getId() {
@@ -62,13 +85,15 @@ public class Account {
         this.role = role;
     }
 
-    public boolean isStatus() {
+    public short getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(short status) {
         this.status = status;
     }
+
+
     
     
 }

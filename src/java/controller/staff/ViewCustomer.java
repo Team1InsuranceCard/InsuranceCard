@@ -35,13 +35,14 @@ public class ViewCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         
         CustomerDBContext csdb = new CustomerDBContext();
         CustomerStaff viewCustomer = csdb.viewCustomer(id);
         
         ContractDBContext cdb = new ContractDBContext();
-        int totalContract = cdb.totalContracts(id);
+        int totalContract = cdb.totalContractsByCustomer(id);
         
         request.setAttribute("viewCustomer", viewCustomer);
         request.setAttribute("totalContract", totalContract);
