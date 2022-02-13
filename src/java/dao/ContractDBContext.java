@@ -241,6 +241,10 @@ public class ContractDBContext extends DBContext {
                 Staff cancel_staff = new Staff();
                 cancel_staff.setFirstName(rs.getString("CancelStaff_fname"));
                 cancel_staff.setLastName(rs.getString("CancelStaff_lname"));
+                
+                ContractStatusCode contract_status = new ContractStatusCode();
+                contract_status.setStatusCode(rs.getShort("Status"));
+                contract_status.setStatusName(rs.getString("StatusName"));
 
                 contract.setProduct(product);
                 contract.setCustomer(customer);
@@ -263,6 +267,7 @@ public class ContractDBContext extends DBContext {
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
                 contract.setResolveDate(rs.getTimestamp("ResolveDate"));
+                contract.setContractFee(rs.getInt("Amout"));
 
                 return contract;
             }
