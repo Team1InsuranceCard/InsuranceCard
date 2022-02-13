@@ -97,7 +97,7 @@ public class ProductDBContext extends DBContext {
             if (rs_select_products.next()) {
                 Product product = new Product();
                 product.setId(rs_select_products.getInt("ID"));
-                product.setTitle(rs_select_products.getString("ProductTitle"));
+                product.setTitle(rs_select_products.getString("Title"));
                 product.setPrice(rs_select_products.getDouble("Price"));
                 product.setStatus(rs_select_products.getShort("Status"));
 

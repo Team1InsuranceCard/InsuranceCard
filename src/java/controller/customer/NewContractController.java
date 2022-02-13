@@ -51,12 +51,14 @@ public class NewContractController extends HttpServlet {
             pID = Integer.parseInt(productID);
             Product product = pdb.getProductByID(pID);
             if (product == null) {
+                //incorrect product id => redirect to dashboard to choose product again
                 response.sendRedirect("../dashboard");
             } else {
                 request.setAttribute("product", product);
                 request.getRequestDispatcher("../../view/customer/new-contract.jsp").forward(request, response);
             }
         } catch (NumberFormatException ex) {
+            //incorrect product id => redirect to dashboard to choose product again
             response.sendRedirect("../dashboard");
         }
     }

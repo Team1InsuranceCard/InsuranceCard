@@ -5,7 +5,7 @@
 
 <header>
     <div class="header-staff">
-        <a href="#" class="brand">
+        <a href="${root}/homepage" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
@@ -19,16 +19,20 @@
         <ul>
             <c:set var="current" value="${param.currentscreen}"/> 
             <li>
-                <a class="sidebar-item <c:if test="${current == 'dashboard'}">active</c:if>" href="">DashBoard</a>
+                <a class="sidebar-item <c:if test="${current == 'dashboard'}">active</c:if>" 
+                   href="${root}/staff/dashboard">DashBoard</a>
                 </li>
                 <li>
-                    <a class="sidebar-item <c:if test="${current == 'customer'}">active</c:if>" href="">Customer</a>
+                    <a class="sidebar-item <c:if test="${current == 'customer'}">active</c:if>" 
+                       href="${root}/staff/customer/view">Customer</a>
                 </li>
                 <li>
-                    <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" href="">Contract</a>        
+                    <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" 
+                       href="${root}/staff/contract/view">Contract</a>        
                 </li>
                 <li>
-                    <a class="sidebar-item <c:if test="${current == 'compensation'}">active</c:if>" href="">Compensation</a>    
+                    <a class="sidebar-item <c:if test="${current == 'compensation'}">active</c:if>" 
+                       href="${root}/staff/compensation/resolve-request">Compensation</a>    
             </li>
         </ul>
     </div>

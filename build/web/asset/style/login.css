@@ -10,20 +10,12 @@
 }
 
 .logo-group {
-<<<<<<< Updated upstream
     margin-top: -10%;
-=======
-    margin-top: -20px;
->>>>>>> Stashed changes
     justify-content: space-between;
     text-align: center;
 }
 
-<<<<<<< Updated upstream
 
-=======
-/*Username & Password*/
->>>>>>> Stashed changes
 .username {
     position: absolute;
     width: 100%;
@@ -252,4 +244,18 @@ img {
     background: url(../asset/image/gg_icon.png) no-repeat scroll 7px 7px;
     padding-left: 36%;
     margin-top: 0.1rem;
+}
+
+.alert {
+    width: 100%;
+    position: absolute;
+    top: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert-danger {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }

@@ -11,15 +11,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <link href="asset/style/customer/new_contract.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
         <jsp:include page="../header_customer.jsp"></jsp:include>
-        <div>
             
-        </div>
         <jsp:include page="../footer_full.jsp"></jsp:include>
     </body>
 </html>
