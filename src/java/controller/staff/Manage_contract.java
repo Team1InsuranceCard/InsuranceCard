@@ -3,31 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller.staff;
 
-import dao.CompensationDBContext;
 import dao.ContractDBContext;
-import dao.CustomerDBContext;
-import dao.PaymentDBContext;
-import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Customer;
-import model.CustomerStaff;
-import model.Product;
+import model.Contract;
 
 /**
  *
  * @author area1
  */
-public class CustomerDashboard extends HttpServlet {
+public class Manage_contract extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +40,10 @@ public class CustomerDashboard extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CustomerDashboard</title>");
+            out.println("<title>Servlet Manage_contract</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CustomerDashboard at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Manage_contract at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,34 +61,35 @@ public class CustomerDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //        processRequest(request, response);
-        HttpSession session = request.getSession();
-        try {
-            Account account = (Account) session.getAttribute("account");
-            int customerID = account.getId();
-            ProductDBContext productDBC = new ProductDBContext();
-            ArrayList<Product> buyableProducts = productDBC.getProducts();
-            CustomerDBContext customerDBC = new CustomerDBContext();
-            CustomerStaff customerStaff = customerDBC.getCustomerDashboard(customerID);
-            ArrayList<Product> currentProducts = productDBC.getProductsByCustomer(customerID);
-            PaymentDBContext paymentDBC = new PaymentDBContext();
-            double totalAmount = paymentDBC.totalAmountSpent(customerID);
-            ContractDBContext contractDBC = new ContractDBContext();
-            int totalContracts = contractDBC.totalContractsByCustomer(customerID);
-            CompensationDBContext compensationDBC = new CompensationDBContext();
-            int compensationQuantity = compensationDBC.getCompensationQuantity(customerID);
+//        processRequest(request, response);
 
-            request.setAttribute("compensation_quantity", compensationQuantity);
-            request.setAttribute("total_contracts", totalContracts);
-            request.setAttribute("total_amount", totalAmount);
-            request.setAttribute("current_products", currentProducts);
-            request.setAttribute("customer_staff", customerStaff);
-            request.setAttribute("buyable_products", buyableProducts);
-            request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
-        } catch (NullPointerException ex) {
-//            response.getWriter().print("<h1>Please login first</h1>");
-            response.sendRedirect("../login");
-        }
+//        HttpSession session = request.getSession();
+//        Account currentStaffAccount = (Account) session.getAttribute("account");
+//        int staffAccountID = currentStaffAccount.getId();
+int staffAccountID = 2;
+        String query = request.getParameter("query");
+        String customerNameOrdered = request.getParameter("nameorder");
+        String startDateOrdered = request.getParameter("startoder");
+        String endDateOrdered = request.getParameter("endorder");
+        String contractStatusCode = request.getParameter("status");
+        String rawpageIndex = request.getParameter("page");
+        rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
+        int pageIndex = Integer.parseInt(rawpageIndex);
+        contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? "0,1,2,3,4,5" : contractStatusCode;
+
+        ContractDBContext contractDBC = new ContractDBContext();
+        HashMap<Integer, Contract> contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
+                customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
+
+        request.setAttribute("contract_list", contractList);
+        request.setAttribute("query", this);
+        request.setAttribute("nameorder", this);
+        request.setAttribute("startoder", this);
+        request.setAttribute("endorder", this);
+        request.setAttribute("status", this);
+        request.setAttribute("page", this);
+
+        request.getRequestDispatcher("../../view/staff/manage_contract.jsp").forward(request, response);
     }
 
     /**
@@ -108,8 +103,7 @@ public class CustomerDashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-
+//        processRequest(request, response);
     }
 
     /**
