@@ -78,7 +78,7 @@
                             <c:choose>
                                 <c:when test="${c.status==0}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        End of contract</p>
+                                        Out of date</p>
                                     </c:when>
                                     <c:when test="${c.status==1}">
                                     <p class="col-md-2 center" style="color:#0DC858;">
