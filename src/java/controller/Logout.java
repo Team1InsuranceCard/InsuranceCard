@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.staff;
+package controller;
 
-import dao.StaffDBContext;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Staff;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ADMIN
  */
-public class StaffDashboard extends HttpServlet {
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +30,7 @@ public class StaffDashboard extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,24 +46,12 @@ public class StaffDashboard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-//        HttpSession session = request.getSession();
-        try {
-            Account acc = (Account) request.getSession().getAttribute("account");
-            int accountId = acc.getId();
-            StaffDBContext dbS = new StaffDBContext();
-            Staff staff = dbS.getStaff(accountId);
-            int totalCus = dbS.getTotalCus(accountId);
-            int totalCont = dbS.getTotalCont(accountId);
-            
-            request.setAttribute("fname", staff.getFirstName());
-            request.setAttribute("lname", staff.getLastName());
-            request.setAttribute("total1", totalCus);
-            request.setAttribute("total2", totalCont);
-            
-//            request.setAttribute("", dbS);
-            request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);
-        } catch (NullPointerException ex) {
-            response.sendRedirect("../login");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("account") != null) {
+            session.invalidate();
+            response.sendRedirect("login");
+        } else{
+            response.sendRedirect("login");
         }
     }
 

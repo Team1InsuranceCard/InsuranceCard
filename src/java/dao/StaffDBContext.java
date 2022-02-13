@@ -76,4 +76,48 @@ public class StaffDBContext extends DBContext {
         return null;
     }
 
+    public int getTotalCus(int accountId) {
+        try {
+            String sql = "select s.AccountID, COUNT(cs.CustomerID) as customers\n"
+                    + "from Staff s inner join Customer_Staff cs on s.AccountID = cs.StaffID\n"
+                    + "where s.AccountID = ?\n"
+                    + "group by s.AccountID, cs.NextStaff\n"
+                    + "having cs.NextStaff is null";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("customers");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalCont(int accountId) {
+        try {
+            String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
+                    + "from [Contract] c inner join Staff s on c.StartStaff = s.AccountID\n"
+                    + "where s.AccountID = ?\n"
+                    + "group by c.StartStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("contracts");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }

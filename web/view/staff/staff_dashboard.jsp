@@ -29,7 +29,7 @@
                         </div>
                         <div class="name-card-content">
                             <!--staff name-->
-                            <h3>Hello ${sessionScope.fname} ${sessionScope.lname}</h3>
+                            <h3>Hello ${requestScope.fname} ${requestScope.lname}</h3>
                         </div>
                     </div>
                     <div class="col-lg-8 ads-container">
@@ -208,6 +208,7 @@
                         </div>
                     </div>
                 </div>
+                <a class="nav-link" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2" style="background-color: black;"></i>Logout</a>
             </div>
         </section>
         <jsp:include page="../footer_full.jsp"></jsp:include>
