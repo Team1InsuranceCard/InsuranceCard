@@ -32,6 +32,9 @@ public class ContractDBContext extends DBContext {
 
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
+            if (querySearch == null) {
+            querySearch = "";
+        }
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
                     + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
@@ -39,7 +42,6 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                    + " AND Account.Status IN (1)\n"
                     + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE  ? + '%')"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
@@ -60,8 +62,11 @@ public class ContractDBContext extends DBContext {
 
     public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String customerNameOrdered,
             String startDateOrdered, String endDateOrdered, String contractStatus) {
-        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 2);
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
+        if (query == null) {
+            query = "";
+        }
         if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
             customerNameOrdered = "ASC";
         }
@@ -90,7 +95,6 @@ public class ContractDBContext extends DBContext {
                 + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                 + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                 + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                + " AND Account.Status IN (1)\n"
                 + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
@@ -124,7 +128,10 @@ public class ContractDBContext extends DBContext {
 
                 contract.setStartDate(rs_select_contract.getTimestamp("StartDate"));
                 contract.setEndDate(rs_select_contract.getTimestamp("EndDate"));
-                contract.setStatus(rs_select_contract.getShort("Status"));
+
+                ContractStatusCode statuscode = new ContractStatusCode();
+                statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                contract.setStatusCode(statuscode);
                 contracts.put(rs_select_contract.getInt("Row_count"), contract);
             }
             return contracts;
@@ -235,10 +242,6 @@ public class ContractDBContext extends DBContext {
                 cancel_staff.setFirstName(rs.getString("CancelStaff_fname"));
                 cancel_staff.setLastName(rs.getString("CancelStaff_lname"));
 
-                ContractStatusCode contract_status = new ContractStatusCode();
-                contract_status.setStatusCode(rs.getShort("Status"));
-                contract_status.setStatusName(rs.getString("StatusName"));
-
                 contract.setProduct(product);
                 contract.setCustomer(customer);
                 contract.setStartStaff(start_staff);
@@ -260,7 +263,6 @@ public class ContractDBContext extends DBContext {
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
                 contract.setResolveDate(rs.getTimestamp("ResolveDate"));
-                contract.setContractFee(rs.getInt("Amout"));
 
                 return contract;
             }
