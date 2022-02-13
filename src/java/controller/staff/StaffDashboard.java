@@ -53,10 +53,10 @@ public class StaffDashboard extends HttpServlet {
             int accountId = acc.getId();
             StaffDBContext dbS = new StaffDBContext();
             Staff staff = dbS.getStaff(accountId);
-            request.setAttribute("fname", staff.getFirstName());
-            request.setAttribute("lname", staff.getLastName());
+            request.getSession().setAttribute("fname", staff.getFirstName());
+            request.getSession().setAttribute("lname", staff.getLastName());
 //            request.setAttribute("", dbS);
-            request.getRequestDispatcher("../view/customer/staff_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);
         } catch (NullPointerException ex) {
             response.sendRedirect("../login");
         }

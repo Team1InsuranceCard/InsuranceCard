@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
         } else if (!acc.isRole()) {
             request.getRequestDispatcher("view/customer/customer_dashboard.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("view/customer/staff_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("view/staff/staff_dashboard.jsp").forward(request, response);
         }
     }
 
@@ -102,10 +102,10 @@ public class Login extends HttpServlet {
             response.addCookie(cookieU);
             response.addCookie(cookieP);
 
-            if (account.isRole()) {
-                response.sendRedirect("staff/dashboard");
-            } else {
+            if (!account.isRole()) {
                 response.sendRedirect("customer/dashboard");
+            } else {
+                response.sendRedirect("staff/dashboard");
             }
         } else {
             request.getSession().setAttribute("account", null);

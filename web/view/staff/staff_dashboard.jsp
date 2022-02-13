@@ -29,7 +29,7 @@
                         </div>
                         <div class="name-card-content">
                             <!--staff name-->
-                            <h3>${sessionScope.fname} ${sessionScope.lname}</h3>
+                            <h3>Hello ${sessionScope.fname} ${sessionScope.lname}</h3>
                         </div>
                     </div>
                     <div class="col-lg-8 ads-container">
@@ -48,7 +48,7 @@
                                 <img src="asset/image/staff/User.png" alt="customer"/>
                             </div>
                             <div class="col-7 task-total">
-                                <h1>26</h1>
+                                <h1>${requestScope.total1}</h1>
                                 <h4>Customers</h4>
                             </div>
                         </div>
@@ -74,8 +74,8 @@
                                 <img src="asset/image/staff/User.png" alt="customer"/>
                             </div>
                             <div class="col-7 task-total">
-                                <h1>26</h1>
-                                <h4>Customers</h4>
+                                <h1>${requestScope.total2}</h1>
+                                <h4>Contracts</h4>
                             </div>
                         </div>
                         <div class="row under">
@@ -100,8 +100,8 @@
                                 <img src="asset/image/staff/User.png" alt="customer"/>
                             </div>
                             <div class="col-7 task-total">
-                                <h1>26</h1>
-                                <h4>Customers</h4>
+                                <h1>${requestScope.total3}</h1>
+                                <h4>Cancels</h4>
                             </div>
                         </div>
                         <div class="row under">
@@ -128,8 +128,8 @@
                                 <img src="asset/image/staff/User.png" alt="customer"/>
                             </div>
                             <div class="col-7 task-total">
-                                <h1>26</h1>
-                                <h4>Customers</h4>
+                                <h1>${requestScope.total4}</h1>
+                                <h4>Compensations</h4>
                             </div>
                         </div>
                         <div class="row under">
@@ -153,8 +153,8 @@
                                 <img src="asset/image/staff/User.png" alt="customer"/>
                             </div>
                             <div class="col-7 task-total">
-                                <h1>26</h1>
-                                <h4>Customers</h4>
+                                <h1>${requestScope.total5}</h1>
+                                <h4>Requests</h4>
                             </div>
                         </div>
                         <div class="row under">
