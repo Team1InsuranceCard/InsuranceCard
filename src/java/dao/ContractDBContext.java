@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import model.Contract;
+import model.ContractStatusCode;
 import model.Customer;
 import model.Product;
 import model.Staff;
@@ -123,7 +124,10 @@ public class ContractDBContext extends DBContext {
 
                 contract.setStartDate(rs_select_contract.getTimestamp("StartDate"));
                 contract.setEndDate(rs_select_contract.getTimestamp("EndDate"));
-                contract.setStatus(rs_select_contract.getShort("Status"));
+                
+                ContractStatusCode statuscode = new ContractStatusCode();
+                statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                contract.setStatusCode(statuscode);
                 contracts.put(rs_select_contract.getInt("Row_count"), contract);
             }
             return contracts;
