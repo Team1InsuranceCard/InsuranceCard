@@ -42,7 +42,7 @@ public class ViewCustomer extends HttpServlet {
         CustomerStaff viewCustomer = csdb.viewCustomer(id);
         
         ContractDBContext cdb = new ContractDBContext();
-        int totalContract = cdb.totalContracts(id);
+        int totalContract = cdb.totalContractsByCustomer(id);
         
         request.setAttribute("viewCustomer", viewCustomer);
         request.setAttribute("totalContract", totalContract);

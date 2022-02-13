@@ -16,6 +16,17 @@ public class Account {
     private boolean role;
     private short status;
     private String googleID;
+    private AccountStatusCode statusCode;
+
+    public AccountStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(AccountStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    
 
     public Account() {
     }

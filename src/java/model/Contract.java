@@ -37,6 +37,17 @@ public class Contract {
     private short status;
     private Staff startStaff;
     private Staff cancelStaff;
+    private ContractStatusCode statusCode;
+
+    public ContractStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(ContractStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    
 
     public Contract() {
     }
