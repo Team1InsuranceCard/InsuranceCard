@@ -57,8 +57,8 @@
         <servlet-class>controller.customer.RenewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffDashboard</servlet-name>
-        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+        <servlet-name>Manage_contract</servlet-name>
+        <servlet-class>controller.staff.Manage_contract</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -109,8 +109,8 @@
         <url-pattern>/customer/contract/renew</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffDashboard</servlet-name>
-        <url-pattern>/staff/dashboard</url-pattern>
+        <servlet-name>Manage_contract</servlet-name>
+        <url-pattern>/staff/contract/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
