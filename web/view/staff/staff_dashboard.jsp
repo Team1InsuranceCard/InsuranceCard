@@ -29,7 +29,7 @@
                         </div>
                         <div class="name-card-content">
                             <!--staff name-->
-                            <h3>Nguyen Que Tien</h3>
+                            <h3>${sessionScope.fname} ${sessionScope.lname}</h3>
                         </div>
                     </div>
                     <div class="col-lg-8 ads-container">

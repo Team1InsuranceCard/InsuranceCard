@@ -35,7 +35,7 @@ public class StaffDBContext extends DBContext {
                 staff.setAccount(acc);
                 staff.setFirstName(rs.getString("FirstName"));
                 staff.setLastName(rs.getString("LastName"));
-                
+
                 staffs.add(staff);
             }
         } catch (SQLException ex) {
@@ -43,7 +43,37 @@ public class StaffDBContext extends DBContext {
         }
         return staffs;
     }
-    
-//    public Staff getStaff
+
+    public Staff getStaff(int accountId) {
+        try {
+            String sql = "select a.ID, a.Email, a.[Password], a.[Role], a.[Status], a.GoogleID, FirstName, LastName, Phone\n"
+                    + "from Staff s inner join Account a on s.AccountID = a.ID\n"
+                    + "where AccountID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            Staff s = null;
+            while (rs.next()) {
+                if (s == null) {
+                    s = new Staff();
+                    Account a = new Account();
+                    a.setId(accountId);
+                    a.setEmail(rs.getString("Email"));
+                    a.setPassword(rs.getString("Password"));
+                    a.setRole(rs.getBoolean("Role"));
+                    a.setStatus(rs.getByte("Status"));
+                    a.setGoogleID(rs.getString("GoogleID"));
+                    s.setAccount(a);
+                    s.setFirstName(rs.getString("FirstName"));
+                    s.setLastName(rs.getString("LastName"));
+                    s.setPhone(rs.getString("Phone"));
+                }
+            }
+            return s;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 }

@@ -5,12 +5,16 @@
  */
 package controller.staff;
 
+import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Staff;
 
 /**
  *
@@ -45,7 +49,19 @@ public class StaffDashboard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        
+//        HttpSession session = request.getSession();
+        try {
+            Account acc = (Account) request.getSession().getAttribute("account");
+            int accountId = acc.getId();
+            StaffDBContext dbS = new StaffDBContext();
+            Staff staff = dbS.getStaff(accountId);
+            request.setAttribute("fname", staff.getFirstName());
+            request.setAttribute("lname", staff.getLastName());
+//            request.setAttribute("", dbS);
+            request.getRequestDispatcher("../view/customer/staff_dashboard.jsp").forward(request, response);
+        } catch (NullPointerException ex) {
+            response.sendRedirect("../login");
+        }
     }
 
     /**
