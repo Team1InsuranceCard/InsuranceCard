@@ -47,13 +47,15 @@ public class ContractInformation extends HttpServlet {
 
         ProductDBContext pdb = new ProductDBContext();
         short proID = pdb.checkStatus(contract.getProduct().getId());
+        
+        boolean checkRenewRight = cdb.checkRenewRight(3, contract.getProduct().getId(), contractID); //change to acc.id
 
         String btn = "";
         if (contract.getStatus() == 3) {
             btn += "Undo";
         } else if (contract.getStatus() == 1 || contract.getStatus() == 2) {
             btn += "Cancel";
-        } else {
+        } else { //status = 0,4
             btn += "Renew";
         }
 
@@ -82,6 +84,8 @@ public class ContractInformation extends HttpServlet {
         request.setAttribute("mess", proID == 0 ? "Product is inactive!" : "");
         request.setAttribute("contractID", contractID);
         request.setAttribute("duration", getDaysDiff);
+        request.setAttribute("checkRenew", checkRenewRight==true?
+                "":"Can't renew because contract was renewed or is being processed!");
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
@@ -107,7 +111,10 @@ public class ContractInformation extends HttpServlet {
             //Quý
             response.sendRedirect("cancel");
         } else if (btn.equals("Undo")) {
-
+            ContractDBContext cdb = new ContractDBContext();
+            cdb.undoCancelContractByCustomer(contractID);
+            request.getSession().setAttribute("undo", "Undo successfully!");
+            response.sendRedirect("detail?id=" + contractID);
         }
     }
 
