@@ -93,7 +93,7 @@ public class CustomerDashboard extends HttpServlet {
             request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
         } catch (NullPointerException ex) {
 //            response.getWriter().print("<h1>Please login first</h1>");
-            //response.sendRedirect("../login");
+            response.sendRedirect("../login");
         }
     }
 
