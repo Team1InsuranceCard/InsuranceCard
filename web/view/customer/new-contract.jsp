@@ -19,12 +19,12 @@
     <body>
         <c:set var="account" value="${sessionScope.account}"></c:set>
         <jsp:include page="../header_customer.jsp"></jsp:include>
-            <div class="container">
-                <h2 class="title">REQUEST NEW CONTRACT</h2>
-                <div class="content_container">
-                    <div class="row">
-                        <div class="col-lg-8 left">
-                            <h3 class="group-title">1. OWNER'S INFORMATION</h3>
+        <div class="container">
+            <h2 class="title">REQUEST NEW CONTRACT</h2>
+            <div class="content_container">
+                <div class="row">
+                    <div class="col-lg-8 left">
+                        <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
                                 <input id="chk-1" type="checkbox"/>
@@ -75,8 +75,8 @@
                         <h3 class="group-title">4. DELIVERY INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
-                                <input id="chk-1" type="checkbox"/><br/>
-                                <label for="chk-1">Use your account's information</label>
+                                <input id="chk-2" type="checkbox"/>
+                                <label for="chk-2">Use your account's information</label>
                             </div>
                         </c:if>
                         <label for="txt5" >Full name:</label>
@@ -89,15 +89,120 @@
                         <input id="txt7" class="inputdata" type="text" 
                                placeholder="Email"/><br/>
                         <label for="txt8" >Address:</label>
-                        <input id="txt8" class="inputdata" type="text" 
-                               placeholder="Address"/><br/>
+                        <span class="address-container">
+                            <input id="txt8" class="inputdata" type="text" 
+                                   placeholder="Address"/><br/>
+                            <div class="select-container">
+                                <span class="province-container">
+                                    <select name="calc_shipping_provinces" required>
+                                        <option hidden>--Choose the province--</option>
+                                    </select>
+                                    <input class="billing_address_1" name="province" 
+                                           type="hidden" value=""/>
+                                </span>
+                                <span class="district-container">
+                                    <select name="calc_shipping_district" required>
+                                        <option hidden>--Choose the district--</option>
+                                    </select>
+                                    <input class="billing_address_2" name="district" 
+                                           type="hidden" value=""/>
+                                </span>
+                            </div>
+                        </span>
+
+                        <div class="confirm-checkbox">
+                            <input id="chk-3" type="checkbox"/>
+                            <label for="chk-3">
+                                I/we certify that the foregoing information is 
+                                complete and correct to the best of my/our 
+                                knowledge and agree that the foregoing 
+                                declarations form the basis of the insurance 
+                                policy and accept receive the insurance 
+                                conditions specified in the insurance contract.
+                            </label>
+                        </div>
                     </div>
                     <div class="col-lg-4 right">
                         <h3 class="group-title">PAYMENT INFORMATION</h3>
+                        <div class="content">
+                            <p>
+                                <b>Product:</b> <span>${requestScope.product.title}</span>
+                            </p>
+                            <p>
+                                <b>Insurance period: </b> <span id="period"></span>
+                            </p>
+                            <p>
+                                <b>Vehicle owner: </b> <span id="owner"></span>
+                            </p>
+                            <p>
+                                <b>License plate: </b> <span id="license-plate"></span>
+                            </p>
+                            <hr/>
+                            <p>
+                                <b>Insurance fees: </b> <span>VND ${requestScope.product.price}</span>
+                            </p>
+                            <p>
+                                <b>Service charge: </b> <span>VND 0</span>
+                            </p>
+                            <hr/>
+                            <p>
+                                <b>TOTAL PAYMENT: VND ${requestScope.product.price}</b>
+                            </p>
+                            <a href="#">CHECK OUT</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <jsp:include page="../footer_full.jsp"></jsp:include>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+        <script>
+            $('select[name="calc_shipping_provinces"]').each(function () {
+                var $this = $(this),
+                        stc = "";
+                c.forEach(function (i, e) {
+                    e += +1;
+                    stc += "<option value=" + e + ">" + i + "</option>";
+                    $this.html('<option value="">Provinces</option>' + stc);
+                    $this.on("change", function (i) {
+                        i = $this.children("option:selected").index() - 1;
+                        var str = "",
+                                r = $this.val();
+                        if (r != "") {
+                            arr[i].forEach(function (el) {
+                                str += '<option value="' + el + '">' + el + "</option>";
+                                $('select[name="calc_shipping_district"]').html(
+                                        '<option value="">Districts</option>' + str
+                                        );
+                            });
+                            var address_1 = $this.children("option:selected").text();
+                            var district = $('select[name="calc_shipping_district"]').html();
+                            $('select[name="calc_shipping_district"]').on(
+                                    "change",
+                                    function () {
+                                        var target = $(this).children("option:selected");
+                                        target.attr("selected", "");
+                                        $('select[name="calc_shipping_district"] option')
+                                                .not(target)
+                                                .removeAttr("selected");
+                                        var address_2 = target.text();
+                                        $("input.billing_address_2").attr("value", address_2);
+                                        district = $('select[name="calc_shipping_district"]').html();
+                                    }
+                            );
+                            $("input.billing_address_1").attr("value", address_1)
+                        } else {
+                            $('select[name="calc_shipping_district"]').html(
+                                    '<option value="">Districts</option>'
+                                    );
+                            district = $('select[name="calc_shipping_district"]').html();
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
