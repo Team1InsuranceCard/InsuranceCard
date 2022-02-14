@@ -1,0 +1,50 @@
+body {
+    background: #FFF9EC;
+    color: #5C2941;
+}
+
+.dashboard-card {
+  border-radius: 10px;
+  margin-bottom: 2em;
+}
+
+.user-card-info {
+  background-color: #ffdccc;
+  text-align: center;
+  border-radius: 10px;
+  min-height: 13em;
+}
+
+.user-card-info .name-card-image {
+  margin: 1em auto;
+}
+
+.main-container {
+  margin-top: 7em;
+  margin-bottom: 5em;
+  margin-right: 3.5em;
+  padding-left: 5em;
+}
+
+.ads-container {
+  min-height: 13em;
+  /* min-width: 500px; */
+  position: relative;
+  margin: auto;
+}
+
+.ads img {
+    height: 13em;
+    border-radius: 10px;
+}
+
+.task-container {
+  min-height: 13em;
+}
+
+.task {
+  margin: 0 auto 0 0;
+  background-color: #ffdccc;
+  text-align: center;
+  border-radius: 10px;
+}
