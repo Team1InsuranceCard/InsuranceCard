@@ -15,10 +15,26 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
 
     <body>
+        <script>
+            var renew = sessionStorage.getItem("renew");
+            if (renew == "renew") {
+                Swal.fire({
+                    timer: 2000,
+                    position: 'top',
+                    title: 'Renew successfully!',
+                    icon: 'success',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEnterKey: true
+                })
+                sessionStorage.removeItem("renew");
+            }
+        </script>
         <c:set var="c" value="${requestScope.contract}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
@@ -210,7 +226,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="${requestScope.pro==0?"hidden":"submit"}" name="btn" value="${requestScope.btn}"/>
+                    <input type="${requestScope.pro==0||c.status==5?"hidden":"submit"}" name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
                 </div>
