@@ -15,44 +15,10 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
+        <link href="../../asset/style/customer/renew_contract.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <script>
-            function renew() {
-                var startDate = document.getElementById("startDate").value;
-                var duration = document.getElementById("duration").value;
-
-                if (startDate == "" || duration == "Select year") {
-                    alert("Fill duration and Start date!")
-                } else {
-                    var price = document.getElementById("price").value;
-                    var fee = duration * price.valueOf();
-
-                    var cf = "You really want to renew this contract?\nTotal: " + fee.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-
-                    if (confirm(cf) == true) {
-                        document.getElementById("myForm").submit();
-                    }
-                }
-            }
-        </script>
-
-        <style>
-            select {
-                padding: 0.2rem 0.7rem;
-                background-color: #FFF9EC;
-                text-align: center;
-            }
-
-            select:hover, #startDate:hover {
-                cursor: pointer;
-                background-color: #FDC8C0;
-            }
-
-            #startDate {
-                background-color: #FFF9EC;
-            }
-        </style>
     </head>
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
