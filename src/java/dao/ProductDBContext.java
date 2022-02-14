@@ -83,6 +83,32 @@ public class ProductDBContext extends DBContext {
         return null;
     }
 
+    public Product getProductByID(int pId) {
+        try {
+            String sql_select_products = "SELECT [ID]\n"
+                    + "      ,[Title]\n"
+                    + "      ,[Price]\n"
+                    + "      ,[Status]\n"
+                    + "  FROM [Product]\n"
+                    + "  WHERE [ID] = ?";
+            PreparedStatement psm_select_product = connection.prepareStatement(sql_select_products);
+            psm_select_product.setInt(1, pId);
+            ResultSet rs_select_products = psm_select_product.executeQuery();
+            if (rs_select_products.next()) {
+                Product product = new Product();
+                product.setId(rs_select_products.getInt("ID"));
+                product.setTitle(rs_select_products.getString("Title"));
+                product.setPrice(rs_select_products.getDouble("Price"));
+                product.setStatus(rs_select_products.getShort("Status"));
+
+                return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public short checkStatus(int id) {
         short check = 0;
 
@@ -93,7 +119,7 @@ public class ProductDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 if (rs.getShort("Status") == 1) {
                     check = 1;
