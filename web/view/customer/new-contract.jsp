@@ -19,12 +19,12 @@
     <body>
         <c:set var="account" value="${sessionScope.account}"></c:set>
         <jsp:include page="../header_customer.jsp"></jsp:include>
-        <div class="container">
-            <h2 class="title">REQUEST NEW CONTRACT</h2>
-            <div class="content_container">
-                <div class="row">
-                    <div class="col-lg-8 left">
-                        <h3 class="group-title">1. OWNER'S INFORMATION</h3>
+            <div class="container">
+                <h2 class="title">REQUEST NEW CONTRACT</h2>
+                <div class="content_container">
+                    <div class="row">
+                        <div class="col-lg-8 left">
+                            <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
                                 <input id="chk-1" type="checkbox"/>
@@ -38,13 +38,40 @@
                         <input id="txt2" class="inputdata" type="text" 
                                placeholder="ID Card Number"/><br/>
                         <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
+                        <label for="select1" >Type:</label>
+                        <select id="select1" class="selectdata">
+                            <option>Motorcycles with a capacity of less than 50cc</option>
+                            <option>Motorcycles with a capacity of over 50cc</option>
+                            <option>Motorcycles with a capacity of over 175cc</option>
+                        </select><br/>
                         <label for="txt3" >License plate:</label>
                         <input id="txt3" class="inputdata" type="text" 
                                placeholder="License plate (in vehicle registration)"/><br/>
                         <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
-                        <label for="txt4" >Product:</label>
-                        <input id="txt4" class="inputdata" type="text" disabled="true"
-                               value="${requestScope.product.title}"/><br/>
+                        <div class="row-input">
+                            <span class="row-input1">
+                                <label for="txt4" >Product:</label>
+                                <input id="txt4" class="inputdata" type="text" disabled="true"
+                                       value="${requestScope.product.title}"/>
+                            </span>
+                            <a href="#" class="btnProduct">Change product</a>
+                        </div>
+                        <label for="select2" >Type:</label>
+                        <select id="select2" class="selectdata">
+                            <option>1 year</option>
+                            <option>2 years</option>
+                            <option>3 years</option>
+                        </select><br/>
+                        <div class="row-input">
+                            <span class="row-input1">
+                                <label for="startdate" >Start date:</label>
+                                <input id="startdate" class="inputdata" type="date"/>
+                            </span>
+                            <span class="row-input2">
+                                <label for="enddate" >End date:</label>
+                                <input id="enddate" class="inputdata" type="date" disabled="true"/>
+                            </span>
+                        </div>
                         <h3 class="group-title">4. DELIVERY INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
