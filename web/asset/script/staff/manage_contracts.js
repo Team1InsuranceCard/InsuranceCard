@@ -11,9 +11,9 @@ var customerFilter = document.querySelector("#customer-filter");
 var startDateFilter = document.querySelector("#start-date-filter");
 var endDateFilter = document.querySelector("#end-date-filter");
 
-var nameOrder = "ASC";
-var startOrder = "ASC";
-var endOrder = "ASC";
+var nameOrder = customerFilter.title;
+var startOrder = startDateFilter.title;
+var endOrder = endDateFilter.title;
 var status = "";
 
 // function createForm() {
@@ -58,9 +58,9 @@ function toggleOrder(order) {
 }
 
 function setOrder(domElement, order, URL, paramName) {
-  toggleOrder(order);
-  domElement.title = order;
-  URL.searchParams.set(paramName, order);
+  var orderAfter = toggleOrder(order);
+  domElement.title = orderAfter;
+  URL.searchParams.set(paramName, orderAfter);
 }
 
 function createPager(domElementID, pageIndex, totalPage, rootURL) {
