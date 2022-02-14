@@ -15,7 +15,120 @@ and open the template in the editor.
     --color4: #5c2941;
 }
 
+.container{
+    margin-bottom: 20px;
+}
+
 .title{
-    margin-top: 110px;
-    
+    margin-top: 140px;
+    font-size: 28px;
+}
+
+.left{
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #bbb;
+    border-top: 1px #000 solid;
+}
+
+.left .group-title{
+    display: block;
+    background: var(--color3);
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.left label{
+    display: inline-block;
+    width: 120px;
+}
+
+.inputdata{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+    width: 60%;
+}
+
+.startdate, .enddate{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+    width: 30%;
+}
+
+select{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+}
+
+.inputdata:focus,
+select:focus,
+.startdate:focus,
+.enddate:focus{
+    border-bottom: 1px solid var(--color3);
+    outline: none;
+}
+
+.select-container{
+    margin-left: 120px;
+}
+
+.btnProduct{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--color2);
+    color: #000;
+    font-weight: bold;
+}
+
+.right .group-title{
+    display: block;
+    box-shadow: 0 1px 2px #bbb;
+    background: var(--color4);
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    padding: 15px 0;
+}
+
+.right .content{
+    background-image: linear-gradient(to bottom, var(--color1), var(--color2));
+    padding: 15px;
+}
+
+.right .btnCheckout{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: green;
+    color: #fff;
+    font-weight: bold;
 }

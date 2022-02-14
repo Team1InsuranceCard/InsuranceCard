@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
+        <!-- CDN to reset CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <link href="../../asset/style/customer/new_contract.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
@@ -19,12 +21,12 @@
     <body>
         <c:set var="account" value="${sessionScope.account}"></c:set>
         <jsp:include page="../header_customer.jsp"></jsp:include>
-        <div class="container">
-            <h2 class="title">REQUEST NEW CONTRACT</h2>
-            <div class="content_container">
-                <div class="row">
-                    <div class="col-lg-8 left">
-                        <h3 class="group-title">1. OWNER'S INFORMATION</h3>
+            <div class="container">
+                <h2 class="title">REQUEST NEW CONTRACT</h2>
+                <div class="content_container">
+                    <div class="row">
+                        <div class="col-lg-8 left">
+                            <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
                                 <input id="chk-1" type="checkbox"/>
@@ -65,11 +67,11 @@
                         <div class="row-input">
                             <span class="row-input1">
                                 <label for="startdate" >Start date:</label>
-                                <input id="startdate" class="inputdata" type="date"/>
+                                <input id="startdate" class="startdate" type="date"/>
                             </span>
                             <span class="row-input2">
                                 <label for="enddate" >End date:</label>
-                                <input id="enddate" class="inputdata" type="date" disabled="true"/>
+                                <input id="enddate" class="enddate" type="date" disabled="true"/>
                             </span>
                         </div>
                         <h3 class="group-title">4. DELIVERY INFORMATION</h3>
@@ -112,14 +114,14 @@
 
                         <div class="confirm-checkbox">
                             <input id="chk-3" type="checkbox"/>
-                            <label for="chk-3">
+                            <span>
                                 I/we certify that the foregoing information is 
                                 complete and correct to the best of my/our 
                                 knowledge and agree that the foregoing 
                                 declarations form the basis of the insurance 
                                 policy and accept receive the insurance 
                                 conditions specified in the insurance contract.
-                            </label>
+                            </span>
                         </div>
                     </div>
                     <div class="col-lg-4 right">
@@ -148,15 +150,15 @@
                             <p>
                                 <b>TOTAL PAYMENT: VND ${requestScope.product.price}</b>
                             </p>
-                            <a href="#">CHECK OUT</a>
+                            <a href="#" class="btnCheckout">CHECK OUT</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <jsp:include page="../footer_full.jsp"></jsp:include>
-        
-        
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
         <script>
