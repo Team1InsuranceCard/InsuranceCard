@@ -160,7 +160,7 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public Contract getContractDetail(int accountID, int contractID) {
+    public Contract getContractDetailByCustomer(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
             String sql = "SELECT Product.[Title]\n"
@@ -253,6 +253,7 @@ public class ContractDBContext extends DBContext {
                 contract.setStatusCode(contract_status);
                 contract.setStartDate(rs.getTimestamp("StartDate"));
                 contract.setEndDate(rs.getTimestamp("EndDate"));
+                contract.setStatus(rs.getShort("Status"));
                 contract.setCancelComment(rs.getString("CancelComment"));
                 contract.setCancelReason(rs.getString("CancelReason"));
                 contract.setCancelDate(rs.getTimestamp("CancelDate"));
@@ -277,7 +278,8 @@ public class ContractDBContext extends DBContext {
         return null;
     }
 
-    public void renewContract(Contract contract) {
+    public int renewContractByCustomer(Contract contract) {
+        int contract_id = 0;
         try {
             connection.setAutoCommit(false);
             String sql_contract = "INSERT INTO [Contract]\n"
@@ -339,10 +341,11 @@ public class ContractDBContext extends DBContext {
 
             if (rs_contractid.next()) {
                 contract.setId(rs_contractid.getInt("contract_id"));
+                contract_id = rs_contractid.getInt("contract_id");
             }
 
             String sql_payment = "INSERT INTO [Payment]\n"
-                    + "           [Amout]\n"
+                    + "           ([Amout]\n"
                     + "           ,[StartDate]\n"
                     + "           ,[ContractID])\n"
                     + "     VALUES\n"
@@ -352,7 +355,7 @@ public class ContractDBContext extends DBContext {
             PreparedStatement stm_payment = connection.prepareStatement(sql_payment);
             stm_payment.setDouble(1, contract.getContractFee());
             stm_payment.setTimestamp(2, contract.getRequestDate());
-            stm_payment.setDouble(3, contract.getId());
+            stm_payment.setInt(3, contract.getId());
             stm_payment.executeUpdate();
 
             connection.commit();
@@ -370,6 +373,6 @@ public class ContractDBContext extends DBContext {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        return contract_id;
     }
 }
