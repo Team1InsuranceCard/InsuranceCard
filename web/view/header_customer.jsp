@@ -4,12 +4,12 @@
     href="${pageContext.request.contextPath}/asset/style/header_customer.css"
     />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
         <div class="container header-element">
-            <a class="navbar-brand" href="${root}">
+            <a class="navbar-brand" href="${root}"> 
                 <img
                     class="logo-icon"
                     src="${root}/asset/image/icon_car.png"
@@ -58,7 +58,7 @@
                     <a href=""
                        ><img src="${root}/asset/image/icon_user.png" alt="bell"
                           /></a>
-                          <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+                          <a class="logout-button" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </div>
         </div>
