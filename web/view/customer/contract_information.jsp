@@ -20,6 +20,7 @@
     </head>
 
     <body>
+        <input type="hidden" id="undo" value="${sessionScope.undo}"/>
         <script>
             var renew = sessionStorage.getItem("renew");
             if (renew == "renew") {
@@ -33,6 +34,19 @@
                     allowEnterKey: true
                 })
                 sessionStorage.removeItem("renew");
+            }
+
+            var undo = document.getElementById("undo"); //fix
+            if (undo == "") {
+                Swal.fire({
+                    timer: 2000,
+                    position: 'top',
+                    title: undo,
+                    icon: 'success',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEnterKey: true
+                })
             }
         </script>
         <c:set var="c" value="${requestScope.contract}"/>
@@ -226,9 +240,13 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="${requestScope.pro==0||c.status==5?"hidden":"submit"}" name="btn" value="${requestScope.btn}"/>
+                    <c:set var="check" value="${requestScope.checkRenew}"/>
+                    <input type="${requestScope.pro==0||c.status==5||check!=""?"hidden":"submit"}" 
+                           name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
+                    <h6 ${check==""?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
+                        ${check}</h6>
                 </div>
             </form>
         </section>
