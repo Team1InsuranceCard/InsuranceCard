@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="nav-link" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2" style="background-color: black;"></i>Logout</a>
+                <!--<a class="nav-link" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2" style="background-color: black;"></i>Logout</a>-->
             </div>
         </section>
         <jsp:include page="../footer_full.jsp"></jsp:include>
