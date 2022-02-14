@@ -19,24 +19,36 @@
 
         <script>
             function renew() {
-                if (confirm("You really want to renew this contract?\nTotal:") == true) {
-                    document.getElementById("myForm").submit();
+                var startDate = document.getElementById("startDate").value;
+                var duration = document.getElementById("duration").value;
+
+                if (startDate == "" || duration == "Select year") {
+                    alert("Fill duration and Start date!")
+                } else {
+                    var price = document.getElementById("price").value;
+                    var fee = duration * price.valueOf();
+
+                    var cf = "You really want to renew this contract?\nTotal: " + fee.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+                    if (confirm(cf) == true) {
+                        document.getElementById("myForm").submit();
+                    }
                 }
             }
         </script>
-        
+
         <style>
             select {
                 padding: 0.2rem 0.7rem;
                 background-color: #FFF9EC;
                 text-align: center;
             }
-            
+
             select:hover, #startDate:hover {
                 cursor: pointer;
                 background-color: #FDC8C0;
             }
-            
+
             #startDate {
                 background-color: #FFF9EC;
             }
@@ -52,12 +64,13 @@
 
         <section>
             <form id="myForm" action="customer/contract/renew" method="POST">
+                <input type="hidden" id="price" value="${c.product.price}"/>
                 <div class="product-label">
                     <div class="row">
                         <p class="col-md-8 label-title">${c.product.title}</p>
-                        <p class="col-md-4 label-fee">Fee: 
+                        <p class="col-md-4 label-fee" id="fee">Fee: 
                             <fmt:formatNumber type = "number" 
-                                              value = ""/> VND</p>
+                                              value = "${c.product.price}"/> VND</p>
                     </div>
                 </div>
 
@@ -104,7 +117,7 @@
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Duration:</p>
                             <p class="col-md-2">
-                                <select name="duration" required>
+                                <select id="duration" name="duration" required>
                                     <option hidden>Select year</option>
                                     <option value="1">1 year</option>
                                     <option value="2">2 year</option>
@@ -121,11 +134,11 @@
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3">
-                                <input type="date" id="startDate" 
-                                       min="${requestScope.minDate}"/></p>
+                                <input type="date" id="startDate" name="startDate"
+                                       min="${requestScope.minDate}" required/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline">
-                                </p>
+                            </p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel request date:</p>

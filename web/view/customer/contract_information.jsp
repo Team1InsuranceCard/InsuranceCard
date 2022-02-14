@@ -34,7 +34,7 @@
                         <p class="col-md-8 label-title">${c.product.title}</p>
                         <p class="col-md-4 label-fee">Fee: 
                             <fmt:formatNumber type = "number" 
-                                              value = "${c.product.price}"/> VND</p>
+                                              value = "${c.contractFee}"/> VND</p>
                     </div>
                 </div>
 
@@ -75,30 +75,32 @@
                             <p class="col-md-3 underline">${c.startStaff.firstName} 
                                 ${c.startStaff.lastName}</p>
                             <p class="col-md-2 space bold">Status:</p>
+                            <c:set var="status" value="${requestScope.contract.statusCode.statusName}"/>
+                            <c:set var="s" value="${requestScope.contract.statusCode.statusCode}"/>
                             <c:choose>
-                                <c:when test="${c.status==0}">
+                                <c:when test="${s==0}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        End of contract</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==1}">
+                                    <c:when test="${s==1}">
                                     <p class="col-md-2 center" style="color:#0DC858;">
-                                        Active</p>
+                                        ${status}</p>
                                     </c:when>                                                 
-                                    <c:when test="${c.status==2}">
+                                    <c:when test="${s==2}">
                                     <p class="col-md-2 center" style="color:#FF7D42;">
-                                        Processing</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==3}">
+                                    <c:when test="${s==3}">
                                     <p class="col-md-2 center" style="color:#FF7D42;">
-                                        Canceling</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==4}">
+                                    <c:when test="${s==4}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        Canceled</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==5}">
+                                    <c:when test="${s==5}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        Rejected</p>
+                                        ${status}</p>
                                     </c:when>
                                 </c:choose>
                         </div>
@@ -122,11 +124,11 @@
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "yyyy-MM-dd" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "yyyy-MM-dd" 
                                                 value = "${c.endDate}"/></p>
                         </div>
                         <div class="row">

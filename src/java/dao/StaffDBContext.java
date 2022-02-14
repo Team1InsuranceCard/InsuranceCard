@@ -44,6 +44,24 @@ public class StaffDBContext extends DBContext {
         return staffs;
     }
 
+    public int getStartStaff(int cusID) {
+        int id = 0;
+        try {
+            String sql = "SELECT [StaffID]\n"
+                    + "  FROM [Customer_Staff]\n"
+                    + "  WHERE CustomerID = ? and NextStaff is null";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("StaffID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
     public Staff getStaff(int accountId) {
         try {
             String sql = "select a.ID, a.Email, a.[Password], a.[Role], a.[Status], a.GoogleID, FirstName, LastName, Phone\n"
