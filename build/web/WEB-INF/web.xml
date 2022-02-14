@@ -58,11 +58,15 @@
     </servlet>
     <servlet>
         <servlet-name>Manage_contract</servlet-name>
-        <servlet-class>controller.staff.Manage_contract</servlet-class>
+        <servlet-class>controller.staff.ManageContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>NewContractController</servlet-name>
-        <servlet-class>controller.customer.NewContractController</servlet-class>
+        <servlet-name>StaffDashboard</servlet-name>
+        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -117,8 +121,12 @@
         <url-pattern>/staff/contract/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>NewContractController</servlet-name>
-        <url-pattern>/customer/contract/create</url-pattern>
+        <servlet-name>StaffDashboard</servlet-name>
+        <url-pattern>/staff/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
