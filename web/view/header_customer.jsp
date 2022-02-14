@@ -58,6 +58,7 @@
                     <a href=""
                        ><img src="${root}/asset/image/icon_user.png" alt="bell"
                           /></a>
+                          <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </div>
         </div>
