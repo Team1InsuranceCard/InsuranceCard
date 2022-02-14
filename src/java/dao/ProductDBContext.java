@@ -12,12 +12,53 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Product;
+import model.ProductStatusCode;
 
 /**
  *
  * @author area1
  */
 public class ProductDBContext extends DBContext {
+
+    public Product getProduct(int productID) {
+        String sql_select_product = "SELECT [ID]\n"
+                + "      ,[Title]\n"
+                + "      ,[Description]\n"
+                + "      ,[Price]\n"
+                + "      ,[ImageURL]\n"
+                + "      ,[Status]\n"
+                + "      ,[isDelete]\n"
+                + "      ,[ContentDetail]\n"
+                + "      ,[StartDate]\n"
+                + "  FROM [Product]\n"
+                + "  WHERE Product.ID = ? AND Product.isDelete = 0";
+        try {
+            PreparedStatement psm_select_product = connection.prepareStatement(sql_select_product);
+            psm_select_product.setInt(1, productID);
+            ResultSet rs_select_product = psm_select_product.executeQuery();
+            if (rs_select_product.next()) {
+                Product product = new Product();
+                product.setId(productID);
+                product.setTitle(rs_select_product.getString("Title"));
+                product.setImageURL(rs_select_product.getString("ImageURL"));
+
+                ProductStatusCode statusCode = new ProductStatusCode();
+                statusCode.setStatusCode(rs_select_product.getShort("Status"));
+                
+                product.setStatusCode(statusCode);
+                product.setDescription(rs_select_product.getString("Description"));
+                product.setStartDate(rs_select_product.getTimestamp("StartDate"));
+                product.setPrice(rs_select_product.getDouble("Price"));
+                product.setContentDetail(rs_select_product.getString("ContentDetail"));
+                
+                return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
@@ -93,7 +134,7 @@ public class ProductDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 if (rs.getShort("Status") == 1) {
                     check = 1;
