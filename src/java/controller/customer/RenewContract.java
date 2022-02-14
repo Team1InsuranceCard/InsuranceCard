@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,7 @@ public class RenewContract extends HttpServlet {
         int contractID = (int) request.getSession().getAttribute("contractID");
         Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetail(3, contractID); //change to acc.id
+        Contract contract = cdb.getContractDetailByCustomer(3, contractID); //change to acc.id
 
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
@@ -65,17 +66,16 @@ public class RenewContract extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        LocalDate date = java.time.LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
         int duration = Integer.parseInt(request.getParameter("duration"));
         String startDate = request.getParameter("startDate");
-
-        LocalDate sDate = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String[] d = startDate.split("-");
+        LocalDateTime sDate = LocalDateTime.of(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0);
 
         int contractID = (int) request.getSession().getAttribute("contractID");
 //        Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract c = cdb.getContractDetail(3, contractID); //change to acc.id
+        Contract c = cdb.getContractDetailByCustomer(3, contractID); //change to acc.id
 
         Product product = new Product();
         product.setId(c.getProduct().getId());
@@ -96,21 +96,24 @@ public class RenewContract extends HttpServlet {
         Contract contract = new Contract();
         contract.setProduct(product);
         contract.setCustomer(customer);
-        contract.setStartDate(Timestamp.valueOf(startDate)); //fix
-        contract.setEndDate(Timestamp.valueOf(sDate.plusYears(duration).format(df))); //follow duration
+        contract.setStartDate(Timestamp.valueOf(sDate));
+        contract.setEndDate(Timestamp.valueOf(sDate.plusYears(duration))); 
         contract.setStatus(Short.parseShort("2"));
         contract.setContractFee(duration * c.getProduct().getPrice());
         contract.setVehicleType(c.getVehicleType());
         contract.setEngine(c.getEngine());
+        contract.setLicensePlate(c.getLicensePlate());
         contract.setColor(c.getColor());
         contract.setCertImage(c.getCertImage());
         contract.setBrand(c.getBrand());
         contract.setOwner(c.getOwner());
         contract.setChassis(c.getChassis());
-        contract.setRequestDate(Timestamp.valueOf(date.toString()));
+        contract.setRequestDate(Timestamp.valueOf(now));
         contract.setStartStaff(staff);
 
-        cdb.renewContract(contract); // acc.id
+        int id = cdb.renewContractByCustomer(contract);
+        
+        response.sendRedirect("detail?id=" + id);
     }
 
     /**

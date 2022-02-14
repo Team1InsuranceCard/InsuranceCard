@@ -32,7 +32,7 @@ public class ContractDBContext extends DBContext {
 
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
-            if (querySearch == null) {
+        if (querySearch == null) {
             querySearch = "";
         }
         try {
@@ -160,7 +160,7 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public Contract getContractDetail(int accountID, int contractID) {
+    public Contract getContractDetailByCustomer(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
             String sql = "SELECT Product.[Title]\n"
@@ -241,7 +241,7 @@ public class ContractDBContext extends DBContext {
                 Staff cancel_staff = new Staff();
                 cancel_staff.setFirstName(rs.getString("CancelStaff_fname"));
                 cancel_staff.setLastName(rs.getString("CancelStaff_lname"));
-                
+
                 ContractStatusCode contract_status = new ContractStatusCode();
                 contract_status.setStatusCode(rs.getShort("Status"));
                 contract_status.setStatusName(rs.getString("StatusName"));
@@ -253,6 +253,7 @@ public class ContractDBContext extends DBContext {
                 contract.setStatusCode(contract_status);
                 contract.setStartDate(rs.getTimestamp("StartDate"));
                 contract.setEndDate(rs.getTimestamp("EndDate"));
+                contract.setStatus(rs.getShort("Status"));
                 contract.setCancelComment(rs.getString("CancelComment"));
                 contract.setCancelReason(rs.getString("CancelReason"));
                 contract.setCancelDate(rs.getTimestamp("CancelDate"));
@@ -277,7 +278,8 @@ public class ContractDBContext extends DBContext {
         return null;
     }
 
-    public void renewContract(Contract contract) {
+    public int renewContractByCustomer(Contract contract) {
+        int contract_id = 0;
         try {
             connection.setAutoCommit(false);
             String sql_contract = "INSERT INTO [Contract]\n"
@@ -339,10 +341,11 @@ public class ContractDBContext extends DBContext {
 
             if (rs_contractid.next()) {
                 contract.setId(rs_contractid.getInt("contract_id"));
+                contract_id = rs_contractid.getInt("contract_id");
             }
 
             String sql_payment = "INSERT INTO [Payment]\n"
-                    + "           [Amout]\n"
+                    + "           ([Amout]\n"
                     + "           ,[StartDate]\n"
                     + "           ,[ContractID])\n"
                     + "     VALUES\n"
@@ -352,7 +355,7 @@ public class ContractDBContext extends DBContext {
             PreparedStatement stm_payment = connection.prepareStatement(sql_payment);
             stm_payment.setDouble(1, contract.getContractFee());
             stm_payment.setTimestamp(2, contract.getRequestDate());
-            stm_payment.setDouble(3, contract.getId());
+            stm_payment.setInt(3, contract.getId());
             stm_payment.executeUpdate();
 
             connection.commit();
@@ -370,6 +373,45 @@ public class ContractDBContext extends DBContext {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return contract_id;
+    }
 
+    public boolean checkRenewRight(int cusID, int proID, int contractID) {
+        boolean check = true;
+        try {
+            String sql = "SELECT Contract.ID\n"
+                    + "FROM Contract\n"
+                    + "INNER JOIN Product\n"
+                    + "ON Product.ID = Contract.ProductID\n"
+                    + "WHERE Contract.Status in (1,2,3)\n"
+                    + " and CustomerID = ? and ProductID = ?\n"
+                    + " and Contract.ID <> ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            stm.setInt(2, proID);
+            stm.setInt(3, contractID);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                check = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check;
+    }
+
+    public void undoCancelContractByCustomer(int contractID) {
+        try {
+            String sql = "UPDATE [Contract]\n"
+                    + "   SET [Status] = ?\n"
+                    + " WHERE Contract.ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setShort(1, Short.valueOf("1"));
+            stm.setInt(2, contractID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
