@@ -41,9 +41,8 @@ public class Contract {
     private double contractFee;
     private VehicleType vehicleType2;
     private Brand brand2;
-    private Engine engine2;
 
-    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff, ContractStatusCode statusCode, double contractFee, VehicleType vehicleType2, Brand brand2, Engine engine2) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff, ContractStatusCode statusCode, double contractFee, VehicleType vehicleType2, Brand brand2) {
         this.id = id;
         this.product = product;
         this.customer = customer;
@@ -71,8 +70,9 @@ public class Contract {
         this.contractFee = contractFee;
         this.vehicleType2 = vehicleType2;
         this.brand2 = brand2;
-        this.engine2 = engine2;
     }
+
+
 
     
     public VehicleType getVehicleType2() {
@@ -91,13 +91,6 @@ public class Contract {
         this.brand2 = brand2;
     }
 
-    public Engine getEngine2() {
-        return engine2;
-    }
-
-    public void setEngine2(Engine engine2) {
-        this.engine2 = engine2;
-    }
     
     public ContractStatusCode getStatusCode() {
         return statusCode;
