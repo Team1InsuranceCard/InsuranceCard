@@ -62,6 +62,7 @@ public class StaffDBContext extends DBContext {
         }
         return id;
     }
+
     public Staff getStaff(int accountId) {
         try {
             String sql = "select a.ID, a.Email, a.[Password], a.[Role], a.[Status], a.GoogleID, FirstName, LastName, Phone\n"
@@ -130,6 +131,50 @@ public class StaffDBContext extends DBContext {
             while (rs.next()) {
                 if (total == 0) {
                     total = rs.getInt("contracts");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalCancel(int accountId) {
+        try {
+            String sql = "select c.CancelStaff, COUNT(c.CancelStaff) as cancels\n"
+                    + "from [Contract] c inner join Staff s on c.CancelStaff = s.AccountID\n"
+                    + "where s.AccountID = ? and c.[Status] = 4\n"
+                    + "group by c.CancelStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("cancels");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalRequest(int accountId) {
+        try {
+            String sql = "select c.StartStaff, COUNT(c.StartStaff) as requests\n"
+                    + "from [Contract] c inner join Staff s on c.StartStaff = s.AccountID\n"
+                    + "where s.AccountID = ? and (c.[Status] = 2 or c.[Status] = 3)\n"
+                    + "group by c.StartStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("requests");
                 }
             }
             return total;
