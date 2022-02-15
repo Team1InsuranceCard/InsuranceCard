@@ -56,7 +56,7 @@
                                 <input id="txt4" class="inputdata" type="text" disabled="true"
                                        value="${requestScope.product.title}"/>
                             </span>
-                            <a href="#" class="btnProduct">Change product</a>
+                            <a href="customer/dashboard" class="btnProduct">Change product</a>
                         </div>
                         <label for="select2" >Type:</label>
                         <select id="select2" class="selectdata">
@@ -67,7 +67,8 @@
                         <div class="row-input">
                             <span class="row-input1">
                                 <label for="startdate" >Start date:</label>
-                                <input id="startdate" class="startdate" type="date"/>
+                                <input id="startdate" class="startdate" type="date"
+                                       value="${requestScope.now}"/>
                             </span>
                             <span class="row-input2">
                                 <label for="enddate" >End date:</label>
