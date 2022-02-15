@@ -6,21 +6,18 @@
 package dao;
 
 import controller.externalmodule.PaginationModule;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import model.Contract;
+import model.ContractStatusCode;
 import model.Customer;
 import model.Product;
+import model.ProductStatusCode;
 import model.Staff;
 
 /**
@@ -28,7 +25,7 @@ import model.Staff;
  * @author area1
  */
 public class ContractDBContext extends DBContext {
-    
+
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
         try {
@@ -46,7 +43,7 @@ public class ContractDBContext extends DBContext {
             stm_total.setString(2, querySearch);
             stm_total.setString(3, querySearch);
             stm_total.setString(4, querySearch);
-            
+
             ResultSet rs_total = stm_total.executeQuery();
             if (rs_total.next()) {
                 totalContract = rs_total.getInt("TotalContract");
@@ -56,21 +53,21 @@ public class ContractDBContext extends DBContext {
         }
         return totalContract;
     }
-    
+
     public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String customerNameOrdered,
             String startDateOrdered, String endDateOrdered, String contractStatus) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 2);
         HashMap<Integer, Contract> contracts = new HashMap<>();
-        if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC")) ) {
+        if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
             customerNameOrdered = "ASC";
         }
-        if ( startDateOrdered == null || !(startDateOrdered.equalsIgnoreCase("ASC") || startDateOrdered.equalsIgnoreCase("DESC"))) {
+        if (startDateOrdered == null || !(startDateOrdered.equalsIgnoreCase("ASC") || startDateOrdered.equalsIgnoreCase("DESC"))) {
             startDateOrdered = "ASC";
         }
-        if (endDateOrdered == null || !(endDateOrdered.equalsIgnoreCase("ASC") || endDateOrdered.equalsIgnoreCase("DESC")) ) {
+        if (endDateOrdered == null || !(endDateOrdered.equalsIgnoreCase("ASC") || endDateOrdered.equalsIgnoreCase("DESC"))) {
             endDateOrdered = "ASC";
         }
-        
+
         String sql_select_contract = "SELECT * FROM\n"
                 + "(SELECT ROW_NUMBER() OVER (ORDER BY Customer.FirstName " + customerNameOrdered
                 + ", Customer.LastName " + customerNameOrdered
@@ -95,19 +92,19 @@ public class ContractDBContext extends DBContext {
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
         try {
             PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
-            
+
             stm_select_contract.setInt(1, staffId);
             stm_select_contract.setString(2, query);
             stm_select_contract.setString(3, query);
             stm_select_contract.setString(4, query);
-            
+
             stm_select_contract.setInt(5, recordFromTo[0]);
             stm_select_contract.setInt(6, recordFromTo[1]);
             ResultSet rs_select_contract = stm_select_contract.executeQuery();
             while (rs_select_contract.next()) {
                 Contract contract = new Contract();
                 contract.setId(rs_select_contract.getInt("ID"));
-                
+
                 Customer customer = new Customer();
                 Account account = new Account();
                 account.setId(rs_select_contract.getInt("CustomerID"));
@@ -115,7 +112,7 @@ public class ContractDBContext extends DBContext {
                 customer.setFirstName(rs_select_contract.getString("FirstName"));
                 customer.setLastName(rs_select_contract.getString("LastName"));
                 contract.setCustomer(customer);
-                
+
                 Product product = new Product();
                 product.setId(rs_select_contract.getInt("ProductID"));
                 product.setTitle(rs_select_contract.getString("Title"));
@@ -132,7 +129,7 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
+
     public int totalContractsByCustomer(int customerId) {
         int totalContract = 0;
         try {
@@ -142,7 +139,7 @@ public class ContractDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, customerId);
             ResultSet rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 totalContract = rs.getInt("TotalContract");
             }
@@ -151,7 +148,7 @@ public class ContractDBContext extends DBContext {
         }
         return totalContract;
     }
-    
+
     public Contract getContractDetail(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
@@ -204,14 +201,14 @@ public class ContractDBContext extends DBContext {
             stm.setInt(1, accountID);
             stm.setInt(2, contractID);
             ResultSet rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 Product product = new Product();
                 product.setId(rs.getInt("ProductID"));
                 product.setTitle(rs.getString("Title"));
                 product.setPrice(rs.getDouble("Price"));
                 product.setContentDetail(rs.getString("ContentDetail"));
-                
+
                 Customer customer = new Customer();
                 customer.setFirstName(rs.getString("Cus_fname"));
                 customer.setLastName(rs.getString("Cus_lname"));
@@ -219,15 +216,15 @@ public class ContractDBContext extends DBContext {
                 customer.setDob(rs.getDate("Dob"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
-                
+
                 Staff start_staff = new Staff();
                 start_staff.setFirstName(rs.getString("StartStaff_fname"));
                 start_staff.setLastName(rs.getString("StartStaff_lname"));
-                
+
                 Staff cancel_staff = new Staff();
                 cancel_staff.setFirstName(rs.getString("CancelStaff_fname"));
                 cancel_staff.setLastName(rs.getString("CancelStaff_lname"));
-                
+
                 contract.setProduct(product);
                 contract.setCustomer(customer);
                 contract.setStartStaff(start_staff);
@@ -249,6 +246,143 @@ public class ContractDBContext extends DBContext {
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
                 contract.setResolveDate(rs.getTimestamp("ResolveDate"));
+
+                return contract;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Contract staffGetContractDetail(int id) {
+        try {
+            String sql = "select ProductID\n"
+                    + "	, CustomerID\n"
+                    + "	, ct.StartDate\n"
+                    + "	, EndDate\n"
+                    + "	, ct.Status as contractStatusID\n"
+                    + "	, cts.StatusName as contractStatusName\n"
+                    + "	, ContractFee\n"
+                    + "	, CancelComment\n"
+                    + "	, CancelReason\n"
+                    + "	, CancelDate\n"
+                    + "	, CancelRequestDate\n"
+                    + "	, VehicleType\n"
+                    + "	, Engine\n"
+                    + "	, LicensePlate\n"
+                    + "	, Color\n"
+                    + "	, CertImage\n"
+                    + "	, Brand\n"
+                    + "	, Owner\n"
+                    + "	, Chassis\n"
+                    + "	, RequestDate\n"
+                    + "	, ResolveDate\n"
+                    + "	, StartStaff\n"
+                    + "	, CancelStaff\n"
+                    + "	, c.FirstName as cusFName\n"
+                    + "	, c.LastName as cusLName\n"
+                    + "	, Address\n"
+                    + "	, Dob\n"
+                    + "	, JoinDate\n"
+                    + "	, c.Phone\n"
+                    + "	, PersonalID\n"
+                    + "	, Province\n"
+                    + "	, District\n"
+                    + "	, s.FirstName as startStaffFname\n"
+                    + "	, s.LastName as startStaffLName\n"
+                    + "	, (select FirstName from Staff where AccountID = ct.CancelStaff) as cancelStaffFName\n"
+                    + "	, (select LastName from Staff where AccountID = ct.CancelStaff) as cancelStaffLName\n"
+                    + "	, Title\n"
+                    + "	, ContentDetail\n"
+                    + "	, p.Status as proStatusID\n"
+                    + "	, ps.StatusName as proStatusName\n"
+                    + "	, Email\n"
+                    + "from Contract ct inner join Customer c\n"
+                    + "on ct.CustomerID = c.AccountID\n"
+                    + "inner join Account a\n"
+                    + "on ct.CustomerID = a.ID\n"
+                    + "inner join ContractStatusCode cts\n"
+                    + "on ct.Status = cts.StatusCode\n"
+                    + "inner join Staff s\n"
+                    + "on ct.StartStaff = s.AccountID\n"
+                    + "inner join Product p\n"
+                    + "on ct.ProductID = p.ID\n"
+                    + "inner join ProductStatusCode ps\n"
+                    + "on p.Status = ps.StatusCode\n"
+                    + "where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ProductStatusCode proStatus = new ProductStatusCode();
+                proStatus.setStatusCode(rs.getShort("proStatusID"));
+                proStatus.setStatusName(rs.getString("proStatusName"));
+
+                Product pro = new Product();
+                pro.setId(rs.getInt("ProductID"));
+                pro.setTitle(rs.getString(""));
+                pro.setContentDetail("ContentDetail");
+                pro.setStatusCode(proStatus);
+
+                Account cusAcc = new Account();
+                cusAcc.setId(rs.getInt("CustomerID"));
+                cusAcc.setEmail(rs.getString("Email"));
+
+                Customer cus = new Customer();
+                cus.setAccount(cusAcc);
+                cus.setFirstName(rs.getString("cusFName"));
+                cus.setLastName(rs.getString("cusLName"));
+                cus.setAddress(rs.getString("Address"));
+                cus.setDob(rs.getDate("Dob"));
+                cus.setPhone(rs.getString("Phone"));
+                cus.setPersonalID(rs.getString("PersonalID"));
+                cus.setProvince(rs.getString("Province"));
+                cus.setDistrict(rs.getString("District"));
+                
+                Account startStaffAcc = new Account();
+                startStaffAcc.setId(rs.getInt("StartStaff"));
+                
+                Staff startStaff = new Staff();
+                startStaff.setAccount(startStaffAcc);
+                startStaff.setFirstName(rs.getString("startStaffFname"));
+                startStaff.setLastName(rs.getString("startStaffLName"));
+                
+                Account cancelStaffAcc = new Account();
+                cancelStaffAcc.setId(rs.getInt("CancelStaff"));
+                
+                Staff cancelStaff = new Staff();
+                cancelStaff.setAccount(cancelStaffAcc);
+                cancelStaff.setFirstName(rs.getString("cancelStaffFName"));
+                cancelStaff.setLastName(rs.getString("cancelStaffLName"));
+                
+                ContractStatusCode contractStatus = new ContractStatusCode();
+                contractStatus.setStatusCode(rs.getShort("contractStatusID"));
+                contractStatus.setStatusName(rs.getString("contractStatusName"));
+                
+                Contract contract = new Contract();
+                contract.setId(id);
+                contract.setProduct(pro);
+                contract.setCustomer(cus);
+                contract.setStartDate(rs.getTimestamp("StartDate"));
+                contract.setEndDate(rs.getTimestamp("EndDate"));
+                contract.setCancelComment(rs.getString("CancelComment"));
+                contract.setCancelReason(rs.getString("CancelReason"));
+                contract.setCancelDate(rs.getTimestamp("CancelDate"));
+                contract.setCancelRequestDate(rs.getTimestamp("CancelRequestDate"));
+                contract.setVehicleType(rs.getString("VehicleType"));
+                contract.setEngine(rs.getString("Engine"));
+                contract.setLicensePlate(rs.getString("LicensePlate"));
+                contract.setColor(rs.getString("Color"));
+                contract.setCertImage(rs.getString("CertImage"));
+                contract.setBrand(rs.getString("Brand"));
+                contract.setOwner(rs.getString("Owner"));
+                contract.setChassis(rs.getString("Chassis"));
+                contract.setRequestDate(rs.getTimestamp("RequestDate"));
+                contract.setResolveDate(rs.getTimestamp("ResolveDate"));
+                contract.setStartStaff(startStaff);
+                contract.setCancelStaff(cancelStaff);
+                contract.setStatusCode(contractStatus);
                 
                 return contract;
             }
