@@ -47,7 +47,7 @@ public class ContractInformation extends HttpServlet {
 
         ProductDBContext pdb = new ProductDBContext();
         short proID = pdb.checkStatus(contract.getProduct().getId());
-        
+
         boolean checkRenewRight = cdb.checkRenewRight(3, contract.getProduct().getId(), contractID); //change to acc.id
 
         String btn = "";
@@ -62,7 +62,7 @@ public class ContractInformation extends HttpServlet {
         Date date1 = null;
         Date date2 = null;
         long getDaysDiff = 0;
-        
+
         try {
             DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String startDate = simpleDateFormat.format(contract.getStartDate());
@@ -84,8 +84,8 @@ public class ContractInformation extends HttpServlet {
         request.setAttribute("mess", proID == 0 ? "Product is inactive!" : "");
         request.setAttribute("contractID", contractID);
         request.setAttribute("duration", getDaysDiff);
-        request.setAttribute("checkRenew", checkRenewRight==true?
-                "":"Can't renew because contract was renewed or is being processed!");
+        request.setAttribute("checkRenew", checkRenewRight == true
+                ? "" : "Can't renew because contract was renewed or is being processed!");
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
