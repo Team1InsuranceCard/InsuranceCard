@@ -35,7 +35,7 @@ public class StaffDBContext extends DBContext {
                 staff.setAccount(acc);
                 staff.setFirstName(rs.getString("FirstName"));
                 staff.setLastName(rs.getString("LastName"));
-                
+
                 staffs.add(staff);
             }
         } catch (SQLException ex) {
@@ -44,4 +44,98 @@ public class StaffDBContext extends DBContext {
         return staffs;
     }
 
+    public int getStartStaff(int cusID) {
+        int id = 0;
+        try {
+            String sql = "SELECT [StaffID]\n"
+                    + "  FROM [Customer_Staff]\n"
+                    + "  WHERE CustomerID = ? and NextStaff is null";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("StaffID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    public Staff getStaff(int accountId) {
+        try {
+            String sql = "select a.ID, a.Email, a.[Password], a.[Role], a.[Status], a.GoogleID, FirstName, LastName, Phone\n"
+                    + "from Staff s inner join Account a on s.AccountID = a.ID\n"
+                    + "where AccountID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            Staff s = null;
+            while (rs.next()) {
+                if (s == null) {
+                    s = new Staff();
+                    Account a = new Account();
+                    a.setId(accountId);
+                    a.setEmail(rs.getString("Email"));
+                    a.setPassword(rs.getString("Password"));
+                    a.setRole(rs.getBoolean("Role"));
+                    a.setStatus(rs.getByte("Status"));
+                    a.setGoogleID(rs.getString("GoogleID"));
+                    s.setAccount(a);
+                    s.setFirstName(rs.getString("FirstName"));
+                    s.setLastName(rs.getString("LastName"));
+                    s.setPhone(rs.getString("Phone"));
+                }
+            }
+            return s;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public int getTotalCus(int accountId) {
+        try {
+            String sql = "select s.AccountID, COUNT(cs.CustomerID) as customers\n"
+                    + "from Staff s inner join Customer_Staff cs on s.AccountID = cs.StaffID\n"
+                    + "where s.AccountID = ?\n"
+                    + "group by s.AccountID, cs.NextStaff\n"
+                    + "having cs.NextStaff is null";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("customers");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int getTotalCont(int accountId) {
+        try {
+            String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
+                    + "from [Contract] c inner join Staff s on c.StartStaff = s.AccountID\n"
+                    + "where s.AccountID = ?\n"
+                    + "group by c.StartStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("contracts");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }
