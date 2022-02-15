@@ -56,7 +56,7 @@
                                 <input id="txt4" class="inputdata" type="text" disabled="true"
                                        value="${requestScope.product.title}"/>
                             </span>
-                            <a href="#" class="btnProduct">Change product</a>
+                            <a href="customer/dashboard" class="btnProduct">Change product</a>
                         </div>
                         <label for="select2" >Type:</label>
                         <select id="select2" class="selectdata">
@@ -67,7 +67,8 @@
                         <div class="row-input">
                             <span class="row-input1">
                                 <label for="startdate" >Start date:</label>
-                                <input id="startdate" class="startdate" type="date"/>
+                                <input id="startdate" class="startdate" type="date"
+                                       value="${requestScope.now}"/>
                             </span>
                             <span class="row-input2">
                                 <label for="enddate" >End date:</label>
@@ -159,9 +160,19 @@
         <jsp:include page="../footer_full.jsp"></jsp:include>
 
 
+        <!--<script src="../../asset/script/customer/new_contract.js"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
         <script>
+            $(document).ready(function () {
+                var startdate = new Date($("#startdate").val());
+                //oneday = hour * minute * second & milliseconds
+                var oneday = 24 * 60 * 60 * 1000;
+                var enddate = $.datepicker.formatDate('yy-mm-dd',
+                        new Date(startdate.getTime() + 365 * oneday));
+                $("#enddate").val(enddate);
+            })
             $('select[name="calc_shipping_provinces"]').each(function () {
                 var $this = $(this),
                         stc = "";

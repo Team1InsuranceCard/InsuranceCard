@@ -8,6 +8,8 @@ package controller.customer;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +56,13 @@ public class NewContractController extends HttpServlet {
                 //incorrect product id => redirect to dashboard to choose product again
                 response.sendRedirect("../dashboard");
             } else {
+                //get current date
+                LocalDate d = LocalDate.now();
+                request.setAttribute("now", d);
+                
                 request.setAttribute("product", product);
-                request.getRequestDispatcher("../../view/customer/new-contract.jsp").forward(request, response);
+                request.getRequestDispatcher("../../view/customer/new-contract.jsp")
+                        .forward(request, response);
             }
         } catch (NumberFormatException ex) {
             //incorrect product id => redirect to dashboard to choose product again
