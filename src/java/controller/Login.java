@@ -61,8 +61,10 @@ public class Login extends HttpServlet {
         Account acc = (Account) request.getSession().getAttribute("account");
         if (acc == null) {
             request.getRequestDispatcher("view/login.jsp").forward(request, response);
-        } else {
+        } else if (!acc.isRole()) {
             request.getRequestDispatcher("view/customer/customer_dashboard.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("view/staff/staff_dashboard.jsp").forward(request, response);
         }
     }
 
@@ -100,7 +102,11 @@ public class Login extends HttpServlet {
             response.addCookie(cookieU);
             response.addCookie(cookieP);
 
-            response.sendRedirect("customer/dashboard");
+            if (!account.isRole()) {
+                response.sendRedirect("customer/dashboard");
+            } else {
+                response.sendRedirect("staff/dashboard");
+            }
         } else {
             request.getSession().setAttribute("account", null);
             request.setAttribute("alert", "Your email or password is wrong. Try again!");

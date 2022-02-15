@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>setEncode</filter-name>
+        <filter-class>filter.setEncode</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>setEncode</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>ViewCustomer</servlet-name>
         <servlet-class>controller.staff.ViewCustomer</servlet-class>
@@ -9,8 +17,56 @@
         <servlet-class>controller.Register</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>VerifyEmail</servlet-name>
+        <servlet-class>controller.VerifyEmail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CustomerDashboard</servlet-name>
         <servlet-class>controller.customer.CustomerDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginByGoogle</servlet-name>
+        <servlet-class>controller.GoogleAuthen.LoginByGoogle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyGoogleEmail</servlet-name>
+        <servlet-class>controller.GoogleAuthen.VerifyGoogleEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffCreateCustomer</servlet-name>
+        <servlet-class>controller.staff.CreateCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffEditCustomer</servlet-name>
+        <servlet-class>controller.staff.EditCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ContractInformation</servlet-name>
+        <servlet-class>controller.customer.ContractInformation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controller.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerViewInfo</servlet-name>
+        <servlet-class>controller.customer.ViewInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenewContract</servlet-name>
+        <servlet-class>controller.customer.RenewContract</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Manage_contract</servlet-name>
+        <servlet-class>controller.staff.ManageContract</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffDashboard</servlet-name>
+        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -21,8 +77,56 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>VerifyEmail</servlet-name>
+        <url-pattern>/verify_email</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CustomerDashboard</servlet-name>
         <url-pattern>/customer/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginByGoogle</servlet-name>
+        <url-pattern>/login/google</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyGoogleEmail</servlet-name>
+        <url-pattern>/login/google/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffCreateCustomer</servlet-name>
+        <url-pattern>/staff/customer/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffEditCustomer</servlet-name>
+        <url-pattern>/staff/customer/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContractInformation</servlet-name>
+        <url-pattern>/customer/contract/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerViewInfo</servlet-name>
+        <url-pattern>/customer/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenewContract</servlet-name>
+        <url-pattern>/customer/contract/renew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Manage_contract</servlet-name>
+        <url-pattern>/staff/contract/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffDashboard</servlet-name>
+        <url-pattern>/staff/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

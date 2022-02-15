@@ -37,6 +37,7 @@ public class Contract {
     private Staff startStaff;
     private Staff cancelStaff;
     private ContractStatusCode statusCode;
+    private double contractFee;
 
     public ContractStatusCode getStatusCode() {
         return statusCode;
@@ -45,8 +46,6 @@ public class Contract {
     public void setStatusCode(ContractStatusCode statusCode) {
         this.statusCode = statusCode;
     }
-    
-    
 
     public Contract() {
     }
@@ -260,5 +259,13 @@ public class Contract {
     public void setStatus(short status) {
         this.status = status;
     }
+
+    public double getContractFee() {
+        return contractFee;
+    }
+
+    public void setContractFee(double contractFee) {
+        this.contractFee = contractFee;
+    } 
 
 }

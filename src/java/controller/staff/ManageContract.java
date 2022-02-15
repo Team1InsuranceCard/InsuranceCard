@@ -5,9 +5,12 @@
  */
 package controller.staff;
 
+import controller.externalmodule.PaginationModule;
 import dao.ContractDBContext;
+import dao.StatusCodeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Contract;
+import model.ContractStatusCode;
 
 /**
  *
  * @author area1
  */
-public class Manage_contract extends HttpServlet {
+public class ManageContract extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,32 +67,39 @@ public class Manage_contract extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
-//        HttpSession session = request.getSession();
-//        Account currentStaffAccount = (Account) session.getAttribute("account");
-//        int staffAccountID = currentStaffAccount.getId();
-int staffAccountID = 2;
+        HttpSession session = request.getSession();
+        Account currentStaffAccount = (Account) session.getAttribute("account");
+        int staffAccountID = currentStaffAccount.getId();
+//        int staffAccountID = 7;
         String query = request.getParameter("query");
         String customerNameOrdered = request.getParameter("nameorder");
-        String startDateOrdered = request.getParameter("startoder");
+        String startDateOrdered = request.getParameter("startorder");
         String endDateOrdered = request.getParameter("endorder");
         String contractStatusCode = request.getParameter("status");
         String rawpageIndex = request.getParameter("page");
         rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
         int pageIndex = Integer.parseInt(rawpageIndex);
         contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? "0,1,2,3,4,5" : contractStatusCode;
-
+        
+        StatusCodeDBContext statusDBC = new StatusCodeDBContext();
+        ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
+        
         ContractDBContext contractDBC = new ContractDBContext();
         HashMap<Integer, Contract> contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
                 customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
-
+        int totalRecord = contractDBC.totalContractsByStaff(staffAccountID, query, contractStatusCode);
+        int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         request.setAttribute("contract_list", contractList);
-        request.setAttribute("query", this);
-        request.setAttribute("nameorder", this);
-        request.setAttribute("startoder", this);
-        request.setAttribute("endorder", this);
-        request.setAttribute("status", this);
-        request.setAttribute("page", this);
-
+        request.setAttribute("status_codes", statusCodes);
+        request.setAttribute("query", query);
+        request.setAttribute("nameorder", customerNameOrdered);
+        request.setAttribute("startorder", startDateOrdered);
+        request.setAttribute("endorder", endDateOrdered);
+        request.setAttribute("status", contractStatusCode);
+        request.setAttribute("totalpage", totalPage);
+        request.setAttribute("page", pageIndex);
+        
+//        response.sendRedirect("../view/staff/manage_contract.jsp");
         request.getRequestDispatcher("../../view/staff/manage_contract.jsp").forward(request, response);
     }
 

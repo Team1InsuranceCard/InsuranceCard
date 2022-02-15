@@ -15,10 +15,40 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
 
     <body>
+        <input type="hidden" id="undo" value="${sessionScope.undo}"/>
+        <script>
+            var renew = sessionStorage.getItem("renew");
+            if (renew == "renew") {
+                Swal.fire({
+                    timer: 2000,
+                    position: 'top',
+                    title: 'Renew successfully!',
+                    icon: 'success',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEnterKey: true
+                })
+                sessionStorage.removeItem("renew");
+            }
+
+            var undo = document.getElementById("undo"); //fix
+            if (undo == "") {
+                Swal.fire({
+                    timer: 2000,
+                    position: 'top',
+                    title: undo,
+                    icon: 'success',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEnterKey: true
+                })
+            }
+        </script>
         <c:set var="c" value="${requestScope.contract}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
@@ -34,7 +64,7 @@
                         <p class="col-md-8 label-title">${c.product.title}</p>
                         <p class="col-md-4 label-fee">Fee: 
                             <fmt:formatNumber type = "number" 
-                                              value = "${c.product.price}"/> VND</p>
+                                              value = "${c.contractFee}"/> VND</p>
                     </div>
                 </div>
 
@@ -75,30 +105,32 @@
                             <p class="col-md-3 underline">${c.startStaff.firstName} 
                                 ${c.startStaff.lastName}</p>
                             <p class="col-md-2 space bold">Status:</p>
+                            <c:set var="status" value="${requestScope.contract.statusCode.statusName}"/>
+                            <c:set var="s" value="${requestScope.contract.statusCode.statusCode}"/>
                             <c:choose>
-                                <c:when test="${c.status==0}">
+                                <c:when test="${s==0}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        End of contract</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==1}">
+                                    <c:when test="${s==1}">
                                     <p class="col-md-2 center" style="color:#0DC858;">
-                                        Active</p>
+                                        ${status}</p>
                                     </c:when>                                                 
-                                    <c:when test="${c.status==2}">
+                                    <c:when test="${s==2}">
                                     <p class="col-md-2 center" style="color:#FF7D42;">
-                                        Processing</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==3}">
+                                    <c:when test="${s==3}">
                                     <p class="col-md-2 center" style="color:#FF7D42;">
-                                        Canceling</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==4}">
+                                    <c:when test="${s==4}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        Canceled</p>
+                                        ${status}</p>
                                     </c:when>
-                                    <c:when test="${c.status==5}">
+                                    <c:when test="${s==5}">
                                     <p class="col-md-2 center" style="color:#E02A2A;">
-                                        Rejected</p>
+                                        ${status}</p>
                                     </c:when>
                                 </c:choose>
                         </div>
@@ -122,11 +154,11 @@
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "yyyy-MM-dd" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "yyyy-MM-dd" 
                                                 value = "${c.endDate}"/></p>
                         </div>
                         <div class="row">
@@ -208,9 +240,13 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <input type="${requestScope.pro==0?"hidden":"submit"}" name="btn" value="${requestScope.btn}"/>
+                    <c:set var="check" value="${requestScope.checkRenew}"/>
+                    <input type="${requestScope.pro==0||c.status==5||check!=""?"hidden":"submit"}" 
+                           name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
+                    <h6 ${check==""?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
+                        ${check}</h6>
                 </div>
             </form>
         </section>
