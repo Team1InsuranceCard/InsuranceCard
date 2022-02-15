@@ -101,21 +101,7 @@ public class ContractInformation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String btn = request.getParameter("btn");
-        int contractID = Integer.parseInt(request.getParameter("id"));
-
-        if (btn.equals("Renew")) {
-            request.getSession().setAttribute("contractID", contractID);
-            response.sendRedirect("renew");
-        } else if (btn.equals("Cancel")) {
-            //Quý
-            response.sendRedirect("cancel");
-        } else if (btn.equals("Undo")) {
-            ContractDBContext cdb = new ContractDBContext();
-            cdb.undoCancelContractByCustomer(contractID);
-            request.getSession().setAttribute("undo", "Undo successfully!");
-            response.sendRedirect("detail?id=" + contractID);
-        }
+        
     }
 
     /**
