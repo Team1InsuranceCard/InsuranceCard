@@ -28,6 +28,9 @@ public class ContractDBContext extends DBContext {
 
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
+        if (querySearch == null) {
+            querySearch = "";
+        }
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
                     + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
@@ -35,7 +38,6 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                    + " AND Account.Status IN (1)\n"
                     + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE  ? + '%')"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
@@ -56,8 +58,11 @@ public class ContractDBContext extends DBContext {
 
     public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String customerNameOrdered,
             String startDateOrdered, String endDateOrdered, String contractStatus) {
-        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 2);
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
+        if (query == null) {
+            query = "";
+        }
         if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
             customerNameOrdered = "ASC";
         }
@@ -86,7 +91,6 @@ public class ContractDBContext extends DBContext {
                 + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                 + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                 + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                + " AND Account.Status IN (1)\n"
                 + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
@@ -120,7 +124,10 @@ public class ContractDBContext extends DBContext {
 
                 contract.setStartDate(rs_select_contract.getTimestamp("StartDate"));
                 contract.setEndDate(rs_select_contract.getTimestamp("EndDate"));
-                contract.setStatus(rs_select_contract.getShort("Status"));
+
+                ContractStatusCode statuscode = new ContractStatusCode();
+                statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                contract.setStatusCode(statuscode);
                 contracts.put(rs_select_contract.getInt("Row_count"), contract);
             }
             return contracts;
@@ -149,7 +156,7 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public Contract getContractDetail(int accountID, int contractID) {
+    public Contract getContractDetailByCustomer(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
             String sql = "SELECT Product.[Title]\n"
@@ -164,7 +171,8 @@ public class ContractDBContext extends DBContext {
                     + "	     ,Contract.[ProductID]"
                     + "      ,Contract.[StartDate]\n"
                     + "      ,[EndDate]\n"
-                    + "      ,Contract.[Status]\n"
+                    + "      ,Contract.Status"
+                    + "      ,ContractStatusCode.[StatusName]\n"
                     + "      ,[CancelComment]\n"
                     + "      ,[CancelReason]\n"
                     + "      ,[CancelDate]\n"
@@ -189,13 +197,18 @@ public class ContractDBContext extends DBContext {
                     + "		FROM Contract\n"
                     + "		INNER JOIN Staff ON Staff.AccountID = Contract.CancelStaff\n"
                     + "		) as CancelStaff_lname\n"
+                    + "       ,Payment.Amout\n" //amount
                     + "  FROM [Contract]\n"
+                    + "  INNER JOIN ContractStatusCode\n"
+                    + "  ON ContractStatusCode.StatusCode = Contract.Status\n"
                     + "  INNER JOIN Customer\n"
                     + "  ON Customer.AccountID = Contract.CustomerID\n"
                     + "  INNER JOIN Product\n"
                     + "  ON Product.ID = Contract.ProductID\n"
                     + "  INNER JOIN Staff\n"
                     + "  ON Staff.AccountID = Contract.StartStaff\n"
+                    + "  INNER JOIN Payment \n"
+                    + "	 ON Payment.ContractID = Contract.ID\n"
                     + "  WHERE Contract.CustomerID = ? and Contract.ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, accountID);
@@ -225,10 +238,15 @@ public class ContractDBContext extends DBContext {
                 cancel_staff.setFirstName(rs.getString("CancelStaff_fname"));
                 cancel_staff.setLastName(rs.getString("CancelStaff_lname"));
 
+                ContractStatusCode contract_status = new ContractStatusCode();
+                contract_status.setStatusCode(rs.getShort("Status"));
+                contract_status.setStatusName(rs.getString("StatusName"));
+
                 contract.setProduct(product);
                 contract.setCustomer(customer);
                 contract.setStartStaff(start_staff);
                 contract.setCancelStaff(cancel_staff);
+                contract.setStatusCode(contract_status);
                 contract.setStartDate(rs.getTimestamp("StartDate"));
                 contract.setEndDate(rs.getTimestamp("EndDate"));
                 contract.setStatus(rs.getShort("Status"));
@@ -246,6 +264,7 @@ public class ContractDBContext extends DBContext {
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
                 contract.setResolveDate(rs.getTimestamp("ResolveDate"));
+                contract.setContractFee(rs.getInt("Amout"));
 
                 return contract;
             }
@@ -255,7 +274,145 @@ public class ContractDBContext extends DBContext {
         return null;
     }
 
+    public int renewContractByCustomer(Contract contract) {
+        int contract_id = 0;
+        try {
+            connection.setAutoCommit(false);
+            String sql_contract = "INSERT INTO [Contract]\n"
+                    + "           ([ProductID]\n"
+                    + "           ,[CustomerID]\n"
+                    + "           ,[StartDate]\n"
+                    + "           ,[EndDate]\n"
+                    + "           ,[Status]\n"
+                    + "           ,[ContractFee]\n"
+                    + "           ,[VehicleType]\n"
+                    + "           ,[Engine]\n"
+                    + "           ,[LicensePlate]\n"
+                    + "           ,[Color]\n"
+                    + "           ,[CertImage]\n"
+                    + "           ,[Brand]\n"
+                    + "           ,[Owner]\n"
+                    + "           ,[Chassis]\n"
+                    + "           ,[RequestDate]\n"
+                    + "           ,[StartStaff])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm_contract = connection.prepareStatement(sql_contract);
+            stm_contract.setInt(1, contract.getProduct().getId());
+            stm_contract.setInt(2, contract.getCustomer().getAccount().getId());
+            stm_contract.setTimestamp(3, contract.getStartDate());
+            stm_contract.setTimestamp(4, contract.getEndDate());
+            stm_contract.setShort(5, contract.getStatus());
+            stm_contract.setDouble(6, contract.getContractFee());
+            stm_contract.setString(7, contract.getVehicleType());
+            stm_contract.setString(8, contract.getEngine());
+            stm_contract.setString(9, contract.getLicensePlate());
+            stm_contract.setString(10, contract.getColor());
+            stm_contract.setString(11, contract.getCertImage());
+            stm_contract.setString(12, contract.getBrand());
+            stm_contract.setString(13, contract.getOwner());
+            stm_contract.setString(14, contract.getChassis());
+            stm_contract.setTimestamp(15, contract.getRequestDate());
+            stm_contract.setInt(16, contract.getStartStaff().getAccount().getId());
+            stm_contract.executeUpdate();
+
+            String sql_get_contractid = "select @@identity as contract_id";
+            PreparedStatement stm_get_contractid = connection.prepareStatement(sql_get_contractid);
+            ResultSet rs_contractid = stm_get_contractid.executeQuery();
+
+            if (rs_contractid.next()) {
+                contract.setId(rs_contractid.getInt("contract_id"));
+                contract_id = rs_contractid.getInt("contract_id");
+            }
+
+            String sql_payment = "INSERT INTO [Payment]\n"
+                    + "           ([Amout]\n"
+                    + "           ,[StartDate]\n"
+                    + "           ,[ContractID])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm_payment = connection.prepareStatement(sql_payment);
+            stm_payment.setDouble(1, contract.getContractFee());
+            stm_payment.setTimestamp(2, contract.getRequestDate());
+            stm_payment.setInt(3, contract.getId());
+            stm_payment.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return contract_id;
+    }
+
+    public boolean checkRenewRight(int cusID, int proID, int contractID) {
+        boolean check = true;
+        try {
+            String sql = "SELECT Contract.ID\n"
+                    + "FROM Contract\n"
+                    + "INNER JOIN Product\n"
+                    + "ON Product.ID = Contract.ProductID\n"
+                    + "WHERE Contract.Status in (1,2,3)\n"
+                    + " and CustomerID = ? and ProductID = ?\n"
+                    + " and Contract.ID <> ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            stm.setInt(2, proID);
+            stm.setInt(3, contractID);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                check = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check;
+    }
+
+    public void undoCancelContractByCustomer(int contractID) {
+        try {
+            String sql = "UPDATE [Contract]\n"
+                    + "   SET [Status] = ?\n"
+                    + " WHERE Contract.ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setShort(1, Short.valueOf("1"));
+            stm.setInt(2, contractID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public Contract staffGetContractDetail(int id) {
+        Contract contract = new Contract();
         try {
             String sql = "select ProductID\n"
                     + "	, CustomerID\n"
@@ -310,7 +467,7 @@ public class ContractDBContext extends DBContext {
                     + "on ct.ProductID = p.ID\n"
                     + "inner join ProductStatusCode ps\n"
                     + "on p.Status = ps.StatusCode\n"
-                    + "where id = ?";
+                    + "where ct.ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -321,7 +478,7 @@ public class ContractDBContext extends DBContext {
 
                 Product pro = new Product();
                 pro.setId(rs.getInt("ProductID"));
-                pro.setTitle(rs.getString(""));
+                pro.setTitle(rs.getString("Title"));
                 pro.setContentDetail("ContentDetail");
                 pro.setStatusCode(proStatus);
 
@@ -339,28 +496,27 @@ public class ContractDBContext extends DBContext {
                 cus.setPersonalID(rs.getString("PersonalID"));
                 cus.setProvince(rs.getString("Province"));
                 cus.setDistrict(rs.getString("District"));
-                
+
                 Account startStaffAcc = new Account();
                 startStaffAcc.setId(rs.getInt("StartStaff"));
-                
+
                 Staff startStaff = new Staff();
                 startStaff.setAccount(startStaffAcc);
                 startStaff.setFirstName(rs.getString("startStaffFname"));
                 startStaff.setLastName(rs.getString("startStaffLName"));
-                
+
                 Account cancelStaffAcc = new Account();
                 cancelStaffAcc.setId(rs.getInt("CancelStaff"));
-                
+
                 Staff cancelStaff = new Staff();
                 cancelStaff.setAccount(cancelStaffAcc);
                 cancelStaff.setFirstName(rs.getString("cancelStaffFName"));
                 cancelStaff.setLastName(rs.getString("cancelStaffLName"));
-                
+
                 ContractStatusCode contractStatus = new ContractStatusCode();
                 contractStatus.setStatusCode(rs.getShort("contractStatusID"));
                 contractStatus.setStatusName(rs.getString("contractStatusName"));
-                
-                Contract contract = new Contract();
+
                 contract.setId(id);
                 contract.setProduct(pro);
                 contract.setCustomer(cus);
@@ -383,12 +539,11 @@ public class ContractDBContext extends DBContext {
                 contract.setStartStaff(startStaff);
                 contract.setCancelStaff(cancelStaff);
                 contract.setStatusCode(contractStatus);
-                
-                return contract;
+                contract.setContractFee(rs.getDouble("ContractFee"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return contract;
     }
 }
