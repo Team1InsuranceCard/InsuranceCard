@@ -21,6 +21,28 @@ public class Payment {
     private String note;
     private double amount;
     private Timestamp startDate;
+    private PaymentMethod paymentMethod2;
+
+    public Payment(int id, Contract contractID, Timestamp paidDate, String paymentMethod, String note, double amount, Timestamp startDate, PaymentMethod paymentMethod2) {
+        this.id = id;
+        this.contractID = contractID;
+        this.paidDate = paidDate;
+        this.paymentMethod = paymentMethod;
+        this.note = note;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.paymentMethod2 = paymentMethod2;
+    }
+
+    public PaymentMethod getPaymentMethod2() {
+        return paymentMethod2;
+    }
+
+    public void setPaymentMethod2(PaymentMethod paymentMethod2) {
+        this.paymentMethod2 = paymentMethod2;
+    }
+    
+    
 
     public Payment() {
     }
