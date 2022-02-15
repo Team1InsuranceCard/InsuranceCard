@@ -86,7 +86,7 @@ select:focus,
     margin-left: 120px;
 }
 
-.btnProduct{
+.left .btnProduct{
     display: inline-block;
     border: none;
     border-radius: 5px;
@@ -100,6 +100,11 @@ select:focus,
     background: var(--color2);
     color: #000;
     font-weight: bold;
+}
+
+.left .btnProduct:hover{
+    text-decoration: none;
+    color: #000;
 }
 
 .right .group-title{

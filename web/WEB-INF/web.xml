@@ -68,6 +68,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewContractController</servlet-name>
+        <servlet-class>controller.customer.NewContractController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewContractController</servlet-name>
+        <url-pattern>/customer/contract/create</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
