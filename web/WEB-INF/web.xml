@@ -69,6 +69,10 @@
         <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-class>controller.ProductDetaiil</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>NewContractController</servlet-name>
         <servlet-class>controller.customer.NewContractController</servlet-class>
     </servlet>
@@ -131,6 +135,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetaiil</servlet-name>
+        <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewContractController</servlet-name>
