@@ -41,8 +41,8 @@ generateCalendar = (month, year) => {
     calendar_days.innerHTML = ''
 
     let currDate = new Date()
-    if (!month) month = currDate.getMonth()
-    if (!year) year = currDate.getFullYear()
+    if (month == null || month == undefined) month = currDate.getMonth()
+    if (year == null || year == undefined) year = currDate.getFullYear()
 
     let curr_month = `${month_names[month]}`
     month_picker.innerHTML = curr_month
@@ -106,8 +106,3 @@ document.querySelector('#next-year').onclick = () => {
 }
 
 let dark_mode_toggle = document.querySelector('.dark-mode-switch')
-
-dark_mode_toggle.onclick = () => {
-    document.querySelector('body').classList.toggle('light')
-    document.querySelector('body').classList.toggle('dark')
-}

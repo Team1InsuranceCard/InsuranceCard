@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${root}/asset/style/header_staff_mod.css" />
 <header>
     <div class="header-staff">
-        <a href="#" class="brand">
+        <a href="${root}/homepage" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
@@ -18,13 +18,16 @@
         <ul>
             <c:set var="current" value="${param.currentscreen}"/> 
             <li>
-                <a class="sidebar-item <c:if test="${current == 'dashboard'}">active</c:if>" href="">DashBoard</a>
+                <a class="sidebar-item <c:if test="${current == 'dashboard'}">active</c:if>" 
+                   href="${root}/moderator/dashboard">DashBoard</a>
                 </li>
                 <li>
-                    <a class="sidebar-item <c:if test="${current == 'customer'}">active</c:if>" href="">Product</a>
+                    <a class="sidebar-item <c:if test="${current == 'customer'}">active</c:if>" 
+                       href="${root}/moderator/product">Product</a>
                 </li>
                 <li>
-                    <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" href="">Staff</a>        
+                    <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" 
+                       href="${root}/moderator/staff">Staff</a>        
             </li>
         </ul>
     </div>
