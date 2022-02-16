@@ -118,6 +118,29 @@ public class StaffDBContext extends DBContext {
         return 0;
     }
 
+    public int getUnholdedCus(int accountId) {
+        try {
+            String sql = "select COUNT(a.[Status]) as unholded\n"
+                    + "from Customer_Staff cs inner join Staff s on cs.StaffID = s.AccountID\n"
+                    + "						inner join Account a on cs.CustomerID = a.ID\n"
+                    + "where a.[Status] = 2 and s.AccountID = ?\n"
+                    + "group by a.[Status]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int unholded = 0;
+            while (rs.next()) {
+                if (unholded == 0) {
+                    unholded = rs.getInt("unholded");
+                }
+            }
+            return unholded;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public int getTotalCont(int accountId) {
         try {
             String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
