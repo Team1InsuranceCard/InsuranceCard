@@ -133,10 +133,6 @@
                 <div class="row justify-content-around row1">
                     <div class="col-lg-4 staff-card">
                         <div class="name-card-image">
-                            <!--                            <img
-                                                            src="asset/image/customer/cutomer_dashboard/image2.png"
-                                                            alt="customericon"
-                                                            />-->
                             <img src="asset/image/staff/User.png" alt="avatar"/>
                         </div>
                         <div class="name-card-content">
