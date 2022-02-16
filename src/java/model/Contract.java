@@ -28,7 +28,7 @@ public class Contract {
     private String engine;
     private String licensePlate;
     private String color;
-    private String certImage; //Chua ro la nen dung Blob hay ImageBase64
+    private String certImage;
     private String brand;
     private String owner;
     private String chassis;
