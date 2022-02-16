@@ -82,14 +82,16 @@ public class ContractDBContext extends DBContext {
                 + "      ,CONTRACT.[CustomerID]\n"
                 + "      ,CONTRACT.[StartDate]\n"
                 + "      ,CONTRACT.[EndDate]\n"
-                + "      ,CONTRACT.[Status]\n"
+                + "      ,CONTRACT.[Status]"
+                + "      ,ContractStatusCode.StatusName\n"
                 + "      ,CONTRACT.[isDelete]\n"
                 + "	  ,Customer.FirstName, Customer.LastName\n"
                 + "	  ,Product.Title\n"
                 + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
                 + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
                 + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
-                + "  JOIN Product ON Product.ID = Contract.ProductID\n"
+                + "  JOIN Product ON Product.ID = Contract.ProductID"
+                + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
                 + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
                 + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
@@ -127,6 +129,7 @@ public class ContractDBContext extends DBContext {
 
                 ContractStatusCode statuscode = new ContractStatusCode();
                 statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                statuscode.setStatusName(rs_select_contract.getString("StatusName"));
                 contract.setStatusCode(statuscode);
                 contracts.put(rs_select_contract.getInt("Row_count"), contract);
             }

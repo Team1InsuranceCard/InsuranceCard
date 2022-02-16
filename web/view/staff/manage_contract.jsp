@@ -112,6 +112,8 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     var="statuscode"
                                     value="${contract.statusCode.statusCode}"
                                     />
+                                 <span >${contract.statusCode.statusName}</span>
+<!--                               
                                 <c:choose>
                                     <c:when test="${statuscode == 0}">
                                         <span style="color: #5c2941">Out of date</span>
@@ -132,6 +134,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                         <span style="color: #5c2941">Rejected</span>
                                     </c:when>
                                 </c:choose>
+                                        -->
                             </td>
                             <td>
                                 <a href="staff/contract/detail?id=${contract.id}">Detail</a>

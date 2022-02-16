@@ -1,15 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <link
     rel="stylesheet"
     href="${pageContext.request.contextPath}/asset/style/header_customer.css"
     />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="${root}/asset/script/google_login.js" defer></script>
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
         <div class="container header-element">
-            <a class="navbar-brand" href="${root}">
+            <a class="navbar-brand" href="${root}"> 
                 <img
                     class="logo-icon"
                     src="${root}/asset/image/icon_car.png"
@@ -58,6 +62,7 @@
                     <a href=""
                        ><img src="${root}/asset/image/icon_user.png" alt="bell"
                           /></a>
+                    <a class="logout-button" onclick="signOut();" href="${root}/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </div>
             </div>
         </div>

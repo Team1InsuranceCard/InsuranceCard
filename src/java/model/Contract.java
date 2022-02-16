@@ -38,19 +38,10 @@ public class Contract {
     private Staff cancelStaff;
     private ContractStatusCode statusCode;
     private double contractFee;
+    private VehicleType vehicleType2;
+    private Brand brand2;
 
-    public ContractStatusCode getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(ContractStatusCode statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public Contract() {
-    }
-
-    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff, ContractStatusCode statusCode, double contractFee, VehicleType vehicleType2, Brand brand2) {
         this.id = id;
         this.product = product;
         this.customer = customer;
@@ -74,6 +65,41 @@ public class Contract {
         this.status = status;
         this.startStaff = startStaff;
         this.cancelStaff = cancelStaff;
+        this.statusCode = statusCode;
+        this.contractFee = contractFee;
+        this.vehicleType2 = vehicleType2;
+        this.brand2 = brand2;
+    }
+
+
+
+    
+    public VehicleType getVehicleType2() {
+        return vehicleType2;
+    }
+
+    public void setVehicleType2(VehicleType vehicleType2) {
+        this.vehicleType2 = vehicleType2;
+    }
+
+    public Brand getBrand2() {
+        return brand2;
+    }
+
+    public void setBrand2(Brand brand2) {
+        this.brand2 = brand2;
+    }
+
+    
+    public ContractStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(ContractStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public Contract() {
     }
 
     public Staff getStartStaff() {

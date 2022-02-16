@@ -79,11 +79,17 @@ public class ManageContract extends HttpServlet {
         String rawpageIndex = request.getParameter("page");
         rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
         int pageIndex = Integer.parseInt(rawpageIndex);
-        contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? "0,1,2,3,4,5" : contractStatusCode;
-        
+
         StatusCodeDBContext statusDBC = new StatusCodeDBContext();
         ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
         
+        String stringAllStatus = "0";
+        for (ContractStatusCode statusCode : statusCodes) {
+            stringAllStatus += "," + statusCode.getStatusCode();
+        }
+        
+        contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? stringAllStatus : contractStatusCode;
+
         ContractDBContext contractDBC = new ContractDBContext();
         HashMap<Integer, Contract> contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
                 customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
@@ -98,7 +104,7 @@ public class ManageContract extends HttpServlet {
         request.setAttribute("status", contractStatusCode);
         request.setAttribute("totalpage", totalPage);
         request.setAttribute("page", pageIndex);
-        
+
 //        response.sendRedirect("../view/staff/manage_contract.jsp");
         request.getRequestDispatcher("../../view/staff/manage_contract.jsp").forward(request, response);
     }
