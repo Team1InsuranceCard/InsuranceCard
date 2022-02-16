@@ -176,7 +176,7 @@
                                                 ${eachproduct.description}
                                             </p>
                                         </div>
-                                        <a href="#" class="btn btn-primary go-to-button"
+                                        <a href="product/detail?productid=${eachproduct.id}" class="btn btn-primary go-to-button"
                                            >More</a
                                         >
                                     </div>
@@ -204,7 +204,7 @@
                                                 ${product.description}
                                             </p>
                                         </div>
-                                        <a href="#" class="btn btn-primary go-to-button"
+                                        <a href="product/detail?productid=${product.id}" class="btn btn-primary go-to-button"
                                            >More</a
                                         >
                                     </div>
