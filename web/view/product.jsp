@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set value="${account.role}" var="role"/>
+
 <!DOCTYPE html>    
 <html lang="en">
     <head>
@@ -23,16 +25,30 @@
             />
         <style>
             main{
+                <c:if test="${role}">
+                    margin-left: 20em;
+                </c:if>
                 margin-top: 10em;
                 margin-bottom:  10em;
             }
-            .
+
         </style>
     </head>
     <body>
-        <jsp:include page="header_common.jsp" >
-            <jsp:param name="currentscreen" value="product"/>
-        </jsp:include>
+        <c:choose>
+            <c:when test="${role}">
+                <jsp:include page="header_staff.jsp" />
+            </c:when>
+            <c:when test="${!role}">
+                <jsp:include page="header_customer.jsp" />
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="header_common.jsp" >
+                    <jsp:param name="currentscreen" value="product"/>
+                </jsp:include>
+            </c:otherwise>
+        </c:choose>
+
         <main>
             <div class="container" >
                 <div class="dashboard-card dashboard-service-card">

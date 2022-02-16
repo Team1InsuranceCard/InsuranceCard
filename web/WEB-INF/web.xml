@@ -82,7 +82,7 @@
     </servlet>
     <servlet>
         <servlet-name>HomepageProduct</servlet-name>
-        <servlet-class>controller.HomepageProduct</servlet-class>
+        <servlet-class>controller.ProductView</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -158,7 +158,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomepageProduct</servlet-name>
-        <url-pattern>/homepage/product</url-pattern>
+        <url-pattern>/product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

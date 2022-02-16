@@ -15,11 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 
+
 /**
  *
  * @author area1
  */
-public class HomepageProduct extends HttpServlet {
+public class ProductView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,7 +65,7 @@ public class HomepageProduct extends HttpServlet {
         ArrayList<Product> products = productDBC.getProducts();
 
         request.setAttribute("products", products);
-        request.getRequestDispatcher("../view/product.jsp").forward(request, response);
+        request.getRequestDispatcher("view/product.jsp").forward(request, response);
     }
 
     /**
