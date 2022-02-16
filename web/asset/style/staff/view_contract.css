@@ -67,6 +67,11 @@ main {
   background-color: #ac3c39;
 }
 
+.btn--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .btn__text {
   font-size: 18px;
 }
