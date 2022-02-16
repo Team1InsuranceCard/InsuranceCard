@@ -3,6 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../header_customer.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
@@ -16,10 +20,6 @@
         <link rel="stylesheet" href="asset/style/customer/view_info.css" />
     </head>
     <body>
-        <jsp:include page="../header_customer.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <main>
             <div class="menu">
                 <div class="menu__item menu__item--active">

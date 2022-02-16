@@ -58,15 +58,11 @@
     </servlet>
     <servlet>
         <servlet-name>Manage_contract</servlet-name>
-        <servlet-class>controller.staff.ManageContract</servlet-class>
+        <servlet-class>controller.staff.Manage_contract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffDashboard</servlet-name>
-        <servlet-class>controller.staff.StaffDashboard</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>controller.Logout</servlet-class>
+        <servlet-name>ViewContract</servlet-name>
+        <servlet-class>controller.staff.ViewContract</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductDetaiil</servlet-name>
@@ -137,12 +133,8 @@
         <url-pattern>/staff/contract/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffDashboard</servlet-name>
-        <url-pattern>/staff/dashboard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <servlet-name>ViewContract</servlet-name>
+        <url-pattern>/staff/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetaiil</servlet-name>
