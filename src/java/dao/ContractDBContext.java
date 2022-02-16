@@ -6,23 +6,21 @@
 package dao;
 
 import controller.externalmodule.PaginationModule;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Brand;
 import model.Contract;
 import model.ContractStatusCode;
 import model.Customer;
 import model.Product;
+import model.ProductStatusCode;
 import model.Staff;
+import model.VehicleType;
 
 /**
  *
@@ -416,5 +414,154 @@ public class ContractDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Contract staffGetContractDetail(int id) {
+        Contract contract = new Contract();
+        try {
+            String sql = "select ProductID\n"
+                    + "	, Title\n"
+                    + "	, ContentDetail\n"
+                    + "	, p.Status as proStatusID\n"
+                    + "	, ps.StatusName as proStatusName\n"
+                    + "	, CustomerID\n"
+                    + "	, Email\n"
+                    + "	, c.FirstName as cusFName\n"
+                    + "	, c.LastName as cusLName\n"
+                    + "	, Address\n"
+                    + "	, Dob\n"
+                    + "	, c.Phone\n"
+                    + "	, PersonalID\n"
+                    + "	, Province\n"
+                    + "	, District\n"
+                    + "	, ct.StartDate\n"
+                    + "	, EndDate\n"
+                    + "	, ct.Status as contractStatusID\n"
+                    + "	, cts.StatusName as contractStatusName\n"
+                    + "	, ContractFee\n"
+                    + "	, CancelComment\n"
+                    + "	, CancelReason\n"
+                    + "	, CancelDate\n"
+                    + "	, CancelRequestDate\n"
+                    + "	, VehicleTypeID\n"
+                    + "	, VehicleType\n"
+                    + "	, Engine\n"
+                    + "	, LicensePlate\n"
+                    + "	, Color\n"
+                    + "	, CertImage\n"
+                    + "	, BrandID\n"
+                    + "	, Brand\n"
+                    + "	, Owner\n"
+                    + "	, Chassis\n"
+                    + "	, RequestDate\n"
+                    + "	, ResolveDate\n"
+                    + "	, StartStaff\n"
+                    + "	, s.FirstName as startStaffFname\n"
+                    + "	, s.LastName as startStaffLName\n"
+                    + "	, CancelStaff\n"
+                    + "	, (select FirstName from Staff where AccountID = ct.CancelStaff) as cancelStaffFName\n"
+                    + "	, (select LastName from Staff where AccountID = ct.CancelStaff) as cancelStaffLName\n"
+                    + "from Contract ct inner join Customer c\n"
+                    + "on ct.CustomerID = c.AccountID\n"
+                    + "inner join Account a\n"
+                    + "on ct.CustomerID = a.ID\n"
+                    + "inner join ContractStatusCode cts\n"
+                    + "on ct.Status = cts.StatusCode\n"
+                    + "inner join Staff s\n"
+                    + "on ct.StartStaff = s.AccountID\n"
+                    + "inner join Product p\n"
+                    + "on ct.ProductID = p.ID\n"
+                    + "inner join ProductStatusCode ps\n"
+                    + "on p.Status = ps.StatusCode\n"
+                    + "inner join VehicleType vt\n"
+                    + "on ct.VehicleTypeID = vt.ID\n"
+                    + "inner join Brand b\n"
+                    + "on ct.BrandID = b.ID\n"
+                    + "where ct.ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ProductStatusCode proStatus = new ProductStatusCode();
+                proStatus.setStatusCode(rs.getShort("proStatusID"));
+                proStatus.setStatusName(rs.getString("proStatusName"));
+
+                Product pro = new Product();
+                pro.setId(rs.getInt("ProductID"));
+                pro.setTitle(rs.getString("Title"));
+                pro.setContentDetail("ContentDetail");
+                pro.setStatusCode(proStatus);
+
+                Account cusAcc = new Account();
+                cusAcc.setId(rs.getInt("CustomerID"));
+                cusAcc.setEmail(rs.getString("Email"));
+
+                Customer cus = new Customer();
+                cus.setAccount(cusAcc);
+                cus.setFirstName(rs.getString("cusFName"));
+                cus.setLastName(rs.getString("cusLName"));
+                cus.setAddress(rs.getString("Address"));
+                cus.setDob(rs.getDate("Dob"));
+                cus.setPhone(rs.getString("Phone"));
+                cus.setPersonalID(rs.getString("PersonalID"));
+                cus.setProvince(rs.getString("Province"));
+                cus.setDistrict(rs.getString("District"));
+
+                Account startStaffAcc = new Account();
+                startStaffAcc.setId(rs.getInt("StartStaff"));
+
+                Staff startStaff = new Staff();
+                startStaff.setAccount(startStaffAcc);
+                startStaff.setFirstName(rs.getString("startStaffFname"));
+                startStaff.setLastName(rs.getString("startStaffLName"));
+
+                Account cancelStaffAcc = new Account();
+                cancelStaffAcc.setId(rs.getInt("CancelStaff"));
+
+                Staff cancelStaff = new Staff();
+                cancelStaff.setAccount(cancelStaffAcc);
+                cancelStaff.setFirstName(rs.getString("cancelStaffFName"));
+                cancelStaff.setLastName(rs.getString("cancelStaffLName"));
+
+                ContractStatusCode contractStatus = new ContractStatusCode();
+                contractStatus.setStatusCode(rs.getShort("contractStatusID"));
+                contractStatus.setStatusName(rs.getString("contractStatusName"));
+                
+                VehicleType vehicleType = new VehicleType();
+                vehicleType.setId(rs.getInt("VehicleTypeID"));
+                vehicleType.setVehicleType(rs.getString("VehicleType"));
+                
+                Brand brand = new Brand();
+                brand.setId(rs.getInt("BrandID"));
+                brand.setBrand(rs.getString("Brand"));
+
+                contract.setId(id);
+                contract.setProduct(pro);
+                contract.setCustomer(cus);
+                contract.setStartDate(rs.getTimestamp("StartDate"));
+                contract.setEndDate(rs.getTimestamp("EndDate"));
+                contract.setCancelComment(rs.getString("CancelComment"));
+                contract.setCancelReason(rs.getString("CancelReason"));
+                contract.setCancelDate(rs.getTimestamp("CancelDate"));
+                contract.setCancelRequestDate(rs.getTimestamp("CancelRequestDate"));
+                contract.setEngine(rs.getString("Engine"));
+                contract.setLicensePlate(rs.getString("LicensePlate"));
+                contract.setColor(rs.getString("Color"));
+                contract.setCertImage(rs.getString("CertImage"));
+                contract.setOwner(rs.getString("Owner"));
+                contract.setChassis(rs.getString("Chassis"));
+                contract.setRequestDate(rs.getTimestamp("RequestDate"));
+                contract.setResolveDate(rs.getTimestamp("ResolveDate"));
+                contract.setStartStaff(startStaff);
+                contract.setCancelStaff(cancelStaff);
+                contract.setStatusCode(contractStatus);
+                contract.setContractFee(rs.getDouble("ContractFee"));
+                contract.setVehicleType2(vehicleType);
+                contract.setBrand2(brand);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return contract;
     }
 }
