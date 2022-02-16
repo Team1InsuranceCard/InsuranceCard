@@ -162,7 +162,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold1}</h3>
                             </div>
                             <div class="col-9 unholded">
                                 <a href="#">
@@ -237,7 +237,7 @@
                             </div>
                             <div class="col-7 task-total">
                                 <h1>${sessionScope.total3}</h1>
-                                <h4>Cancels</h4>
+                                <h4>Compensation</h4>
                             </div>
                         </div>
                         <div class="row under">
@@ -262,7 +262,7 @@
                             </div>
                             <div class="col-7 task-total">
                                 <h1>${sessionScope.total4}</h1>
-                                <h4>Compensations</h4>
+                                <h4>Cancels</h4>
                             </div>
                         </div>
                         <div class="row under">
