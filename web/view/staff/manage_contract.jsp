@@ -30,6 +30,12 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <main>
             <div class="container contract-action">
                 <div class="row">
+                    <!-- <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="all" id="contract-include">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          All contracts
+                        </label>
+                      </div> -->
                     <div class="col seach-bar">
                         <form class="form-inline" action="staff/contract/view" method="GET">
                             <input
@@ -54,8 +60,9 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                     </div>
                 </div>
             </div>
+
             <div class="contract-list">
-                <div class="contract-list-title"><h2>Contract List</h2></div>
+                <div class=" contract-list-title"><h2 ><a href="javascript:void()" id="contract-include" aria-label="${contractinclude}" title="Click to toggle to Contract By Me"></a></h2></div>                      
                 <div class="contract-list-content">
                     <table class="contract-list-table table table-striped">
                         <thead class="contract-list-header">
@@ -112,6 +119,8 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     var="statuscode"
                                     value="${contract.statusCode.statusCode}"
                                     />
+                                 <span >${contract.statusCode.statusName}</span>
+<!--                               
                                 <c:choose>
                                     <c:when test="${statuscode == 0}">
                                         <span style="color: #5c2941">Out of date</span>
@@ -132,6 +141,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                         <span style="color: #5c2941">Rejected</span>
                                     </c:when>
                                 </c:choose>
+                                        -->
                             </td>
                             <td>
                                 <a href="staff/contract/detail?id=${contract.id}">Detail</a>

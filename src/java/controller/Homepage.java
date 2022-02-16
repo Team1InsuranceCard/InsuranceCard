@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller;
 
-import dao.CustomerDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.CustomerStaff;
 
 /**
  *
- * @author DELL
+ * @author area1
  */
-public class ViewInfo extends HttpServlet {
+public class Homepage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,11 +29,8 @@ public class ViewInfo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerDBContext db = new CustomerDBContext();
-        Account acc = (Account) request.getSession().getAttribute("account");
-        CustomerStaff cusStaff = db.viewCustomer(acc.getId());
-        request.setAttribute("cus", cusStaff.getCustomer());
-        request.getRequestDispatcher("../view/customer/view_info.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+         request.getRequestDispatcher("view/homepage.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

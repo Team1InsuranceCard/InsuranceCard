@@ -92,79 +92,15 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="product-content">${product.contentDetail}
-                                    Điều 1: Quy định chung Hợp đồng bảo hiểm (HĐBH): là văn bản
-                                    thoả thuận giữa Bên A và Bên B cùng ký kết, theo đó Bên A phải
-                                    đóng đủ phí bảo hiểm, Bên B phải bồi thường cho Bên A hoặc
-                                    Người thụ hưởng khi xảy ra sự kiện bảo hiểm thuộc trách nhiệm
-                                    bảo hiểm. Các tài liệu đính kèm HĐBH bao gồm: Giấy yêu cầu bảo
-                                    hiểm của Bên A (nếu có). Quy tắc bảo hiểm. Giấy chứng nhận Bảo
-                                    hiểm. Các Phụ lục HĐBH, Sửa đổi bổ sung và thỏa thuận khác
-                                    bằng văn bản (nếu có). Bảo hiểm bắt buộc TNDS của Chủ xe cơ
-                                    giới: Theo Nghị định số 03/2021/NĐ-CP ban hành ngày 15/01/2021
-                                    của Chính phủ, Thông tư số 04/2021/TT-BTC ban hành ngày
-                                    15/01/2021 của Bộ Tài chính quy định về bảo hiểm bắt buộc TNDS
-                                    của Chủ xe cơ giới và các văn bản hướng dẫn liên quan tại từng
-                                    thời điểm. Quy tắc bảo hiểm Tự nguyện Xe Ô Tô được ban hành
-                                    theo Quyết định số 1855/QĐ-PVIBH ngày 30/12/2019 của Tổng giám
-                                    đốc Tổng công ty Bảo hiểm PVI trên cơ sở chấp thuận của Bộ Tài
-                                    Chính theo công văn 14569/BTC-QLBH ngày 22/11/2018 (sau đây
-                                    gọi tắt là “Quy tắc”) loại hình bảo hiểm tự nguyện Bên A tham
-                                    gia nêu tại Điều 3 của HĐBH và được đính kèm theo HĐBH. Các
-                                    Quy tắc, điều kiện, điều khoản hiện hành của Bảo hiểm PVI đồng
-                                    thời được đăng tải trên website http://www.baohiempvi.com.vn
-                                    Các từ viết tắt, định nghĩa, điều khoản, điều kiện, điểm loại
-                                    trừ bảo hiểm, giảm trừ bồi thường quy định trong trong Quy tắc
-                                    bảo hiểm nêu trên có cùng ý nghĩa khi được sử dụng trong bản
-                                    Hợp đồng này. Trường hợp nội dung của Quy tắc bảo hiểm và nội
-                                    dung của HĐBH có sự khác nhau, thì nội dung của HĐBH sẽ được
-                                    ưu tiên áp dụng. Các thông tin về Xe tham gia bảo hiểm được kê
-                                    khai đầy đủ, trung thực và chính xác trong Giấy yêu bảo hiểm
-                                    và/hoặc trong bản Hợp đồng này là căn cứ để Bên B giải quyết
-                                    bồi thường đúng quyền lợi cho Bên A khi xảy ra tổn thất thuộc
-                                    phạm vi bảo hiểm, bao gồm và không giới hạn các quy định về
-                                    giảm trừ số tiền bồi thường theo Quy tắc bảo hiểm do thông tin
-                                    xe không đầy đủ, chính xác dẫn đến việc tính phí bảo hiểm
-                                    không đầy đủ. Điều 1: Quy định chung Hợp đồng bảo hiểm (HĐBH):
-                                    là văn bản thoả thuận giữa Bên A và Bên B cùng ký kết, theo đó
-                                    Bên A phải đóng đủ phí bảo hiểm, Bên B phải bồi thường cho Bên
-                                    A hoặc Người thụ hưởng khi xảy ra sự kiện bảo hiểm thuộc trách
-                                    nhiệm bảo hiểm. Các tài liệu đính kèm HĐBH bao gồm: Giấy yêu
-                                    cầu bảo hiểm của Bên A (nếu có). Quy tắc bảo hiểm. Giấy chứng
-                                    nhận Bảo hiểm. Các Phụ lục HĐBH, Sửa đổi bổ sung và thỏa thuận
-                                    khác bằng văn bản (nếu có). Bảo hiểm bắt buộc TNDS của Chủ xe
-                                    cơ giới: Theo Nghị định số 03/2021/NĐ-CP ban hành ngày
-                                    15/01/2021 của Chính phủ, Thông tư số 04/2021/TT-BTC ban hành
-                                    ngày 15/01/2021 của Bộ Tài chính quy định về bảo hiểm bắt buộc
-                                    TNDS của Chủ xe cơ giới và các văn bản hướng dẫn liên quan tại
-                                    từng thời điểm. Quy tắc bảo hiểm Tự nguyện Xe Ô Tô được ban
-                                    hành theo Quyết định số 1855/QĐ-PVIBH ngày 30/12/2019 của Tổng
-                                    giám đốc Tổng công ty Bảo hiểm PVI trên cơ sở chấp thuận của
-                                    Bộ Tài Chính theo công văn 14569/BTC-QLBH ngày 22/11/2018 (sau
-                                    đây gọi tắt là “Quy tắc”) loại hình bảo hiểm tự nguyện Bên A
-                                    tham gia nêu tại Điều 3 của HĐBH và được đính kèm theo HĐBH.
-                                    Các Quy tắc, điều kiện, điều khoản hiện hành của Bảo hiểm PVI
-                                    đồng thời được đăng tải trên website
-                                    http://www.baohiempvi.com.vn Các từ viết tắt, định nghĩa, điều
-                                    khoản, điều kiện, điểm loại trừ bảo hiểm, giảm trừ bồi thường
-                                    quy định trong trong Quy tắc bảo hiểm nêu trên có cùng ý nghĩa
-                                    khi được sử dụng trong bản Hợp đồng này. Trường hợp nội dung
-                                    của Quy tắc bảo hiểm và nội dung của HĐBH có sự khác nhau, thì
-                                    nội dung của HĐBH sẽ được ưu tiên áp dụng. Các thông tin về Xe
-                                    tham gia bảo hiểm được kê khai đầy đủ, trung thực và chính xác
-                                    trong Giấy yêu bảo hiểm và/hoặc trong bản Hợp đồng này là căn
-                                    cứ để Bên B giải quyết bồi thường đúng quyền lợi cho Bên A khi
-                                    xảy ra tổn thất thuộc phạm vi bảo hiểm, bao gồm và không giới
-                                    hạn các quy định về giảm trừ số tiền bồi thường theo Quy tắc
-                                    bảo hiểm do thông tin xe không đầy đủ, chính xác dẫn đến việc
-                                    tính phí bảo hiểm không đầy đủ.
+                                <div class="product-content">
+                                    ${product.contentDetail}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <a role="button" href="#" class="btn btn-info btn-lg m-auto"
+                    <a role="button" href="customer/contract/create?productID=${product.id}" class="btn btn-info btn-lg m-auto"
                        >Create Contract Now</a
                     >
                 </div>

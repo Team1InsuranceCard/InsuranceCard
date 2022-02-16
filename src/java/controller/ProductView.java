@@ -3,22 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller;
 
-import dao.CustomerDBContext;
+import dao.ProductDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.CustomerStaff;
+import model.Product;
+
 
 /**
  *
- * @author DELL
+ * @author area1
  */
-public class ViewInfo extends HttpServlet {
+public class ProductView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,11 +33,19 @@ public class ViewInfo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerDBContext db = new CustomerDBContext();
-        Account acc = (Account) request.getSession().getAttribute("account");
-        CustomerStaff cusStaff = db.viewCustomer(acc.getId());
-        request.setAttribute("cus", cusStaff.getCustomer());
-        request.getRequestDispatcher("../view/customer/view_info.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet HomepageProduct</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet HomepageProduct at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,7 +60,12 @@ public class ViewInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        ProductDBContext productDBC = new ProductDBContext();
+        ArrayList<Product> products = productDBC.getProducts();
+
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("view/product.jsp").forward(request, response);
     }
 
     /**
