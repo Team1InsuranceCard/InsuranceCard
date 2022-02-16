@@ -59,6 +59,7 @@ public class StaffDashboard extends HttpServlet {
             int totalCancel = dbS.getTotalCancel(accountId);
             int totalCompensation = dbS.getTotalCompensation(accountId);
             
+            int unholdCus = dbS.getUnholdedCus(accountId);
 //            int totalCus = dbS.getTotal(accountId, 1);
 //            int totalCont = dbS.getTotal(accountId, 2);
 //            int totalCancel = dbS.getTotal(accountId, 3);
@@ -68,8 +69,10 @@ public class StaffDashboard extends HttpServlet {
             request.getSession().setAttribute("lname", staff.getLastName());
             request.getSession().setAttribute("total1", totalCus);
             request.getSession().setAttribute("total2", totalCont);
-            request.getSession().setAttribute("total3", totalCancel);
-            request.getSession().setAttribute("total4", totalCompensation);
+            request.getSession().setAttribute("total3", totalCompensation);
+            request.getSession().setAttribute("total4", totalCancel);
+            
+            request.getSession().setAttribute("unhold1", unholdCus);
             
 //            request.setAttribute("", dbS);
             request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);
