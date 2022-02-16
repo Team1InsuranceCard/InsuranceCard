@@ -430,9 +430,16 @@ public class CustomerDBContext extends DBContext {
             Customer cus = cusStaff.getCustomer();
             connection.setAutoCommit(false);
             // create account for customer
-            String sql_acc = "INSERT INTO Account\n"
-                    + "(Email, Password, Role, Status, isDelete)\n"
-                    + "VALUES (?, ?, 0, 1, 0)";
+            String sql_acc = "insert into Account (Email\n"
+                    + "					, Password\n"
+                    + "					, Role\n"
+                    + "					, Status\n"
+                    + "					, isDelete)\n"
+                    + "values (?\n"
+                    + "		, ?\n"
+                    + "		, 0\n"
+                    + "		, 1\n"
+                    + "		, 0)";
             PreparedStatement ps_acc = connection.prepareStatement(sql_acc);
             ps_acc.setString(1, cus.getAccount().getEmail());
             ps_acc.setString(2, cus.getAccount().getPassword());
@@ -445,10 +452,26 @@ public class CustomerDBContext extends DBContext {
                 cus.getAccount().setId(rs_get_id.getInt("aid"));
             }
             // insert customer
-            String sql_cus = "insert into Customer\n"
-                    + "(AccountID, FirstName, LastName, Address, Dob, \n"
-                    + "JoinDate, Phone, PersonalID, Province, District)\n"
-                    + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql_cus = "insert into Customer (AccountID\n"
+                    + "					, FirstName\n"
+                    + "					, LastName\n"
+                    + "					, Address\n"
+                    + "					, Dob\n"
+                    + "					, JoinDate\n"
+                    + "					, Phone\n"
+                    + "					, PersonalID\n"
+                    + "					, Province\n"
+                    + "					, District)\n"
+                    + "values (?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?)";
             PreparedStatement ps_cus = connection.prepareStatement(sql_cus);
             ps_cus.setInt(1, cus.getAccount().getId());
             ps_cus.setString(2, cus.getFirstName());
@@ -462,9 +485,10 @@ public class CustomerDBContext extends DBContext {
             ps_cus.setString(10, cus.getDistrict());
             ps_cus.executeUpdate();
             // insert cus_staff
-            String sql_cus_staff = "insert into Customer_Staff\n"
-                    + "(CustomerID, StaffID)\n"
-                    + "values (?, ?)";
+            String sql_cus_staff = "insert into Customer_Staff (CustomerID\n"
+                    + "							, StaffID)\n"
+                    + "values (?\n"
+                    + "		, ?)";
             PreparedStatement ps_cus_staff = connection.prepareStatement(sql_cus_staff);
             ps_cus_staff.setInt(1, cus.getAccount().getId());
             ps_cus_staff.setInt(2, cusStaff.getStaff().getAccount().getId());

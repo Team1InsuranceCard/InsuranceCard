@@ -13,12 +13,14 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Brand;
 import model.Contract;
 import model.ContractStatusCode;
 import model.Customer;
 import model.Product;
 import model.ProductStatusCode;
 import model.Staff;
+import model.VehicleType;
 
 /**
  *
@@ -418,7 +420,20 @@ public class ContractDBContext extends DBContext {
         Contract contract = new Contract();
         try {
             String sql = "select ProductID\n"
+                    + "	, Title\n"
+                    + "	, ContentDetail\n"
+                    + "	, p.Status as proStatusID\n"
+                    + "	, ps.StatusName as proStatusName\n"
                     + "	, CustomerID\n"
+                    + "	, Email\n"
+                    + "	, c.FirstName as cusFName\n"
+                    + "	, c.LastName as cusLName\n"
+                    + "	, Address\n"
+                    + "	, Dob\n"
+                    + "	, c.Phone\n"
+                    + "	, PersonalID\n"
+                    + "	, Province\n"
+                    + "	, District\n"
                     + "	, ct.StartDate\n"
                     + "	, EndDate\n"
                     + "	, ct.Status as contractStatusID\n"
@@ -428,36 +443,24 @@ public class ContractDBContext extends DBContext {
                     + "	, CancelReason\n"
                     + "	, CancelDate\n"
                     + "	, CancelRequestDate\n"
+                    + "	, VehicleTypeID\n"
                     + "	, VehicleType\n"
                     + "	, Engine\n"
                     + "	, LicensePlate\n"
                     + "	, Color\n"
                     + "	, CertImage\n"
+                    + "	, BrandID\n"
                     + "	, Brand\n"
                     + "	, Owner\n"
                     + "	, Chassis\n"
                     + "	, RequestDate\n"
                     + "	, ResolveDate\n"
                     + "	, StartStaff\n"
-                    + "	, CancelStaff\n"
-                    + "	, c.FirstName as cusFName\n"
-                    + "	, c.LastName as cusLName\n"
-                    + "	, Address\n"
-                    + "	, Dob\n"
-                    + "	, JoinDate\n"
-                    + "	, c.Phone\n"
-                    + "	, PersonalID\n"
-                    + "	, Province\n"
-                    + "	, District\n"
                     + "	, s.FirstName as startStaffFname\n"
                     + "	, s.LastName as startStaffLName\n"
+                    + "	, CancelStaff\n"
                     + "	, (select FirstName from Staff where AccountID = ct.CancelStaff) as cancelStaffFName\n"
                     + "	, (select LastName from Staff where AccountID = ct.CancelStaff) as cancelStaffLName\n"
-                    + "	, Title\n"
-                    + "	, ContentDetail\n"
-                    + "	, p.Status as proStatusID\n"
-                    + "	, ps.StatusName as proStatusName\n"
-                    + "	, Email\n"
                     + "from Contract ct inner join Customer c\n"
                     + "on ct.CustomerID = c.AccountID\n"
                     + "inner join Account a\n"
@@ -470,6 +473,10 @@ public class ContractDBContext extends DBContext {
                     + "on ct.ProductID = p.ID\n"
                     + "inner join ProductStatusCode ps\n"
                     + "on p.Status = ps.StatusCode\n"
+                    + "inner join VehicleType vt\n"
+                    + "on ct.VehicleTypeID = vt.ID\n"
+                    + "inner join Brand b\n"
+                    + "on ct.BrandID = b.ID\n"
                     + "where ct.ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -519,6 +526,14 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contractStatus = new ContractStatusCode();
                 contractStatus.setStatusCode(rs.getShort("contractStatusID"));
                 contractStatus.setStatusName(rs.getString("contractStatusName"));
+                
+                VehicleType vehicleType = new VehicleType();
+                vehicleType.setId(rs.getInt("VehicleTypeID"));
+                vehicleType.setVehicleType(rs.getString("VehicleType"));
+                
+                Brand brand = new Brand();
+                brand.setId(rs.getInt("BrandID"));
+                brand.setBrand(rs.getString("Brand"));
 
                 contract.setId(id);
                 contract.setProduct(pro);
@@ -529,12 +544,10 @@ public class ContractDBContext extends DBContext {
                 contract.setCancelReason(rs.getString("CancelReason"));
                 contract.setCancelDate(rs.getTimestamp("CancelDate"));
                 contract.setCancelRequestDate(rs.getTimestamp("CancelRequestDate"));
-                contract.setVehicleType(rs.getString("VehicleType"));
                 contract.setEngine(rs.getString("Engine"));
                 contract.setLicensePlate(rs.getString("LicensePlate"));
                 contract.setColor(rs.getString("Color"));
                 contract.setCertImage(rs.getString("CertImage"));
-                contract.setBrand(rs.getString("Brand"));
                 contract.setOwner(rs.getString("Owner"));
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
@@ -543,6 +556,8 @@ public class ContractDBContext extends DBContext {
                 contract.setCancelStaff(cancelStaff);
                 contract.setStatusCode(contractStatus);
                 contract.setContractFee(rs.getDouble("ContractFee"));
+                contract.setVehicleType2(vehicleType);
+                contract.setBrand2(brand);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
