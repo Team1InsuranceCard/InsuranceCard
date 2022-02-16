@@ -80,6 +80,14 @@
         <servlet-name>HomepageProduct</servlet-name>
         <servlet-class>controller.ProductView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffDashBoard</servlet-name>
+        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -151,6 +159,14 @@
     <servlet-mapping>
         <servlet-name>HomepageProduct</servlet-name>
         <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffDashBoard</servlet-name>
+        <url-pattern>/staff/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
