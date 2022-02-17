@@ -24,15 +24,21 @@
             <div class="header">
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
                 <div class="header__btn">
-                    <a class="btn btn--primary ${requestScope.contract.statusCode.statusCode >= 2 
-                                                 && requestScope.contract.statusCode.statusCode <= 5 ? 'btn--disabled' : ''}" 
+                    <a class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? 'btn--disabled' : ''}" 
+                       href="staff/contract/renew?id=${requestScope.contract.id}">
+                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
+                        <div class="btn__text">Payment</div>
+                    </a>
+                    
+                    <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
+                                                 || requestScope.contract.statusCode.statusCode == 1) 
+                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
                        href="staff/contract/renew?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_reload.png"></img>
                         <div class="btn__text">Renew</div>
                     </a>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode != 1 
-                                                && requestScope.contract.statusCode.statusCode != 2 ? 'btn--disabled' : ''}" 
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
                        href="staff/contract/cancel?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
@@ -41,7 +47,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section__heading">General Information</h2>
+                <h2 class="section__heading">Contract Information</h2>
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Contract ID</div>
@@ -92,7 +98,7 @@
                                         value = "${requestScope.contract.resolveDate}" /></div>
                     </div>
 
-                    <c:if test="${requestScope.contract.statusCode.statusCode >= 3 || requestScope.contract.statusCode.statusCode <= 4}">
+                    <c:if test="${requestScope.contract.statusCode.statusCode >= 3 && requestScope.contract.statusCode.statusCode <= 4}">
                         <div class="section__item">
                             <div class="section__title">Cancel Date</div>
                             <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
@@ -154,7 +160,7 @@
                     <div class="section__left">
                         <div class="section__item">
                             <div class="section__title">Vehicle type</div>
-                            <div class="section__text">${requestScope.contract.vehicleType}</div>
+                            <div class="section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
                         </div>
 
                         <div class="section__item">
@@ -174,7 +180,7 @@
 
                         <div class="section__item">
                             <div class="section__title">Brand</div>
-                            <div class="section__text">${requestScope.contract.brand}</div>
+                            <div class="section__text">${requestScope.contract.brand2.brand}</div>
                         </div>
 
                         <div class="section__item">
@@ -209,6 +215,11 @@
                         <div class="section__title">Product Title</div>
                         <div class="section__text">${requestScope.contract.product.title}</div>
                     </div>
+                    
+                    <div class="section__item">
+                        <div class="section__title">Status</div>
+                        <div class="section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
+                    </div>
 
                     <div class="section__item">
                         <div class="section__title">Content detail</div>
@@ -238,6 +249,15 @@
                 contractStatus.style.color = "#FD671F";
             } else {
                 contractStatus.style.color = "#7B0B0B";
+            }
+            
+            const productStatus = document.getElementById("productStatus");
+            const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
+
+            if (productStatusID === 0) {
+                productStatus.style.color = "#D62A25";
+            } else {
+                productStatus.style.color = "#7B0B0B";
             }
         </script>
     </body>
