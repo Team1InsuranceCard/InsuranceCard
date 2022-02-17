@@ -58,19 +58,27 @@
     </servlet>
     <servlet>
         <servlet-name>Manage_contract</servlet-name>
-        <servlet-class>controller.staff.ManageContract</servlet-class>
+        <servlet-class>controller.staff.Manage_contract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StaffDashboard</servlet-name>
-        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+        <servlet-name>ViewContract</servlet-name>
+        <servlet-class>controller.staff.ViewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>controller.Logout</servlet-class>
+        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-class>controller.ProductDetaiil</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewContractController</servlet-name>
         <servlet-class>controller.customer.NewContractController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Homepage</servlet-name>
+        <servlet-class>controller.Homepage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomepageProduct</servlet-name>
+        <servlet-class>controller.ProductView</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -125,16 +133,24 @@
         <url-pattern>/staff/contract/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StaffDashboard</servlet-name>
-        <url-pattern>/staff/dashboard</url-pattern>
+        <servlet-name>ViewContract</servlet-name>
+        <url-pattern>/staff/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <servlet-name>ProductDetaiil</servlet-name>
+        <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewContractController</servlet-name>
         <url-pattern>/customer/contract/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Homepage</servlet-name>
+        <url-pattern>/homepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomepageProduct</servlet-name>
+        <url-pattern>/product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
