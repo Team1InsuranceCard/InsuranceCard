@@ -129,3 +129,10 @@ body {
 .header-element .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.logout-button {
+    font-size: 30px;
+    vertical-align: middle;
+    color: #5C2941;
+    margin: 10px;
+}
