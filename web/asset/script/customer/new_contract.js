@@ -58,3 +58,54 @@ $(document).ready(function () {
             new Date(startdate.getTime() + 365 * oneday));
     $("#enddate").val(enddate);
 })
+
+function calculateEndDate() {
+    var startdate = new Date($("#startdate").val());
+    //oneday = hour * minute * second * milliseconds
+    var oneday = 24 * 60 * 60 * 1000;
+    var enddate
+    if ($("#select2").val() === "1") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 365 * oneday));
+    } else if ($("#select2").val() === "2") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 2 * 365 * oneday));
+    } else if ($("#select2").val() === "3") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 3 * 365 * oneday));
+    }
+    $("#enddate").val(enddate);
+}
+
+function fillOwnerInfo(firstName, lastName, personalID) {
+    if ($("#chk-1").prop('checked')) {
+        $("#txt1").val(firstName + ' ' + lastName);
+        $("#txt2").val(personalID);
+    } else {
+        $("#txt1").val("")
+        $("#txt2").val("");
+    }
+}
+
+function fillDeliveryInfo(firstName, lastName, phone, email, address, province, district) {
+    if ($("#chk-2").prop('checked')) {
+        $("#txt5").val(firstName + ' ' + lastName);
+        $("#txt6").val(phone);
+        $("#txt7").val(email);
+        $("#txt8").val(address);
+        var provinces = $("#province").children();
+        for (var i = 1; i < provinces.length; i++) {
+            if (provinces[i].innerText === province) {
+                $("#province").val(provinces[i].value);
+            }
+        }
+        $("#district").val(district);
+    } else {
+        $("#txt5").val("");
+        $("#txt6").val("");
+        $("#txt7").val("");
+        $("#txt8").val("");
+        $("#province").val(0);
+        $("#district").val(0);
+    }
+}

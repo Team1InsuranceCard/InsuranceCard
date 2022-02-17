@@ -5,6 +5,7 @@
  */
 package controller.customer;
 
+import dao.CustomerDBContext;
 import dao.ProductDBContext;
 import dao.VehicleTypeDBContext;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Customer;
 import model.Product;
 import model.VehicleType;
 
@@ -62,12 +65,21 @@ public class NewContractController extends HttpServlet {
                 //get current date
                 LocalDate d = LocalDate.now();
                 request.setAttribute("now", d);
-                
+
                 //get vehicle types
                 VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
                 ArrayList<VehicleType> vehicleTypes = vtdb.getVehicleTypes();
                 request.setAttribute("vehicletypes", vehicleTypes);
-                
+
+                //getCustomer
+                Account account = (Account) request.getSession().getAttribute("account");
+                CustomerDBContext cdb = new CustomerDBContext();
+                if(account != null){
+                    //get customer by account if user logged in (account has been saved in session)
+                    Customer customer = cdb.getCustomerByAccount(account);
+                    request.setAttribute("customer", customer);
+                }
+
                 request.setAttribute("product", product);
                 request.getRequestDispatcher("../../view/customer/new-contract.jsp")
                         .forward(request, response);

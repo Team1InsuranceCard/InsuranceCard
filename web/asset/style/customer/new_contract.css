@@ -40,9 +40,18 @@ and open the template in the editor.
     padding: 10px;
 }
 
-.left label{
+.left .label-input{
     display: inline-block;
     width: 120px;
+}
+
+.left .confirm-checkbox{
+    display: flex;
+}
+
+.left .confirm-checkbox input{
+    margin-right: 10px;
+    margin-top: 6px;
 }
 
 .inputdata{

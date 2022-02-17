@@ -29,82 +29,93 @@
                             <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
-                                <input id="chk-1" type="checkbox" />
-                                Use your account's information
+                                <input id="chk-1" type="checkbox" 
+                                       onchange="fillOwnerInfo('${requestScope.customer.firstName}',
+                                       '${requestScope.customer.lastName}',
+                                       '${requestScope.customer.personalID}')"/>
+                                <label for="chk-1">Use your account's information</label>
                             </div>
                         </c:if>
-                        <label for="txt1" >Full name:</label>
+                        <label for="txt1" class="label-input">Full name:</label>
                         <input id="txt1" class="inputdata" type="text" 
                                placeholder="Owner full name (in vehicle registration)"/><br/>
-                        <label for="txt2" >ID Number:</label>
+                        <label for="txt2" class="label-input">ID Number:</label>
                         <input id="txt2" class="inputdata" type="text" 
                                placeholder="ID Card Number"/><br/>
                         <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
-                        <label for="select1" >Type:</label>
+                        <label for="select1" class="label-input">Type:</label>
                         <select id="select1" class="selectdata">
-                        <c:forEach items="${requestScope.vehicletypes}" var="type">
-                            <option>${type.vehicleType}</option>
-                        </c:forEach>
+                            <c:forEach items="${requestScope.vehicletypes}" var="type">
+                                <option>${type.vehicleType}</option>
+                            </c:forEach>
                         </select><br/>
-                        <label for="txt3" >License plate:</label>
+                        <label for="txt3" class="label-input">License plate:</label>
                         <input id="txt3" class="inputdata" type="text" 
                                placeholder="License plate (in vehicle registration)"/><br/>
                         <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                         <div class="row-input">
                             <span class="row-input1">
-                                <label for="txt4" >Product:</label>
+                                <label for="txt4" class="label-input">Product:</label>
                                 <input id="txt4" class="inputdata" type="text" disabled="true"
                                        value="${requestScope.product.title}"/>
                             </span>
                             <a href="customer/dashboard" class="btnProduct">Change product</a>
                         </div>
-                        <label for="select2" >Type:</label>
-                        <select id="select2" class="selectdata">
-                            <option>1 year</option>
-                            <option>2 years</option>
-                            <option>3 years</option>
+                        <label for="select2" class="label-input">Type:</label>
+                        <select id="select2" class="selectdata" onchange="calculateEndDate()">
+                            <option value="1">1 year</option>
+                            <option value="2">2 years</option>
+                            <option value="3">3 years</option>
                         </select><br/>
                         <div class="row-input">
                             <span class="row-input1">
-                                <label for="startdate" >Start date:</label>
+                                <label for="startdate" class="label-input">Start date:</label>
                                 <input id="startdate" class="startdate" type="date"
+                                       onchange="calculateEndDate()"
                                        value="${requestScope.now}"/>
                             </span>
                             <span class="row-input2">
-                                <label for="enddate" >End date:</label>
+                                <label for="enddate" class="label-input">End date:</label>
                                 <input id="enddate" class="enddate" type="date" disabled="true"/>
                             </span>
                         </div>
                         <h3 class="group-title">4. DELIVERY INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
-                                <input id="chk-2" type="checkbox"/>
-                                Use your account's information
+                                <input id="chk-2" type="checkbox" 
+                                       onchange="fillDeliveryInfo('${requestScope.customer.firstName}',
+                                       '${requestScope.customer.lastName}',
+                                       '${requestScope.customer.phone}',
+                                       '${requestScope.customer.account.email}',
+                                       '${requestScope.customer.address}',
+                                       '${requestScope.customer.province}',
+                                       '${requestScope.customer.district}')"/>
+                                <label for="chk-2">Use your account's information</label>
                             </div>
                         </c:if>
-                        <label for="txt5" >Full name:</label>
+                        <label for="txt5" class="label-input">Full name:</label>
                         <input id="txt5" class="inputdata" type="text" 
                                placeholder="Full name of recipient"/><br/>
-                        <label for="txt6" >Phone number:</label>
+                        <label for="txt6" class="label-input">Phone number:</label>
                         <input id="txt6" class="inputdata" type="text" 
                                placeholder="Phone number"/><br/>
-                        <label for="txt7" >Email:</label>
+                        <label for="txt7" class="label-input">Email:</label>
                         <input id="txt7" class="inputdata" type="text" 
                                placeholder="Email"/><br/>
-                        <label for="txt8" >Address:</label>
+                        <label for="txt8" class="label-input">Address:</label>
                         <span class="address-container">
                             <input id="txt8" class="inputdata" type="text" 
                                    placeholder="Address"/><br/>
                             <div class="select-container">
                                 <span class="province-container">
-                                    <select name="calc_shipping_provinces" required>
+                                    <select id="province" name="calc_shipping_provinces" required>
                                         <option hidden>--Choose the province--</option>
                                     </select>
                                     <input class="billing_address_1" name="province" 
                                            type="hidden" value=""/>
                                 </span>
                                 <span class="district-container">
-                                    <select name="calc_shipping_district" required>
+                                    <select id="district" name="calc_shipping_district" required>
                                         <option hidden>--Choose the district--</option>
                                     </select>
                                     <input class="billing_address_2" name="district" 
@@ -115,14 +126,14 @@
 
                         <div class="confirm-checkbox">
                             <input id="chk-3" type="checkbox"/>
-                            <span>
+                            <label for="chk-3" class="label-confirm">
                                 I/we certify that the foregoing information is 
                                 complete and correct to the best of my/our 
                                 knowledge and agree that the foregoing 
                                 declarations form the basis of the insurance 
                                 policy and accept receive the insurance 
                                 conditions specified in the insurance contract.
-                            </span>
+                            </label>
                         </div>
                     </div>
                     <div class="col-lg-4 right">
