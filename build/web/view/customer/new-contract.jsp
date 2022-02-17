@@ -29,8 +29,8 @@
                             <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
-                                <input id="chk-1" type="checkbox"/>
-                                <label for="chk-1">Use your account's information</label>
+                                <input id="chk-1" type="checkbox" />
+                                Use your account's information
                             </div>
                         </c:if>
                         <label for="txt1" >Full name:</label>
@@ -79,7 +79,7 @@
                         <c:if test="${sessionScope.account ne null}">
                             <div class="quick-checkbox">
                                 <input id="chk-2" type="checkbox"/>
-                                <label for="chk-2">Use your account's information</label>
+                                Use your account's information
                             </div>
                         </c:if>
                         <label for="txt5" >Full name:</label>
