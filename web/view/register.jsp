@@ -30,11 +30,11 @@
 
             <div class="signUp">
                 <h1>Sign Up</h1>
-                <p class="mess" style="${requestScope.mess_pass==null?"":"padding: 1rem 2rem;"}"
+                <p class="mess" style="${requestScope.mess_pass==""?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_pass}</p>
-                <p class="mess" Style="${requestScope.mess_pID==null?"":"padding: 1rem 2rem;"}"
+                <p class="mess" Style="${requestScope.mess_pID==""?"":"padding: 1rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_pID}</p>
-                <p class="mess" style="${requestScope.mess_email==null?"":"padding: 1rem 2rem;"}"
+                <p class="mess" style="${requestScope.mess_email==""?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_email}</p>
             </div>
 
@@ -79,7 +79,7 @@
                                    pattern="[a-zA-Z0-9]+" 
                                    minlength="8" maxlength="32"
                                    placeholder="Confirm password *" 
-                                   value="${rs.pass}"
+                                   value="${rs.pass2}"
                                    required/>
                         </div>
                         <div class="col-md-6">
@@ -103,7 +103,6 @@
                                 <option hidden>Province</option>
                             </select>
                             <input class="billing_address_1" name="province" 
-
                                    type="hidden" value=""/>
                         </div>
                     </div>
@@ -117,7 +116,8 @@
                                    value="${rs.lastName}" required/>
                         </div>
                         <div class="col-md-6">
-                            <select name="calc_shipping_district" required>
+                            <select name="calc_shipping_district" 
+                                    required>
                                 <option hidden>District</option>
                             </select>
                             <input class="billing_address_2" name="district" 
