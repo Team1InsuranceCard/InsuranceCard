@@ -42,9 +42,9 @@
                         <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                         <label for="select1" >Type:</label>
                         <select id="select1" class="selectdata">
-                            <option>Motorcycles with a capacity of less than 50cc</option>
-                            <option>Motorcycles with a capacity of over 50cc</option>
-                            <option>Motorcycles with a capacity of over 175cc</option>
+                        <c:forEach items="${requestScope.vehicletypes}" var="type">
+                            <option>${type.vehicleType}</option>
+                        </c:forEach>
                         </select><br/>
                         <label for="txt3" >License plate:</label>
                         <input id="txt3" class="inputdata" type="text" 

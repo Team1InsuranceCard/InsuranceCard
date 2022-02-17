@@ -6,15 +6,18 @@
 package controller.customer;
 
 import dao.ProductDBContext;
+import dao.VehicleTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
+import model.VehicleType;
 
 /**
  *
@@ -59,6 +62,11 @@ public class NewContractController extends HttpServlet {
                 //get current date
                 LocalDate d = LocalDate.now();
                 request.setAttribute("now", d);
+                
+                //get vehicle types
+                VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
+                ArrayList<VehicleType> vehicleTypes = vtdb.getVehicleTypes();
+                request.setAttribute("vehicletypes", vehicleTypes);
                 
                 request.setAttribute("product", product);
                 request.getRequestDispatcher("../../view/customer/new-contract.jsp")
