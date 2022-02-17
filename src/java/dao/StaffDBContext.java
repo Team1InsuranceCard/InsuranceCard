@@ -118,6 +118,29 @@ public class StaffDBContext extends DBContext {
         return 0;
     }
 
+    public int getUnholdedCus(int accountId) {
+        try {
+            String sql = "select COUNT(a.[Status]) as unholded\n"
+                    + "from Customer_Staff cs inner join Staff s on cs.StaffID = s.AccountID\n"
+                    + "						inner join Account a on cs.CustomerID = a.ID\n"
+                    + "where a.[Status] = 2 and s.AccountID = ?\n"
+                    + "group by a.[Status]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int unholded = 0;
+            while (rs.next()) {
+                if (unholded == 0) {
+                    unholded = rs.getInt("unholded");
+                }
+            }
+            return unholded;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public int getTotalCont(int accountId) {
         try {
             String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
@@ -183,4 +206,116 @@ public class StaffDBContext extends DBContext {
         }
         return 0;
     }
+
+    public int getTotalCompensation(int accountId) {
+        try {
+            String sql = "select COUNT(cont.StartStaff) as compensation\n"
+                    + "from Compensation comp inner join [Contract] cont on comp.ContractID = cont.id\n"
+                    + "where cont.StartStaff = ?\n"
+                    + "group by cont.StartStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("compensation");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+//    public int getTotal(int accountId, int type) {
+//        switch (type) {
+//            case 1: {
+//                try {
+//                    String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
+//                            + "from [Contract] c inner join Staff s on c.StartStaff = s.AccountID\n"
+//                            + "where s.AccountID = ?\n"
+//                            + "group by c.StartStaff";
+//                    PreparedStatement stm = connection.prepareStatement(sql);
+//                    stm.setInt(1, accountId);
+//                    ResultSet rs = stm.executeQuery();
+//                    int total = 0;
+//                    while (rs.next()) {
+//                        if (total == 0) {
+//                            total = rs.getInt("contracts");
+//                        }
+//                    }
+//                    return total;
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                break;
+//            }
+//            case 2: {
+//                try {
+//                    String sql = "select c.StartStaff, COUNT(c.StartStaff) as contracts\n"
+//                            + "from [Contract] c inner join Staff s on c.StartStaff = s.AccountID\n"
+//                            + "where s.AccountID = ?\n"
+//                            + "group by c.StartStaff";
+//                    PreparedStatement stm = connection.prepareStatement(sql);
+//                    stm.setInt(1, accountId);
+//                    ResultSet rs = stm.executeQuery();
+//                    int total = 0;
+//                    while (rs.next()) {
+//                        if (total == 0) {
+//                            total = rs.getInt("contracts");
+//                        }
+//                    }
+//                    return total;
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                break;
+//            }
+//            case 3: {
+//                try {
+//                    String sql = "select c.CancelStaff, COUNT(c.CancelStaff) as cancels\n"
+//                            + "from [Contract] c inner join Staff s on c.CancelStaff = s.AccountID\n"
+//                            + "where s.AccountID = ? and c.[Status] = 4\n"
+//                            + "group by c.CancelStaff";
+//                    PreparedStatement stm = connection.prepareStatement(sql);
+//                    stm.setInt(1, accountId);
+//                    ResultSet rs = stm.executeQuery();
+//                    int total = 0;
+//                    while (rs.next()) {
+//                        if (total == 0) {
+//                            total = rs.getInt("cancels");
+//                        }
+//                    }
+//                    return total;
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                break;
+//            }
+//            case 4: {
+//                try {
+//                    String sql = "select COUNT(cont.StartStaff) as compensation\n"
+//                            + "from Compensation comp inner join [Contract] cont on comp.ContractID = cont.id\n"
+//                            + "where cont.StartStaff = ?\n"
+//                            + "group by cont.StartStaff";
+//                    PreparedStatement stm = connection.prepareStatement(sql);
+//                    stm.setInt(1, accountId);
+//                    ResultSet rs = stm.executeQuery();
+//                    int total = 0;
+//                    while (rs.next()) {
+//                        if (total == 0) {
+//                            total = rs.getInt("compensation");
+//                        }
+//                    }
+//                    return total;
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                break;
+//            }
+//        }
+//        return 0;
+//    }
 }
