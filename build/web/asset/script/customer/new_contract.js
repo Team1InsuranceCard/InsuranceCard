@@ -5,13 +5,14 @@
  */
 
 //select province and district script
+//variable c and arr shown in district.js file (embeded in jsp)
 $('select[name="calc_shipping_provinces"]').each(function () {
     var $this = $(this),
             stc = "";
     c.forEach(function (i, e) {
         e += +1;
         stc += "<option value=" + e + ">" + i + "</option>";
-        $this.html('<option value="">Provinces</option>' + stc);
+        $this.html('<option value="">--Select province--</option>' + stc);
         $this.on("change", function (i) {
             i = $this.children("option:selected").index() - 1;
             var str = "",
@@ -20,7 +21,7 @@ $('select[name="calc_shipping_provinces"]').each(function () {
                 arr[i].forEach(function (el) {
                     str += '<option value="' + el + '">' + el + "</option>";
                     $('select[name="calc_shipping_district"]').html(
-                            '<option value="">Districts</option>' + str
+                            '<option value="">--Select district--</option>' + str
                             );
                 });
                 var address_1 = $this.children("option:selected").text();
@@ -41,7 +42,7 @@ $('select[name="calc_shipping_provinces"]').each(function () {
                 $("input.billing_address_1").attr("value", address_1)
             } else {
                 $('select[name="calc_shipping_district"]').html(
-                        '<option value="">Districts</option>'
+                        '<option value="">--Select district--</option>'
                         );
                 district = $('select[name="calc_shipping_district"]').html();
             }
@@ -97,15 +98,23 @@ function fillDeliveryInfo(firstName, lastName, phone, email, address, province, 
         for (var i = 1; i < provinces.length; i++) {
             if (provinces[i].innerText === province) {
                 $("#province").val(provinces[i].value);
+                console.log($("#province").val());
+                break;
             }
         }
+        //manually trigger a onchange event for province select
+        var event = new Event("change");
+        document.getElementById("province").dispatchEvent(event);
+        
         $("#district").val(district);
+        //manually trigger a onchange event for district select
+        document.getElementById("district").dispatchEvent(event);
     } else {
         $("#txt5").val("");
         $("#txt6").val("");
         $("#txt7").val("");
         $("#txt8").val("");
-        $("#province").val(0);
-        $("#district").val(0);
+        $("#province").val("");
+        $("#district").val("");
     }
 }
