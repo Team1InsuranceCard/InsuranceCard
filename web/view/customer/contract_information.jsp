@@ -17,6 +17,11 @@
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+        
+        <style>
+            .text-area {
+                padding: 0;            }
+        </style>
     </head>
 
     <body>
@@ -72,7 +77,7 @@
                     <div class="cus title">
                         <p>Customer information</p>
                     </div>
-
+                    
                     <c:set var="cus" value="${requestScope.contract.customer}"/>
                     <div class="cus-content">
                         <div class="row">
@@ -144,31 +149,31 @@
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.requestDate}"/></p>
                             <p class="col-md-2 space bold">Resolve date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.resolveDate}"/></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.endDate}"/></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel request date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelRequestDate}"/></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelDate}"/></p>
                         </div>
                         <div class="row">
@@ -192,7 +197,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <p class="col-md-4 bold">Vehicle type:</p>
-                                    <p class="col-md-6 underline">${c.vehicleType}</p>
+                                    <p class="col-md-6 underline">${c.vehicleType2.vehicleType}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Engine:</p>
@@ -208,7 +213,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Brand:</p>
-                                    <p class="col-md-6 underline">${c.brand}</p>
+                                    <p class="col-md-6 underline">${c.brand2.brand}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Owner:</p>
@@ -223,7 +228,7 @@
                             <div class="col-md-6">
                                 <p class="bold space">CertImage:</p>
                                 <div class="row">
-                                    <img class="col-md-12" src="${c.certImage}.png" alt="cert image"/>
+                                    <img class="col-md-12" src="${c.certImage}" alt="cert image"/>
                                 </div>
                             </div>
                         </div>
