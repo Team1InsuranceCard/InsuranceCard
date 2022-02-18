@@ -28,6 +28,35 @@ import model.VehicleType;
  */
 public class ContractDBContext extends DBContext {
 
+    public int totalContracts( String querySearch, String contractStatus){
+         int totalContract = 0;
+        if (querySearch == null) {
+            querySearch = "";
+        }
+        try {
+            String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
+                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  JOIN Product ON Product.ID = Contract.ProductID\n"
+                    + "  WHERE CONTRACT.isDelete = 0"
+                    + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE  ? + '%')"
+                    + "  AND Contract.Status IN  (" + contractStatus + ")";
+            PreparedStatement stm_total = connection.prepareStatement(sql_total);
+            stm_total.setString(1, querySearch);
+            stm_total.setString(2, querySearch);
+            stm_total.setString(3, querySearch);
+
+            ResultSet rs_total = stm_total.executeQuery();
+            if (rs_total.next()) {
+                totalContract = rs_total.getInt("TotalContract");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalContract;
+    }
+    
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
         if (querySearch == null) {
@@ -108,6 +137,89 @@ public class ContractDBContext extends DBContext {
 
             stm_select_contract.setInt(5, recordFromTo[0]);
             stm_select_contract.setInt(6, recordFromTo[1]);
+            ResultSet rs_select_contract = stm_select_contract.executeQuery();
+            while (rs_select_contract.next()) {
+                Contract contract = new Contract();
+                contract.setId(rs_select_contract.getInt("ID"));
+
+                Customer customer = new Customer();
+                Account account = new Account();
+                account.setId(rs_select_contract.getInt("CustomerID"));
+                customer.setAccount(account);
+                customer.setFirstName(rs_select_contract.getString("FirstName"));
+                customer.setLastName(rs_select_contract.getString("LastName"));
+                contract.setCustomer(customer);
+
+                Product product = new Product();
+                product.setId(rs_select_contract.getInt("ProductID"));
+                product.setTitle(rs_select_contract.getString("Title"));
+                contract.setProduct(product);
+
+                contract.setStartDate(rs_select_contract.getTimestamp("StartDate"));
+                contract.setEndDate(rs_select_contract.getTimestamp("EndDate"));
+
+                ContractStatusCode statuscode = new ContractStatusCode();
+                statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                statuscode.setStatusName(rs_select_contract.getString("StatusName"));
+                contract.setStatusCode(statuscode);
+                contracts.put(rs_select_contract.getInt("Row_count"), contract);
+            }
+            return contracts;
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String customerNameOrdered,
+            String startDateOrdered, String endDateOrdered, String contractStatus) {
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
+        HashMap<Integer, Contract> contracts = new HashMap<>();
+        if (query == null) {
+            query = "";
+        }
+        if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
+            customerNameOrdered = "ASC";
+        }
+        if (startDateOrdered == null || !(startDateOrdered.equalsIgnoreCase("ASC") || startDateOrdered.equalsIgnoreCase("DESC"))) {
+            startDateOrdered = "ASC";
+        }
+        if (endDateOrdered == null || !(endDateOrdered.equalsIgnoreCase("ASC") || endDateOrdered.equalsIgnoreCase("DESC"))) {
+            endDateOrdered = "ASC";
+        }
+
+        String sql_select_contract = "SELECT * FROM\n"
+                + "(SELECT ROW_NUMBER() OVER (ORDER BY Customer.FirstName " + customerNameOrdered
+                + ", Customer.LastName " + customerNameOrdered
+                + ", Contract.StartDate " + startDateOrdered + ", Contract.EndDate " + endDateOrdered + ") AS Row_count\n"
+                + "		,CONTRACT.[ID]\n"
+                + "      ,CONTRACT.[ProductID]\n"
+                + "      ,CONTRACT.[CustomerID]\n"
+                + "      ,CONTRACT.[StartDate]\n"
+                + "      ,CONTRACT.[EndDate]\n"
+                + "      ,CONTRACT.[Status]"
+                + "      ,ContractStatusCode.StatusName\n"
+                + "      ,CONTRACT.[isDelete]\n"
+                + "	  ,Customer.FirstName, Customer.LastName\n"
+                + "	  ,Product.Title\n"
+                + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                + "  JOIN Product ON Product.ID = Contract.ProductID"
+                + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
+                + "  WHERE CONTRACT.isDelete = 0"
+                + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
+                + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
+                + "WHERE MAIN.Row_count BETWEEN ? AND ?";
+        try {
+            PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
+
+            stm_select_contract.setString(1, query);
+            stm_select_contract.setString(2, query);
+            stm_select_contract.setString(3, query);
+
+            stm_select_contract.setInt(4, recordFromTo[0]);
+            stm_select_contract.setInt(5, recordFromTo[1]);
             ResultSet rs_select_contract = stm_select_contract.executeQuery();
             while (rs_select_contract.next()) {
                 Contract contract = new Contract();

@@ -66,6 +66,7 @@ body {
 .row2 .under .unhold-number {
     background-color: #FC6376;
     border-radius: 7px;
+    max-width: 10.5% !important;
 }
 
 .row3 .under .unhold-number {

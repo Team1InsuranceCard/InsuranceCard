@@ -10,6 +10,7 @@ package model;
  * @author area1
  */
 public class Account {
+
     private int id;
     private String email;
     private String password;
@@ -18,6 +19,16 @@ public class Account {
     private String googleID;
     private AccountStatusCode statusCode;
 
+    public Account(int id, String email, String password, boolean role, short status, String googleID, AccountStatusCode statusCode) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.googleID = googleID;
+        this.statusCode = statusCode;
+    }
+
     public AccountStatusCode getStatusCode() {
         return statusCode;
     }
@@ -25,8 +36,6 @@ public class Account {
     public void setStatusCode(AccountStatusCode statusCode) {
         this.statusCode = statusCode;
     }
-    
-    
 
     public Account() {
     }
@@ -48,15 +57,10 @@ public class Account {
         this.googleID = googleID;
     }
 
- 
-
-    
-
     public int getId() {
         return id;
     }
 
-    
     public void setId(int id) {
         this.id = id;
     }
@@ -93,7 +97,4 @@ public class Account {
         this.status = status;
     }
 
-
-    
-    
 }

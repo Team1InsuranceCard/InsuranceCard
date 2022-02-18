@@ -23,7 +23,7 @@
         <ul class="navbar-nav mr-auto">
             <c:set var="current" value="${param.currentscreen}" />
             <li class="nav-item">
-                <a  class="nav-link nav-custom-link <c:if test="${current == 'product'}">active</c:if>" href="">Product</a>
+                <a  class="nav-link nav-custom-link <c:if test="${current == 'product'}">active</c:if>" href="homepage/product">Product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-custom-link <c:if test="${current == 'contract'}">active</c:if>" href="">Contact</a>
@@ -32,10 +32,10 @@
 
         <ul class="navbar-nav ml-auto navbar-authorize">
             <li class="nav-item">
-                <a class="nav-link nav-custom-link nav-custome-button" href="#"
+                <a class="nav-link nav-custom-link nav-custome-button" href="${root}/login"
                    >Login</a></li>
             <li class="nav-item">
-                <a class="nav-link nav-custom-link nav-custome-button" href="#"
+                <a class="nav-link nav-custom-link nav-custome-button" href="${root}/register"
                    >Signup</a>
             </li>
         </ul>
