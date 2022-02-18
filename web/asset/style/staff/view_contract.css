@@ -108,7 +108,7 @@ main {
 
 .section__main {
   font-size: 18px;
-  margin: 20px 30px 20px 30px;
+  padding: 20px 30px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -122,6 +122,10 @@ main {
 .section__title {
   font-weight: 500;
   min-width: 180px;
+}
+
+.section__text {
+  color: #555;
 }
 
 .section__img {
@@ -139,4 +143,85 @@ main {
 
 .section__right .section__title {
   margin-bottom: 12px;
+}
+
+.section__table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  padding: 20px 30px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.section__table tbody td,
+.section__table thead th {
+  position: relative;
+}
+
+.section__table th {
+  font-weight: 500;
+  border-bottom: 1px solid #dcdada;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.section__table td {
+  border-bottom: 1px solid #dcdada;
+  padding: 5px 0;
+  transition: all 0.2s;
+  padding: 8px 6px 8px 0;
+  color: #555;
+}
+
+.section__table tr td:last-child {
+  padding-right: 0;
+}
+
+.section__table tbody td:hover::before {
+  background-color: #f4efef;
+  content: "\00a0";
+  height: 100%;
+  left: -5000px;
+  position: absolute;
+  top: 0;
+  width: 10000px;
+  z-index: -1;
+}
+
+.section__table tbody td:hover::after {
+  background-color: #f4efef;
+  content: "\00a0";
+  height: 10000px;
+  left: 0;
+  position: absolute;
+  top: -5000px;
+  width: 100%;
+  z-index: -1;
+}
+
+.section__table tr td:hover {
+  background-color: #c3c3c1;
+  color: #fff;
+}
+
+.table-btn {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #acacac;
+  border-radius: 15px;
+  padding: 3px;
+  font-size: 16px;
+  min-width: 45px;
+  display: inline-block;
+  text-align: center;
+}
+
+.table-btn:hover {
+  background-color: #64334a;
+  color: #fff;
+}
+
+.section__table tr td.not-hightlight:hover {
+  background-color: #f4efef;
 }

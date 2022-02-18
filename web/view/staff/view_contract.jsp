@@ -23,13 +23,14 @@
         <main>
             <div class="header">
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
+
                 <div class="header__btn">
                     <a class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? 'btn--disabled' : ''}" 
                        href="staff/contract/renew?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
                         <div class="btn__text">Payment</div>
                     </a>
-                    
+
                     <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
                                                  || requestScope.contract.statusCode.statusCode == 1) 
                                                  && requestScope.contract.product.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
@@ -48,6 +49,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Contract Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Contract ID</div>
@@ -120,6 +122,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Customer Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Name</div>
@@ -156,6 +159,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Vehicle Information</h2>
+
                 <div class="section__main">
                     <div class="section__left">
                         <div class="section__item">
@@ -205,6 +209,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Product Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Product ID</div>
@@ -215,7 +220,7 @@
                         <div class="section__title">Product Title</div>
                         <div class="section__text">${requestScope.contract.product.title}</div>
                     </div>
-                    
+
                     <div class="section__item">
                         <div class="section__title">Status</div>
                         <div class="section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
@@ -225,6 +230,74 @@
                         <div class="section__title">Content detail</div>
                         <div class="section__text">${requestScope.contract.product.contentDetail}</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section__heading">Payment history</h2>
+
+                <div class="section__main">
+                    <table class="section__table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Paid date</th>
+                                <th>Payment method</th>
+                                <th>Amount</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>15/05/2019 10:20:14</td>
+                                <td>Tiền mặt</td>
+                                <td>300.000</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>15/05/2019 10:20:14</td>
+                                <td>Tiền mặt</td>
+                                <td>300.000</td>
+                                <td>processing</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                    
+            <div class="section">
+                <h2 class="section__heading">Compensation history</h2>
+
+                <div class="section__main">
+                    <table class="section__table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Created date</th>
+                                <th>Resolve date</th>
+                                <th>Status</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>15/05/2019 10:20:14</td>
+                                <td>Tiền mặt</td>
+                                <td>300.000</td>
+                                <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>15/05/2019 10:20:14</td>
+                                <td>Tiền mặt</td>
+                                <td>300.000</td>
+                                <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -250,7 +323,7 @@
             } else {
                 contractStatus.style.color = "#7B0B0B";
             }
-            
+
             const productStatus = document.getElementById("productStatus");
             const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
 
