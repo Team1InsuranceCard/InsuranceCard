@@ -39,11 +39,19 @@
                     </div>
                 </c:if>
 
-                <div class="username"><input class="input100" type="email" name="user" value="${requestScope.username}" placeholder="Email" required/></div>
-                <div class="img-user"><img src="asset/image/user_1.png" alt="UserIcon"/></div>
-                <div class="password"><input class="input100" type="password" name="pass" pattern="[a-zA-Z0-9@]+" value="${requestScope.password}" placeholder="Password" required></div>
-                <div class="img-pass"><img src="asset/image/password_1.png" alt="PassIcon"/></div>
+                <c:if test="${sessionScope.account != null}">
+                    <div class="username"><input class="input100" type="email" name="user" value="${sessionScope.account.username}" placeholder="Email" required/></div>
+                    <div class="img-user"><img src="asset/image/user_1.png" alt="UserIcon"/></div>
+                    <div class="password"><input class="input100" type="password" name="pass" pattern="[a-zA-Z0-9@]+" value="${sessionScope.account.password}" placeholder="Password" required></div>
+                    <div class="img-pass"><img src="asset/image/password_1.png" alt="PassIcon"/></div>
+                    </c:if>
 
+                <c:if test="${sessionScope.account == null}">
+                    <div class="username"><input class="input100" type="email" name="user" value="${requestScope.user}" placeholder="Email" required/></div>
+                    <div class="img-user"><img src="asset/image/user_1.png" alt="UserIcon"/></div>
+                    <div class="password"><input class="input100" type="password" name="pass" pattern="[a-zA-Z0-9@]+" placeholder="Password" required></div>
+                    <div class="img-pass"><img src="asset/image/password_1.png" alt="PassIcon"/></div>
+                </c:if>
                 <div class="remember">
                     <label for="check"><input type="checkbox" id="check" name="remember">
                         <span class="checkmark"></span><span>Remember Me?</span>
