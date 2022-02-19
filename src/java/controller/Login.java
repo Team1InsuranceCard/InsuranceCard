@@ -51,10 +51,10 @@ public class Login extends HttpServlet {
         if (cookies != null) {
             for (Cookie cooky : cookies) {
                 if (cooky.getName().equals("userCookie")) {
-                    request.setAttribute("username", cooky.getValue());
+                    request.setAttribute("userC", cooky.getValue());
                 }
                 if (cooky.getName().equals("passCookie")) {
-                    request.setAttribute("password", cooky.getValue());
+                    request.setAttribute("passC", cooky.getValue());
                 }
             }
         }
