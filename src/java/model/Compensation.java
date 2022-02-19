@@ -14,29 +14,47 @@ import java.sql.Timestamp;
 public class Compensation {
 
     private int id;
-    private Contract contract;
+    private Accident accident;
     private String driverName;
     private Timestamp createDate;
     private Timestamp resolveDate;
     private String resolveNote;
-    private boolean decision;
+    private CompensationStatusCode status;
     private String description;
-    private String attachment; //chua ro kieu du lieu
+    private String attachment; 
 
     public Compensation() {
     }
 
-    public Compensation(int id, Contract contract, String driverName, Timestamp createDate, Timestamp resolveDate, String resolveNote, boolean decision, String description, String attachment) {
+    public Compensation(int id, Accident accident, String driverName, Timestamp createDate, Timestamp resolveDate, String resolveNote, CompensationStatusCode status, String description, String attachment) {
         this.id = id;
-        this.contract = contract;
+        this.accident = accident;
         this.driverName = driverName;
         this.createDate = createDate;
         this.resolveDate = resolveDate;
         this.resolveNote = resolveNote;
-        this.decision = decision;
+        this.status = status;
         this.description = description;
         this.attachment = attachment;
     }
+
+    public Accident getAccident() {
+        return accident;
+    }
+
+    public void setAccident(Accident accident) {
+        this.accident = accident;
+    }
+
+    public CompensationStatusCode getStatus() {
+        return status;
+    }
+
+    public void setStatus(CompensationStatusCode status) {
+        this.status = status;
+    }
+
+
 
     public int getId() {
         return id;
@@ -46,13 +64,6 @@ public class Compensation {
         this.id = id;
     }
 
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
 
     public String getDriverName() {
         return driverName;
@@ -86,13 +97,7 @@ public class Compensation {
         this.resolveNote = resolveNote;
     }
 
-    public boolean isDecision() {
-        return decision;
-    }
 
-    public void setDecision(boolean decision) {
-        this.decision = decision;
-    }
 
     public String getDescription() {
         return description;
