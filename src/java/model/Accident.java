@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class Accident {
 
     private int id;
-    private Compensation compensation;
+    private Contract contract;
     private Timestamp accidentDate;
     private String title;
     private Timestamp createdDate;
@@ -26,9 +26,9 @@ public class Accident {
     public Accident() {
     }
 
-    public Accident(int id, Compensation compensation, Timestamp accidentDate, String title, Timestamp createdDate, String humanDamage, String vehicleDamage, String attatchment) {
+    public Accident(int id, Contract contract, Timestamp accidentDate, String title, Timestamp createdDate, String humanDamage, String vehicleDamage, String attatchment) {
         this.id = id;
-        this.compensation = compensation;
+        this.contract = contract;
         this.accidentDate = accidentDate;
         this.title = title;
         this.createdDate = createdDate;
@@ -36,6 +36,15 @@ public class Accident {
         this.vehicleDamage = vehicleDamage;
         this.attatchment = attatchment;
     }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
 
     public int getId() {
         return id;
@@ -45,13 +54,7 @@ public class Accident {
         this.id = id;
     }
 
-    public Compensation getCompensation() {
-        return compensation;
-    }
 
-    public void setCompensation(Compensation compensation) {
-        this.compensation = compensation;
-    }
 
     public Timestamp getAccidentDate() {
         return accidentDate;

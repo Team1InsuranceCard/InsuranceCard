@@ -15,195 +15,201 @@
             </jsp:include>
 
             <main>
-                <h1>EDIT CUSTOMER</h1>
+                <div class="card">
+                    <h1 class="card__heading">EDIT CUSTOMER</h1>
 
-                <div class="mess-box mess-warning" 
-                     style="${requestScope.isExistEmail ? "display:flex;" : ""}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-icon" />
-                    <p class="mess">The email address is already taken!</p>
-                </div>
-
-                <div class="mess-box mess-success" 
-                     style="${requestScope.isSuccess ? "display:flex;" : ""}">
-                    <img src="asset/image/staff/customer_create_edit/icon_approve.png" alt="" class="mess-icon" />
-                    <p class="mess">Success! Your submission has been saved!</p>
-                </div>
-
-                <form action="staff/customer/edit" method="POST" autocomplete="off">                    
-                    <input type="hidden" name="aid" value="${requestScope.aid}">
-
-                    <div class="form-list">
-                        <h2>Account Information</h2>
-
-                        <div class="section">
-                            <div class="form-item">
-                                <p class="label">Email</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="email"
-                                    value="${requestScope.email}"
-                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Status</p>
-                                <select name="status" class="form-input" required>
-                                    <option ${requestScope.status == 0 ? "selected" : ""} 
-                                        value="0">Inactive</option>
-                                    <option ${requestScope.status == 1 ? "selected" : ""}
-                                        value="1">Active</option>
-                                    <option ${requestScope.status == 2 ? "selected" : ""}
-                                        value="2">Pending</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <h2>Personal Information</h2>
- 
-                        <div class="section">
-                            <div class="form-item">
-                                <p class="label">First Name</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="fname"
-                                    value="${requestScope.fname}"
-                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Personal ID</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="pid"
-                                    value="${requestScope.pid}"
-                                    pattern="[0-9]+"
-                                    minlength="12"
-                                    maxlength="12"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Last Name</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="lname"
-                                    value="${requestScope.lname}"
-                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Province</p>
-                                <select class="form-input" 
-                                        name="calc_shipping_provinces" 
-                                        id="province" 
-                                        required
-                                        >
-                                    <option value=""></option>
-                                </select>
-                                <input
-                                    class="billing_address_1"
-                                    name="province"
-                                    type="hidden"
-                                    value="${requestScope.province}"
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Date of Birth</p>
-                                <input
-                                    class="form-input"
-                                    type="date"
-                                    name="dob"
-                                    value="${requestScope.dob}"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">District</p>
-                                <select class="form-input" 
-                                        name="calc_shipping_district" 
-                                        id="district" required>
-                                    <option value=""></option>
-                                </select>
-                                <input
-                                    class="billing_address_2"
-                                    name="district"
-                                    type="hidden"
-                                    value="${requestScope.district}"
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Phone</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="phone"
-                                    value="${requestScope.phone}"
-                                    pattern="0[0-9]{9}"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Address</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    name="address"
-                                    value="${requestScope.address}"
-                                    pattern="^[^-\s][\S\s]*"
-                                    required
-                                    />
-                            </div>
-                        </div>
-
-                        <h2>Other Information</h2>
-
-                        <div class="section">
-                            <div class="form-item autocomplete">
-                                <p class="label">Staff</p>
-                                <input
-                                    class="form-input"
-                                    type="text"
-                                    id="staff"
-                                    name="staff"
-                                    value="${requestScope.staff.account.id} - ${requestScope.staff.firstName} ${requestScope.staff.lastName}"
-                                    required
-                                    />
-                            </div>
-
-                            <div class="form-item">
-                                <p class="label">Joining Date</p>
-                                <input
-                                    class="form-input"
-                                    type="datetime-local"
-                                    id="joinDate"
-                                    name="joinDate"
-                                    value="${requestScope.joinDate}"
-                                    required
-                                    />
-                            </div>
-                        </div>
-                    </div>                    
-
-                    <div class="form-btn">
-                        <input class="btn save-btn" type="submit" value="Update" />
-                        <a href="staff/customer/view" class="btn cancel-btn">Cancel</a>
+                    <div class="mess-box mess-box--danger" 
+                         style="${requestScope.isExistEmail ? "display:flex;" : ""}">
+                        <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
+                        <p class="mess">The email address is already taken!</p>
                     </div>
-                </form>
+
+                    <div class="mess-box mess-box--success" 
+                         style="${requestScope.isSuccess ? "display:flex;" : ""}">
+                        <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
+                        <p class="mess-box__mess">Success! Your submission has been saved!</p>
+                    </div>
+
+                    <form action="staff/customer/edit" method="POST" autocomplete="off">                 
+                        <input type="hidden" name="aid" value="${requestScope.aid}">
+
+                        <div class="section">
+                            <h2 class="section__heading">Account Information</h2>
+
+                            <div class="section__main">
+                                <div class="section__item">
+                                    <p class="section__label">Email</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="email"
+                                        value="${requestScope.email}"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Status</p>
+                                    <select name="status" class="section__input" required>
+                                        <option ${requestScope.status == 0 ? "selected" : ""} 
+                                            value="0">Inactive</option>
+                                        <option ${requestScope.status == 1 ? "selected" : ""}
+                                            value="1">Active</option>
+                                        <option ${requestScope.status == 2 ? "selected" : ""}
+                                            value="2">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="section">
+                            <h2 class="section__heading">Personal Information</h2>
+
+                            <div class="section__main">
+                                <div class="section__item">
+                                    <p class="section__label">First Name</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="fname"
+                                        value="${requestScope.fname}"
+                                        pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Personal ID</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="pid"
+                                        value="${requestScope.pid}"
+                                        pattern="[0-9]+"
+                                        minlength="12"
+                                        maxlength="12"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Last Name</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="lname"
+                                        value="${requestScope.lname}"
+                                        pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Province</p>
+                                    <select class="section__input" 
+                                            name="calc_shipping_provinces" 
+                                            id="province" 
+                                            required
+                                            >
+                                        <option value=""></option>
+                                    </select>
+                                    <input
+                                        class="billing_address_1"
+                                        name="province"
+                                        type="hidden"
+                                        value="${requestScope.province}"
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Date of Birth</p>
+                                    <input
+                                        class="section__input"
+                                        type="date"
+                                        name="dob"
+                                        value="${requestScope.dob}"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">District</p>
+                                    <select class="section__input" 
+                                            name="calc_shipping_district" 
+                                            id="district" required>
+                                        <option value=""></option>
+                                    </select>
+                                    <input
+                                        class="billing_address_2"
+                                        name="district"
+                                        type="hidden"
+                                        value="${requestScope.district}"
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Phone</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="phone"
+                                        value="${requestScope.phone}"
+                                        pattern="0[0-9]{9}"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Address</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        name="address"
+                                        value="${requestScope.address}"
+                                        pattern="^[^-\s][\S\s]*"
+                                        required
+                                        />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <h2 class="section__heading">Other Information</h2>
+
+                            <div class="section__main">
+                                <div class="section__item autocomplete">
+                                    <p class="section__label">Staff</p>
+                                    <input
+                                        class="section__input"
+                                        type="text"
+                                        id="staff"
+                                        name="staff"
+                                        value="${requestScope.staff.account.id} - ${requestScope.staff.firstName} ${requestScope.staff.lastName}"
+                                        required
+                                        />
+                                </div>
+
+                                <div class="section__item">
+                                    <p class="section__label">Joining Date</p>
+                                    <input
+                                        class="section__input"
+                                        type="datetime-local"
+                                        id="joinDate"
+                                        name="joinDate"
+                                        value="${requestScope.joinDate}"
+                                        required
+                                        />
+                                </div>
+                            </div>
+                        </div>                   
+
+                        <div class="form-btn">
+                            <input class="btn btn--primary" type="submit" value="Update" />
+                            <a href="staff/customer/view" class="btn btn--secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
             </main>
 
             <jsp:include page="../footer_full.jsp">

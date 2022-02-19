@@ -57,14 +57,22 @@ public class StaffDashboard extends HttpServlet {
             int totalCont = dbS.getTotalCont(accountId);
             //can xem lai logic cua totalCont, totalCancel, totalRequest
             int totalCancel = dbS.getTotalCancel(accountId);
-            int totalRequest = dbS.getTotalRequest(accountId);
+            int totalCompensation = dbS.getTotalCompensation(accountId);
+            
+            int unholdCus = dbS.getUnholdedCus(accountId);
+//            int totalCus = dbS.getTotal(accountId, 1);
+//            int totalCont = dbS.getTotal(accountId, 2);
+//            int totalCancel = dbS.getTotal(accountId, 3);
+//            int totalCompensation = dbS.getTotal(accountId, 4);
             
             request.getSession().setAttribute("fname", staff.getFirstName());
             request.getSession().setAttribute("lname", staff.getLastName());
             request.getSession().setAttribute("total1", totalCus);
             request.getSession().setAttribute("total2", totalCont);
-            request.getSession().setAttribute("total3", totalCancel);
-            request.getSession().setAttribute("total5", totalRequest);
+            request.getSession().setAttribute("total3", totalCompensation);
+            request.getSession().setAttribute("total4", totalCancel);
+            
+            request.getSession().setAttribute("unhold1", unholdCus);
             
 //            request.setAttribute("", dbS);
             request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);

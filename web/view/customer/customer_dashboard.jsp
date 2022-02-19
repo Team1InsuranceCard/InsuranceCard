@@ -160,10 +160,10 @@
 
                 <div class="dashboard-card dashboard-service-card">
                     <div class="service-title"><h2>Current service</h2></div>
-                    <div class="row row-cols-1 row-cols-lg-3">
+                    <div class="row row-cols-1 row-cols-lg-3 card-deck">
                         <c:forEach items="${current_products}" var="eachproduct">
                             <div class="col">
-                                <div class="service-sub-card">
+                                <div class="service-sub-card card">
                                     <img 
                                         class="card-img-top product-image-cover"
                                         src="${eachproduct.imageURL}"
@@ -188,7 +188,7 @@
 
                 <div class="dashboard-card dashboard-service-card">
                     <div class="service-title"><h2>Explore more service</h2></div>
-                    <div class="row row-cols-1 row-cols-lg-3">
+                    <div class="card-deck row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${buyable_products}" var="product">
                             <div class="col">
                                 <div class="service-sub-card">

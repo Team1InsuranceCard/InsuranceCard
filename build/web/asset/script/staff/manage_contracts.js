@@ -10,6 +10,7 @@ var rootURL = new URL(window.location.href);
 var customerFilter = document.querySelector("#customer-filter");
 var startDateFilter = document.querySelector("#start-date-filter");
 var endDateFilter = document.querySelector("#end-date-filter");
+var contractInclude = document.querySelector("#contract-include");
 
 var nameOrder = customerFilter.title;
 var startOrder = startDateFilter.title;
@@ -43,9 +44,9 @@ endDateFilter.addEventListener("click", () => {
 
 var statusFilter = document.querySelector("#status-filter");
 statusFilter.addEventListener("change", () => {
-    var status = statusFilter.value;
-    rootURL.searchParams.set("status", status);
-    window.location.href = rootURL;
+  var status = statusFilter.value;
+  rootURL.searchParams.set("status", status);
+  window.location.href = rootURL;
 });
 
 function toggleOrder(order) {
@@ -61,6 +62,27 @@ function setOrder(domElement, order, URL, paramName) {
   var orderAfter = toggleOrder(order);
   domElement.title = orderAfter;
   URL.searchParams.set(paramName, orderAfter);
+}
+contractInclude.addEventListener("click", () => {
+  rootURL.searchParams.set("contract", toggleInclueContract(contractInclude));
+  window.location.href = rootURL;
+});
+
+if (contractInclude.ariaLabel === "all") {
+  contractInclude.innerHTML = "Contract By All";
+  contractInclude.title = "Click to toggle to Contract By Me";
+} else {
+  contractInclude.innerHTML = "Contract By Me";
+  contractInclude.title = "Click to toggle to Contract By All";
+}
+function toggleInclueContract(contractInclude) {
+  var param = "all";
+  if (contractInclude.ariaLabel === "all") {
+    param = "justme";
+  } else {
+    param = "all";
+  }
+  return param;
 }
 
 function createPager(domElementID, pageIndex, totalPage, rootURL) {
