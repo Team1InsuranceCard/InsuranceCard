@@ -124,7 +124,7 @@ public class LoginByGoogle extends HttpServlet {
             request.getSession().setAttribute("lastName", given_name);
             request.getSession().setAttribute("google_id", googleID);
             request.getSession().setAttribute("authCode", sb.toString());
-            request.getRequestDispatcher("../../view/google/verify_google_email.jsp").forward(request, response);          
+            request.getRequestDispatcher("../view/google/verify_google_email.jsp").forward(request, response);          
         }
     }
 
