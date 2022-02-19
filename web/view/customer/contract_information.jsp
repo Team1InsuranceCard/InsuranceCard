@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,7 @@
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-        
-        <style>
-            .text-area {
-                padding: 0;            }
-        </style>
+
     </head>
 
     <body>
@@ -77,7 +74,7 @@
                     <div class="cus title">
                         <p>Customer information</p>
                     </div>
-                    
+
                     <c:set var="cus" value="${requestScope.contract.customer}"/>
                     <div class="cus-content">
                         <div class="row">
@@ -177,12 +174,14 @@
                                                 value = "${c.cancelDate}"/></p>
                         </div>
                         <div class="row">
-                            <p class="col-md-2 bold">Cancel reason:</p>
-                            <textarea class="col-md-3 text-area" disabled>
-                                ${c.cancelReason}</textarea>
-                            <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>
-                                ${c.cancelComment}</textarea>
+                            <div class="col-md-2 bold">Cancel reason:</div>
+                            <div class="col-md-3">
+                                <textarea class="text-area" disabled>${c.cancelReason}</textarea>
+                            </div>
+                            <div class="col-md-2 space bold">Cancel comment:</div>
+                            <div class="col-md-2">
+                                <textarea class="text-area" disabled>${c.cancelComment}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
