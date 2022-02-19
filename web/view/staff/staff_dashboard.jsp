@@ -188,7 +188,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold2}</h3>
                             </div>
                             <div class="col-9 unholded">
                                 <a href="#">
@@ -242,7 +242,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold3}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
@@ -267,7 +267,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold4}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
