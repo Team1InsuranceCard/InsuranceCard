@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Brand;
 import model.Contract;
 import model.Customer;
 import model.Product;
 import model.Staff;
+import model.VehicleType;
 
 /**
  *
@@ -47,7 +49,7 @@ public class RenewContract extends HttpServlet {
         int contractID = (int) request.getSession().getAttribute("contractID");
         Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetailByCustomer(3, contractID); //change to acc.id
+        Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
@@ -73,15 +75,12 @@ public class RenewContract extends HttpServlet {
         LocalDateTime sDate = LocalDateTime.of(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0);
 
         int contractID = (int) request.getSession().getAttribute("contractID");
-//        Account acc = (Account) request.getSession().getAttribute("account");
+        Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract c = cdb.getContractDetailByCustomer(3, contractID); //change to acc.id
+        Contract c = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
         Product product = new Product();
         product.setId(c.getProduct().getId());
-
-        Account acc = new Account();
-        acc.setId(3);
 
         Customer customer = new Customer();
         customer.setAccount(acc);
@@ -92,6 +91,12 @@ public class RenewContract extends HttpServlet {
 
         Staff staff = new Staff();
         staff.setAccount(acc_staff);
+        
+        VehicleType vt = new VehicleType();
+        vt.setId(c.getVehicleType2().getId());
+        
+        Brand brand = new Brand();
+        brand.setId(c.getBrand2().getId());
 
         Contract contract = new Contract();
         contract.setProduct(product);
@@ -100,12 +105,12 @@ public class RenewContract extends HttpServlet {
         contract.setEndDate(Timestamp.valueOf(sDate.plusYears(duration))); 
         contract.setStatus(Short.parseShort("2"));
         contract.setContractFee(duration * c.getProduct().getPrice());
-        contract.setVehicleType(c.getVehicleType());
+        contract.setVehicleType2(vt);
         contract.setEngine(c.getEngine());
         contract.setLicensePlate(c.getLicensePlate());
         contract.setColor(c.getColor());
         contract.setCertImage(c.getCertImage());
-        contract.setBrand(c.getBrand());
+        contract.setBrand2(brand);
         contract.setOwner(c.getOwner());
         contract.setChassis(c.getChassis());
         contract.setRequestDate(Timestamp.valueOf(now));

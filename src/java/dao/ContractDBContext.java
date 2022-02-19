@@ -28,8 +28,8 @@ import model.VehicleType;
  */
 public class ContractDBContext extends DBContext {
 
-    public int totalContracts( String querySearch, String contractStatus){
-         int totalContract = 0;
+    public int totalContracts(String querySearch, String contractStatus) {
+        int totalContract = 0;
         if (querySearch == null) {
             querySearch = "";
         }
@@ -56,7 +56,7 @@ public class ContractDBContext extends DBContext {
         }
         return totalContract;
     }
-    
+
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
         if (querySearch == null) {
@@ -170,7 +170,7 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
+
     public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String customerNameOrdered,
             String startDateOrdered, String endDateOrdered, String contractStatus) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
@@ -276,65 +276,76 @@ public class ContractDBContext extends DBContext {
     public Contract getContractDetailByCustomer(int accountID, int contractID) {
         Contract contract = new Contract();
         try {
-            String sql = "SELECT Product.[Title]\n"
-                    + "      ,[Price]\n"
-                    + "      ,[ContentDetail]\n"
-                    + "	  ,Customer.[FirstName] as Cus_fname\n"
-                    + "	  ,Customer.[LastName] as Cus_lname\n"
-                    + "      ,[Address]\n"
-                    + "      ,[Dob]\n"
-                    + "      ,Customer.[Phone]\n"
-                    + "      ,[PersonalID]\n"
-                    + "	     ,Contract.[ProductID]"
+            String sql = "SELECT Product.ID as ProID\n"
+                    + "   ,Product.Title\n"
+                    + "	  ,Price\n"
+                    + "	  ,ContentDetail\n"
+                    + "	  ,Customer.FirstName as Cus_fname\n"
+                    + "	  ,Customer.LastName as Cus_lname\n"
+                    + "	  ,[Address]\n"
+                    + "      ,Dob\n"
+                    + "      ,Customer.Phone\n"
+                    + "	  ,PersonalID\n"
+                    + "	  ,Contract.ProductID\n"
                     + "      ,Contract.[StartDate]\n"
                     + "      ,[EndDate]\n"
-                    + "      ,Contract.Status"
-                    + "      ,ContractStatusCode.[StatusName]\n"
-                    + "      ,[CancelComment]\n"
-                    + "      ,[CancelReason]\n"
-                    + "      ,[CancelDate]\n"
-                    + "      ,[CancelRequestDate]\n"
-                    + "      ,[VehicleType]\n"
-                    + "      ,[Engine]\n"
-                    + "      ,[LicensePlate]\n"
-                    + "      ,[Color]\n"
-                    + "      ,[CertImage]\n"
-                    + "      ,[Brand]\n"
-                    + "      ,[Owner]\n"
-                    + "      ,[Chassis]\n"
-                    + "      ,[RequestDate]\n"
-                    + "      ,[ResolveDate]\n"
+                    + "      ,Contract.[Status]\n"
+                    + "	  ,ContractStatusCode.StatusName\n"
+                    + "	  ,CancelComment\n"
+                    + "	  ,CancelReason\n"
+                    + "	  ,CancelDate\n"
+                    + "	  ,CancelRequestDate\n"
+                    + "   ,VehicleType.ID as VehicleTypeID\n"
+                    + "	  ,VehicleType.VehicleType\n"
+                    + "	  ,Engine\n"
+                    + "	  ,LicensePlate\n"
+                    + "	  ,Color\n"
+                    + "	  ,CertImage\n"
+                    + "   ,Brand.ID as BrandID\n"
+                    + "	  ,Brand.Brand\n"
+                    + "	  ,[Owner]\n"
+                    + "	  ,Chassis\n"
+                    + "	  ,RequestDate\n"
+                    + "	  ,ResolveDate\n"
                     + "	  ,Staff.[FirstName] as StartStaff_fname\n"
-                    + "	  ,Staff.[LastName] as StartStaff_lname\n"
+                    + "      ,Staff.[LastName] as StartStaff_lname\n"
                     + "      ,(SELECT Staff.[FirstName]\n"
-                    + "		FROM Contract\n"
-                    + "		INNER JOIN Staff ON Staff.AccountID = Contract.CancelStaff\n"
-                    + "		) as CancelStaff_fname\n"
-                    + "	  ,(SELECT Staff.[LastName]\n"
-                    + "		FROM Contract\n"
-                    + "		INNER JOIN Staff ON Staff.AccountID = Contract.CancelStaff\n"
-                    + "		) as CancelStaff_lname\n"
-                    + "       ,Payment.Amout\n" //amount
+                    + "        FROM Contract\n"
+                    + "        INNER JOIN Staff ON Staff.AccountID = Contract.CancelStaff\n"
+                    + "		WHERE Contract.ID = ?\n"
+                    + "        ) as CancelStaff_fname\n"
+                    + "      ,(SELECT Staff.[LastName]\n"
+                    + "         FROM Contract\n"
+                    + "         INNER JOIN Staff ON Staff.AccountID = Contract.CancelStaff\n"
+                    + "		 WHERE Contract.ID = ?\n"
+                    + "         ) as CancelStaff_lname\n"
+                    + "      ,Payment.Amount\n"
                     + "  FROM [Contract]\n"
-                    + "  INNER JOIN ContractStatusCode\n"
-                    + "  ON ContractStatusCode.StatusCode = Contract.Status\n"
-                    + "  INNER JOIN Customer\n"
-                    + "  ON Customer.AccountID = Contract.CustomerID\n"
                     + "  INNER JOIN Product\n"
                     + "  ON Product.ID = Contract.ProductID\n"
+                    + "  INNER JOIN Customer\n"
+                    + "  On Customer.AccountID = Contract.CustomerID\n"
+                    + "  INNER JOIN ContractStatusCode\n"
+                    + "  ON ContractStatusCode.StatusCode = Contract.Status\n"
+                    + "  INNER JOIN VehicleType\n"
+                    + "  ON VehicleType.ID = Contract.VehicleTypeID\n"
+                    + "  INNER JOIN Brand\n"
+                    + "  ON Brand.ID = Contract.BrandID\n"
                     + "  INNER JOIN Staff\n"
                     + "  ON Staff.AccountID = Contract.StartStaff\n"
-                    + "  INNER JOIN Payment \n"
-                    + "	 ON Payment.ContractID = Contract.ID\n"
-                    + "  WHERE Contract.CustomerID = ? and Contract.ID = ?";
+                    + "  INNER JOIN Payment\n"
+                    + "  ON Payment.ContractID = Contract.ID\n"
+                    + "  WHERE CustomerID = ? and ContractID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, accountID);
+            stm.setInt(1, contractID);
             stm.setInt(2, contractID);
+            stm.setInt(3, accountID);
+            stm.setInt(4, contractID);
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("ProductID"));
+                product.setId(rs.getInt("ProID"));
                 product.setTitle(rs.getString("Title"));
                 product.setPrice(rs.getDouble("Price"));
                 product.setContentDetail(rs.getString("ContentDetail"));
@@ -358,12 +369,22 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contract_status = new ContractStatusCode();
                 contract_status.setStatusCode(rs.getShort("Status"));
                 contract_status.setStatusName(rs.getString("StatusName"));
+                
+                VehicleType vt = new VehicleType();
+                vt.setId(rs.getInt("VehicleTypeID"));
+                vt.setVehicleType(rs.getString("VehicleType"));
+                
+                Brand brand = new Brand();
+                brand.setId(rs.getInt("BrandID"));
+                brand.setBrand(rs.getString("Brand"));
 
                 contract.setProduct(product);
                 contract.setCustomer(customer);
                 contract.setStartStaff(start_staff);
                 contract.setCancelStaff(cancel_staff);
                 contract.setStatusCode(contract_status);
+                contract.setVehicleType2(vt);
+                contract.setBrand2(brand);
                 contract.setStartDate(rs.getTimestamp("StartDate"));
                 contract.setEndDate(rs.getTimestamp("EndDate"));
                 contract.setStatus(rs.getShort("Status"));
@@ -371,17 +392,15 @@ public class ContractDBContext extends DBContext {
                 contract.setCancelReason(rs.getString("CancelReason"));
                 contract.setCancelDate(rs.getTimestamp("CancelDate"));
                 contract.setCancelRequestDate(rs.getTimestamp("CancelRequestDate"));
-                contract.setVehicleType(rs.getString("VehicleType"));
                 contract.setEngine(rs.getString("Engine"));
                 contract.setLicensePlate(rs.getString("LicensePlate"));
                 contract.setColor(rs.getString("Color"));
                 contract.setCertImage(rs.getString("CertImage"));
-                contract.setBrand(rs.getString("Brand"));
                 contract.setOwner(rs.getString("Owner"));
                 contract.setChassis(rs.getString("Chassis"));
                 contract.setRequestDate(rs.getTimestamp("RequestDate"));
                 contract.setResolveDate(rs.getTimestamp("ResolveDate"));
-                contract.setContractFee(rs.getInt("Amout"));
+                contract.setContractFee(rs.getInt("Amount"));
 
                 return contract;
             }
@@ -402,12 +421,12 @@ public class ContractDBContext extends DBContext {
                     + "           ,[EndDate]\n"
                     + "           ,[Status]\n"
                     + "           ,[ContractFee]\n"
-                    + "           ,[VehicleType]\n"
+                    + "           ,[VehicleTypeID]\n"
                     + "           ,[Engine]\n"
                     + "           ,[LicensePlate]\n"
                     + "           ,[Color]\n"
                     + "           ,[CertImage]\n"
-                    + "           ,[Brand]\n"
+                    + "           ,[BrandID]\n"
                     + "           ,[Owner]\n"
                     + "           ,[Chassis]\n"
                     + "           ,[RequestDate]\n"
@@ -436,12 +455,12 @@ public class ContractDBContext extends DBContext {
             stm_contract.setTimestamp(4, contract.getEndDate());
             stm_contract.setShort(5, contract.getStatus());
             stm_contract.setDouble(6, contract.getContractFee());
-            stm_contract.setString(7, contract.getVehicleType());
+            stm_contract.setInt(7, contract.getVehicleType2().getId());
             stm_contract.setString(8, contract.getEngine());
             stm_contract.setString(9, contract.getLicensePlate());
             stm_contract.setString(10, contract.getColor());
             stm_contract.setString(11, contract.getCertImage());
-            stm_contract.setString(12, contract.getBrand());
+            stm_contract.setInt(12, contract.getBrand2().getId());
             stm_contract.setString(13, contract.getOwner());
             stm_contract.setString(14, contract.getChassis());
             stm_contract.setTimestamp(15, contract.getRequestDate());
@@ -458,7 +477,7 @@ public class ContractDBContext extends DBContext {
             }
 
             String sql_payment = "INSERT INTO [Payment]\n"
-                    + "           ([Amout]\n"
+                    + "           ([Amount]\n"
                     + "           ,[StartDate]\n"
                     + "           ,[ContractID])\n"
                     + "     VALUES\n"
@@ -638,11 +657,11 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contractStatus = new ContractStatusCode();
                 contractStatus.setStatusCode(rs.getShort("contractStatusID"));
                 contractStatus.setStatusName(rs.getString("contractStatusName"));
-                
+
                 VehicleType vehicleType = new VehicleType();
                 vehicleType.setId(rs.getInt("VehicleTypeID"));
                 vehicleType.setVehicleType(rs.getString("VehicleType"));
-                
+
                 Brand brand = new Brand();
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));
@@ -675,5 +694,41 @@ public class ContractDBContext extends DBContext {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return contract;
+    }
+
+    public void staffContractPayment(int contractID) {
+        try {
+            connection.setAutoCommit(false);
+            // update payment
+            String sql_payment = "update Payment\n"
+                    + "set PaidDate = GETDATE()\n"
+                    + "	, PaymentMethodID = 1\n"
+                    + "	, Note = Null\n"
+                    + "where ContractID = ?";
+            PreparedStatement ps_payment = connection.prepareStatement(sql_payment);
+            ps_payment.setInt(1, contractID);
+            ps_payment.executeUpdate();
+            // update contract status
+            String sql_contract = "update Contract\n"
+                    + "set Status = 1\n"
+                    + "where ID = ?";
+            PreparedStatement ps_contract = connection.prepareStatement(sql_contract);
+            ps_contract.setInt(1, contractID);
+            ps_contract.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
