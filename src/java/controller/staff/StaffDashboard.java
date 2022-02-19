@@ -7,11 +7,13 @@ package controller.staff;
 
 import dao.StaffDBContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Product;
 import model.Staff;
 
 /**
@@ -63,6 +65,8 @@ public class StaffDashboard extends HttpServlet {
             int unholdedCont = dbS.getUnholdedCont(accountId);
             int unholdedCompensation = dbS.getUnholdedCompensation(accountId);
             int unholdedCancel = dbS.getUnholdedCancel(accountId);
+            
+            ArrayList<Product> products = dbS.getProducts();
 //            int totalCus = dbS.getTotal(accountId, 1);
 //            int totalCont = dbS.getTotal(accountId, 2);
 //            int totalCancel = dbS.getTotal(accountId, 3);
@@ -80,6 +84,8 @@ public class StaffDashboard extends HttpServlet {
             request.getSession().setAttribute("unhold2", unholdedCont);
             request.getSession().setAttribute("unhold3", unholdedCompensation);
             request.getSession().setAttribute("unhold4", unholdedCancel);
+            
+            request.getSession().setAttribute("products", products);
             
 //            request.setAttribute("", dbS);
             request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);
