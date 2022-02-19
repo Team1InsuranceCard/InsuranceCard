@@ -51,10 +51,10 @@ public class Login extends HttpServlet {
         if (cookies != null) {
             for (Cookie cooky : cookies) {
                 if (cooky.getName().equals("userCookie")) {
-                    request.setAttribute("username", cooky.getValue());
+                    request.setAttribute("userC", cooky.getValue());
                 }
                 if (cooky.getName().equals("passCookie")) {
-                    request.setAttribute("password", cooky.getValue());
+                    request.setAttribute("passC", cooky.getValue());
                 }
             }
         }
@@ -83,6 +83,8 @@ public class Login extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
         String remember = request.getParameter("remember");
+        
+        request.setAttribute("user", username);
 
         AccountDBContext db = new AccountDBContext();
         Account account = db.getAccount(username, password);
@@ -90,7 +92,7 @@ public class Login extends HttpServlet {
         if (account != null) {
             request.getSession().setAttribute("account", account);
             Cookie cookieU = new Cookie("userCookie", username);
-            Cookie cookieP = new Cookie("passCookie", username);
+            Cookie cookieP = new Cookie("passCookie", password);
             cookieU.setMaxAge(60);
             if (remember != null) {
                 cookieP.setMaxAge(60);
