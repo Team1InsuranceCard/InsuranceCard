@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Product;
+import model.ProductStatusCode;
 import model.Staff;
 
 /**
@@ -292,6 +294,35 @@ public class StaffDBContext extends DBContext {
             Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public ArrayList<Product> getProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String sql = "select ID, Title, [Description], Price, ImageURL, p.isDelete, ContentDetail, StartDate, psc.StatusCode, psc.StatusName\n"
+                    + "from Product p inner join ProductStatusCode psc on p.[Status] = psc.StatusCode";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("ID"));
+                p.setTitle(rs.getString("Title"));
+                p.setDescription(rs.getString("Description"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setImageURL(rs.getString("ImageURL"));
+                ProductStatusCode psc = new ProductStatusCode();
+                psc.setStatusCode(rs.getShort("StatusCode"));
+                psc.setStatusName(rs.getString("StatusName"));
+                p.setStatusCode(psc);
+                p.setIsDelete(rs.getBoolean("isDelete"));
+                p.setContentDetail(rs.getString("ContentDetail"));
+                p.setStartDate(rs.getTimestamp("StartDate"));
+                products.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
     }
 
 //    public int getTotal(int accountId, int type) {
