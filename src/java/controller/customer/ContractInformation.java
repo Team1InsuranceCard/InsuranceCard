@@ -43,12 +43,12 @@ public class ContractInformation extends HttpServlet {
 
         Account acc = (Account) request.getSession().getAttribute("account");
         ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetailByCustomer(3, contractID); //change to acc.id
+        Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
         ProductDBContext pdb = new ProductDBContext();
         short proID = pdb.checkStatus(contract.getProduct().getId());
 
-        boolean checkRenewRight = cdb.checkRenewRight(3, contract.getProduct().getId(), contractID); //change to acc.id
+        boolean checkRenewRight = cdb.checkRenewRight(acc.getId(), contract.getProduct().getId(), contractID); //change to acc.id
 
         String btn = "";
         if (contract.getStatus() == 3) {
@@ -108,7 +108,6 @@ public class ContractInformation extends HttpServlet {
             request.getSession().setAttribute("contractID", contractID);
             response.sendRedirect("renew");
         } else if (btn.equals("Cancel")) {
-            //Quý
             response.sendRedirect("cancel");
         } else if (btn.equals("Undo")) {
             ContractDBContext cdb = new ContractDBContext();
