@@ -14,6 +14,7 @@
             sizes="16x16"
             />
         <link rel="stylesheet" href="asset/style/staff/view_contract.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
@@ -25,11 +26,11 @@
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
 
                 <div class="header__btn">
-                    <a class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? 'btn--disabled' : ''}" 
-                       href="staff/contract/renew?id=${requestScope.contract.id}">
+                    <button class="btn btn--success button button-default-flat link ${requestScope.contract.statusCode.statusCode == 2 ? 'btn--disabled' : ''}"
+                            onclick="JSalert()">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
                         <div class="btn__text">Payment</div>
-                    </a>
+                    </button>
 
                     <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
                                                  || requestScope.contract.statusCode.statusCode == 1) 
@@ -252,8 +253,10 @@
                             <c:forEach items="${requestScope.payments}" var="pay">
                                 <tr>
                                     <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.startDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.paidDate}" /></td>
                                     <td>${pay.paymentMethod2.paymentMethod}</td>
                                     <td>${pay.amount}</td>
                                     <td>${pay.note}</td>
@@ -279,14 +282,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.payments}" var="pay">
+                            <c:forEach items="${requestScope.compensations}" var="com">
                                 <tr>
-                                    <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
-                                    <td>${pay.paymentMethod2.paymentMethod}</td>
-                                    <td>${pay.amount}</td>
-                                    <td>${pay.note}</td>
+                                    <td>${com.id}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.createDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.resolveDate}" /></td>
+                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
+                                        ${com.status.statusName}</td>
+                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
                                 </tr>
                             </c:forEach>
                     </table>
@@ -322,8 +327,60 @@
             if (productStatusID === 0) {
                 productStatus.style.color = "#D62A25";
             } else {
-                productStatus.style.color = "#7B0B0B";
+                productStatus.style.color = "#1AC36B";
             }
+        </script>
+
+        <!-- confirm box -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script>
+            $(function () {
+                'use strict';
+                function Confirm(title, msg, $true, $false, action) {
+                    var $content = "<div class='dialog-ovelay fadeIn'>" +
+                            "<div class='dialog zoomIn'><header>" +
+                            " <h3> " + title + " </h3> " +
+                            "<i class='fa fa-close'></i>" +
+                            "</header>" +
+                            "<div class='dialog-msg'>" +
+                            " <p> " + msg + " </p> " +
+                            "</div>" +
+                            "<footer>" +
+                            "<div class='controls'>" +
+                            " <button class='button button-primary-flat doAction'>" + $true + "</button> " +
+                            " <button class='button button-default-flat cancelAction'>" + $false + "</button> " +
+                            "</div>" +
+                            "</footer>" +
+                            "</div>" +
+                            "</div>";
+
+                    $('body').prepend($content);
+
+                    $('body').off('click', '.doAction');
+                    $('body').on('click', '.doAction', function () {
+                        $(this).parents('.dialog-ovelay').find('.dialog').removeClass('zoomIn').addClass('zoomOut');
+                        $(this).parents('.dialog-ovelay').fadeOut(function () {
+                            $(this).remove();
+                        });
+                        action();
+                    });
+
+                    $('.cancelAction, .fa-close').click(function () {
+                        $(this).parents('.dialog-ovelay').find('.dialog').removeClass('zoomIn').addClass('zoomOut');
+                        $(this).parents('.dialog-ovelay').fadeOut(function () {
+                            $(this).remove();
+                        });
+                    });
+                }
+                /*End Confirm Box*/
+
+
+                $('.link').click(function () {
+                    Confirm('Payment', 'Are you sure you want to do this?', 'Yes', 'Cancel', function () {
+                        window.open('https://www.google.com.eg/?gws_rd=ssl');
+                    });
+                });
+            });
         </script>
     </body>
 </html>
