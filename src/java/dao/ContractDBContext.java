@@ -28,8 +28,8 @@ import model.VehicleType;
  */
 public class ContractDBContext extends DBContext {
 
-    public int totalContracts( String querySearch, String contractStatus){
-         int totalContract = 0;
+    public int totalContracts(String querySearch, String contractStatus) {
+        int totalContract = 0;
         if (querySearch == null) {
             querySearch = "";
         }
@@ -56,7 +56,7 @@ public class ContractDBContext extends DBContext {
         }
         return totalContract;
     }
-    
+
     public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
         int totalContract = 0;
         if (querySearch == null) {
@@ -170,7 +170,7 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
+
     public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String customerNameOrdered,
             String startDateOrdered, String endDateOrdered, String contractStatus) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
@@ -638,11 +638,11 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contractStatus = new ContractStatusCode();
                 contractStatus.setStatusCode(rs.getShort("contractStatusID"));
                 contractStatus.setStatusName(rs.getString("contractStatusName"));
-                
+
                 VehicleType vehicleType = new VehicleType();
                 vehicleType.setId(rs.getInt("VehicleTypeID"));
                 vehicleType.setVehicleType(rs.getString("VehicleType"));
-                
+
                 Brand brand = new Brand();
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));
@@ -675,5 +675,41 @@ public class ContractDBContext extends DBContext {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return contract;
+    }
+
+    public void staffContractPayment(int contractID) {
+        try {
+            connection.setAutoCommit(false);
+            // update payment
+            String sql_payment = "update Payment\n"
+                    + "set PaidDate = GETDATE()\n"
+                    + "	, PaymentMethodID = 1\n"
+                    + "	, Note = Null\n"
+                    + "where ContractID = ?";
+            PreparedStatement ps_payment = connection.prepareStatement(sql_payment);
+            ps_payment.setInt(1, contractID);
+            ps_payment.executeUpdate();
+            // update contract status
+            String sql_contract = "update Contract\n"
+                    + "set Status = 1\n"
+                    + "where ID = ?";
+            PreparedStatement ps_contract = connection.prepareStatement(sql_contract);
+            ps_contract.setInt(1, contractID);
+            ps_contract.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

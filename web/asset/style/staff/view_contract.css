@@ -37,6 +37,7 @@ main {
   flex-wrap: wrap;
   gap: 5px;
   border-radius: 3px;
+  border: none;
 }
 
 .btn + .btn {

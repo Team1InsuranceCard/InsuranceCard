@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Compensation;
+import model.CompensationStatusCode;
 
 /**
  *
@@ -47,17 +48,21 @@ public class CompensationDBContext extends DBContext {
                     + "	, StatusName\n"
                     + "from Compensation c inner join CompensationStatusCode cs\n"
                     + "on c.Status = cs.StatusCode\n"
-                    + "where ContractID = ?\n"
-                    + "	and isDelete = 0";
+                    + "where ContractID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contractID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                CompensationStatusCode comStatus = new CompensationStatusCode();
+                comStatus.setStatusCode(rs.getInt("Status"));
+                comStatus.setStatusName(rs.getString("StatusName"));
+                
                 Compensation com = new Compensation();
                 com.setId(rs.getInt("ID"));
                 com.setCreateDate(rs.getTimestamp("CreatedDate"));
                 com.setResolveDate(rs.getTimestamp("ResolveDate"));
-                
+                com.setStatus(comStatus);
+                compensations.add(com);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);

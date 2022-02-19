@@ -25,21 +25,21 @@
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
 
                 <div class="header__btn">
-                    <a class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? 'btn--disabled' : ''}" 
-                       href="staff/contract/renew?id=${requestScope.contract.id}">
+                    <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}"
+                            onclick="confirmBox()">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
                         <div class="btn__text">Payment</div>
-                    </a>
+                    </button>
 
                     <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
                                                  || requestScope.contract.statusCode.statusCode == 1) 
-                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
+                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
                        href="staff/contract/renew?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_reload.png"></img>
                         <div class="btn__text">Renew</div>
                     </a>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
                        href="staff/contract/cancel?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
@@ -252,8 +252,10 @@
                             <c:forEach items="${requestScope.payments}" var="pay">
                                 <tr>
                                     <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.startDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.paidDate}" /></td>
                                     <td>${pay.paymentMethod2.paymentMethod}</td>
                                     <td>${pay.amount}</td>
                                     <td>${pay.note}</td>
@@ -279,14 +281,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.payments}" var="pay">
+                            <c:forEach items="${requestScope.compensations}" var="com">
                                 <tr>
-                                    <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
-                                    <td>${pay.paymentMethod2.paymentMethod}</td>
-                                    <td>${pay.amount}</td>
-                                    <td>${pay.note}</td>
+                                    <td>${com.id}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.createDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.resolveDate}" /></td>
+                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
+                                        ${com.status.statusName}</td>
+                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
                                 </tr>
                             </c:forEach>
                     </table>
@@ -301,7 +305,7 @@
         <script>
             const contractStatus = document.getElementById("contractStatus");
             const contractStatusID = ${requestScope.contract.statusCode.statusCode};
-
+            
             if (contractStatusID === 0) {
                 contractStatus.style.color = "#D62A25";
             } else if (contractStatusID === 1) {
@@ -315,14 +319,30 @@
             } else {
                 contractStatus.style.color = "#7B0B0B";
             }
-
+            
             const productStatus = document.getElementById("productStatus");
             const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
-
+            
             if (productStatusID === 0) {
                 productStatus.style.color = "#D62A25";
             } else {
-                productStatus.style.color = "#7B0B0B";
+                productStatus.style.color = "#1AC36B";
+            }
+        </script>
+
+        <!-- confirm box -->
+        <script>
+            function confirmBox() {
+                if (confirm("Are you sure you want to do this?")) {
+                    window.location.href = "staff/contract/pay?id=${requestScope.contract.id}";
+                }
+            }
+        </script>
+
+        <!-- payment successful mess -->
+        <script>
+            if (${param.isPay}) {
+                alert("Payment successful!");
             }
         </script>
     </body>
