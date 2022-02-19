@@ -109,3 +109,7 @@ table {
     -webkit-border-horizontal-spacing: 0 !important;
     -webkit-border-vertical-spacing: 3px !important;
 }
+
+table thead a:hover {
+    text-decoration: none;
+}
