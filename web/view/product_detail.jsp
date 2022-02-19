@@ -99,7 +99,7 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
                         </div>
                     </div>
                 </div>
-                <c:if test="${empty account || account.role == 1 }" >
+                <c:if test="${empty account || !account.role }" >
                     <div class="row">
                         <a role="button" href="customer/contract/create?productID=${product.id}" class="btn btn-info btn-lg m-auto"
                            >Create Contract Now</a
