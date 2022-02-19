@@ -246,7 +246,7 @@
                 </div>
                 <div class="submit">
                     <c:set var="check" value="${requestScope.checkRenew}"/>
-                    <input type="${requestScope.pro==0||c.status==5||check!=""?"hidden":"submit"}" 
+                    <input type="${requestScope.pro==0||c.status==5||c.status==1||check!=""?"hidden":"submit"}" 
                            name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>
