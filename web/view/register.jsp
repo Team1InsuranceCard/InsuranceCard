@@ -30,11 +30,11 @@
 
             <div class="signUp">
                 <h1>Sign Up</h1>
-                <p class="mess" style="${requestScope.mess_pass==""?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                <p class="mess" style="${requestScope.mess_pass==null?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_pass}</p>
-                <p class="mess" Style="${requestScope.mess_pID==""?"":"padding: 1rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                <p class="mess" Style="${requestScope.mess_pID==null?"":"padding: 1rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_pID}</p>
-                <p class="mess" style="${requestScope.mess_email==""?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                <p class="mess" style="${requestScope.mess_email==null?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
                    >${requestScope.mess_email}</p>
             </div>
 
