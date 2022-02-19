@@ -272,6 +272,28 @@ public class StaffDBContext extends DBContext {
         return 0;
     }
 
+    public int getUnholdedCompensation(int accountId) {
+        try {
+            String sql = "select cont.StartStaff,COUNT(cont.StartStaff) as unholded\n"
+                    + "from Compensation comp inner join [Contract] cont on comp.ContractID = cont.ID\n"
+                    + "where comp.ResolveDate is not null and cont.StartStaff = ?\n"
+                    + "group by cont.StartStaff";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            ResultSet rs = stm.executeQuery();
+            int total = 0;
+            while (rs.next()) {
+                if (total == 0) {
+                    total = rs.getInt("unholded");
+                }
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
 //    public int getTotal(int accountId, int type) {
 //        switch (type) {
 //            case 1: {
