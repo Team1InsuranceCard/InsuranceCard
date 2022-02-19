@@ -20,17 +20,6 @@
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
 
-        <script>
-            function calDate() {
-//                var start = Date.parse(document.getElementById("startDate"));
-//                var duration = document.getElementById("duration");
-//                
-//                document.getElementById("endDate").innerHTML = start.setYear(start.getYear() + duration).toString();
-
-             
-                document.getElementById("endDate").innerHTML = "1111";
-            }
-        </script>
     </head>
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
