@@ -57,7 +57,7 @@
                                         <option ${requestScope.status == 1 ? "selected" : ""}
                                             value="1">Active</option>
                                         <option ${requestScope.status == 2 ? "selected" : ""}
-                                            value="2">Pending</option>
+                                            value="2" disabled>Pending</option>
                                     </select>
                                 </div>
                             </div>
