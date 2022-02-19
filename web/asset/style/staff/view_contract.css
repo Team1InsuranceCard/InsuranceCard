@@ -162,20 +162,15 @@ main {
 .section__table th {
   font-weight: 500;
   border-bottom: 1px solid #dcdada;
-  padding-bottom: 10px;
+  padding: 10px 5px;
   overflow: hidden;
 }
 
 .section__table td {
   border-bottom: 1px solid #dcdada;
-  padding: 5px 0;
+  padding: 5px;
   transition: all 0.2s;
-  padding: 8px 6px 8px 0;
   color: #555;
-}
-
-.section__table tr td:last-child {
-  padding-right: 0;
 }
 
 .section__table tbody td:hover::before {

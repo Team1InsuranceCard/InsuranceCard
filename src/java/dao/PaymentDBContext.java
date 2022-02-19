@@ -8,8 +8,12 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Contract;
+import model.Payment;
+import model.PaymentMethod;
 
 /**
  *
@@ -35,5 +39,41 @@ public class PaymentDBContext extends DBContext {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public ArrayList<Payment> getContractPayments(int contractID) {
+        ArrayList<Payment> payments = new ArrayList<>();
+        try {
+            String sql = "select p.ID\n"
+                    + "	, PaidDate\n"
+                    + "	, PaymentMethodID\n"
+                    + "	, PaymentMethod\n"
+                    + "	, Note\n"
+                    + "	, Amount\n"
+                    + "	, StartDate\n"
+                    + "from Payment p inner join PaymentMethod pm\n"
+                    + "on p.PaymentMethodID = pm.ID\n"
+                    + "where ContractID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, contractID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {       
+                PaymentMethod payMethod = new PaymentMethod();
+                payMethod.setId(rs.getInt("PaymentMethodID"));
+                payMethod.setPaymentMethod(rs.getString("PaymentMethod"));
+                
+                Payment pay = new Payment();
+                pay.setId(rs.getInt("ID"));
+                pay.setPaidDate(rs.getTimestamp("PaidDate"));
+                pay.setNote(rs.getString("Note"));
+                pay.setAmount(rs.getDouble("Amount"));
+                pay.setStartDate(rs.getTimestamp("StartDate"));
+                pay.setPaymentMethod2(payMethod);
+                payments.add(pay);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
     }
 }

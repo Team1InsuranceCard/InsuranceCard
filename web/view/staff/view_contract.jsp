@@ -241,6 +241,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Start date</th>
                                 <th>Paid date</th>
                                 <th>Payment method</th>
                                 <th>Amount</th>
@@ -248,25 +249,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>15/05/2019 10:20:14</td>
-                                <td>Tiền mặt</td>
-                                <td>300.000</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>15/05/2019 10:20:14</td>
-                                <td>Tiền mặt</td>
-                                <td>300.000</td>
-                                <td>processing</td>
-                            </tr>
+                            <c:forEach items="${requestScope.payments}" var="pay">
+                                <tr>
+                                    <td>${pay.id}</td>
+                                    <td>${pay.startDate}</td>
+                                    <td>${pay.paidDate}</td>
+                                    <td>${pay.paymentMethod2.paymentMethod}</td>
+                                    <td>${pay.amount}</td>
+                                    <td>${pay.note}</td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
-                    
+
             <div class="section">
                 <h2 class="section__heading">Compensation history</h2>
 
