@@ -53,9 +53,9 @@ public class ContractInformation extends HttpServlet {
         String btn = "";
         if (contract.getStatus() == 3) {
             btn += "Undo";
-        } else if (contract.getStatus() == 1 || contract.getStatus() == 2) {
+        } else if (contract.getStatus() == 2) {
             btn += "Cancel";
-        } else { //status = 0,4
+        } else if (contract.getStatus() == 0 || contract.getStatus() == 4) { //status = 0,4
             btn += "Renew";
         }
 
