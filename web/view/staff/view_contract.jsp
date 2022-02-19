@@ -252,8 +252,10 @@
                             <c:forEach items="${requestScope.payments}" var="pay">
                                 <tr>
                                     <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${pay.startDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${pay.paidDate}" /></td>
                                     <td>${pay.paymentMethod2.paymentMethod}</td>
                                     <td>${pay.amount}</td>
                                     <td>${pay.note}</td>
@@ -279,14 +281,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.payments}" var="pay">
+                            <c:forEach items="${requestScope.compensations}" var="com">
                                 <tr>
-                                    <td>${pay.id}</td>
-                                    <td>${pay.startDate}</td>
-                                    <td>${pay.paidDate}</td>
-                                    <td>${pay.paymentMethod2.paymentMethod}</td>
-                                    <td>${pay.amount}</td>
-                                    <td>${pay.note}</td>
+                                    <td>${com.id}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${com.createDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${com.resolveDate}" /></td>
+                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
+                                        ${com.status.statusName}</td>
+                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
                                 </tr>
                             </c:forEach>
                     </table>
@@ -322,7 +326,7 @@
             if (productStatusID === 0) {
                 productStatus.style.color = "#D62A25";
             } else {
-                productStatus.style.color = "#7B0B0B";
+                productStatus.style.color = "#1AC36B";
             }
         </script>
     </body>

@@ -52,8 +52,7 @@ public class PaymentDBContext extends DBContext {
                     + "	, StartDate\n"
                     + "from Payment p inner join PaymentMethod pm\n"
                     + "on p.PaymentMethodID = pm.ID\n"
-                    + "where ContractID = ?\n"
-                    + "	and isDelete = 0";
+                    + "where ContractID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contractID);
             ResultSet rs = ps.executeQuery();
