@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -122,6 +123,10 @@
                 -webkit-border-horizontal-spacing: 0 !important;
                 -webkit-border-vertical-spacing: 3px !important;
             }
+
+            table thead a:hover {
+                text-decoration: none;
+            }
         </style>-->
     </head>
     <body>
@@ -188,7 +193,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold2}</h3>
                             </div>
                             <div class="col-9 unholded">
                                 <a href="#">
@@ -242,7 +247,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold3}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
@@ -267,7 +272,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold4}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
@@ -311,37 +316,22 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Insurance Plans</th>
-                                        <th scope="col">View All</th>
+                                        <th scope="col"><a href="#">Insurance Plans</a></th>
+                                        <th scope="col"><a href="#">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td scope="row">1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">3</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">4</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">5</td>
-                                        <td></td>
-                                    </tr>
+                                    <c:forEach var="p" items="${sessionScope.products}" begin="0" end="4">
+                                        <tr>
+                                            <td scope="row">${p.title}</td>
+                                            <td></td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!--<a class="nav-link" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2" style="background-color: black;"></i>Logout</a>-->
             </div>
         </section>
         <jsp:include page="../footer_full.jsp"></jsp:include>
