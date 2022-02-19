@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <!--<link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>-->
-        <style>
+        <link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>
+<!--        <style>
             body {
                 background: #FFF9EC;
                 color: #5C2941;
@@ -127,7 +127,7 @@
             table thead a:hover {
                 text-decoration: none;
             }
-        </style>
+        </style>-->
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
