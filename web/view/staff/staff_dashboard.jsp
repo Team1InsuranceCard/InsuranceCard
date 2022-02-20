@@ -321,7 +321,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" style="color: #007bff;">Insurance Plans</th>
-                                        <th scope="col"><a href="#" style="color: black;">View All</a></th>
+                                        <th scope="col"><a href="product" style="color: black;">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
