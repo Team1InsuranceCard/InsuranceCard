@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>
-<!--        <style>
+        <!--<link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>-->
+        <style>
             body {
                 background: #FFF9EC;
                 color: #5C2941;
@@ -124,10 +124,14 @@
                 -webkit-border-vertical-spacing: 3px !important;
             }
 
-            table thead a:hover {
+            table thead a:hover, tbody tr td a:hover {
                 text-decoration: none;
             }
-        </style>-->
+            
+            table tbody tr td a {
+                font-size: 1.3em;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
@@ -316,14 +320,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col"><a href="#">Insurance Plans</a></th>
-                                        <th scope="col"><a href="#">View All</a></th>
+                                        <th scope="col" style="color: #007bff;">Insurance Plans</th>
+                                        <th scope="col"><a href="product" style="color: black;">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="p" items="${sessionScope.products}" begin="0" end="4">
                                         <tr>
-                                            <td scope="row">${p.title}</td>
+                                            <td scope="row"><a href="product/detail?productid=${p.id}">${p.id}. ${p.title}</a></td>
                                             <td></td>
                                         </tr>
                                     </c:forEach>

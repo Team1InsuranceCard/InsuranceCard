@@ -83,7 +83,7 @@ public class Login extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
         String remember = request.getParameter("remember");
-        
+
         request.setAttribute("user", username);
 
         AccountDBContext db = new AccountDBContext();
@@ -104,10 +104,22 @@ public class Login extends HttpServlet {
             response.addCookie(cookieU);
             response.addCookie(cookieP);
 
-            if (!account.isRole()) {
-                response.sendRedirect("customer/dashboard");
-            } else {
-                response.sendRedirect("staff/dashboard");
+            switch (account.getStatusCode().getStatusCode()) {
+                case 1:
+                    if (!account.isRole()) {
+                        response.sendRedirect("customer/dashboard");
+                    } else {
+                        response.sendRedirect("staff/dashboard");
+                    }
+                    break;
+                case 2:
+                    response.sendRedirect("verify_email");
+                    break;
+                default:
+                    request.getSession().setAttribute("account", null);
+                    request.setAttribute("alert", "Your account is inactivated!");
+                    request.getRequestDispatcher("view/login.jsp").forward(request, response);
+                    break;
             }
         } else {
             request.getSession().setAttribute("account", null);
