@@ -3,23 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.staff;
 
-import dao.ProductDBContext;
+import dao.ContractDBContext;
+import dao.PaymentDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Product;
 
 /**
  *
- * @author area1
+ * @author DELL
  */
-public class ProductDetaiil extends HttpServlet {
+public class ContractPayment extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,19 +30,10 @@ public class ProductDetaiil extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductDetaiil</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductDetaiil at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int id = Integer.parseInt(request.getParameter("id"));
+        ContractDBContext db = new ContractDBContext();
+        db.staffContractPayment(id);
+        response.sendRedirect("detail?id=" + id + "&isPay=true");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,23 +48,7 @@ public class ProductDetaiil extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        String rawProductID = request.getParameter("productid");
-        boolean isProductExist = true;
-        if (rawProductID == null || rawProductID.isEmpty()) {
-            isProductExist = false;
-        }        
-        int productID = Integer.parseInt(rawProductID);
-        ProductDBContext productDBC = new ProductDBContext();
-        Product product = productDBC.getProduct(productID);
-        if (product == null) {
-            isProductExist = false;
-        }
-        if (!isProductExist) {
-            response.getWriter().print("<h1>Product not exist</h1>");
-        }
-        request.setAttribute("product", product);
-        request.getRequestDispatcher("../view/product_detail.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

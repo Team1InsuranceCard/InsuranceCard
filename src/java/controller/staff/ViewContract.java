@@ -5,13 +5,18 @@
  */
 package controller.staff;
 
+import dao.CompensationDBContext;
 import dao.ContractDBContext;
+import dao.PaymentDBContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Compensation;
 import model.Contract;
+import model.Payment;
 
 /**
  *
@@ -31,9 +36,18 @@ public class ViewContract extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        ContractDBContext db = new ContractDBContext();
-        Contract contract = db.staffGetContractDetail(id);
+        ContractDBContext contractDB = new ContractDBContext();
+        Contract contract = contractDB.staffGetContractDetail(id);
+
+        PaymentDBContext payDB = new PaymentDBContext();
+        ArrayList<Payment> payments = payDB.getContractPayments(id);
+
+        CompensationDBContext comDB = new CompensationDBContext();
+        ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
+
         request.setAttribute("contract", contract);
+        request.setAttribute("payments", payments);
+        request.setAttribute("compensations", compensations);
         request.getRequestDispatcher("../../view/staff/view_contract.jsp").forward(request, response);
     }
 

@@ -72,12 +72,12 @@ public class ManageContract extends HttpServlet {
         int staffAccountID = currentStaffAccount.getId();
 //        int staffAccountID = 7;
         String query = request.getParameter("query");
-        String customerNameOrdered = request.getParameter("nameorder");
-        String startDateOrdered = request.getParameter("startorder");
-        String endDateOrdered = request.getParameter("endorder");
+        String orderBy = request.getParameter("orderby");
+        String orderType = request.getParameter("ordertype");
         String contractStatusCode = request.getParameter("status");
         String rawpageIndex = request.getParameter("page");
         String contractInclude = request.getParameter("contract");
+
         if (contractInclude == null || contractInclude.isEmpty()) {
             contractInclude = "justme";
         }
@@ -100,22 +100,21 @@ public class ManageContract extends HttpServlet {
         switch (contractInclude) {
             case "justme":
                 contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
-                        customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
+                        contractStatusCode, orderBy, orderType);
                 totalRecord = contractDBC.totalContractsByStaff(staffAccountID, query, contractStatusCode);
                 break;
             case "all":
                 contractList = contractDBC.getContracts(query, pageIndex,
-                        customerNameOrdered, startDateOrdered, endDateOrdered, contractStatusCode);
+                        contractStatusCode, orderBy, orderType);
                 totalRecord = contractDBC.totalContracts(query, contractStatusCode);
         }
         int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         request.setAttribute("contract_list", contractList);
         request.setAttribute("status_codes", statusCodes);
         request.setAttribute("query", query);
-        request.setAttribute("nameorder", customerNameOrdered);
-        request.setAttribute("startorder", startDateOrdered);
-        request.setAttribute("endorder", endDateOrdered);
         request.setAttribute("status", contractStatusCode);
+        request.setAttribute("ordertype", orderType);
+        request.setAttribute("orderby", orderBy);
         request.setAttribute("totalpage", totalPage);
         request.setAttribute("page", pageIndex);
         request.setAttribute("contractinclude", contractInclude);

@@ -118,6 +118,9 @@ public class Register extends HttpServlet {
             request.setAttribute("lastName", lastName);
             request.setAttribute("dob", dob);
             request.setAttribute("pass", pass);
+            request.setAttribute("pass2", pass2);
+            request.setAttribute("province", province);
+            request.setAttribute("district", district);
             request.setAttribute("mess_pass", mess_pass);
             request.setAttribute("mess_pID", mess_pID);
             request.setAttribute("mess_email", mess_email);

@@ -57,16 +57,16 @@
         <servlet-class>controller.customer.RenewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Manage_contract</servlet-name>
-        <servlet-class>controller.staff.Manage_contract</servlet-class>
+        <servlet-name>ManageContract</servlet-name>
+        <servlet-class>controller.staff.ManageContract</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewContract</servlet-name>
         <servlet-class>controller.staff.ViewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetaiil</servlet-name>
-        <servlet-class>controller.ProductDetaiil</servlet-class>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>controller.ProductDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewContractController</servlet-name>
@@ -77,8 +77,20 @@
         <servlet-class>controller.Homepage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomepageProduct</servlet-name>
+        <servlet-name>ProductView</servlet-name>
         <servlet-class>controller.ProductView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffDashBoard</servlet-name>
+        <servlet-class>controller.staff.StaffDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffContractPayment</servlet-name>
+        <servlet-class>controller.staff.ContractPayment</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -129,7 +141,7 @@
         <url-pattern>/customer/contract/renew</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Manage_contract</servlet-name>
+        <servlet-name>ManageContract</servlet-name>
         <url-pattern>/staff/contract/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -137,7 +149,7 @@
         <url-pattern>/staff/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -149,8 +161,20 @@
         <url-pattern>/homepage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomepageProduct</servlet-name>
+        <servlet-name>ProductView</servlet-name>
         <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffDashBoard</servlet-name>
+        <url-pattern>/staff/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffContractPayment</servlet-name>
+        <url-pattern>/staff/contract/pay</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

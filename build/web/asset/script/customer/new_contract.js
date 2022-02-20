@@ -86,6 +86,28 @@ function fillEndDate() {
     fillInsurancePeriod();
 }
 
+function changePeriod(productPrice) {
+    fillEndDate();
+    var contractFee;
+    if ($("#select2").val() === "1") {
+        contractFee = productPrice;
+    } else if ($("#select2").val() === "2") {
+        contractFee = productPrice * 2;
+    } else if ($("#select2").val() === "3") {
+        contractFee = productPrice * 3;
+    }
+
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'VND',
+    });
+    var fee = formatter.format(contractFee);
+    $("#ProductFee").text(fee);
+    $("#totalFee").text("TOTAL PAYMENT: " + fee);
+
+    $("#contractFee").val(contractFee);
+}
+
 function fillOwnerInfo(firstName, lastName, personalID) {
     var event = new Event("change");
     if ($("#chk-1").prop('checked')) {

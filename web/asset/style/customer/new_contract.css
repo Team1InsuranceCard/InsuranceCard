@@ -31,6 +31,13 @@ and open the template in the editor.
     border-top: 1px #000 solid;
 }
 
+.left a, 
+.left a:hover{
+    text-decoration: none;
+    color: var(--color3);
+    font-weight: bold;
+}
+
 .left .group-title{
     display: block;
     background: var(--color3);

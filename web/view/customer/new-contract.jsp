@@ -24,7 +24,7 @@
         <jsp:include page="../header_customer.jsp"></jsp:include>
             <div class="container">
                 <h2 class="title">REQUEST NEW CONTRACT</h2>
-                <form method="POST" action="">
+                <form method="POST" action="customer/contract/create">
                     <div class="content_container">
                         <div class="row">
                             <div class="col-lg-8 left">
@@ -38,25 +38,30 @@
                                     <label for="chk-1">Use your account's information</label>
                                 </div>
                             </c:if>
+                            <c:if test="${sessionScope.account eq null}">
+                                <span>Do you have an account? 
+                                    <a href="login">Login </a>
+                                    to quickly fill!</span> <br/>
+                                </c:if>
                             <label for="txt1" class="label-input">Full name (*):</label>
                             <input id="txt1" class="inputdata" type="text" required
                                    name="ownerName" onchange="fillRightOwner()"
                                    placeholder="Owner full name (in vehicle registration)"/><br/>
                             <label for="txt2" class="label-input">ID Number (*):</label>
+                            <!--Do not save to DB-->
                             <input id="txt2" class="inputdata" type="text" required
-                                   name="ownerID"
                                    placeholder="ID Card Number"/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                             <label for="select1" class="label-input">Type (*):</label>
-                            <select id="select1" class="selectdata" name="vehicleType">
+                            <select id="select1" class="selectdata" name="vehicleTypeID">
                                 <c:forEach items="${requestScope.vehicletypes}" var="type">
-                                    <option>${type.vehicleType}</option>
+                                    <option value="${type.id}">${type.vehicleType}</option>
                                 </c:forEach>
                             </select><br/>
                             <label for="select3" class="label-input">Brand (*):</label>
-                            <select id="select3" class="selectdata" name="brand">
+                            <select id="select3" class="selectdata" name="brandID">
                                 <c:forEach items="${requestScope.brands}" var="brand">
-                                    <option>${brand.brand}</option>
+                                    <option value="${brand.id}">${brand.brand}</option>
                                 </c:forEach>
                             </select><br/>
                             <label for="txt3" class="label-input">License plate (*):</label>
@@ -78,13 +83,14 @@
                                     <label for="txt4" class="label-input">Product (*):</label>
                                     <input id="txt4" class="inputdata" type="text" disabled="true"
                                            value="${requestScope.product.title}"/>
-                                    <input type="hidden" name="product"
-                                           value="${requestScope.product}"
+                                    <input type="hidden" name="productID"
+                                           value="${requestScope.product.id}"
                                 </span>
                                 <a href="customer/dashboard" class="btnProduct">Change product</a>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>
-                            <select id="select2" class="selectdata" onchange="fillEndDate()">
+                            <select id="select2" class="selectdata" 
+                                    onchange="changePeriod(${requestScope.product.price})">
                                 <option value="1">1 year</option>
                                 <option value="2">2 years</option>
                                 <option value="3">3 years</option>
@@ -117,6 +123,11 @@
                                     <label for="chk-2">Use your account's information</label>
                                 </div>
                             </c:if>
+                            <c:if test="${sessionScope.account eq null}">
+                                <span>Do you have an account? 
+                                    <a href="login">Login </a>
+                                    to quickly fill!</span> <br/>
+                                </c:if>
                             <label for="txt5" class="label-input">Full name (*):</label>
                             <input id="txt5" class="inputdata" type="text" required
                                    name="deliveryName"
@@ -183,8 +194,9 @@
                                 <hr/>
                                 <p>
                                     <b>Insurance fees: </b> 
-                                    <span>VND <fmt:formatNumber pattern="#,###.##" 
-                                                      value="${requestScope.product.price}">
+                                    <span id="ProductFee"> đ
+                                        <fmt:formatNumber type="number" pattern="#,###"
+                                                          value="${requestScope.product.price}">
                                         </fmt:formatNumber>
                                     </span>
                                 </p>
@@ -193,10 +205,15 @@
                                 </p>
                                 <hr/>
                                 <p>                                    
-                                    <b>TOTAL PAYMENT: 
-                                        VND <fmt:formatNumber pattern="#,###.##" 
+                                    <b id="totalFee">TOTAL PAYMENT: đ
+                                        <fmt:formatNumber type="number" pattern="#,###"
                                                           value="${requestScope.product.price}">
-                                        </fmt:formatNumber></b>
+
+                                        </fmt:formatNumber>
+                                    </b>
+
+                                    <input type="hidden" name="fee" id="contractFee"
+                                           value="${requestScope.product.price}"/>
                                 </p>
                                 <input type="submit" id="btnCheckout" 
                                        class="btnCheckout btnDisable"

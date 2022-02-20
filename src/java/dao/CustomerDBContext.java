@@ -352,7 +352,7 @@ public class CustomerDBContext extends DBContext {
                     + "	ON Contract.CustomerID = Customer.AccountID\n"
                     + "WHERE Account.Status = 1 and (Contract.Status in (1, 2, 3, 5) or Contract.Status is null)\n"
                     + "GROUP BY Staff.AccountID\n"
-                    + "ORDER BY NumberOfContract asc";
+                    + "ORDER BY NumberOfContract asc, StaffID asc";
             PreparedStatement stm_count_contract = connection.prepareStatement(sql_count_contract);
             ResultSet rs_count_contract = stm_count_contract.executeQuery();
 

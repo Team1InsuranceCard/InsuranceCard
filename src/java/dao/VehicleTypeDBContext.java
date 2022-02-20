@@ -24,7 +24,8 @@ public class VehicleTypeDBContext extends DBContext {
         try {
             String sql = "SELECT [ID]\n"
                     + "      ,[VehicleType]\n"
-                    + "  FROM [VehicleType]";
+                    + "  FROM [VehicleType]"
+                    + "  WHERE isDelete = 0 OR isDelete is NULL";
             PreparedStatement psm = connection.prepareStatement(sql);
             ResultSet rs = psm.executeQuery();
 
@@ -34,8 +35,28 @@ public class VehicleTypeDBContext extends DBContext {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VehicleTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return types;
+    }
+    
+    public VehicleType getVehicleTypeByID(int id){
+        try {
+            String sql = "SELECT [ID]\n"
+                    + "      ,[VehicleType]\n"
+                    + "  FROM [VehicleType]"
+                    + "  WHERE [ID] = ? AND (isDelete = 0 OR isDelete is NULL)";
+            PreparedStatement psm = connection.prepareStatement(sql);
+            psm.setInt(1, id);
+            ResultSet rs = psm.executeQuery();
+
+            if (rs.next()) {
+                VehicleType type = new VehicleType(rs.getInt("ID"), rs.getString("VehicleType"));
+                return type;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VehicleTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
