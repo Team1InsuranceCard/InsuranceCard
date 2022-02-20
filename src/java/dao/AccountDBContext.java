@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 
 /**
  *
@@ -20,10 +21,9 @@ public class AccountDBContext extends DBContext {
 
     public Account getAccount(String user, String pass) {
         try {
-            String sql = "select ID, Email, [Password], [Role], [Status]\n"
-                    + "from Account\n"
-                    + "where Email = ?\n"
-                    + "and [Password] = ?";
+            String sql = "select ID, Email, [Password], [Role], [asc].StatusCode, [asc].StatusName\n"
+                    + "from Account a inner join AccountStatusCode [asc] on a.[Status] = [asc].StatusCode\n"
+                    + "where Email = ? and [Password] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, user);
             stm.setString(2, pass);
@@ -36,7 +36,10 @@ public class AccountDBContext extends DBContext {
                     a.setEmail(rs.getString("Email"));
                     a.setPassword(rs.getString("Password"));
                     a.setRole(rs.getBoolean("Role"));
-                    a.setStatus(rs.getShort("Status"));
+                    AccountStatusCode asc = new AccountStatusCode();
+                    asc.setStatusCode(rs.getShort("StatusCode"));
+                    asc.setStatusName(rs.getString("StatusName"));
+                    a.setStatusCode(asc);
                 }
             }
             return a;
