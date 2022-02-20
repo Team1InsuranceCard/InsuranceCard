@@ -58,6 +58,7 @@ $(document).ready(function () {
     var enddate = $.datepicker.formatDate('yy-mm-dd',
             new Date(startdate.getTime() + 365 * oneday));
     $("#enddate").val(enddate);
+    $("#endDateSent").val($("#enddate").val());
     fillInsurancePeriod();
 })
 
@@ -81,6 +82,7 @@ function calculateEndDate() {
 
 function fillEndDate() {
     $("#enddate").val(calculateEndDate());
+    $("#endDateSent").val($("#enddate").val());
     fillInsurancePeriod();
 }
 

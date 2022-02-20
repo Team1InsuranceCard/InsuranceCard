@@ -5,6 +5,7 @@
  */
 package controller.customer;
 
+import dao.BrandDBContext;
 import dao.CustomerDBContext;
 import dao.ProductDBContext;
 import dao.VehicleTypeDBContext;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Brand;
 import model.Customer;
 import model.Product;
 import model.VehicleType;
@@ -70,6 +72,11 @@ public class NewContractController extends HttpServlet {
                 VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
                 ArrayList<VehicleType> vehicleTypes = vtdb.getVehicleTypes();
                 request.setAttribute("vehicletypes", vehicleTypes);
+                
+                //get brands
+                BrandDBContext bdb = new BrandDBContext();
+                ArrayList<Brand> brands = bdb.getBrands();
+                request.setAttribute("brands", brands);
 
                 //getCustomer
                 Account account = (Account) request.getSession().getAttribute("account");

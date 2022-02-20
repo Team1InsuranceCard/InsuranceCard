@@ -42,7 +42,7 @@ and open the template in the editor.
 
 .left .label-input{
     display: inline-block;
-    width: 120px;
+    width: 20%;
 }
 
 .left .confirm-checkbox{
@@ -61,7 +61,7 @@ and open the template in the editor.
     padding: 8px 5px;
     resize: none;
     margin-right: 10px;
-    width: 60%;
+    width: 55%;
 }
 
 .startdate, .enddate{
@@ -71,7 +71,7 @@ and open the template in the editor.
     padding: 8px 5px;
     resize: none;
     margin-right: 10px;
-    width: 30%;
+    width: 25%;
 }
 
 select{
@@ -92,7 +92,7 @@ select:focus,
 }
 
 .select-container{
-    margin-left: 120px;
+    margin-left: 20%;
 }
 
 .left .btnProduct{
