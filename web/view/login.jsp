@@ -17,7 +17,9 @@
         <title>Login</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link href="asset/style/login.css" rel="stylesheet" type="text/css"/>
-
+        <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="asset/script/google_login.js" defer></script>
     </head>
     <body>
         <div class="limiter">
@@ -87,12 +89,10 @@
                     <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
-                    <div class="google">
-                        <img src="asset/image/gg_icon.png" alt=""/>
-                        <input type="button" name="gg" value="Google">
-                    </div>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
             </form>
+
         </div>
     </body>
 </html>
