@@ -369,11 +369,11 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contract_status = new ContractStatusCode();
                 contract_status.setStatusCode(rs.getShort("Status"));
                 contract_status.setStatusName(rs.getString("StatusName"));
-                
+
                 VehicleType vt = new VehicleType();
                 vt.setId(rs.getInt("VehicleTypeID"));
                 vt.setVehicleType(rs.getString("VehicleType"));
-                
+
                 Brand brand = new Brand();
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));
@@ -552,6 +552,7 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "select ProductID\n"
                     + "	, Title\n"
+                    + "	, Price\n"
                     + "	, ContentDetail\n"
                     + "	, p.Status as proStatusID\n"
                     + "	, ps.StatusName as proStatusName\n"
@@ -620,6 +621,7 @@ public class ContractDBContext extends DBContext {
                 Product pro = new Product();
                 pro.setId(rs.getInt("ProductID"));
                 pro.setTitle(rs.getString("Title"));
+                pro.setPrice(rs.getDouble("Price"));
                 pro.setContentDetail("ContentDetail");
                 pro.setStatusCode(proStatus);
 
