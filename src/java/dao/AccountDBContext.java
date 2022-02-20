@@ -49,6 +49,34 @@ public class AccountDBContext extends DBContext {
         return null;
     }
 
+    public Account getAccount(int accountID) {
+        try {
+            String sql = "select ID, Email, [Password], [Role], [asc].StatusCode, [asc].StatusName\n"
+                    + "from Account a inner join AccountStatusCode [asc] on a.[Status] = [asc].StatusCode\n"
+                    + "where ID = ? and a.[isDelete] = 0 and a.[Status] = 1";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountID);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                Account a = new Account();
+                a.setId(rs.getInt("ID"));
+                a.setEmail(rs.getString("Email"));
+                a.setPassword(rs.getString("Password"));
+                a.setRole(rs.getBoolean("Role"));
+                AccountStatusCode asc = new AccountStatusCode();
+                asc.setStatusCode(rs.getShort("StatusCode"));
+                asc.setStatusName(rs.getString("StatusName"));
+                a.setStatusCode(asc);
+                return a;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public boolean checkExist(String email) {
         try {
             String sql = "select * from Account\n"
@@ -58,9 +86,11 @@ public class AccountDBContext extends DBContext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDBContext.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -75,9 +105,11 @@ public class AccountDBContext extends DBContext {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDBContext.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

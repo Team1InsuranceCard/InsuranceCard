@@ -533,3 +533,7 @@ img {vertical-align: middle;}
     height: 15rem;
     object-fit: cover;
 }
+
+.service-sub-card .card-title {
+    min-height: 72px;
+}

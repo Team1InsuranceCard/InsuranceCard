@@ -1,5 +1,6 @@
 <%-- Document : manage_contract Created on : Feb 9, 2022, 4:27:04 PM Author :
 area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                             <button
                                 class="search-button btn-secondary btn  my-2 my-sm-0"
                                 type="submit"
-                                >
+                                > 
                                 Search
                             </button>
                         </form>
@@ -68,28 +69,28 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         <thead class="contract-list-header">
                         <th scope="col">STT</th>
                         <th scope="col">
-                            <a title="${nameorder}" id="customer-filter" href="javascript:void()"
-                               >Customers</a
-                            >
-                        </th>
-                        <th scope="col">
-                            <a title="ASC" id="product-filter" href="javascript:void()"
-                               >Products</a
-                            >
-                        </th>
-                        <th scope="col">
-                            <a title="${startorder}" id="start-date-filter" href="javascript:void()"
-                               >Start date</a
-                            >
-                        </th>
-                        <th scope="col">
-                            <a title="${endorder}" id="end-date-filter" href="javascript:void()"
-                               >End date</a
-                            >
-                        </th>
-                        <th scope="col">
-                            <select class="status-select" name="" id="status-filter">
-                                <option value="" >Status</option>
+                            <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
+                                                                   >Customers: <c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
+                                >
+                            </th>
+                            <th scope="col">
+                                <a <c:if test="${orderby == 'product'}"> title="${ordertype}"</c:if>  id="product-filter" href="javascript:void();"
+                                                                         >Products<c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a
+                                >
+                            </th>
+                            <th scope="col">
+                                <a <c:if test="${orderby == 'start'}"> title="${ordertype}"</c:if> id="start-date-filter" href="javascript:void()"
+                                                                       >Start date<c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a
+                                >
+                            </th>
+                            <th scope="col">
+                                <a <c:if test="${orderby == 'end'}"> title="${ordertype}"</c:if>  id="end-date-filter" href="javascript:void()"
+                                                                     >End date<c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a
+                                >
+                            </th>
+                            <th scope="col">
+                                <select class="status-select" name="" id="status-filter">
+                                    <option value="" >Status</option>
                                 <c:forEach var="statuscode" items="${status_codes}">
                                     <option <c:if  test="${status == statuscode.statusCode}">selected</c:if> value="${statuscode.statusCode}">
                                         ${statuscode.statusName}
@@ -109,45 +110,45 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     </td>
                                     <td>${contract.product.title}</td>
                                     <td>
-                            <fmt:formatDate type="both" value="${contract.startDate}" />
-                            </td>
-                            <td>
-                            <fmt:formatDate type="both" value="${contract.endDate}" />
-                            </td>
-                            <td>
-                                <c:set
-                                    var="statuscode"
-                                    value="${contract.statusCode.statusCode}"
-                                    />
-                                 <span >${contract.statusCode.statusName}</span>
-<!--                               
-                                <c:choose>
-                                    <c:when test="${statuscode == 0}">
-                                        <span style="color: #5c2941">Out of date</span>
-                                    </c:when>
-                                    <c:when test="${statuscode == 1}">
-                                        <span style="color: #0dc858">Active</span>
-                                    </c:when>
-                                    <c:when test="${statuscode == 2}">
-                                        <span style="color: #ff7d42">Processing</span>
-                                    </c:when>
-                                    <c:when test="${statuscode == 3}">
-                                        <span style="color: #ff7d42">Canceling</span>
-                                    </c:when>
-                                    <c:when test="${statuscode == 4}">
-                                        <span style="color: #5c2941">Canceled</span>
-                                    </c:when>
-                                    <c:when test="${statuscode == 5}">
-                                        <span style="color: #5c2941">Rejected</span>
-                                    </c:when>
-                                </c:choose>
+                                        ${contract.startDate}
+                                    </td>
+                                    <td>
+                                        ${contract.endDate}
+                                    </td>
+                                    <td>
+                                        <c:set
+                                            var="statuscode"
+                                            value="${contract.statusCode.statusCode}"
+                                            />
+                                        <span >${contract.statusCode.statusName}</span>
+                                        <!--                               
+                                        <c:choose>
+                                            <c:when test="${statuscode == 0}">
+                                                <span style="color: #5c2941">Out of date</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 1}">
+                                                <span style="color: #0dc858">Active</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 2}">
+                                                <span style="color: #ff7d42">Processing</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 3}">
+                                                <span style="color: #ff7d42">Canceling</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 4}">
+                                                <span style="color: #5c2941">Canceled</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 5}">
+                                                <span style="color: #5c2941">Rejected</span>
+                                            </c:when>
+                                        </c:choose>
                                         -->
-                            </td>
-                            <td>
-                                <a href="staff/contract/detail?id=${contract.id}">Detail</a>
+                                    </td>
+                                    <td>
+                                        <a href="staff/contract/detail?id=${contract.id}">Detail</a>
                                 </tr>
                             </c:forEach>
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
                 <nav aria-label="Page navigation example">
