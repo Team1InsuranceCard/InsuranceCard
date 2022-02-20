@@ -65,7 +65,7 @@
         <servlet-class>controller.staff.ViewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-name>ProductDetail</servlet-name>
         <servlet-class>controller.ProductDetail</servlet-class>
     </servlet>
     <servlet>
@@ -149,7 +149,7 @@
         <url-pattern>/staff/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
