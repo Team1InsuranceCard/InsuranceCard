@@ -146,3 +146,8 @@ select:focus,
     color: #fff;
     font-weight: bold;
 }
+
+.right .btnDisable{
+    opacity: 50%;
+    cursor: default;
+}

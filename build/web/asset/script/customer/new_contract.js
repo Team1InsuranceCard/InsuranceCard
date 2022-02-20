@@ -58,13 +58,14 @@ $(document).ready(function () {
     var enddate = $.datepicker.formatDate('yy-mm-dd',
             new Date(startdate.getTime() + 365 * oneday));
     $("#enddate").val(enddate);
+    fillInsurancePeriod();
 })
 
 function calculateEndDate() {
     var startdate = new Date($("#startdate").val());
     //oneday = hour * minute * second * milliseconds
     var oneday = 24 * 60 * 60 * 1000;
-    var enddate
+    var enddate;
     if ($("#select2").val() === "1") {
         enddate = $.datepicker.formatDate('yy-mm-dd',
                 new Date(startdate.getTime() + 365 * oneday));
@@ -75,16 +76,26 @@ function calculateEndDate() {
         enddate = $.datepicker.formatDate('yy-mm-dd',
                 new Date(startdate.getTime() + 3 * 365 * oneday));
     }
-    $("#enddate").val(enddate);
+    return enddate;
+}
+
+function fillEndDate() {
+    $("#enddate").val(calculateEndDate());
+    fillInsurancePeriod();
 }
 
 function fillOwnerInfo(firstName, lastName, personalID) {
+    var event = new Event("change");
     if ($("#chk-1").prop('checked')) {
         $("#txt1").val(firstName + ' ' + lastName);
         $("#txt2").val(personalID);
+        //manually trigger a onchange event for owner name
+        document.getElementById("txt1").dispatchEvent(event);
     } else {
         $("#txt1").val("")
         $("#txt2").val("");
+        //manually trigger a onchange event for owner name
+        document.getElementById("txt1").dispatchEvent(event);
     }
 }
 
@@ -105,7 +116,7 @@ function fillDeliveryInfo(firstName, lastName, phone, email, address, province, 
         //manually trigger a onchange event for province select
         var event = new Event("change");
         document.getElementById("province").dispatchEvent(event);
-        
+
         $("#district").val(district);
         //manually trigger a onchange event for district select
         document.getElementById("district").dispatchEvent(event);
@@ -117,4 +128,28 @@ function fillDeliveryInfo(firstName, lastName, phone, email, address, province, 
         $("#province").val("");
         $("#district").val("");
     }
+}
+
+function enableCheckout() {
+    if ($("#chk-3").prop('checked')) {
+        document.getElementById("btnCheckout").classList.remove("btnDisable");
+        document.getElementById("btnCheckout").disabled = false;
+    } else {
+        document.getElementById("btnCheckout").classList.add("btnDisable");
+        document.getElementById("btnCheckout").disabled = true;
+    }
+}
+
+function fillInsurancePeriod() {
+    var start = $.datepicker.formatDate('dd/mm/yy', new Date($("#startdate").val()));
+    var end = $.datepicker.formatDate('dd/mm/yy', new Date(calculateEndDate()));
+    $("#period").text(start + " - " + end);
+}
+
+function fillRightOwner() {
+    $("#owner").text($("#txt1").val());
+}
+
+function fillRightLicensePlate() {
+    $("#license-plate").text($("#txt3").val());
 }
