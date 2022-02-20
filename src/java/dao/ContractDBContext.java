@@ -28,6 +28,25 @@ import model.VehicleType;
  */
 public class ContractDBContext extends DBContext {
 
+    public int totalAcitveContracts() {
+        int total = 0;
+        String sql_select_totalcontract = "SELECT COUNT(Contract.[ID]) AS NumberContract\n"
+                + "  FROM [Contract]\n"
+                + "  WHERE Contract.Status IN (1) AND Contract.isDelete = 0";
+        PreparedStatement psm_select_totalcontract;
+        try {
+            psm_select_totalcontract = connection.prepareStatement(sql_select_totalcontract);
+            ResultSet rs_select_totalcontract = psm_select_totalcontract.executeQuery();
+            if (rs_select_totalcontract.next()) {
+                total = rs_select_totalcontract.getInt("NumberContract");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return total;
+    }
+
     public int totalContracts(String querySearch, String contractStatus) {
         int totalContract = 0;
         if (querySearch == null) {
@@ -97,7 +116,7 @@ public class ContractDBContext extends DBContext {
         if (ordertype == null || ordertype.isEmpty()) {
             ordertype = "ASC";
         }
-        orderby = (orderby == null)? "": orderby;
+        orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
@@ -191,7 +210,7 @@ public class ContractDBContext extends DBContext {
         if (ordertype == null || ordertype.isEmpty()) {
             ordertype = "ASC";
         }
-        orderby = (orderby == null)? "": orderby;
+        orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
@@ -390,11 +409,11 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contract_status = new ContractStatusCode();
                 contract_status.setStatusCode(rs.getShort("Status"));
                 contract_status.setStatusName(rs.getString("StatusName"));
-                
+
                 VehicleType vt = new VehicleType();
                 vt.setId(rs.getInt("VehicleTypeID"));
                 vt.setVehicleType(rs.getString("VehicleType"));
-                
+
                 Brand brand = new Brand();
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));

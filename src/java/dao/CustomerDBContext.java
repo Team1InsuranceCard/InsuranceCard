@@ -22,6 +22,25 @@ import model.Staff;
  */
 public class CustomerDBContext extends DBContext {
 
+    public int getTotalActiveCustomers() {
+        int total = 0;
+
+        String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n" +
+"  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n" +
+"  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
+        try {
+            PreparedStatement psm_select_totalcustomer = connection.prepareStatement(sql_select_totalcustomer);
+            ResultSet rs_select_totalcustomer = psm_select_totalcustomer.executeQuery();
+            if (rs_select_totalcustomer.next()) {
+                total = rs_select_totalcustomer.getInt("NumberCustomer");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
     public Account getCustomerByEmailNGoogleID(String email, String googleID) {
         try {
 //            Customer customer = new Customer();

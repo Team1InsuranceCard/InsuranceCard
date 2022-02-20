@@ -114,3 +114,8 @@ main {
 .achivement-card img {
     width: 30%;
 }
+
+.total-number-active {
+    font-size: 2em;
+    font-weight: 700;
+}
