@@ -306,4 +306,35 @@ public class StaffDBContext extends DBContext {
         return products;
     }
 
+    //this method return a staff who have least contract
+    public Staff getLeastContractStaff() {
+        try {
+            String sql = "SELECT TOP 1 [AccountID]\n"
+                    + "      ,[FirstName]\n"
+                    + "      ,[LastName]\n"
+                    + "      ,[Phone]\n"
+                    + "	  ,COUNT(c.ID) as [total contract]\n"
+                    + "  FROM [Staff] s JOIN [Contract] c ON s.AccountID = c.StartStaff\n"
+                    + "  WHERE s.[isDelete] = 0\n"
+                    + "  GROUP BY c.StartStaff,[AccountID],[FirstName],[LastName],[Phone]\n"
+                    + "  ORDER BY [total contract]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                AccountDBContext adb = new AccountDBContext();
+                Account a = adb.getAccount(rs.getInt("AccountID"));
+                Staff s = new Staff();
+                s.setAccount(a);
+                s.setFirstName(rs.getString("FirstName"));
+                s.setLastName(rs.getString("LastName"));
+                s.setPhone(rs.getString("Phone"));
+
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

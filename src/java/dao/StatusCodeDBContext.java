@@ -41,4 +41,27 @@ public class StatusCodeDBContext extends DBContext {
         }
         return null;
     }
+    
+    public ContractStatusCode getContractStatusCode(int code) {
+        String sql_select_statuscode = "SELECT [StatusCode]\n"
+                + "      ,[StatusName]\n"
+                + "  FROM [ContractStatusCode]"
+                + "  WHERE [StatusCode] = ?";
+
+        try {
+            PreparedStatement psm_select_statuscode = connection.prepareStatement(sql_select_statuscode);
+            psm_select_statuscode.setInt(1, code);
+            ResultSet rs_select_statuscode = psm_select_statuscode.executeQuery();
+            if (rs_select_statuscode.next()) {
+                ContractStatusCode statusCode = new ContractStatusCode();
+                statusCode.setStatusCode(rs_select_statuscode.getShort("StatusCode"));
+                statusCode.setStatusName(rs_select_statuscode.getString("StatusName"));
+
+                return statusCode;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusCodeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

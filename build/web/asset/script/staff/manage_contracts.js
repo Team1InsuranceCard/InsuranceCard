@@ -10,11 +10,14 @@ var rootURL = new URL(window.location.href);
 var customerFilter = document.querySelector("#customer-filter");
 var startDateFilter = document.querySelector("#start-date-filter");
 var endDateFilter = document.querySelector("#end-date-filter");
+var productFilter = document.querySelector("#product-filter");
+
 var contractInclude = document.querySelector("#contract-include");
 
 var nameOrder = customerFilter.title;
 var startOrder = startDateFilter.title;
 var endOrder = endDateFilter.title;
+var productOrder = productFilter.title;
 var status = "";
 
 // function createForm() {
@@ -30,15 +33,19 @@ var status = "";
 // }
 
 customerFilter.addEventListener("click", () => {
-  setOrder(customerFilter, nameOrder, rootURL, "nameorder");
+  setOrder(customerFilter, nameOrder, rootURL, "name");
   window.location.href = rootURL;
 });
 startDateFilter.addEventListener("click", () => {
-  setOrder(startDateFilter, startOrder, rootURL, "startorder");
+  setOrder(startDateFilter, startOrder, rootURL, "start");
   window.location.href = rootURL;
 });
 endDateFilter.addEventListener("click", () => {
-  setOrder(endDateFilter, endOrder, rootURL, "endorder");
+  setOrder(endDateFilter, endOrder, rootURL, "end");
+  window.location.href = rootURL;
+});
+productFilter.addEventListener("click", () => {
+  setOrder(productFilter, productOrder, rootURL, "product");
   window.location.href = rootURL;
 });
 
@@ -58,10 +65,11 @@ function toggleOrder(order) {
   return order;
 }
 
-function setOrder(domElement, order, URL, paramName) {
-  var orderAfter = toggleOrder(order);
-  domElement.title = orderAfter;
-  URL.searchParams.set(paramName, orderAfter);
+function setOrder(domElement, ordertype, URL, orderby) {
+  ordertype = toggleOrder(ordertype);
+  domElement.title = ordertype;
+  URL.searchParams.set("orderby", orderby);
+  URL.searchParams.set("ordertype", ordertype);
 }
 contractInclude.addEventListener("click", () => {
   rootURL.searchParams.set("contract", toggleInclueContract(contractInclude));

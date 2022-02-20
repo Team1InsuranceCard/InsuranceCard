@@ -31,6 +31,13 @@ and open the template in the editor.
     border-top: 1px #000 solid;
 }
 
+.left a, 
+.left a:hover{
+    text-decoration: none;
+    color: var(--color3);
+    font-weight: bold;
+}
+
 .left .group-title{
     display: block;
     background: var(--color3);
@@ -40,9 +47,18 @@ and open the template in the editor.
     padding: 10px;
 }
 
-.left label{
+.left .label-input{
     display: inline-block;
-    width: 120px;
+    width: 20%;
+}
+
+.left .confirm-checkbox{
+    display: flex;
+}
+
+.left .confirm-checkbox input{
+    margin-right: 10px;
+    margin-top: 6px;
 }
 
 .inputdata{
@@ -52,7 +68,7 @@ and open the template in the editor.
     padding: 8px 5px;
     resize: none;
     margin-right: 10px;
-    width: 60%;
+    width: 55%;
 }
 
 .startdate, .enddate{
@@ -62,7 +78,7 @@ and open the template in the editor.
     padding: 8px 5px;
     resize: none;
     margin-right: 10px;
-    width: 30%;
+    width: 25%;
 }
 
 select{
@@ -83,7 +99,7 @@ select:focus,
 }
 
 .select-container{
-    margin-left: 120px;
+    margin-left: 20%;
 }
 
 .left .btnProduct{
@@ -136,4 +152,9 @@ select:focus,
     background: green;
     color: #fff;
     font-weight: bold;
+}
+
+.right .btnDisable{
+    opacity: 50%;
+    cursor: default;
 }
