@@ -47,6 +47,12 @@
                 </div>
             </div>
 
+            <div class="mess-box mess-box--success" 
+                 style="${param.isPay ? "display:flex;" : ""}">
+                <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
+                <p class="mess-box__mess">Payment successful!</p>
+            </div>
+
             <div class="section">
                 <h2 class="section__heading">Contract Information</h2>
 
@@ -305,7 +311,7 @@
         <script>
             const contractStatus = document.getElementById("contractStatus");
             const contractStatusID = ${requestScope.contract.statusCode.statusCode};
-            
+
             if (contractStatusID === 0) {
                 contractStatus.style.color = "#D62A25";
             } else if (contractStatusID === 1) {
@@ -319,10 +325,10 @@
             } else {
                 contractStatus.style.color = "#7B0B0B";
             }
-            
+
             const productStatus = document.getElementById("productStatus");
             const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
-            
+
             if (productStatusID === 0) {
                 productStatus.style.color = "#D62A25";
             } else {
@@ -336,13 +342,6 @@
                 if (confirm("Are you sure you want to do this?")) {
                     window.location.href = "staff/contract/pay?id=${requestScope.contract.id}";
                 }
-            }
-        </script>
-
-        <!-- payment successful mess -->
-        <script>
-            if (${param.isPay}) {
-                alert("Payment successful!");
             }
         </script>
     </body>
