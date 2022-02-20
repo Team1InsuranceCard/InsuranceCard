@@ -7,11 +7,13 @@ package controller.staff;
 
 import dao.StaffDBContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Product;
 import model.Staff;
 
 /**
@@ -60,6 +62,11 @@ public class StaffDashboard extends HttpServlet {
             int totalCompensation = dbS.getTotalCompensation(accountId);
             
             int unholdCus = dbS.getUnholdedCus(accountId);
+            int unholdedCont = dbS.getUnholdedCont(accountId);
+            int unholdedCompensation = dbS.getUnholdedCompensation(accountId);
+            int unholdedCancel = dbS.getUnholdedCancel(accountId);
+            
+            ArrayList<Product> products = dbS.getProducts();
 //            int totalCus = dbS.getTotal(accountId, 1);
 //            int totalCont = dbS.getTotal(accountId, 2);
 //            int totalCancel = dbS.getTotal(accountId, 3);
@@ -67,12 +74,18 @@ public class StaffDashboard extends HttpServlet {
             
             request.getSession().setAttribute("fname", staff.getFirstName());
             request.getSession().setAttribute("lname", staff.getLastName());
+            //Get total
             request.getSession().setAttribute("total1", totalCus);
             request.getSession().setAttribute("total2", totalCont);
             request.getSession().setAttribute("total3", totalCompensation);
             request.getSession().setAttribute("total4", totalCancel);
-            
+            //Get unholded
             request.getSession().setAttribute("unhold1", unholdCus);
+            request.getSession().setAttribute("unhold2", unholdedCont);
+            request.getSession().setAttribute("unhold3", unholdedCompensation);
+            request.getSession().setAttribute("unhold4", unholdedCancel);
+            
+            request.getSession().setAttribute("products", products);
             
 //            request.setAttribute("", dbS);
             request.getRequestDispatcher("../view/staff/staff_dashboard.jsp").forward(request, response);

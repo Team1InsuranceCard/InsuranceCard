@@ -40,7 +40,7 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE CONTRACT.isDelete = 0"
-                    + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE  ? + '%')"
+                    + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' +  ? + '%')"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
             stm_total.setString(1, querySearch);
@@ -69,7 +69,7 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                    + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE  ? + '%')"
+                    + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' +  ? + '%')"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
             stm_total.setInt(1, staffId);
@@ -87,27 +87,37 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String customerNameOrdered,
-            String startDateOrdered, String endDateOrdered, String contractStatus) {
+    public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String contractStatus, String orderby,
+            String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
         if (query == null) {
             query = "";
         }
-        if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
-            customerNameOrdered = "ASC";
+        if (ordertype == null || ordertype.isEmpty()) {
+            ordertype = "ASC";
         }
-        if (startDateOrdered == null || !(startDateOrdered.equalsIgnoreCase("ASC") || startDateOrdered.equalsIgnoreCase("DESC"))) {
-            startDateOrdered = "ASC";
-        }
-        if (endDateOrdered == null || !(endDateOrdered.equalsIgnoreCase("ASC") || endDateOrdered.equalsIgnoreCase("DESC"))) {
-            endDateOrdered = "ASC";
+        orderby = (orderby == null)? "": orderby;
+        switch (orderby) {
+            case "name":
+                orderby = "(Customer.FirstName + Customer.LastName)";
+                break;
+            case "product":
+                orderby = "Product.Title";
+                break;
+            case "start":
+                orderby = "Contract.StartDate";
+                break;
+            case "end":
+                orderby = "Contract.EndDate";
+                break;
+            default:
+                orderby = "(Customer.FirstName + Customer.LastName)";
+                break;
         }
 
         String sql_select_contract = "SELECT * FROM\n"
-                + "(SELECT ROW_NUMBER() OVER (ORDER BY Customer.FirstName " + customerNameOrdered
-                + ", Customer.LastName " + customerNameOrdered
-                + ", Contract.StartDate " + startDateOrdered + ", Contract.EndDate " + endDateOrdered + ") AS Row_count\n"
+                + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype + ") AS Row_count\n"
                 + "		,CONTRACT.[ID]\n"
                 + "      ,CONTRACT.[ProductID]\n"
                 + "      ,CONTRACT.[CustomerID]\n"
@@ -124,7 +134,7 @@ public class ContractDBContext extends DBContext {
                 + "  JOIN Product ON Product.ID = Contract.ProductID"
                 + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
                 + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
+                + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' + ?+'%')"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
         try {
@@ -171,27 +181,38 @@ public class ContractDBContext extends DBContext {
         return null;
     }
 
-    public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String customerNameOrdered,
-            String startDateOrdered, String endDateOrdered, String contractStatus) {
+    public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String contractStatus, String orderby,
+            String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
         if (query == null) {
             query = "";
         }
-        if (customerNameOrdered == null || !(customerNameOrdered.equalsIgnoreCase("ASC") || customerNameOrdered.equalsIgnoreCase("DESC"))) {
-            customerNameOrdered = "ASC";
+        if (ordertype == null || ordertype.isEmpty()) {
+            ordertype = "ASC";
         }
-        if (startDateOrdered == null || !(startDateOrdered.equalsIgnoreCase("ASC") || startDateOrdered.equalsIgnoreCase("DESC"))) {
-            startDateOrdered = "ASC";
-        }
-        if (endDateOrdered == null || !(endDateOrdered.equalsIgnoreCase("ASC") || endDateOrdered.equalsIgnoreCase("DESC"))) {
-            endDateOrdered = "ASC";
+        orderby = (orderby == null)? "": orderby;
+        switch (orderby) {
+            case "name":
+                orderby = "(Customer.FirstName + Customer.LastName)";
+                break;
+            case "product":
+                orderby = "Product.Title";
+                break;
+            case "start":
+                orderby = "Contract.StartDate";
+                break;
+            case "end":
+                orderby = "Contract.EndDate";
+                break;
+            default:
+                orderby = "(Customer.FirstName + Customer.LastName)";
+                break;
         }
 
         String sql_select_contract = "SELECT * FROM\n"
-                + "(SELECT ROW_NUMBER() OVER (ORDER BY Customer.FirstName " + customerNameOrdered
-                + ", Customer.LastName " + customerNameOrdered
-                + ", Contract.StartDate " + startDateOrdered + ", Contract.EndDate " + endDateOrdered + ") AS Row_count\n"
+                + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype
+                + ") AS Row_count\n"
                 + "		,CONTRACT.[ID]\n"
                 + "      ,CONTRACT.[ProductID]\n"
                 + "      ,CONTRACT.[CustomerID]\n"
@@ -208,7 +229,7 @@ public class ContractDBContext extends DBContext {
                 + "  JOIN Product ON Product.ID = Contract.ProductID"
                 + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
                 + "  WHERE CONTRACT.isDelete = 0"
-                + "   AND (Product.Title LIKE ? + '%' OR Customer.FirstName LIKE ? +'%' OR Customer.LastName LIKE ?+'%')"
+                + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' + ?+'%')"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
         try {

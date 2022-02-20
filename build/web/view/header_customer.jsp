@@ -83,7 +83,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
 ></script>
-<script>
+<!--<script>
     $(document).ready(function () {
         var a = $(window).scrollTop(),
                 i = $("nav").offset().top,
@@ -102,4 +102,4 @@
             a = o;
         });
     });
-</script>
+</script>-->

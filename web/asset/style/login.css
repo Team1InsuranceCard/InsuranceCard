@@ -121,7 +121,7 @@ img {
     background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a gray background */
 .remember input[type=checkbox]:checked~ .checkmark {
     background-color: #2196F3;
 }
@@ -227,24 +227,7 @@ img {
     width: 100%;
 }
 
-.google input[type=button]{
-    /*width: 100%;*/
-    font-size: 20px;
-    margin-left: 30%;
-    height: 3rem;
-    border-radius: 7px;
-    padding: 0 4rem 0 6rem;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-}
 
-.google img {
-    position: absolute;
-    background: url(../asset/image/gg_icon.png) no-repeat scroll 7px 7px;
-    padding-left: 36%;
-    margin-top: 0.1rem;
-}
 
 .alert {
     width: 100%;
