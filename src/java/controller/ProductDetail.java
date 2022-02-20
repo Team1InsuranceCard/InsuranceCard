@@ -19,7 +19,7 @@ import model.Product;
  *
  * @author area1
  */
-public class ProductDetaiil extends HttpServlet {
+public class ProductDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
