@@ -30,21 +30,21 @@
                     <div class="col col-lg-6 left">
                         <label for="inputCusID" class="label-input">Customer ID:</label>
                         <input type="text" id="inputCusID" class="inputdata"
-                               name="customerID"/><br/>
+                               name="customerID" value="${requestScope.cusIDSent}"/><br/>
                         <label for="inputCusName" class="label-input">Customer Name:</label>
                         <input type="text" id="inputCusName" class="inputdata"
-                               name="customerName"/><br/>
+                               name="customerName" value="${requestScope.cusNameSent}"/><br/>
                         <label for="inputPhone" class="label-input">Phone:</label>
                         <input type="text" id="inputPhone" class="inputdata"
-                               name="phone"/><br/>
+                               name="phone" value="${requestScope.phoneSent}"/><br/>
                     </div>
                     <div class="col col-lg-6 right">
                         <label for="inputProvince" class="label-input">Province:</label>
                         <input type="text" id="inputProvince" class="inputdata"
-                               name="province"/><br/>
+                               name="province" value="${requestScope.provinceSent}"/><br/>
                         <label for="inputDistrict" class="label-input">District:</label>
                         <input type="text" id="inputDistrict" class="inputdata"
-                               name="district"/><br/>
+                               name="district" value="${requestScope.districtSent}"/><br/>
                         <input type="submit" class="btnFilter" value="Filter"/>
                     </div>
                 </div>

@@ -34,14 +34,17 @@ public class ManageCustomerController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         CustomerDBContext cdb = new CustomerDBContext();
 
-        String cusID = request.getParameter("customerID") == null ? "0" : request.getParameter("customerID");
-        String cusName = request.getParameter("customerName")== null ? "" : request.getParameter("customerName");
-        String phone = request.getParameter("phone")== null ? "" : request.getParameter("phone");
-        String province = request.getParameter("province")== null ? "" : request.getParameter("province");
-        String district = request.getParameter("district")== null ? "" : request.getParameter("district");
+        String cusID = request.getParameter("customerID");
+        if(cusID == null || cusID.trim().isEmpty()){
+            cusID = "0";
+        }
+        String cusName = request.getParameter("customerName") == null ? "" : request.getParameter("customerName");
+        String phone = request.getParameter("phone") == null ? "" : request.getParameter("phone");
+        String province = request.getParameter("province") == null ? "" : request.getParameter("province");
+        String district = request.getParameter("district") == null ? "" : request.getParameter("district");
 
         String page = request.getParameter("page");
         if (page == null || page.isEmpty()) {
@@ -49,18 +52,24 @@ public class ManageCustomerController extends HttpServlet {
         }
         int pageIndex = Integer.parseInt(page);
         int pageSize = 10;
-        int totalRecords = cdb.countCustomersWithCondition(Integer.parseInt(cusID)
-                , cusName, phone, province, district);
+        int totalRecords = cdb.countCustomersWithCondition(Integer.parseInt(cusID),
+                cusName, phone, province, district);
         int totalPages = totalRecords % pageSize == 0 ? totalRecords / pageSize : (totalRecords / pageSize) + 1;
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("totalPages", totalPages);
 
-        ArrayList<Customer> customers = cdb.getCustomers(Integer.parseInt(cusID)
-                , cusName, phone, province, district,pageIndex, pageSize);
+        ArrayList<Customer> customers = cdb.getCustomers(Integer.parseInt(cusID),
+                cusName, phone, province, district, pageIndex, pageSize);
         request.setAttribute("customers", customers);
 
+        request.setAttribute("cusIDSent", cusID.equals("0") ? "" : cusID);
+        request.setAttribute("cusNameSent", cusName);
+        request.setAttribute("phoneSent", phone);
+        request.setAttribute("provinceSent", province);
+        request.setAttribute("districtSent", district);
+
         request.getRequestDispatcher("../../view/staff/manage-customer.jsp").forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
