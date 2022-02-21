@@ -96,6 +96,10 @@
         <servlet-name>StaffRenewContract</servlet-name>
         <servlet-class>controller.staff.RenewContract</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <servlet-class>controller.staff.ManageCustomerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>StaffRenewContract</servlet-name>
         <url-pattern>/staff/contract/renew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <url-pattern>/staff/customer/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
