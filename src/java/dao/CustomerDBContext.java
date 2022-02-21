@@ -9,9 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 import model.Customer;
 import model.CustomerStaff;
 import model.Staff;
@@ -48,10 +51,10 @@ public class CustomerDBContext extends DBContext {
                 cus.setProvince(rs_select_customer.getString("Province"));
                 cus.setDistrict(rs_select_customer.getString("District"));
                 cus.setAccount(account);
-                
+
                 return cus;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -637,4 +640,212 @@ public class CustomerDBContext extends DBContext {
         }
     }
 
+    public ArrayList<Customer> getCustomers(int cusID, String cusName, String phone,
+            String province, String district, int pageIndex, int pageSize) {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, * \n"
+                    + "         FROM [Customer] WHERE isDelete = 0 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (cusID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = cusID + "";
+                params.put(countParam, param);
+            }
+            if (!cusName.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!province.isEmpty()) {
+                table_rowNum += " AND [Province] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = province;
+                params.put(countParam, param);
+            }
+            if (!district.isEmpty()) {
+                table_rowNum += " AND [District] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = district;
+                params.put(countParam, param);
+            }
+
+            String sql = "SELECT [AccountID]\n"
+                    + "      ,[FirstName]\n"
+                    + "      ,[LastName]\n"
+                    + "      ,[Address]\n"
+                    + "      ,[Dob]\n"
+                    + "      ,[JoinDate]\n"
+                    + "      ,[Phone]\n"
+                    + "      ,[PersonalID]\n"
+                    + "      ,[Province]\n"
+                    + "      ,[District]\n"
+                    + "      ,p.[isDelete]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[Role]\n"
+                    + "      ,[StatusCode]\n"
+                    + "	     ,[StatusName]\n"
+                    + "      ,a.[isDelete]\n"
+                    + "      ,[GoogleID]"
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p JOIN [Account] a\n"
+                    + "  ON p.AccountID = a.ID "
+                    + "  JOIN [AccountStatusCode] sc\n"
+                    + "  ON a.[Status] = sc.[StatusCode]\n "
+                    + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+            stm.setInt(params.size() + 1, pageIndex);
+            stm.setInt(params.size() + 2, pageSize);
+            stm.setInt(params.size() + 3, pageIndex);
+            stm.setInt(params.size() + 4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            AccountStatusCode sc;
+            Account a;
+            Customer c;
+            while (rs.next()) {
+                sc = new AccountStatusCode(rs.getShort("StatusCode")
+                        , rs.getString("StatusName"));
+                                
+                a = new Account();
+                a.setId(rs.getInt("AccountID"));
+                a.setEmail(rs.getString("Email"));
+                a.setRole(rs.getBoolean("Role"));
+                a.setStatusCode(sc);
+                a.setGoogleID(rs.getString("GoogleID"));
+                
+                c = new Customer();
+                c.setAccount(a);
+                c.setFirstName(rs.getString("FirstName"));
+                c.setLastName(rs.getString("LastName"));
+                c.setAddress(rs.getString("Address"));
+                c.setDob(rs.getDate("Dob"));
+                c.setJoinDate(rs.getTimestamp("JoinDate"));
+                c.setPhone(rs.getString("Phone"));
+                c.setPersonalID(rs.getString("PersonalID"));
+                c.setProvince(rs.getString("Province"));
+                c.setDistrict(rs.getString("District"));
+                
+                customers.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return customers;
+    }
+    
+    public int countCustomersWithCondition(int cusID, String cusName, String phone,
+            String province, String district) {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, * \n"
+                    + "         FROM [Customer] WHERE isDelete = 0 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (cusID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = cusID + "";
+                params.put(countParam, param);
+            }
+            if (!cusName.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!province.isEmpty()) {
+                table_rowNum += " AND [Province] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = province;
+                params.put(countParam, param);
+            }
+            if (!district.isEmpty()) {
+                table_rowNum += " AND [District] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = district;
+                params.put(countParam, param);
+            }
+
+            String sql = "SELECT COUNT(AccountID) as [total customer]\n"
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total customer");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }
