@@ -704,7 +704,7 @@ public class CustomerDBContext extends DBContext {
                     + "      ,[PersonalID]\n"
                     + "      ,[Province]\n"
                     + "      ,[District]\n"
-                    + "      ,c.[isDelete]\n"
+                    + "      ,p.[isDelete]\n"
                     + "      ,[Email]\n"
                     + "      ,[Role]\n"
                     + "      ,[StatusCode]\n"
