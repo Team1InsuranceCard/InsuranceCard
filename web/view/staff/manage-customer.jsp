@@ -15,10 +15,12 @@
         <!-- CDN to reset CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+        <!--Material Icons-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link href="../../asset/style/staff/manage_customer.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
-    <body>
+    <body onload="createPagger('paggerBottom',${requestScope.pageIndex}, 2,${requestScope.totalPages})">
         <jsp:include page="../header_staff.jsp">
             <jsp:param name="currentscreen" value="customer" />
         </jsp:include>
@@ -64,7 +66,8 @@
                         <tr class="result-table-row">
                             <td class="result-table-col">${customer.account.id}</td>
                             <td class="result-table-col">
-                                <a class="result-table-link">
+                                <a href="staff/customer/detail?id=${customer.account.id}" 
+                                   class="result-table-link">
                                     ${customer.firstName} ${customer.lastName}
                                 </a>
                             </td>
@@ -80,6 +83,10 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <div class="bottom-row">
+                    <a href="staff/customer/create" class="btnAddNew">  + Add new customer  </a>
+                    <div id="paggerBottom" class="pagger"></div>
+                </div>
             </c:if>
             <c:if test="${requestScope.customers eq null or empty requestScope.customers}">
                 <div class="message-result">

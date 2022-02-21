@@ -59,8 +59,10 @@ and open the template in the editor.
     outline: none;
 }
 
-.btnFilter{
+.btnFilter,
+.btnAddNew{
     display: inline-block;
+    text-decoration: none;
     border: none;
     border-radius: 5px;
     padding: 0 5px;
@@ -73,7 +75,10 @@ and open the template in the editor.
     font-weight: bold;
     min-width: 100px;
 }
-
+.btnAddNew:hover{
+    color: #fff;
+    text-decoration: none;
+}
 
 .result-table{
     width: 100%;
@@ -144,6 +149,34 @@ and open the template in the editor.
 .result-table-col:nth-child(6){
     width: 10%;
     text-align: center;
+}
+
+.bottom-row{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between
+}
+
+.pagger{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.pagger a.pagger__link{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    line-height: 1.5;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.pagger a.pagger__link--active{
+    color: var(--color2);
 }
 
 .message-result{
