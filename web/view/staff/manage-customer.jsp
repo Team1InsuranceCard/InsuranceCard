@@ -29,22 +29,27 @@
                 <div class="row filter-container">
                     <div class="col col-lg-6 left">
                         <label for="inputCusID" class="label-input">Customer ID:</label>
-                        <input type="text" id="inputCusID" class="inputdata"/><br/>
+                        <input type="text" id="inputCusID" class="inputdata"
+                               name="customerID"/><br/>
                         <label for="inputCusName" class="label-input">Customer Name:</label>
-                        <input type="text" id="inputCusName" class="inputdata"/><br/>
+                        <input type="text" id="inputCusName" class="inputdata"
+                               name="customerName"/><br/>
                         <label for="inputPhone" class="label-input">Phone:</label>
-                        <input type="text" id="inputPhone" class="inputdata"/><br/>
+                        <input type="text" id="inputPhone" class="inputdata"
+                               name="phone"/><br/>
                     </div>
                     <div class="col col-lg-6 right">
                         <label for="inputProvince" class="label-input">Province:</label>
-                        <input type="text" id="inputProvince" class="inputdata"/><br/>
+                        <input type="text" id="inputProvince" class="inputdata"
+                               name="province"/><br/>
                         <label for="inputDistrict" class="label-input">District:</label>
-                        <input type="text" id="inputDistrict" class="inputdata"/><br/>
+                        <input type="text" id="inputDistrict" class="inputdata"
+                               name="district"/><br/>
                         <input type="submit" class="btnFilter" value="Filter"/>
                     </div>
                 </div>
             </form>
-            <c:if test="${requestScope.customers ne null}">
+            <c:if test="${requestScope.customers ne null and not empty requestScope.customers}">
                 <table class="result-table">
 
                     <tr class="result-table-row">
@@ -66,12 +71,17 @@
                             <td class="result-table-col">${customer.phone}</td>
                             <td class="result-table-col">${customer.account.email}</td>
                             <td class="result-table-col">${customer.joinDate}</td>
-                            <td class="result-table-col">${customer.account.statusCode.statusName}</td>
+                            <td class="result-table-col 
+                                ${customer.account.statusCode.statusCode eq 0? "redText" : ""} 
+                                ${customer.account.statusCode.statusCode eq 1? "greenText" : ""} 
+                                ${customer.account.statusCode.statusCode eq 2? "yellowText" : ""} ">
+                                ${customer.account.statusCode.statusName}
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
             </c:if>
-            <c:if test="${requestScope.customers eq null}">
+            <c:if test="${requestScope.customers eq null or empty requestScope.customers}">
                 <div class="message-result">
                     <p class="message-empty">There is no customer.</p>
                 </div>
