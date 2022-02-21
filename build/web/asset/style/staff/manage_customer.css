@@ -7,4 +7,19 @@ and open the template in the editor.
     Created on : Feb 21, 2022, 4:46:02 PM
     Author     : quynm
 */
+:root{
+    --color1: #ffdccc00;
+    --color2: #fdb1a6;
+    --color3: #fc6376;
+    --color4: #5c2941;
+}
 
+.container{
+    margin-top: 80px;
+    margin-left: 300px;
+    margin-bottom: 20px;
+}
+
+.title{
+    font-size: 28px;
+}

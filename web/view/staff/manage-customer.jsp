@@ -22,7 +22,25 @@
             <jsp:param name="currentscreen" value="customer" />
         </jsp:include>
         <div class="container">
-            
+            <h2 class="title">CUSTOMERS LIST</h2>
+            <hr/>
+            <form method="POST" action="staff/customer/view">
+                <div class="left">
+                    <label for="inputCusID">Customer ID:</label>
+                    <input type="text" id="inputCusID" class="inputdata"/><br/>
+                    <label for="inputCusName">Customer Name:</label>
+                    <input type="text" id="inputCusName" class="inputdata"/><br/>
+                    <label for="inputPhone">Phone:</label>
+                    <input type="text" id="inputPhone" class="inputdata"/><br/>
+                </div>
+                <div class="right">
+                    <label for="inputProvince">Province:</label>
+                    <input type="text" id="inputProvince" class="inputdata"/><br/>
+                    <label for="inputDistrict">District:</label>
+                    <input type="text" id="inputDistrict" class="inputdata"/><br/>
+                    <input type="submit" class="btnFilter" value="Filter"/>
+                </div>
+            </form>
         </div>
         <jsp:include page="../footer_full.jsp"></jsp:include>
 
