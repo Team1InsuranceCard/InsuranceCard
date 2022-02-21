@@ -97,7 +97,7 @@ public class ContractDBContext extends DBContext {
         if (ordertype == null || ordertype.isEmpty()) {
             ordertype = "ASC";
         }
-        orderby = (orderby == null)? "": orderby;
+        orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
@@ -191,7 +191,7 @@ public class ContractDBContext extends DBContext {
         if (ordertype == null || ordertype.isEmpty()) {
             ordertype = "ASC";
         }
-        orderby = (orderby == null)? "": orderby;
+        orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
@@ -390,11 +390,11 @@ public class ContractDBContext extends DBContext {
                 ContractStatusCode contract_status = new ContractStatusCode();
                 contract_status.setStatusCode(rs.getShort("Status"));
                 contract_status.setStatusName(rs.getString("StatusName"));
-                
+
                 VehicleType vt = new VehicleType();
                 vt.setId(rs.getInt("VehicleTypeID"));
                 vt.setVehicleType(rs.getString("VehicleType"));
-                
+
                 Brand brand = new Brand();
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));
@@ -751,5 +751,231 @@ public class ContractDBContext extends DBContext {
                 Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public void insertContract(Contract contract) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_contract = "INSERT INTO [Contract]\n"
+                    + "           ([ProductID]\n"
+                    + "           ,[StartDate]\n"
+                    + "           ,[EndDate]\n"
+                    + "           ,[Status]\n"
+                    + "           ,[ContractFee]\n"
+                    + "           ,[VehicleTypeID]\n"
+                    + "           ,[Engine]\n"
+                    + "           ,[LicensePlate]\n"
+                    + "           ,[Color]\n"
+                    + "           ,[CertImage]\n"
+                    + "           ,[BrandID]\n"
+                    + "           ,[Owner]\n"
+                    + "           ,[Chassis]\n"
+                    + "           ,[RequestDate]\n"
+                    + "           ,[StartStaff])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "		   ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm_contract = connection.prepareStatement(sql_contract);
+            stm_contract.setInt(1, contract.getProduct().getId());
+            stm_contract.setTimestamp(2, contract.getStartDate());
+            stm_contract.setTimestamp(3, contract.getEndDate());
+            stm_contract.setShort(4, contract.getStatusCode().getStatusCode());
+            stm_contract.setDouble(5, contract.getContractFee());
+            stm_contract.setInt(6, contract.getVehicleType2().getId());
+            stm_contract.setString(7, contract.getEngine());
+            stm_contract.setString(8, contract.getLicensePlate());
+            stm_contract.setString(9, contract.getColor());
+            stm_contract.setString(10, contract.getCertImage());
+            stm_contract.setInt(11, contract.getBrand2().getId());
+            stm_contract.setString(12, contract.getOwner());
+            stm_contract.setString(13, contract.getChassis());
+            stm_contract.setTimestamp(14, contract.getRequestDate());
+            stm_contract.setInt(15, contract.getStartStaff().getAccount().getId());
+            stm_contract.executeUpdate();
+
+            String sql_get_contractid = "select @@identity as contract_id";
+            PreparedStatement stm_get_contractid = connection.prepareStatement(sql_get_contractid);
+            ResultSet rs_contractid = stm_get_contractid.executeQuery();
+            if (rs_contractid.next()) {
+                contract.setId(rs_contractid.getInt("contract_id"));
+            }
+
+            //add customer to staff if customer not null (customer null when guest create contract)
+            if (contract.getCustomer() != null) {
+                String sql_update_customer = "UPDATE [Contract]\n"
+                        + "   SET [CustomerID] = ?\n"
+                        + " WHERE [ID] = ?";
+                PreparedStatement stm_update_customer = connection.prepareStatement(sql_update_customer);
+                stm_update_customer.setInt(1, contract.getCustomer().getAccount().getId());
+                stm_update_customer.setInt(2, contract.getId());
+                stm_update_customer.executeUpdate();
+            }
+
+            connection.commit();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally{
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void staffRenewContract(Contract contract, int payMethodID) {
+        try {
+            connection.setAutoCommit(false);
+            // insert contract
+            String sql_insert_contract = "insert into Contract (ProductID\n"
+                    + "					, CustomerID\n"
+                    + "					, StartDate\n"
+                    + "					, EndDate\n"
+                    + "					, Status\n"
+                    + "					, isDelete\n"
+                    + "					, ContractFee\n"
+                    + "					, VehicleTypeID\n"
+                    + "					, Engine\n"
+                    + "					, LicensePlate\n"
+                    + "					, Color\n"
+                    + "					, CertImage\n"
+                    + "					, BrandID\n"
+                    + "					, Owner\n"
+                    + "					, Chassis\n"
+                    + "					, StartStaff)\n"
+                    + "values (?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, 2\n"
+                    + "		, 0\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?)";
+            PreparedStatement ps_insert_contract = connection.prepareCall(sql_insert_contract);
+            ps_insert_contract.setInt(1, contract.getProduct().getId());
+            ps_insert_contract.setInt(2, contract.getCustomer().getAccount().getId());
+            ps_insert_contract.setTimestamp(3, contract.getStartDate());
+            ps_insert_contract.setTimestamp(4, contract.getEndDate());
+            ps_insert_contract.setDouble(5, contract.getContractFee());
+            ps_insert_contract.setInt(6, contract.getVehicleType2().getId());
+            ps_insert_contract.setString(7, contract.getEngine());
+            ps_insert_contract.setString(8, contract.getLicensePlate());
+            ps_insert_contract.setString(9, contract.getColor());
+            ps_insert_contract.setString(10, contract.getCertImage());
+            ps_insert_contract.setInt(11, contract.getBrand2().getId());
+            ps_insert_contract.setString(12, contract.getOwner());
+            ps_insert_contract.setString(13, contract.getChassis());
+            ps_insert_contract.setInt(14, contract.getStartStaff().getAccount().getId());
+            ps_insert_contract.executeUpdate();
+
+            // get contract id
+            String sql_get_id = "select @@IDENTITY as contractID";
+            PreparedStatement ps_get_id = connection.prepareStatement(sql_get_id);
+            ResultSet rs_get_id = ps_get_id.executeQuery();
+            if (rs_get_id.next()) {
+                contract.setId(rs_get_id.getInt("contractID"));
+            }
+
+            // insert payment
+            String sql_insert_payment = "insert into Payment (StartDate\n"
+                    + "					, PaymentMethodID\n"
+                    + "					, Amount\n"
+                    + "					, ContractID\n"
+                    + "					, isDelete)\n"
+                    + "values (GETDATE()\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, ?\n"
+                    + "		, 0)";
+            PreparedStatement ps_insert_payment = connection.prepareStatement(sql_insert_payment);
+            ps_insert_payment.setInt(1, payMethodID);
+            ps_insert_payment.setDouble(2, contract.getContractFee());
+            ps_insert_payment.setInt(3, contract.getId());
+            ps_insert_payment.executeUpdate();
+
+            // nếu trả tiền trực tiếp thì cập nhật
+            String sql_update = "if ? = 1\n"
+                    + "begin\n"
+                    + "	update Payment\n"
+                    + "	set PaidDate = GETDATE()\n"
+                    + "	where ContractID = ?\n"
+                    + "\n"
+                    + "	update Contract\n"
+                    + "	set Status = 1\n"
+                    + "	where ID = ?\n"
+                    + "end";
+            PreparedStatement ps_update = connection.prepareStatement(sql_update);
+            ps_update.setInt(1, payMethodID);
+            ps_update.setInt(2, contract.getId());
+            ps_update.setInt(3, contract.getId());
+            ps_update.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public boolean staffRenewCheck(Contract contract) {
+        try {
+            String sql = "select *\n"
+                    + "from Contract\n"
+                    + "where ProductID = ?\n"
+                    + "	and CustomerID = ?\n"
+                    + "	and (Status = 2 \n"
+                    + "		or (select count(ID) \n"
+                    + "			from Contract where ProductID = ?\n"
+                    + "							and CustomerID = ?\n"
+                    + "							and Status = 1) > 1)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, contract.getProduct().getId());
+            ps.setInt(2, contract.getCustomer().getAccount().getId());
+            ps.setInt(3, contract.getProduct().getId());
+            ps.setInt(4, contract.getCustomer().getAccount().getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }

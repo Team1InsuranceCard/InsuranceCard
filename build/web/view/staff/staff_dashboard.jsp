@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,8 +10,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>
-<!--        <style>
+        <!--<link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>-->
+        <style>
             body {
                 background: #FFF9EC;
                 color: #5C2941;
@@ -122,7 +123,15 @@
                 -webkit-border-horizontal-spacing: 0 !important;
                 -webkit-border-vertical-spacing: 3px !important;
             }
-        </style>-->
+
+            table thead a:hover, tbody tr td a:hover {
+                text-decoration: none;
+            }
+            
+            table tbody tr td a {
+                font-size: 1.3em;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
@@ -188,7 +197,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold2}</h3>
                             </div>
                             <div class="col-9 unholded">
                                 <a href="#">
@@ -242,7 +251,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold3}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
@@ -267,7 +276,7 @@
                         </div>
                         <div class="row under">
                             <div class="col-2 unhold-number">
-                                <h3>4</h3>
+                                <h3>${sessionScope.unhold4}</h3>
                             </div>
                             <div class="col-8 unholded">
                                 <a href="#">
@@ -311,37 +320,22 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Insurance Plans</th>
-                                        <th scope="col">View All</th>
+                                        <th scope="col" style="color: #007bff;">Insurance Plans</th>
+                                        <th scope="col"><a href="product" style="color: black;">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td scope="row">1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">3</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">4</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">5</td>
-                                        <td></td>
-                                    </tr>
+                                    <c:forEach var="p" items="${sessionScope.products}" begin="0" end="4">
+                                        <tr>
+                                            <td scope="row"><a href="product/detail?productid=${p.id}">${p.id}. ${p.title}</a></td>
+                                            <td></td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!--<a class="nav-link" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2" style="background-color: black;"></i>Logout</a>-->
             </div>
         </section>
         <jsp:include page="../footer_full.jsp"></jsp:include>

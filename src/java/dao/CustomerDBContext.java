@@ -22,6 +22,42 @@ import model.Staff;
  */
 public class CustomerDBContext extends DBContext {
 
+    public Customer getCustomerByAccount(Account account) {
+        try {
+            String sql_select_customer = "SELECT [AccountID]\n"
+                    + "      ,[FirstName]\n"
+                    + "      ,[LastName]\n"
+                    + "      ,[Address]\n"
+                    + "      ,[Phone]\n"
+                    + "      ,[PersonalID]\n"
+                    + "      ,[Province]\n"
+                    + "      ,[District]\n"
+                    + "  FROM [Customer]\n"
+                    + "  where [AccountID] = ?";
+            PreparedStatement psm_select_customer = connection.prepareStatement(sql_select_customer);
+            psm_select_customer.setInt(1, account.getId());
+            ResultSet rs_select_customer = psm_select_customer.executeQuery();
+
+            if (rs_select_customer.next()) {
+                Customer cus = new Customer();
+                cus.setFirstName(rs_select_customer.getString("Firstname"));
+                cus.setLastName(rs_select_customer.getString("LastName"));
+                cus.setAddress(rs_select_customer.getString("Address"));
+                cus.setPhone(rs_select_customer.getString("Phone"));
+                cus.setPersonalID(rs_select_customer.getString("PersonalID"));
+                cus.setProvince(rs_select_customer.getString("Province"));
+                cus.setDistrict(rs_select_customer.getString("District"));
+                cus.setAccount(account);
+                
+                return cus;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public Account getCustomerByEmailNGoogleID(String email, String googleID) {
         try {
 //            Customer customer = new Customer();
