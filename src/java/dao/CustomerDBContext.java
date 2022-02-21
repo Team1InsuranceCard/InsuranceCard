@@ -735,9 +735,9 @@ public class CustomerDBContext extends DBContext {
             stm.setInt(params.size() + 4, pageSize);
 
             ResultSet rs = stm.executeQuery();
-            AccountStatusCode sc = null;
-            Account a = null;
-            Customer c = null;
+            AccountStatusCode sc;
+            Account a;
+            Customer c;
             while (rs.next()) {
                 sc = new AccountStatusCode(rs.getShort("StatusCode")
                         , rs.getString("StatusName"));
