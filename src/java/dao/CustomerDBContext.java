@@ -826,8 +826,7 @@ public class CustomerDBContext extends DBContext {
 
             String sql = "SELECT COUNT(AccountID) as [total customer]\n"
                     + "  FROM "
-                    + "  ( " + table_rowNum + " ) as p \n "
-                    + "  WHERE p.isDelete = 0 ";
+                    + "  ( " + table_rowNum + " ) as p";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
