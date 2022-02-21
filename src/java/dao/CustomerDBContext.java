@@ -746,7 +746,6 @@ public class CustomerDBContext extends DBContext {
                 a.setId(rs.getInt("AccountID"));
                 a.setEmail(rs.getString("Email"));
                 a.setRole(rs.getBoolean("Role"));
-                a.setStatus(rs.getShort("Status"));
                 a.setStatusCode(sc);
                 a.setGoogleID(rs.getString("GoogleID"));
                 

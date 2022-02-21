@@ -52,7 +52,6 @@
                         <th class="result-table-header">Name</th>
                         <th class="result-table-header">Phone</th>
                         <th class="result-table-header">Email</th>
-                        <th class="result-table-header">Staff</th>
                         <th class="result-table-header">Joined Date</th>
                         <th class="result-table-header">Status</th>
                     </tr>
@@ -61,15 +60,11 @@
                             <td class="result-table-col">${customer.account.id}</td>
                             <td class="result-table-col">
                                 <a class="result-table-link">
-                                    ${customer.firstName + ' ' + customer.lastName}
+                                    ${customer.firstName} ${customer.lastName}
                                 </a>
                             </td>
                             <td class="result-table-col">${customer.phone}</td>
-                            <td class="result-table-col">${customer.email}</td>
-                            <td class="result-table-col">
-                                <a class="result-table-link">
-                                    ${cStaff}
-                                </a></td>
+                            <td class="result-table-col">${customer.account.email}</td>
                             <td class="result-table-col">${customer.joinDate}</td>
                             <td class="result-table-col">${customer.account.statusCode.statusName}</td>
                         </tr>
