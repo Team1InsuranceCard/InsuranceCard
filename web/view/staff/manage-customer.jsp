@@ -4,6 +4,7 @@
     Author     : quynm
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -43,13 +44,52 @@
                     </div>
                 </div>
             </form>
+            <c:if test="${requestScope.customers ne null}">
+                <table class="result-table">
+
+                    <tr class="result-table-row">
+                        <th class="result-table-header">Customer ID</th>
+                        <th class="result-table-header">Name</th>
+                        <th class="result-table-header">Phone</th>
+                        <th class="result-table-header">Email</th>
+                        <th class="result-table-header">Staff</th>
+                        <th class="result-table-header">Joined Date</th>
+                        <th class="result-table-header">Status</th>
+                    </tr>
+                    <c:forEach items="${requestScope.customers}" var="customer">
+                        <tr class="result-table-row">
+                            <td class="result-table-col">${customer.account.id}</td>
+                            <td class="result-table-col">
+                                <a class="result-table-link">
+                                    ${customer.firstName + ' ' + customer.lastName}
+                                </a>
+                            </td>
+                            <td class="result-table-col">${customer.phone}</td>
+                            <td class="result-table-col">${customer.email}</td>
+                            <td class="result-table-col">
+                                <a class="result-table-link">
+                                    ${cStaff}
+                                </a></td>
+                            <td class="result-table-col">${customer.joinDate}</td>
+                            <td class="result-table-col">${customer.account.statusCode.statusName}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+            <c:if test="${requestScope.customers eq null}">
+                <div class="message-result">
+                    <p class="message-empty">There is no customer.</p>
+                </div>
+            </c:if>
         </div>
+
+
         <jsp:include page="../footer_full.jsp"></jsp:include>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-        <script src="asset/script/customer/new_contract.js"></script>
+        <script src="asset/script/staff/manage_customer.js"></script>
     </body>
 </html>

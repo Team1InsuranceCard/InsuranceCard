@@ -18,10 +18,14 @@ and open the template in the editor.
     margin-top: 80px;
     margin-left: 300px;
     margin-bottom: 20px;
+    font-family: Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .title{
     font-size: 28px;
+    font-weight: bold;
+    color: var(--color1);
 }
 
 .label-input{
@@ -58,5 +62,66 @@ and open the template in the editor.
     color: #fff;
     font-weight: bold;
     min-width: 100px;
-    margin-top: 15px;
+}
+
+
+.result-table{
+    width: 100%;
+    table-layout:fixed;
+    align-items: center;
+    margin-top: 20px;
+}
+.result-table-row{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+}
+.result-table-header{
+    text-align: left;
+    font-weight: 700;
+    padding: 10px 5px;
+    border-bottom: 2px solid #ccc;
+    background: var(--color2);
+    color: var(--color4);
+    text-align: center;
+}
+.result-table-col{
+    padding: 10px 5px;
+    border-bottom: 2px solid #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-table-header:nth-child(1),
+.result-table-col:nth-child(1){
+    width: 10%;
+}
+.result-table-header:nth-child(2),
+.result-table-col:nth-child(2){
+    width: 30%;
+}
+.result-table-header:nth-child(3),
+.result-table-col:nth-child(3){
+    width: 10%;
+}
+.result-table-header:nth-child(4),
+.result-table-col:nth-child(4){
+    width: 25%;
+}
+.result-table-header:nth-child(5),
+.result-table-col:nth-child(5){
+    width: 10%;
+}
+.result-table-header:nth-child(6),
+.result-table-col:nth-child(6){
+    width: 10%;
+}
+
+.message-result{
+    margin-top: 30px;
+}
+
+.message-empty{
+    color: var(--color1);
+    text-align: center;
 }
