@@ -25,20 +25,22 @@
             <h2 class="title">CUSTOMERS LIST</h2>
             <hr/>
             <form method="POST" action="staff/customer/view">
-                <div class="left">
-                    <label for="inputCusID">Customer ID:</label>
-                    <input type="text" id="inputCusID" class="inputdata"/><br/>
-                    <label for="inputCusName">Customer Name:</label>
-                    <input type="text" id="inputCusName" class="inputdata"/><br/>
-                    <label for="inputPhone">Phone:</label>
-                    <input type="text" id="inputPhone" class="inputdata"/><br/>
-                </div>
-                <div class="right">
-                    <label for="inputProvince">Province:</label>
-                    <input type="text" id="inputProvince" class="inputdata"/><br/>
-                    <label for="inputDistrict">District:</label>
-                    <input type="text" id="inputDistrict" class="inputdata"/><br/>
-                    <input type="submit" class="btnFilter" value="Filter"/>
+                <div class="row filter-container">
+                    <div class="col col-lg-6 left">
+                        <label for="inputCusID" class="label-input">Customer ID:</label>
+                        <input type="text" id="inputCusID" class="inputdata"/><br/>
+                        <label for="inputCusName" class="label-input">Customer Name:</label>
+                        <input type="text" id="inputCusName" class="inputdata"/><br/>
+                        <label for="inputPhone" class="label-input">Phone:</label>
+                        <input type="text" id="inputPhone" class="inputdata"/><br/>
+                    </div>
+                    <div class="col col-lg-6 right">
+                        <label for="inputProvince" class="label-input">Province:</label>
+                        <input type="text" id="inputProvince" class="inputdata"/><br/>
+                        <label for="inputDistrict" class="label-input">District:</label>
+                        <input type="text" id="inputDistrict" class="inputdata"/><br/>
+                        <input type="submit" class="btnFilter" value="Filter"/>
+                    </div>
                 </div>
             </form>
         </div>

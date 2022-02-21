@@ -23,3 +23,40 @@ and open the template in the editor.
 .title{
     font-size: 28px;
 }
+
+.label-input{
+    display: inline-block;
+    width: 25%;
+    margin-bottom: 0;
+}
+
+.inputdata{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+    width: 55%;
+}
+
+.inputdata:focus{
+    border-bottom: 1px solid var(--color3);
+    outline: none;
+}
+
+.btnFilter{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--color1);
+    color: #fff;
+    font-weight: bold;
+    min-width: 100px;
+    margin-top: 15px;
+}
