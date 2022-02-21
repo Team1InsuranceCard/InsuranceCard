@@ -19,6 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
     </head>
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
@@ -83,7 +84,8 @@
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Duration:</p>
                             <p class="col-md-2">
-                                <select id="duration" name="duration" required>
+                                <select id="duration" name="duration" 
+                                        onchange="calDate()" required>
                                     <option hidden>Select year</option>
                                     <option value="1">1 year</option>
                                     <option value="2">2 year</option>
@@ -101,9 +103,10 @@
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3">
                                 <input type="date" id="startDate" name="startDate"
-                                       min="${requestScope.minDate}" required/></p>
+                                       min="${requestScope.minDate}" 
+                                       value="${requestScope.minDate}" required/></p>
                             <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-2 underline" id="endDate">
                             </p>
                         </div>
                         <div class="row">
@@ -115,10 +118,10 @@
                         <div class="row">
                             <p class="col-md-2 bold">Cancel reason:</p>
                             <textarea class="col-md-3 text-area" disabled>
-                                ${c.cancelReason}</textarea>
+                            </textarea>
                             <p class="col-md-2 space bold">Cancel comment:</p>
                             <textarea class="col-md-2 text-area" disabled>
-                                ${c.cancelComment}</textarea>
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -133,7 +136,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <p class="col-md-4 bold">Vehicle type:</p>
-                                    <p class="col-md-6 underline">${c.vehicleType}</p>
+                                    <p class="col-md-6 underline">${c.vehicleType2.vehicleType}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Engine:</p>
@@ -149,7 +152,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Brand:</p>
-                                    <p class="col-md-6 underline">${c.brand}</p>
+                                    <p class="col-md-6 underline">${c.brand2.brand}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Owner:</p>
@@ -164,7 +167,7 @@
                             <div class="col-md-6">
                                 <p class="bold space">CertImage:</p>
                                 <div class="row">
-                                    <img class="col-md-12" src="${c.certImage}.png" alt="cert image"/>
+                                    <img class="col-md-12" src="${c.certImage}" alt="cert image"/>
                                 </div>
                             </div>
                         </div>

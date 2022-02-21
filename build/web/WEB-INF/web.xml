@@ -65,8 +65,8 @@
         <servlet-class>controller.staff.ViewContract</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetaiil</servlet-name>
-        <servlet-class>controller.ProductDetaiil</servlet-class>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>controller.ProductDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewContractController</servlet-name>
@@ -87,6 +87,18 @@
     <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffContractPayment</servlet-name>
+        <servlet-class>controller.staff.ContractPayment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffRenewContract</servlet-name>
+        <servlet-class>controller.staff.RenewContract</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <servlet-class>controller.staff.ManageCustomerController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -145,7 +157,7 @@
         <url-pattern>/staff/contract/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetaiil</servlet-name>
+        <servlet-name>ProductDetail</servlet-name>
         <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -167,6 +179,18 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffContractPayment</servlet-name>
+        <url-pattern>/staff/contract/pay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffRenewContract</servlet-name>
+        <url-pattern>/staff/contract/renew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <url-pattern>/staff/customer/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

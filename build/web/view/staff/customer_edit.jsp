@@ -21,7 +21,7 @@
                     <div class="mess-box mess-box--danger" 
                          style="${requestScope.isExistEmail ? "display:flex;" : ""}">
                         <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
-                        <p class="mess">The email address is already taken!</p>
+                        <p class="mess-box__mess">The email address is already taken!</p>
                     </div>
 
                     <div class="mess-box mess-box--success" 
@@ -57,7 +57,7 @@
                                         <option ${requestScope.status == 1 ? "selected" : ""}
                                             value="1">Active</option>
                                         <option ${requestScope.status == 2 ? "selected" : ""}
-                                            value="2">Pending</option>
+                                            value="2" disabled>Pending</option>
                                     </select>
                                 </div>
                             </div>

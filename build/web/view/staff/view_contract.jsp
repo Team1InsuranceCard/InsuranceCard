@@ -23,17 +23,23 @@
         <main>
             <div class="header">
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
+
                 <div class="header__btn">
-                    <a class="btn btn--primary ${requestScope.contract.statusCode.statusCode >= 2 
-                                                 && requestScope.contract.statusCode.statusCode <= 5 
-                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? 'btn--disabled' : ''}" 
+                    <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}"
+                            onclick="confirmBox()">
+                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
+                        <div class="btn__text">Payment</div>
+                    </button>
+
+                    <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
+                                                 || requestScope.contract.statusCode.statusCode == 1) 
+                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
                        href="staff/contract/renew?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_reload.png"></img>
                         <div class="btn__text">Renew</div>
                     </a>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode != 1 
-                                                && requestScope.contract.statusCode.statusCode != 2 ? 'btn--disabled' : ''}" 
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
                        href="staff/contract/cancel?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
@@ -41,8 +47,15 @@
                 </div>
             </div>
 
+            <div class="mess-box mess-box--success" 
+                 style="${param.isPay ? "display:flex;" : ""}">
+                <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
+                <p class="mess-box__mess">Payment successful!</p>
+            </div>
+
             <div class="section">
-                <h2 class="section__heading">General Information</h2>
+                <h2 class="section__heading">Contract Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Contract ID</div>
@@ -115,6 +128,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Customer Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Name</div>
@@ -151,6 +165,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Vehicle Information</h2>
+
                 <div class="section__main">
                     <div class="section__left">
                         <div class="section__item">
@@ -200,6 +215,7 @@
 
             <div class="section">
                 <h2 class="section__heading">Product Information</h2>
+
                 <div class="section__main">
                     <div class="section__item">
                         <div class="section__title">Product ID</div>
@@ -210,7 +226,7 @@
                         <div class="section__title">Product Title</div>
                         <div class="section__text">${requestScope.contract.product.title}</div>
                     </div>
-                    
+
                     <div class="section__item">
                         <div class="section__title">Status</div>
                         <div class="section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
@@ -220,6 +236,70 @@
                         <div class="section__title">Content detail</div>
                         <div class="section__text">${requestScope.contract.product.contentDetail}</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section__heading">Payment history</h2>
+
+                <div class="section__main">
+                    <table class="section__table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Start date</th>
+                                <th>Paid date</th>
+                                <th>Payment method</th>
+                                <th>Amount</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.payments}" var="pay">
+                                <tr>
+                                    <td>${pay.id}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.startDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${pay.paidDate}" /></td>
+                                    <td>${pay.paymentMethod2.paymentMethod}</td>
+                                    <td>${pay.amount}</td>
+                                    <td>${pay.note}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section__heading">Compensation history</h2>
+
+                <div class="section__main">
+                    <table class="section__table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Created date</th>
+                                <th>Resolve date</th>
+                                <th>Status</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.compensations}" var="com">
+                                <tr>
+                                    <td>${com.id}</td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.createDate}" /></td>
+                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${com.resolveDate}" /></td>
+                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
+                                        ${com.status.statusName}</td>
+                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
+                                </tr>
+                            </c:forEach>
+                    </table>
                 </div>
             </div>
         </main>
@@ -245,14 +325,23 @@
             } else {
                 contractStatus.style.color = "#7B0B0B";
             }
-            
+
             const productStatus = document.getElementById("productStatus");
             const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
 
             if (productStatusID === 0) {
                 productStatus.style.color = "#D62A25";
             } else {
-                productStatus.style.color = "#7B0B0B";
+                productStatus.style.color = "#1AC36B";
+            }
+        </script>
+
+        <!-- confirm box -->
+        <script>
+            function confirmBox() {
+                if (confirm("Are you sure you want to do this?")) {
+                    window.location.href = "staff/contract/pay?id=${requestScope.contract.id}";
+                }
             }
         </script>
     </body>

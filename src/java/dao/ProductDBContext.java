@@ -49,7 +49,7 @@ public class ProductDBContext extends DBContext {
                 + "      ,[ContentDetail]\n"
                 + "      ,[StartDate]\n"
                 + "  FROM [Product]\n"
-                + "  WHERE Product.ID = ? AND Product.isDelete = 0";
+                + "  WHERE Product.ID = ? AND (Product.isDelete = 0 OR Product.isDelete is NULL)";
         try {
             PreparedStatement psm_select_product = connection.prepareStatement(sql_select_product);
             psm_select_product.setInt(1, productID);

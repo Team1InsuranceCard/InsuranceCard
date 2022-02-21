@@ -8,15 +8,13 @@ main {
 
 .seach-bar,
 .create-contract-button {
-  display: inline-block;
-  margin: auto;
+    text-align: -webkit-right;
 
 }
 
 .contract-action {
   margin-bottom: 4em;
   text-align: center;
-  padding-left: 20em;
 }
 
 .create-contract-button a {

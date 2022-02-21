@@ -170,28 +170,14 @@
 
     <!-- auto joinDate = current date -->
     <script>
-            if (${empty requestScope.joinDate}) {
-                var joinDateElm = document.getElementById("joinDate");
-                var now = new Date();
-                var utcString = now.toISOString().substring(0, 19);
-                var year = now.getFullYear();
-                var month = now.getMonth() + 1;
-                var day = now.getDate();
-                var hour = now.getHours();
-                var minute = now.getMinutes();
-                var second = now.getSeconds();
-                var localDatetime =
-                        year +
-                        "-" +
-                        (month < 10 ? "0" + month.toString() : month) +
-                        "-" +
-                        (day < 10 ? "0" + day.toString() : day) +
-                        "T" +
-                        (hour < 10 ? "0" + hour.toString() : hour) +
-                        ":" +
-                        (minute < 10 ? "0" + minute.toString() : minute);
-                joinDateElm.value = localDatetime;
-            }
+        if (${empty requestScope.joinDate}) {
+            var joinDateElm = document.getElementById("joinDate");
+            var now = new Date();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var date = now.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+            joinDateElm.value = date + "T" + datetime.toLocaleTimeString().substring(0, 5);
+        }
     </script>
 
     <!-- province, district -->

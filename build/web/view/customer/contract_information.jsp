@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,7 @@
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
     </head>
 
     <body>
@@ -144,40 +146,42 @@
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.requestDate}"/></p>
                             <p class="col-md-2 space bold">Resolve date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.resolveDate}"/></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.endDate}"/></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel request date:</p>
                             <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelRequestDate}"/></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
                             <p class="col-md-2 underline">
-                                <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelDate}"/></p>
                         </div>
                         <div class="row">
-                            <p class="col-md-2 bold">Cancel reason:</p>
-                            <textarea class="col-md-3 text-area" disabled>
-                                ${c.cancelReason}</textarea>
-                            <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>
-                                ${c.cancelComment}</textarea>
+                            <div class="col-md-2 bold">Cancel reason:</div>
+                            <div class="col-md-3">
+                                <textarea class="text-area" disabled>${c.cancelReason}</textarea>
+                            </div>
+                            <div class="col-md-2 space bold">Cancel comment:</div>
+                            <div class="col-md-2">
+                                <textarea class="text-area" disabled>${c.cancelComment}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +196,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <p class="col-md-4 bold">Vehicle type:</p>
-                                    <p class="col-md-6 underline">${c.vehicleType}</p>
+                                    <p class="col-md-6 underline">${c.vehicleType2.vehicleType}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Engine:</p>
@@ -208,7 +212,7 @@
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Brand:</p>
-                                    <p class="col-md-6 underline">${c.brand}</p>
+                                    <p class="col-md-6 underline">${c.brand2.brand}</p>
                                 </div>
                                 <div class="row">
                                     <p class="col-md-4 bold">Owner:</p>
@@ -223,7 +227,7 @@
                             <div class="col-md-6">
                                 <p class="bold space">CertImage:</p>
                                 <div class="row">
-                                    <img class="col-md-12" src="${c.certImage}.png" alt="cert image"/>
+                                    <img class="col-md-12" src="${c.certImage}" alt="cert image"/>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +245,7 @@
                 </div>
                 <div class="submit">
                     <c:set var="check" value="${requestScope.checkRenew}"/>
-                    <input type="${requestScope.pro==0||c.status==5||check!=""?"hidden":"submit"}" 
+                    <input type="${requestScope.pro==0||c.status==5||c.status==1||check!=""?"hidden":"submit"}" 
                            name="btn" value="${requestScope.btn}"/>
                     <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
                         ${requestScope.mess}</h4>

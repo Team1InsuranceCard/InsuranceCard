@@ -1,3 +1,27 @@
+.mess-box {
+  display: none;
+  align-items: center;
+  padding: 20px 15px;
+  border-radius: 4px;
+  margin: 0 60px 30px 60px;
+}
+
+.mess-box--success {
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
+}
+
+.mess-box__icon {
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+.mess-box__mess {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 body {
   background-color: #f8f8f8;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -32,11 +56,12 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 7px 6px;
-  min-width: 90px;
+  padding: 8px;
+  min-width: 100px;
   flex-wrap: wrap;
   gap: 5px;
   border-radius: 3px;
+  border: none;
 }
 
 .btn + .btn {
@@ -45,6 +70,18 @@ main {
 
 .btn__icon {
   width: 18px;
+}
+
+.btn--success {
+  background-color: #63c565;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.btn--success:hover {
+  background-color: #498f4a;
+  color: #fff;
+  transition: all 0.2s;
 }
 
 .btn--primary {
@@ -68,8 +105,8 @@ main {
 }
 
 .btn--disabled {
-    pointer-events: none;
-    opacity: 0.5;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .btn__text {
@@ -96,7 +133,7 @@ main {
 
 .section__main {
   font-size: 18px;
-  margin: 20px 30px 20px 30px;
+  padding: 20px 30px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -110,6 +147,10 @@ main {
 .section__title {
   font-weight: 500;
   min-width: 180px;
+}
+
+.section__text {
+  color: #555;
 }
 
 .section__img {
@@ -127,4 +168,80 @@ main {
 
 .section__right .section__title {
   margin-bottom: 12px;
+}
+
+.section__table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  padding: 20px 30px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.section__table tbody td,
+.section__table thead th {
+  position: relative;
+}
+
+.section__table th {
+  font-weight: 500;
+  border-bottom: 1px solid #dcdada;
+  padding: 10px 5px;
+  overflow: hidden;
+}
+
+.section__table td {
+  border-bottom: 1px solid #dcdada;
+  padding: 5px;
+  transition: all 0.2s;
+  color: #555;
+}
+
+.section__table tbody td:hover::before {
+  background-color: #f4efef;
+  content: "\00a0";
+  height: 100%;
+  left: -5000px;
+  position: absolute;
+  top: 0;
+  width: 10000px;
+  z-index: -1;
+}
+
+.section__table tbody td:hover::after {
+  background-color: #f4efef;
+  content: "\00a0";
+  height: 10000px;
+  left: 0;
+  position: absolute;
+  top: -5000px;
+  width: 100%;
+  z-index: -1;
+}
+
+.section__table tr td:hover {
+  background-color: #c3c3c1;
+  color: #fff;
+}
+
+.table-btn {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #acacac;
+  border-radius: 15px;
+  padding: 3px;
+  font-size: 16px;
+  min-width: 45px;
+  display: inline-block;
+  text-align: center;
+}
+
+.table-btn:hover {
+  background-color: #64334a;
+  color: #fff;
+}
+
+.section__table tr td.not-hightlight:hover {
+  background-color: #f4efef;
 }
