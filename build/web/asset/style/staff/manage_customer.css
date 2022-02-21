@@ -13,7 +13,6 @@ and open the template in the editor.
     --color3: #fc6376;
     --color4: #5c2941;
 }
-
 .container{
     margin-top: 80px;
     margin-left: 300px;
@@ -119,6 +118,7 @@ and open the template in the editor.
 
 .message-result{
     margin-top: 30px;
+    margin-bottom: 400px;
 }
 
 .message-empty{
