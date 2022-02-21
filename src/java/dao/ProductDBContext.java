@@ -20,6 +20,24 @@ import model.ProductStatusCode;
  */
 public class ProductDBContext extends DBContext {
 
+    public int getTotalActiveProducts() {
+        int total = 0;
+        String sql_select_totalproduct = "SELECT COUNT(Product.[ID]) AS NumberProducts\n"
+                + "  FROM [Product]\n"
+                + "  WHERE Product.Status IN (1) AND Product.isDelete = 0";
+
+        try {
+            PreparedStatement psm_select_totalproduct = connection.prepareStatement(sql_select_totalproduct);
+            ResultSet rs_select_totalproduct = psm_select_totalproduct.executeQuery();
+            if (rs_select_totalproduct.next()) {
+                total = rs_select_totalproduct.getInt("NumberProducts");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
     public Product getProduct(int productID) {
         String sql_select_product = "SELECT [ID]\n"
                 + "      ,[Title]\n"
@@ -44,13 +62,13 @@ public class ProductDBContext extends DBContext {
 
                 ProductStatusCode statusCode = new ProductStatusCode();
                 statusCode.setStatusCode(rs_select_product.getShort("Status"));
-                
+
                 product.setStatusCode(statusCode);
                 product.setDescription(rs_select_product.getString("Description"));
                 product.setStartDate(rs_select_product.getTimestamp("StartDate"));
                 product.setPrice(rs_select_product.getDouble("Price"));
                 product.setContentDetail(rs_select_product.getString("ContentDetail"));
-                
+
                 return product;
             }
         } catch (SQLException ex) {
