@@ -8,3 +8,117 @@ and open the template in the editor.
     Author     : quynm
 */
 
+:root{
+    --color1: #ffdccc00;
+    --color2: #fdb1a6;
+    --color3: #fc6376;
+    --color4: #5c2941;
+}
+
+.container{
+    margin-bottom: 20px;
+}
+
+.title{
+    margin-top: 140px;
+    font-size: 28px;
+}
+
+.left{
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #bbb;
+    border-top: 1px #000 solid;
+}
+
+.left a, 
+.left a:hover{
+    text-decoration: none;
+    color: var(--color3);
+    font-weight: bold;
+}
+
+.left .group-title{
+    display: block;
+    background: var(--color3);
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.left .label-input{
+    display: inline-block;
+    width: 20%;
+}
+
+.left .confirm-checkbox{
+    display: flex;
+}
+
+.left .confirm-checkbox input{
+    margin-right: 10px;
+    margin-top: 6px;
+}
+
+.inputdata{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+    width: 55%;
+}
+
+.startdate, .enddate{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+    width: 25%;
+}
+
+select{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+}
+
+.inputdata:focus,
+select:focus,
+.startdate:focus,
+.enddate:focus{
+    border-bottom: 1px solid var(--color3);
+    outline: none;
+}
+
+.select-container{
+    margin-left: 20%;
+}
+
+.left .btnProduct{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--color2);
+    color: #000;
+    font-weight: bold;
+}
+
+.left .btnProduct:hover{
+    text-decoration: none;
+    color: #000;
+}
