@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -179,28 +180,41 @@
                     <h1 class="col-lg-12 card__heading">UPDATE PERSONAL INFORMATION</h1>
                     <div class="mess-box mess-box--danger" 
                          <!--style="${requestScope.isExistEmail ? "display:flex;" : ""}">-->
-                         <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
+                         <img src="asset/image/customer/update_info/icon_close.png" alt="" class="mess-box__icon" />
                         <p class="mess-box__mess">The email address is already taken!</p>
                     </div>
 
                     <div class="mess-box mess-box--success" 
                          <!--style="${requestScope.isSuccess ? "display:flex;" : ""}">-->
-                         <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
+                         <img src="asset/image/customer/update_info/icon_approve.png" class="mess-box__icon" />
                         <p class="mess-box__mess">Success! Your submission has been saved!</p>
                     </div>
                 </div>
 
                 <form action="customer/info/update" method="POST" autocomplete="off">
+                    <input type="hidden" name="id" value="${sessionScope.account.id}">
+
                     <div class="row section justify-content-center">
                         <h2 class="col-lg-11 section__heading">Account Information</h2>
                         <div class="row col-lg-12 justify-content-around section__main">
                             <div class="col-lg-5 section__item_disable">
                                 <p class="section__label">Email</p>
-                                <div class="non-input">tiennqhe153125@fpt.edu.vn</div>
+                                <div class="non-input">${requestScope.email}</div>
                             </div>
                             <div class="col-lg-5 section__item_disable">
                                 <p class="section__label">Status</p>
-                                <div class="non-input">Active</div>
+                                <div class="non-input" style="font-weight: bold; color:
+                                     <c:if test="${raw == 1}">
+                                         #0DC858
+                                     </c:if>
+                                     <c:if test="${raw == 0}">
+                                         #FF3D00
+                                     </c:if>
+                                     <c:if test="${raw == 2}">
+                                         gold
+                                     </c:if>
+                                     "
+                                     >${requestScope.status}</div>
                             </div>
                         </div>
                     </div><br>
@@ -328,11 +342,11 @@
                         <div class="row col-lg-12 justify-content-around section__main">
                             <div class="col-lg-5 section__item_disable">
                                 <p class="section__label">Staff</p>
-                                <div class="non-input">Nguyen Que Tien</div>
+                                <div class="non-input">${requestScope.staff}</div>
                             </div>
                             <div class="col-lg-5 section__item_disable">
                                 <p class="section__label">Joining date</p>
-                                <div class="non-input">Active</div>
+                                <div class="non-input">${requestScope.joinDate}</div>
                             </div>
                         </div>
                     </div>
@@ -346,5 +360,87 @@
             </div>
         </section>
         <jsp:include page="../footer_full.jsp"></jsp:include>
+            <!-- province, district -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
+            <script>
+                $('select[name="calc_shipping_provinces"]').each(function () {
+                    var $this = $(this),
+                            stc = "";
+                    c.forEach(function (i, e) {
+                        e += +1;
+                        stc += "<option value=" + e + ">" + i + "</option>";
+                        $this.html('<option value="">Provinces</option>' + stc);
+                        $this.on("change", function (i) {
+                            i = $this.children("option:selected").index() - 1;
+                            var str = "",
+                                    r = $this.val();
+                            arr[i].forEach(function (el) {
+                                str += '<option value="' + el + '">' + el + "</option>";
+                                $('select[name="calc_shipping_district"]').html(
+                                        '<option value="">Districts</option>' + str
+                                        );
+                            });
+                            var address_1 = $this.children("option:selected").text();
+                            var district = $('select[name="calc_shipping_district"]').html();
+                            $('select[name="calc_shipping_district"]').on(
+                                    "change",
+                                    function () {
+                                        var target = $(this).children("option:selected");
+                                        target.attr("selected", "");
+                                        $('select[name="calc_shipping_district"] option')
+                                                .not(target)
+                                                .removeAttr("selected");
+                                        var address_2 = target.text();
+                                        $("input.billing_address_2").attr("value", address_2);
+                                        district = $('select[name="calc_shipping_district"]').html();
+                                    }
+                            );
+                            $("input.billing_address_1").attr("value", address_1);
+                        });
+                    });
+                });
+
+                var district = $('select[name="calc_shipping_district"]').html();
+                $('select[name="calc_shipping_district"]').on(
+                        "change",
+                        function () {
+                            var target = $(this).children("option:selected");
+                            target.attr("selected", "");
+                            $('select[name="calc_shipping_district"] option')
+                                    .not(target)
+                                    .removeAttr("selected");
+                            var address_2 = target.text();
+                            $("input.billing_address_2").attr("value", address_2);
+                            district = $('select[name="calc_shipping_district"]').html();
+                        }
+                );
+            </script>
+
+            <!-- set previous value for province, district -->
+            <script>
+                var pro = document.getElementById("province").options;
+                var proVal = "${requestScope.province}";
+                for (var i = 0; i < province.length; i++) {
+                    if (pro[i].text === proVal) {
+                        pro[i].selected = true;
+                        var str = "";
+                        arr[i - 1].forEach(function (el) {
+                            str += '<option value="' + el + '">' + el + "</option>";
+                            $('select[name="calc_shipping_district"]').html(
+                                    '<option value="">Districts</option>' + str
+                                    );
+                        });
+                    }
+                }
+
+                var dis = document.getElementById("district").options;
+                var disVal = "${requestScope.district}";
+                for (var i = 0; i < dis.length; i++) {
+                    if (dis[i].text === disVal) {
+                        dis[i].selected = true;
+                    }
+                }
+        </script>
     </body>
 </html>
