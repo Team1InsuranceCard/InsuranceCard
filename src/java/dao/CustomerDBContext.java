@@ -645,7 +645,7 @@ public class CustomerDBContext extends DBContext {
         ArrayList<Customer> customers = new ArrayList<>();
         try {
             String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, * \n"
-                    + "         FROM [Customer] WHERE 1=1 ";
+                    + "         FROM [Customer] WHERE isDelete = 0 ";
             HashMap<Integer, String[]> params = new HashMap<>();
             int countParam = 0;
             if (cusID != 0) {
