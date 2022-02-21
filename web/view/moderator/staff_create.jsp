@@ -19,14 +19,69 @@
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
                 color: #5C2941;
+                /*overflow-x: hidden;*/
             }
 
-            section {
-                margin: 7rem 26rem;
-            }
-
-            .func-label {
+            section .func-label {
+                margin: 7rem 0 3rem 23rem;
                 font-weight: bold;
+            }
+
+            section .container {
+                margin-left: 23rem;
+            }
+
+            .container .row .attribute {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 1.5rem;
+                margin-left: 5rem;
+            }
+
+            .container .row .input {
+                margin-bottom: 3rem;
+                margin-left: 5rem;
+            }
+
+            .container .row .input input {
+                width: 20rem;
+                height: 3.5rem;
+                background: #FFF9EC;
+                border: 1.75px solid #000000;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding-left: 1.5rem;
+            }
+
+            .container .row span {
+                color: red;
+            }
+
+            .btn-input {
+                margin: 1rem 0 3rem 24.75rem;
+            }
+
+            .btn-input .btn {
+                width: 7rem;
+                height: 3rem;
+                border-radius: 10px;
+                font-weight: bold;
+            }
+
+            .create {
+                background: #FC6376;
+                margin-right: 1rem;
+                color: #FFFFFF;
+            }
+
+            .cancel {
+                background: #C4C4C4;
+                color: #5C2941;
+            }
+            
+            ::placeholder {
+                color: rgba(0, 0, 0, 0.4);
+                font-style: italic;
             }
         </style>
     </head>
@@ -41,53 +96,55 @@
         <section>
             <h2 class="func-label">New Staff</h2>
 
-            <form>
-                <!-- Name -->
-                <div class="row">
-                    <div class="col-md-6">First name</div>
-                    <div class="col-md-6">Last name</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 fname">
-                        <input type="text"  name="firstName"
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               placeholder="Nguyễn Văn" required/>
+            <form action="moderator/staff/create" method="POST">
+                <div class="container">
+                    <!-- Name -->
+                    <div class="row">
+                        <div class="col-md-5 attribute">First name <span>*</span></div>
+                        <div class="col-md-5 attribute">Last name <span>*</span></div>
                     </div>
-                    <div class="col-md-6 lname">
-                        <input type="text"  name="lastName"
-                               pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                               placeholder="Anh" required/>
-                    </div>
-                </div>
 
-                <!-- Email + Phone -->
-                <div class="row">
-                    <div class="col-md-6">Email</div>
-                    <div class="col-md-6">Phone</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 email">
-                        <input type="email" name="email"
-                               placeholder="anhnv@gmail.com" required/>
+                    <div class="row">
+                        <div class="col-md-5 input fname">
+                            <input type="text"  name="firstName"
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   placeholder="Nguyễn Văn" required/>
+                        </div>
+                        <div class="col-md-5 input lname">
+                            <input type="text"  name="lastName"
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   placeholder="Anh" required/>
+                        </div>
                     </div>
-                    <div class="col-md-6 phone">
-                        <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
-                               minlength="10" maxlength="10"
-                               placeholder="0123456789" required/>
-                    </div>
-                </div>
 
-                <div>
-                    <input type="submit" value="Create"/>
-                    <input type="button" value="Cancel"/>
+                    <!-- Email + Phone -->
+                    <div class="row">
+                        <div class="col-md-5 attribute">Email <span>*</span></div>
+                        <div class="col-md-5 attribute">Phone <span>*</span></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 input email">
+                            <input type="email" name="email"
+                                   placeholder="anhnv@gmail.com" required/>
+                        </div>
+                        <div class="col-md-5 input phone">
+                            <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
+                                   minlength="10" maxlength="10"
+                                   placeholder="0123456789" required/>
+                        </div>
+                    </div>
+
+                    <div class="btn-input">
+                        <input type="submit" class="create btn" value="Create"/>
+                        <input type="button" class="cancel btn" value="Cancel"/>
+                    </div>
                 </div>
             </form>
         </section>
 
         <footer>
-            <%--<jsp:include page="../footer_full.jsp"></jsp:include>--%>
+            <jsp:include page="../footer_full.jsp"></jsp:include>
         </footer>
     </body>
 </html>
