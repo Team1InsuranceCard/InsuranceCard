@@ -92,6 +92,10 @@
         <servlet-name>StaffContractPayment</servlet-name>
         <servlet-class>controller.staff.ContractPayment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateStaff</servlet-name>
+        <servlet-class>controller.moderator.CreateStaff</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>StaffContractPayment</servlet-name>
         <url-pattern>/staff/contract/pay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateStaff</servlet-name>
+        <url-pattern>/moderator/staff/create</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
