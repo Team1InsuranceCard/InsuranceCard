@@ -72,7 +72,14 @@
                                     <label for="select4" class="label-input">Product (*):</label>
                                     <select id="select4" class="selectdata" name="productID">
                                         <c:forEach items="${requestScope.products}" var="product">
-                                            <option value="${product.id}">${product.title}</option>
+                                            <c:if test="${requestScope.productSent ne null}"></c:if>
+                                            <option value="${product.id}"
+                                                    <c:if test="${requestScope.productSent ne null 
+                                                                  and requestScope.productSent.id eq product.id}">
+                                                          selected="true"
+                                                    </c:if>>
+                                                ${product.title}
+                                            </option>
                                         </c:forEach>
                                     </select>
                                 </span>

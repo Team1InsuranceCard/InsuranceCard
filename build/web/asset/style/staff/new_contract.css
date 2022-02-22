@@ -53,7 +53,7 @@ and open the template in the editor.
 
 .left .label-input{
     display: inline-block;
-    width: 20%;
+    width: 12%;
 }
 
 .left .confirm-checkbox{
@@ -103,7 +103,7 @@ select:focus,
 }
 
 .select-container{
-    margin-left: 20%;
+    margin-left: 12%;
 }
 
 .left .btnProduct{
