@@ -28,10 +28,47 @@ import model.VehicleType;
  */
 public class ContractDBContext extends DBContext {
 
-    public int totalContracts(String querySearch, String contractStatus) {
+    public int totalAcitveContracts() {
+        int total = 0;
+        String sql_select_totalcontract = "SELECT COUNT(Contract.[ID]) AS NumberContract\n"
+                + "  FROM [Contract]\n"
+                + "  WHERE Contract.Status IN (1) AND Contract.isDelete = 0";
+        PreparedStatement psm_select_totalcontract;
+        try {
+            psm_select_totalcontract = connection.prepareStatement(sql_select_totalcontract);
+            ResultSet rs_select_totalcontract = psm_select_totalcontract.executeQuery();
+            if (rs_select_totalcontract.next()) {
+                total = rs_select_totalcontract.getInt("NumberContract");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return total;
+    }
+
+    public int totalContracts(String query, String queryChoose, String contractStatus) {
         int totalContract = 0;
-        if (querySearch == null) {
-            querySearch = "";
+        if (query == null) {
+            query = "";
+        }
+
+        String querySearch = " 1 = 1";
+        switch (queryChoose) {
+            case "personalid":
+                querySearch = " Customer.PersonalID LIKE ? ";
+                break;
+            case "producttitle":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "customername":
+                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
         }
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
@@ -40,12 +77,13 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE CONTRACT.isDelete = 0"
-                    + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' +  ? + '%')"
+                    + "   AND (" + querySearch + ")"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
-            stm_total.setString(1, querySearch);
-            stm_total.setString(2, querySearch);
-            stm_total.setString(3, querySearch);
+            int i = 0;
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_total.setString(++i, query);
+            }
 
             ResultSet rs_total = stm_total.executeQuery();
             if (rs_total.next()) {
@@ -57,11 +95,29 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public int totalContractsByStaff(int staffId, String querySearch, String contractStatus) {
+    public int totalContractsByStaff(int staffId, String query, String queryChoose, String contractStatus) {
         int totalContract = 0;
-        if (querySearch == null) {
-            querySearch = "";
+        if (query == null) {
+            query = "";
         }
+        String querySearch = " 1 = 1";
+        switch (queryChoose) {
+            case "personalid":
+                querySearch = " Customer.PersonalID LIKE ? ";
+                break;
+            case "productname":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "customername":
+                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
                     + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
@@ -69,13 +125,14 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                    + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' +  ? + '%')"
+                    + "   AND (" + querySearch + ")"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
-            stm_total.setInt(1, staffId);
-            stm_total.setString(2, querySearch);
-            stm_total.setString(3, querySearch);
-            stm_total.setString(4, querySearch);
+            int i = 0;
+            stm_total.setInt(++i, staffId);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_total.setString(++i, query);
+            }
 
             ResultSet rs_total = stm_total.executeQuery();
             if (rs_total.next()) {
@@ -87,7 +144,7 @@ public class ContractDBContext extends DBContext {
         return totalContract;
     }
 
-    public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, int pageIndex, String contractStatus, String orderby,
+    public HashMap<Integer, Contract> getContractsByStaff(int staffId, String query, String queryChoose, int pageIndex, String contractStatus, String orderby,
             String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
@@ -116,37 +173,56 @@ public class ContractDBContext extends DBContext {
                 break;
         }
 
-        String sql_select_contract = "SELECT * FROM\n"
-                + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype + ") AS Row_count\n"
-                + "		,CONTRACT.[ID]\n"
-                + "      ,CONTRACT.[ProductID]\n"
-                + "      ,CONTRACT.[CustomerID]\n"
-                + "      ,CONTRACT.[StartDate]\n"
-                + "      ,CONTRACT.[EndDate]\n"
-                + "      ,CONTRACT.[Status]"
-                + "      ,ContractStatusCode.StatusName\n"
-                + "      ,CONTRACT.[isDelete]\n"
-                + "	  ,Customer.FirstName, Customer.LastName\n"
-                + "	  ,Product.Title\n"
-                + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
-                + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
-                + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
-                + "  JOIN Product ON Product.ID = Contract.ProductID"
-                + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
-                + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
-                + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' + ?+'%')"
-                + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
-                + "WHERE MAIN.Row_count BETWEEN ? AND ?";
+        String querySearch = " 1 = 1";
+        switch (queryChoose) {
+            case "personalid":
+                querySearch = " Customer.PersonalID LIKE ? ";
+                break;
+            case "producttitle":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "customername":
+                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
         try {
+            String sql_select_contract = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype + ") AS Row_count\n"
+                    + "		,CONTRACT.[ID]\n"
+                    + "      ,CONTRACT.[ProductID]\n"
+                    + "      ,CONTRACT.[CustomerID]\n"
+                    + "      ,CONTRACT.[StartDate]\n"
+                    + "      ,CONTRACT.[EndDate]\n"
+                    + "      ,CONTRACT.[Status]"
+                    + "      ,ContractStatusCode.StatusName\n"
+                    + "      ,CONTRACT.[isDelete]\n"
+                    + "	  ,Customer.FirstName, Customer.LastName\n"
+                    + "	  ,Product.Title\n"
+                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  JOIN Product ON Product.ID = Contract.ProductID"
+                    + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
+                    + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "   AND (" + querySearch + ")"
+                    + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
+                    + "WHERE MAIN.Row_count BETWEEN ? AND ?";
+
             PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
 
-            stm_select_contract.setInt(1, staffId);
-            stm_select_contract.setString(2, query);
-            stm_select_contract.setString(3, query);
-            stm_select_contract.setString(4, query);
+            int i = 0;
+            stm_select_contract.setInt(++i, staffId);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_select_contract.setString(++i, query);
+            }
 
-            stm_select_contract.setInt(5, recordFromTo[0]);
-            stm_select_contract.setInt(6, recordFromTo[1]);
+            stm_select_contract.setInt(++i, recordFromTo[0]);
+            stm_select_contract.setInt(++i, recordFromTo[1]);
             ResultSet rs_select_contract = stm_select_contract.executeQuery();
             while (rs_select_contract.next()) {
                 Contract contract = new Contract();
@@ -181,7 +257,7 @@ public class ContractDBContext extends DBContext {
         return null;
     }
 
-    public HashMap<Integer, Contract> getContracts(String query, int pageIndex, String contractStatus, String orderby,
+    public HashMap<Integer, Contract> getContracts(String query, String queryChoose, int pageIndex, String contractStatus, String orderby,
             String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
@@ -210,6 +286,24 @@ public class ContractDBContext extends DBContext {
                 break;
         }
 
+        String querySearch = " 1 = 1 ";
+        switch (queryChoose) {
+            case "personalid":
+                querySearch = " Customer.PersonalID LIKE ? ";
+                break;
+            case "producttitle":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "customername":
+                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ? +'%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+
         String sql_select_contract = "SELECT * FROM\n"
                 + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype
                 + ") AS Row_count\n"
@@ -229,18 +323,18 @@ public class ContractDBContext extends DBContext {
                 + "  JOIN Product ON Product.ID = Contract.ProductID"
                 + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
                 + "  WHERE CONTRACT.isDelete = 0"
-                + "   AND (Product.Title LIKE '%' + ? + '%' OR Customer.FirstName LIKE '%' + ? +'%' OR Customer.LastName LIKE '%' + ?+'%')"
+                + "   AND (" + querySearch + ")"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                 + "WHERE MAIN.Row_count BETWEEN ? AND ?";
         try {
             PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
+            int i = 0;
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_select_contract.setString(++i, query);
+            }
 
-            stm_select_contract.setString(1, query);
-            stm_select_contract.setString(2, query);
-            stm_select_contract.setString(3, query);
-
-            stm_select_contract.setInt(4, recordFromTo[0]);
-            stm_select_contract.setInt(5, recordFromTo[1]);
+            stm_select_contract.setInt(++i, recordFromTo[0]);
+            stm_select_contract.setInt(++i, recordFromTo[1]);
             ResultSet rs_select_contract = stm_select_contract.executeQuery();
             while (rs_select_contract.next()) {
                 Contract contract = new Contract();
@@ -833,7 +927,7 @@ public class ContractDBContext extends DBContext {
             } catch (SQLException ex1) {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        } finally{
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
@@ -841,7 +935,7 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
-    
+
     public void staffRenewContract(Contract contract, int payMethodID) {
         try {
             connection.setAutoCommit(false);
@@ -952,7 +1046,7 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
-    
+
     public boolean staffRenewCheck(Contract contract) {
         try {
             String sql = "select *\n"

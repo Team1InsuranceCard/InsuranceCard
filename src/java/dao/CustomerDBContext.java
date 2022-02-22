@@ -9,9 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 import model.Customer;
 import model.CustomerStaff;
 import model.Staff;
@@ -21,6 +24,25 @@ import model.Staff;
  * @author area1
  */
 public class CustomerDBContext extends DBContext {
+
+    public int getTotalActiveCustomers() {
+        int total = 0;
+
+        String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n" +
+                "  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n" +
+                "  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
+        try {
+            PreparedStatement psm_select_totalcustomer = connection.prepareStatement(sql_select_totalcustomer);
+            ResultSet rs_select_totalcustomer = psm_select_totalcustomer.executeQuery();
+            if (rs_select_totalcustomer.next()) {
+                total = rs_select_totalcustomer.getInt("NumberCustomer");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
 
     public Customer getCustomerByAccount(Account account) {
         try {
@@ -48,10 +70,10 @@ public class CustomerDBContext extends DBContext {
                 cus.setProvince(rs_select_customer.getString("Province"));
                 cus.setDistrict(rs_select_customer.getString("District"));
                 cus.setAccount(account);
-                
+
                 return cus;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,7 +82,7 @@ public class CustomerDBContext extends DBContext {
 
     public Account getCustomerByEmailNGoogleID(String email, String googleID) {
         try {
-//            Customer customer = new Customer();
+            // Customer customer = new Customer();
             connection.setAutoCommit(false);
             String sql_select_account = "SELECT [ID]\n"
                     + "      ,[Email]\n"
@@ -75,7 +97,7 @@ public class CustomerDBContext extends DBContext {
             psm_select_account.setNString(2, googleID);
             ResultSet rs_select_account = psm_select_account.executeQuery();
             Account account = null;
-//            Boolean isAccountExist = false;
+            // Boolean isAccountExist = false;
             if (rs_select_account.next()) {
                 account = new Account();
                 account.setId(rs_select_account.getInt("ID"));
@@ -88,7 +110,7 @@ public class CustomerDBContext extends DBContext {
                     gettingGoogleID = "";
                 }
                 account.setGoogleID(gettingGoogleID);
-//                isAccountExist = true;
+                // isAccountExist = true;
             }
             if (account != null && (account.getGoogleID().isEmpty() || account.getGoogleID() == null)) {
                 String sql_update_googleID = "UPDATE [Account]\n"
@@ -99,8 +121,8 @@ public class CustomerDBContext extends DBContext {
                 psm_update_googleID.setInt(2, account.getId());
                 psm_update_googleID.executeUpdate();
                 account.setGoogleID(googleID);
-//                customer.setAccount(account);;
-                //query get Info Customer from AccountID
+                // customer.setAccount(account);;
+                // query get Info Customer from AccountID
                 ////
             }
             connection.commit();
@@ -123,70 +145,76 @@ public class CustomerDBContext extends DBContext {
         return null;
     }
 
-//    public void insertCustomerByGoogle(Customer customer) {
-//        try {
-//            connection.setAutoCommit(false);
-//            String sql_insert_account = "INSERT INTO [Account]\n"
-//                    + "           ([Email]\n"
-//                    + "           ,[Role]\n"
-//                    + "           ,[Status]\n"
-//                    + "           ,[GoogleID])\n"
-//                    + "     VALUES\n"
-//                    + "           (?\n"
-//                    + "           ,0\n"
-//                    + "           ,1\n"
-//                    + "           ,?)";
-//            PreparedStatement psm_insert_account = connection.prepareStatement(sql_insert_account);
-//            psm_insert_account.setString(1, customer.getAccount().getEmail());
-//            psm_insert_account.setString(2, customer.getAccount().getGoogleID());
-//            psm_insert_account.executeUpdate();
-//            //select accountId to insert into customer table
-//            String sql_get_accountid = "select @@identity as account_id";
-//            PreparedStatement stm_get_accountid = connection.prepareStatement(sql_get_accountid);
-//            ResultSet rs_accountid = stm_get_accountid.executeQuery();
-//            if (rs_accountid.next()) {
-//                customer.getAccount().setId(rs_accountid.getInt("account_id"));
-//            }
-//            //
-//
-//            String sql_insert_customer = "INSERT INTO [dbo].[Customer]\n"
-//                    + "           ([AccountID]\n"
-//                    + "           ,[FirstName]\n"
-//                    + "           ,[LastName]\n"
-//                    + "           ,[JoinDate])\n"
-//                    + "     VALUES\n"
-//                    + "           (?\n"
-//                    + "           ,?\n"
-//                    + "           ,?\n"
-//                    + "           ,?)";
-//            PreparedStatement psm_insert_customer = connection.prepareStatement(sql_insert_customer);
-//            psm_insert_customer.setInt(1, customer.getAccount().getId());
-//            psm_insert_customer.setNString(2, customer.getFirstName());
-//            psm_insert_customer.setNString(3, customer.getLastName());
-//            psm_insert_customer.setTimestamp(4, customer.getJoinDate());
-//
-//            psm_insert_customer.executeUpdate();
-//            connection.commit();
-//
-//        } catch (SQLException ex) {
-//            try {
-//                connection.rollback();
-//            } catch (SQLException ex1) {
-//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
-//            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                connection.setAutoCommit(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//
-//    }
+    // public void insertCustomerByGoogle(Customer customer) {
+    // try {
+    // connection.setAutoCommit(false);
+    // String sql_insert_account = "INSERT INTO [Account]\n"
+    // + " ([Email]\n"
+    // + " ,[Role]\n"
+    // + " ,[Status]\n"
+    // + " ,[GoogleID])\n"
+    // + " VALUES\n"
+    // + " (?\n"
+    // + " ,0\n"
+    // + " ,1\n"
+    // + " ,?)";
+    // PreparedStatement psm_insert_account =
+    // connection.prepareStatement(sql_insert_account);
+    // psm_insert_account.setString(1, customer.getAccount().getEmail());
+    // psm_insert_account.setString(2, customer.getAccount().getGoogleID());
+    // psm_insert_account.executeUpdate();
+    // //select accountId to insert into customer table
+    // String sql_get_accountid = "select @@identity as account_id";
+    // PreparedStatement stm_get_accountid =
+    // connection.prepareStatement(sql_get_accountid);
+    // ResultSet rs_accountid = stm_get_accountid.executeQuery();
+    // if (rs_accountid.next()) {
+    // customer.getAccount().setId(rs_accountid.getInt("account_id"));
+    // }
+    // //
+    //
+    // String sql_insert_customer = "INSERT INTO [dbo].[Customer]\n"
+    // + " ([AccountID]\n"
+    // + " ,[FirstName]\n"
+    // + " ,[LastName]\n"
+    // + " ,[JoinDate])\n"
+    // + " VALUES\n"
+    // + " (?\n"
+    // + " ,?\n"
+    // + " ,?\n"
+    // + " ,?)";
+    // PreparedStatement psm_insert_customer =
+    // connection.prepareStatement(sql_insert_customer);
+    // psm_insert_customer.setInt(1, customer.getAccount().getId());
+    // psm_insert_customer.setNString(2, customer.getFirstName());
+    // psm_insert_customer.setNString(3, customer.getLastName());
+    // psm_insert_customer.setTimestamp(4, customer.getJoinDate());
+    //
+    // psm_insert_customer.executeUpdate();
+    // connection.commit();
+    //
+    // } catch (SQLException ex) {
+    // try {
+    // connection.rollback();
+    // } catch (SQLException ex1) {
+    // Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null,
+    // ex1);
+    // }
+    // Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null,
+    // ex);
+    // } finally {
+    // try {
+    // connection.setAutoCommit(true);
+    // } catch (SQLException ex) {
+    // Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null,
+    // ex);
+    // }
+    // }
+    //
+    // }
     public CustomerStaff getCustomerDashboard(int customerID) {
         try {
-//            connection.setAutoCommit(false);
+            // connection.setAutoCommit(false);
             String sql_Select_Customer = "SELECT [Customer].AccountID AS CustomerID\n"
                     + "      ,[Customer].[FirstName] AS CustomerFirstname\n"
                     + "      ,[Customer].[LastName] AS CustomerLastName,\n"
@@ -220,25 +248,27 @@ public class CustomerDBContext extends DBContext {
                 cs.setCustomer(cus);
                 cs.setStaff(staff);
             }
-//            connection.commit();
+            // connection.commit();
             return cs;
         } catch (SQLException ex) {
-//            try {
-//                connection.rollback();
+            // try {
+            // connection.rollback();
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-//catch (SQLException ex1) {
-//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
+        // catch (SQLException ex1) {
+        // Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null,
+        // ex1);
+        // }
 
-//        } finally {
-//            try {
-//
-//                connection.setAutoCommit(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        // } finally {
+        // try {
+        //
+        // connection.setAutoCommit(true);
+        // } catch (SQLException ex) {
+        // Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null,
+        // ex);
+        // }
+        // }
         return null;
     }
 
@@ -480,7 +510,7 @@ public class CustomerDBContext extends DBContext {
             ps_acc.setString(1, cus.getAccount().getEmail());
             ps_acc.setString(2, cus.getAccount().getPassword());
             ps_acc.executeUpdate();
-            // get customer's account id            
+            // get customer's account id
             String sql_get_acc_id = "select @@IDENTITY as aid";
             PreparedStatement ps_get_acc_id = connection.prepareStatement(sql_get_acc_id);
             ResultSet rs_get_id = ps_get_acc_id.executeQuery();
@@ -636,4 +666,211 @@ public class CustomerDBContext extends DBContext {
         }
     }
 
+    public ArrayList<Customer> getCustomers(int cusID, String cusName, String phone,
+            String province, String district, int pageIndex, int pageSize) {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, * \n"
+                    + "         FROM [Customer] WHERE isDelete = 0 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (cusID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = cusID + "";
+                params.put(countParam, param);
+            }
+            if (!cusName.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!province.isEmpty()) {
+                table_rowNum += " AND [Province] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = province;
+                params.put(countParam, param);
+            }
+            if (!district.isEmpty()) {
+                table_rowNum += " AND [District] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = district;
+                params.put(countParam, param);
+            }
+
+            String sql = "SELECT [AccountID]\n"
+                    + "      ,[FirstName]\n"
+                    + "      ,[LastName]\n"
+                    + "      ,[Address]\n"
+                    + "      ,[Dob]\n"
+                    + "      ,[JoinDate]\n"
+                    + "      ,[Phone]\n"
+                    + "      ,[PersonalID]\n"
+                    + "      ,[Province]\n"
+                    + "      ,[District]\n"
+                    + "      ,p.[isDelete]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[Role]\n"
+                    + "      ,[StatusCode]\n"
+                    + "	     ,[StatusName]\n"
+                    + "      ,a.[isDelete]\n"
+                    + "      ,[GoogleID]"
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p JOIN [Account] a\n"
+                    + "  ON p.AccountID = a.ID "
+                    + "  JOIN [AccountStatusCode] sc\n"
+                    + "  ON a.[Status] = sc.[StatusCode]\n "
+                    + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+            stm.setInt(params.size() + 1, pageIndex);
+            stm.setInt(params.size() + 2, pageSize);
+            stm.setInt(params.size() + 3, pageIndex);
+            stm.setInt(params.size() + 4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            AccountStatusCode sc;
+            Account a;
+            Customer c;
+            while (rs.next()) {
+                sc = new AccountStatusCode(rs.getShort("StatusCode"), rs.getString("StatusName"));
+
+                a = new Account();
+                a.setId(rs.getInt("AccountID"));
+                a.setEmail(rs.getString("Email"));
+                a.setRole(rs.getBoolean("Role"));
+                a.setStatusCode(sc);
+                a.setGoogleID(rs.getString("GoogleID"));
+
+                c = new Customer();
+                c.setAccount(a);
+                c.setFirstName(rs.getString("FirstName"));
+                c.setLastName(rs.getString("LastName"));
+                c.setAddress(rs.getString("Address"));
+                c.setDob(rs.getDate("Dob"));
+                c.setJoinDate(rs.getTimestamp("JoinDate"));
+                c.setPhone(rs.getString("Phone"));
+                c.setPersonalID(rs.getString("PersonalID"));
+                c.setProvince(rs.getString("Province"));
+                c.setDistrict(rs.getString("District"));
+
+                customers.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return customers;
+    }
+
+    public int countCustomersWithCondition(int cusID, String cusName, String phone,
+            String province, String district) {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, * \n"
+                    + "         FROM [Customer] WHERE isDelete = 0 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (cusID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = cusID + "";
+                params.put(countParam, param);
+            }
+            if (!cusName.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = cusName;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!province.isEmpty()) {
+                table_rowNum += " AND [Province] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = province;
+                params.put(countParam, param);
+            }
+            if (!district.isEmpty()) {
+                table_rowNum += " AND [District] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = district;
+                params.put(countParam, param);
+            }
+
+            String sql = "SELECT COUNT(AccountID) as [total customer]\n"
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total customer");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }

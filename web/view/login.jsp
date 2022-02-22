@@ -127,7 +127,12 @@
                     <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <h3 style="color: white;margin-right: 2rem;display:inline;
+                        background-color: rgba(119, 204, 226, 0.7);
+                        padding: 0.25rem 0.5rem;">Or login by: </h3>
+                    <div class="g-signin2" 
+                         style="margin-top: 1rem;"
+                         data-onsuccess="onSignIn"></div>
                 </div>
             </form>
 

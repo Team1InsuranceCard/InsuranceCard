@@ -15,7 +15,6 @@
     text-align: center;
 }
 
-
 .username {
     position: absolute;
     width: 100%;
@@ -222,12 +221,11 @@ img {
 
 .quick-log {
     position: absolute;
-    /*display: flex;*/
+    display: flex;
     top: 87%;
     width: 100%;
+    margin-left: 9rem;
 }
-
-
 
 .alert {
     width: 100%;

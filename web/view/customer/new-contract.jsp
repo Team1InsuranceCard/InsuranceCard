@@ -20,10 +20,11 @@
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
-        <c:set var="account" value="${sessionScope.account}"></c:set>
-        <jsp:include page="../header_customer.jsp"></jsp:include>
+        <jsp:include page="../header_customer.jsp">
+            <jsp:param name="currentscreen" value="contract" />
+        </jsp:include>
             <div class="container">
-                <h2 class="title">REQUEST NEW CONTRACT</h2>
+                <h2 class="title">NEW CONTRACT</h2>
                 <form method="POST" action="customer/contract/create">
                     <div class="content_container">
                         <div class="row">
