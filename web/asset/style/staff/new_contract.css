@@ -126,3 +126,48 @@ select:focus,
     text-decoration: none;
     color: #000;
 }
+
+.left .btnCheckout{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: green;
+    color: #fff;
+    font-weight: bold;
+}
+
+.left .btnDisable{
+    opacity: 50%;
+    cursor: default;
+}
+
+.left .btnReset{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: gray;
+    color: #fff;
+    font-weight: bold;
+}
+
+.left .contractFee-row{
+    display: flex;
+    justify-content: space-between;
+}
+.left .contractFee{
+    color: red;
+}

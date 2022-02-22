@@ -72,7 +72,6 @@
                                     <label for="select4" class="label-input">Product (*):</label>
                                     <select id="select4" class="selectdata" name="productID">
                                         <c:forEach items="${requestScope.products}" var="product">
-                                            <c:if test="${requestScope.productSent ne null}"></c:if>
                                             <option value="${product.id}"
                                                     <c:if test="${requestScope.productSent ne null 
                                                                   and requestScope.productSent.id eq product.id}">
@@ -152,6 +151,28 @@
                                     policy and accept receive the insurance 
                                     conditions specified in the insurance contract.
                                 </label>
+                            </div>
+                            <div class="contractFee-row">
+                                <p class="contractFee">                                    
+                                    <b id="totalFee">TOTAL PAYMENT: đ
+                                        <fmt:formatNumber type="number" pattern="#,###" 
+                                                          value="${requestScope.productSent ne null ? 
+                                                                   requestScope.productSent.price : 
+                                                                   requestScope.products.get(0).price}">
+
+                                        </fmt:formatNumber>
+                                    </b>
+                                    <input type="hidden" name="fee" id="contractFee"
+                                           value="${requestScope.productSent ne null ? 
+                                                    requestScope.productSent.price : 
+                                                    requestScope.products.get(0).price}"/>
+                                </p>
+                                <div class="btn">
+                                    <input type="reset" class="btnReset" value="CLEAR"/>
+                                    <input type="submit" id="btnCheckout" 
+                                           class="btnCheckout btnDisable"
+                                           value="CREATE NEW CONTRACT" disabled/>
+                                </div>
                             </div>
                         </div>
                     </div>
