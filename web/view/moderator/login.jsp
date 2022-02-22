@@ -13,7 +13,7 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
-        <link href="../../asset/style/moderator/login.css" rel="stylesheet" type="text/css"/>
+        <link href="../asset/style/moderator/login.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
 
     </head>
@@ -41,7 +41,9 @@
                                 <input class="btn" type="submit" value="Sign In"/>
                             </div>
                         </div>
-                        </form>
                     </div>
-                    </body>
-                    </html>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
