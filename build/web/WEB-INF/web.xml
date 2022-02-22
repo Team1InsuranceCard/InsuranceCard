@@ -93,12 +93,24 @@
         <servlet-class>controller.staff.ContractPayment</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CreateStaff</servlet-name>
+        <servlet-class>controller.moderator.CreateStaff</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>StaffRenewContract</servlet-name>
         <servlet-class>controller.staff.RenewContract</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageCustomerController</servlet-name>
         <servlet-class>controller.staff.ManageCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffNewContractController</servlet-name>
+        <servlet-class>controller.staff.StaffNewContractController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePersonalInfo</servlet-name>
+        <servlet-class>controller.customer.UpdatePersonalInfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -185,12 +197,24 @@
         <url-pattern>/staff/contract/pay</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CreateStaff</servlet-name>
+        <url-pattern>/moderator/staff/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>StaffRenewContract</servlet-name>
         <url-pattern>/staff/contract/renew</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageCustomerController</servlet-name>
         <url-pattern>/staff/customer/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffNewContractController</servlet-name>
+        <url-pattern>/staff/contract/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePersonalInfo</servlet-name>
+        <url-pattern>/customer/info/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

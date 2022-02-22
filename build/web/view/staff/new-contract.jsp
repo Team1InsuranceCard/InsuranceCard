@@ -1,6 +1,6 @@
 <%-- 
     Document   : new-contract
-    Created on : Jan 21, 2022, 9:39:11 PM
+    Created on : Feb 22, 2022, 12:14:42 AM
     Author     : quynm
 --%>
 
@@ -16,42 +16,30 @@
         <!-- CDN to reset CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-        <link href="../../asset/style/customer/new_contract.css" rel="stylesheet" type="text/css"/>
+        <link href="../../asset/style/staff/new_contract.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
-        <jsp:include page="../header_customer.jsp">
+        <jsp:include page="../header_staff.jsp">
             <jsp:param name="currentscreen" value="contract" />
         </jsp:include>
-            <div class="container">
-                <h2 class="title">NEW CONTRACT</h2>
-                <form method="POST" action="customer/contract/create">
-                    <div class="content_container">
-                        <div class="row">
-                            <div class="col-lg-8 left">
-                                <h3 class="group-title">1. OWNER'S INFORMATION</h3>
-                            <c:if test="${sessionScope.account ne null}">
-                                <div class="quick-checkbox">
-                                    <input id="chk-1" type="checkbox" 
-                                           onchange="fillOwnerInfo('${requestScope.customer.firstName}',
-                                                           '${requestScope.customer.lastName}',
-                                                           '${requestScope.customer.personalID}')"/>
-                                    <label for="chk-1">Use your account's information</label>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.account eq null}">
-                                <span>Do you have an account? 
-                                    <a href="login">Login </a>
-                                    to quickly fill!</span> <br/>
-                                </c:if>
+        <div class="container">
+            <h2 class="title">NEW CONTRACT</h2>
+            <form method="POST" action="staff/contract/create">
+                <div class="content_container">
+                    <div class="row">
+                        <div class="col-lg-12 left">
+                            <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                             <label for="txt1" class="label-input">Full name (*):</label>
                             <input id="txt1" class="inputdata" type="text" required
                                    name="ownerName" onchange="fillRightOwner()"
                                    placeholder="Owner full name (in vehicle registration)"/><br/>
-                            <label for="txt2" class="label-input">ID Number (*):</label>
-                            <!--Do not save to DB-->
+                            <a href="staff/customer/create">Create a customer account</a><br/>
+                            <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
-                                   placeholder="ID Card Number"/><br/>
+                                   placeholder="Customer ID"/><br/>
+                            <label class="label-input">Customer Name:</label>
+                            <input id="txt11" class="inputdata" type="text" disabled/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                             <label for="select1" class="label-input">Type (*):</label>
                             <select id="select1" class="selectdata" name="vehicleTypeID">
@@ -81,13 +69,19 @@
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
-                                    <label for="txt4" class="label-input">Product (*):</label>
-                                    <input id="txt4" class="inputdata" type="text" disabled="true"
-                                           value="${requestScope.product.title}"/>
-                                    <input type="hidden" name="productID"
-                                           value="${requestScope.product.id}"
+                                    <label for="select4" class="label-input">Product (*):</label>
+                                    <select id="select4" class="selectdata" name="productID">
+                                        <c:forEach items="${requestScope.products}" var="product">
+                                            <option value="${product.id}"
+                                                    <c:if test="${requestScope.productSent ne null 
+                                                                  and requestScope.productSent.id eq product.id}">
+                                                          selected="true"
+                                                    </c:if>>
+                                                ${product.title}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
                                 </span>
-                                <a href="customer/dashboard" class="btnProduct">Change product</a>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>
                             <select id="select2" class="selectdata" 
@@ -111,24 +105,6 @@
                                 </span>
                             </div>
                             <h3 class="group-title">4. DELIVERY INFORMATION</h3>
-                            <c:if test="${sessionScope.account ne null}">
-                                <div class="quick-checkbox">
-                                    <input id="chk-2" type="checkbox" 
-                                           onchange="fillDeliveryInfo('${requestScope.customer.firstName}',
-                                                           '${requestScope.customer.lastName}',
-                                                           '${requestScope.customer.phone}',
-                                                           '${requestScope.customer.account.email}',
-                                                           '${requestScope.customer.address}',
-                                                           '${requestScope.customer.province}',
-                                                           '${requestScope.customer.district}')"/>
-                                    <label for="chk-2">Use your account's information</label>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.account eq null}">
-                                <span>Do you have an account? 
-                                    <a href="login">Login </a>
-                                    to quickly fill!</span> <br/>
-                                </c:if>
                             <label for="txt5" class="label-input">Full name (*):</label>
                             <input id="txt5" class="inputdata" type="text" required
                                    name="deliveryName"
@@ -176,50 +152,27 @@
                                     conditions specified in the insurance contract.
                                 </label>
                             </div>
-                        </div>
-                        <div class="col-lg-4 right">
-                            <h3 class="group-title">PAYMENT INFORMATION</h3>
-                            <div class="content">
-                                <p>
-                                    <b>Product:</b> <span>${requestScope.product.title}</span>
-                                </p>
-                                <p>
-                                    <b>Insurance period: </b> <span id="period"></span>
-                                </p>
-                                <p>
-                                    <b>Vehicle owner: </b> <span id="owner"></span>
-                                </p>
-                                <p>
-                                    <b>License plate: </b> <span id="license-plate"></span>
-                                </p>
-                                <hr/>
-                                <p>
-                                    <b>Insurance fees: </b> 
-                                    <span id="ProductFee"> đ
-                                        <fmt:formatNumber type="number" pattern="#,###"
-                                                          value="${requestScope.product.price}">
-                                        </fmt:formatNumber>
-                                    </span>
-                                </p>
-                                <p>
-                                    <b>Service charge: </b> <span>VND 0</span>
-                                </p>
-                                <hr/>
-                                <p>                                    
+                            <div class="contractFee-row">
+                                <p class="contractFee">                                    
                                     <b id="totalFee">TOTAL PAYMENT: đ
-                                        <fmt:formatNumber type="number" pattern="#,###"
-                                                          value="${requestScope.product.price}">
+                                        <fmt:formatNumber type="number" pattern="#,###" 
+                                                          value="${requestScope.productSent ne null ? 
+                                                                   requestScope.productSent.price : 
+                                                                   requestScope.products.get(0).price}">
 
                                         </fmt:formatNumber>
                                     </b>
-
                                     <input type="hidden" name="fee" id="contractFee"
-                                           value="${requestScope.product.price}"/>
+                                           value="${requestScope.productSent ne null ? 
+                                                    requestScope.productSent.price : 
+                                                    requestScope.products.get(0).price}"/>
                                 </p>
-                                <input type="submit" id="btnCheckout" 
-                                       class="btnCheckout btnDisable"
-                                       value="CHECK OUT" disabled/>
-                                <!--<a href="#" id="btnCheckout" class="btnCheckout btnDisable">CHECK OUT</a>-->
+                                <div class="btn">
+                                    <input type="reset" class="btnReset" value="CLEAR"/>
+                                    <input type="submit" id="btnCheckout" 
+                                           class="btnCheckout btnDisable"
+                                           value="CREATE NEW CONTRACT" disabled/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,6 +185,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-        <script src="asset/script/customer/new_contract.js"></script>
+        <script src="asset/script/staff/new_contract.js"></script>
     </body>
 </html>
