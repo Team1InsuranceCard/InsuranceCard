@@ -35,15 +35,16 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     </head>
     <body>
         <c:choose>
+            <c:when test="${empty role}">
+                <jsp:include page="header_common.jsp" />
+            </c:when>
             <c:when test="${role}">
                 <jsp:include page="header_staff.jsp" />
             </c:when>
             <c:when test="${!role}">
                 <jsp:include page="header_customer.jsp" />
             </c:when>
-            <c:otherwise>
-                <jsp:include page="header_common.jsp" />
-            </c:otherwise>
+
         </c:choose>
         <main>
             <div class="container">

@@ -105,6 +105,10 @@
         <servlet-class>controller.staff.ManageCustomerController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>StaffNewContractController</servlet-name>
+        <servlet-class>controller.staff.StaffNewContractController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdatePersonalInfo</servlet-name>
         <servlet-class>controller.customer.UpdatePersonalInfo</servlet-class>
     </servlet>
@@ -203,6 +207,10 @@
     <servlet-mapping>
         <servlet-name>ManageCustomerController</servlet-name>
         <url-pattern>/staff/customer/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffNewContractController</servlet-name>
+        <url-pattern>/staff/contract/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePersonalInfo</servlet-name>
