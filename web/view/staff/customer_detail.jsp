@@ -95,7 +95,8 @@
                             <div class="right">
                                 <p class="info-label">Toal contracts</p>
                                 <p class="info-content">${requestScope.totalContract}
-                                    <a href="#" style="margin-left:10px;
+                                    <a href="http://localhost:8080/insurancecard/staff/contract/view?queryoption=personalid&query=${c.personalID}" 
+                                       style="margin-left:10px;
                                        text-decoration: underline;">View</a>
                                 </p>
                             </div>
