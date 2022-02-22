@@ -20,7 +20,6 @@
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
-        <c:set var="account" value="${sessionScope.account}"></c:set>
         <jsp:include page="../header_customer.jsp"></jsp:include>
             <div class="container">
                 <h2 class="title">REQUEST NEW CONTRACT</h2>

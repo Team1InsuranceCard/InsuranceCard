@@ -187,7 +187,7 @@ public class NewContractController extends HttpServlet {
         
         
         
-        
+        //redirect to checkout page
 
     }
 

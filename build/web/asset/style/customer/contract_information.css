@@ -79,10 +79,12 @@ section .contract-content .row .space {
 
 section .contract-content .text-area {
     margin-top: 1rem;
+    width: 100%;
     height: 15rem;
     resize: none;
     background: #FFF9EC;
     border-radius: 15px;
+    padding: 1rem;
 }
 
 section .vehicle-content .row .space {
