@@ -69,14 +69,15 @@ public class ManageContract extends HttpServlet {
 
         HttpSession session = request.getSession();
         Account currentStaffAccount = (Account) session.getAttribute("account");
-        int staffAccountID = currentStaffAccount.getId();
-//        int staffAccountID = 7;
+//        int staffAccountID = currentStaffAccount.getId();
+        int staffAccountID = 12;
         String query = request.getParameter("query");
         String orderBy = request.getParameter("orderby");
         String orderType = request.getParameter("ordertype");
         String contractStatusCode = request.getParameter("status");
         String rawpageIndex = request.getParameter("page");
         String contractInclude = request.getParameter("contract");
+        String queryOption = request.getParameter("queryoption");
 
         if (contractInclude == null || contractInclude.isEmpty()) {
             contractInclude = "justme";
@@ -85,6 +86,7 @@ public class ManageContract extends HttpServlet {
         rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
         int pageIndex = Integer.parseInt(rawpageIndex);
 
+        queryOption = (queryOption == null)? "": queryOption;
         StatusCodeDBContext statusDBC = new StatusCodeDBContext();
         ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
 
@@ -99,16 +101,17 @@ public class ManageContract extends HttpServlet {
         int totalRecord = 0;
         switch (contractInclude) {
             case "justme":
-                contractList = contractDBC.getContractsByStaff(staffAccountID, query, pageIndex,
+                contractList = contractDBC.getContractsByStaff(staffAccountID, query, queryOption , pageIndex,
                         contractStatusCode, orderBy, orderType);
-                totalRecord = contractDBC.totalContractsByStaff(staffAccountID, query, contractStatusCode);
+                totalRecord = contractDBC.totalContractsByStaff(staffAccountID, query, queryOption, contractStatusCode);
                 break;
             case "all":
-                contractList = contractDBC.getContracts(query, pageIndex,
+                contractList = contractDBC.getContracts(query,queryOption, pageIndex,
                         contractStatusCode, orderBy, orderType);
-                totalRecord = contractDBC.totalContracts(query, contractStatusCode);
+                totalRecord = contractDBC.totalContracts(query , queryOption,  contractStatusCode);
         }
-        int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
+        int totalPage = PaginationModule.calcTotalPage(totalRecord, 2);
+        request.setAttribute("query_option", queryOption);
         request.setAttribute("contract_list", contractList);
         request.setAttribute("status_codes", statusCodes);
         request.setAttribute("query", query);

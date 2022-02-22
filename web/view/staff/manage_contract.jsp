@@ -38,7 +38,12 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </label>
                       </div> -->
                     <div class="col seach-bar">
-                        <form class="form-inline" action="staff/contract/view" method="GET">
+                        <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
+                            <select name="" id="query-option">
+                                <option value="personalid">Customer Personal ID</option>
+                                <option value="customername">Customer Name</option>
+                                <option value="producttitle">Product Title</option>
+                            </select>
                             <input
                                 id="search-box"
                                 class="form-control mr-sm-2"
@@ -48,6 +53,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                 value="${query}"
                                 name="query"
                                 />
+                         
                             <button
                                 class="search-button btn-secondary btn  my-2 my-sm-0"
                                 type="submit"
