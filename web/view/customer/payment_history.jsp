@@ -16,8 +16,14 @@
         <base href="${pageContext.servletContext.contextPath}/">
 
         <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+                color: #5C2941;
+            }
+
             section {
-                margin: 10rem 8rem;
+                margin: 10rem 8rem 0 8rem;
             }
 
             section .title {
@@ -26,11 +32,39 @@
             }
 
             .table td {
-                max-width: 15rem;
+                /*max-width: 15rem;*/
             }
-            
+
+            .table thead {
+                background-color: rgba(255, 124, 140, 0.8);
+                border: 1px solid #000000;
+                border-radius: 10px;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #FFF9EC;
+            }
+
             .input-date {
                 margin-left: 7rem;
+            }
+
+            .pagging {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                text-align: right;
+            }
+
+            .table .stt {
+                max-width: 4rem;
+                text-align: center;
+                word-break: break-all;
+            }
+            
+            .table .proTitle {
+                max-width: 15rem;
+                /*text-align: center;*/
+                word-break: break-all;
             }
         </style>
     </head>
@@ -62,7 +96,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
+                        <td class="stt">1</td>
+                        <td class="proTitle">Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
+                        <td class="amount">300.000</td>
+                        <td class="date">11/05/2018 21:01:58</td>
+                        <td class="date">15/05/2018 21:01:58</td>
+                        <td class="method">Tiền mặt</td>
+                        <td class="note"></td>
+                    </tr>
+                    <tr>
+                        <td class="stt">2</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
@@ -70,7 +113,7 @@
                         <td>Tiền mặt</td>
                     </tr>
                     <tr>
-                        <th scope="row">2</th>
+                        <td class="stt">3</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
@@ -78,7 +121,7 @@
                         <td>Tiền mặt</td>
                     </tr>
                     <tr>
-                        <th scope="row">3</th>
+                        <td>4</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
@@ -86,7 +129,7 @@
                         <td>Tiền mặt</td>
                     </tr>
                     <tr>
-                        <th scope="row">4</th>
+                        <td>5</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
@@ -94,7 +137,7 @@
                         <td>Tiền mặt</td>
                     </tr>
                     <tr>
-                        <th scope="row">5</th>
+                        <td>6</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
@@ -102,15 +145,7 @@
                         <td>Tiền mặt</td>
                     </tr>
                     <tr>
-                        <th scope="row">6</th>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
+                        <td>7</td>
                         <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
                         <td>300.000</td>
                         <td>11/05/2018 21:01:58</td>
