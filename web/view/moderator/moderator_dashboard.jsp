@@ -22,6 +22,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <link
       rel="stylesheet"
       href="asset/style/moderator/moderator_dashboard.css"
@@ -113,12 +114,73 @@
                     <div class="total-title-align total-title">Total Products</div>
                   </div>
                 </div>
+                
               </div>
+              <table class="table table-rank">
+                <thead class="table-rank-head">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <canvas id="myChart" style="width:100%;max-width:600px"></canvas> -->
             </div>
           </div>
           <div class="col"></div>
         </div>
       </div>
     </main>
+
+
+
+
+    <script>
+    var xValues = ["Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "USA", "Argentina"];
+    var yValues = [55, 49, 44, 24, 15];
+    var barColors = ["red", "green","blue","orange","brown"];
+    
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Products Usage"
+        }
+      }
+    });
+    </script>
+
+
   </body>
 </html>
