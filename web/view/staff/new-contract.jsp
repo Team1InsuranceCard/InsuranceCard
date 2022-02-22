@@ -34,7 +34,7 @@
                             <input id="txt1" class="inputdata" type="text" required
                                    name="ownerName" onchange="fillRightOwner()"
                                    placeholder="Owner full name (in vehicle registration)"/><br/>
-                            <a href="login">Create a customer account</a><br/>
+                            <a href="staff/customer/create">Create a customer account</a><br/>
                             <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
                                    placeholder="Customer ID"/><br/>
