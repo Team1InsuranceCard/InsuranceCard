@@ -30,28 +30,16 @@
                     <div class="row">
                         <div class="col-lg-12 left">
                             <h3 class="group-title">1. OWNER'S INFORMATION</h3>
-                            <c:if test="${sessionScope.account ne null}">
-                                <div class="quick-checkbox">
-                                    <input id="chk-1" type="checkbox" 
-                                           onchange="fillOwnerInfo('${requestScope.customer.firstName}',
-                                                           '${requestScope.customer.lastName}',
-                                                           '${requestScope.customer.personalID}')"/>
-                                    <label for="chk-1">Use your account's information</label>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.account eq null}">
-                                <span>Do you have an account? 
-                                    <a href="login">Login </a>
-                                    to quickly fill!</span> <br/>
-                                </c:if>
                             <label for="txt1" class="label-input">Full name (*):</label>
                             <input id="txt1" class="inputdata" type="text" required
                                    name="ownerName" onchange="fillRightOwner()"
                                    placeholder="Owner full name (in vehicle registration)"/><br/>
-                            <label for="txt2" class="label-input">ID Number (*):</label>
-                            <!--Do not save to DB-->
+                            <a href="login">Create a customer account</a><br/>
+                            <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
-                                   placeholder="ID Card Number"/><br/>
+                                   placeholder="Customer ID"/><br/>
+                            <label class="label-input">Customer Name:</label>
+                            <input id="txt11" class="inputdata" type="text" disabled/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                             <label for="select1" class="label-input">Type (*):</label>
                             <select id="select1" class="selectdata" name="vehicleTypeID">
@@ -81,13 +69,13 @@
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
-                                    <label for="txt4" class="label-input">Product (*):</label>
-                                    <input id="txt4" class="inputdata" type="text" disabled="true"
-                                           value="${requestScope.product.title}"/>
-                                    <input type="hidden" name="productID"
-                                           value="${requestScope.product.id}"
+                                    <label for="select4" class="label-input">Product (*):</label>
+                                    <select id="select4" class="selectdata" name="productID">
+                                        <c:forEach items="${requestScope.products}" var="product">
+                                            <option value="${product.id}">${product.title}</option>
+                                        </c:forEach>
+                                    </select>
                                 </span>
-                                <a href="customer/dashboard" class="btnProduct">Change product</a>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>
                             <select id="select2" class="selectdata" 
@@ -111,24 +99,6 @@
                                 </span>
                             </div>
                             <h3 class="group-title">4. DELIVERY INFORMATION</h3>
-                            <c:if test="${sessionScope.account ne null}">
-                                <div class="quick-checkbox">
-                                    <input id="chk-2" type="checkbox" 
-                                           onchange="fillDeliveryInfo('${requestScope.customer.firstName}',
-                                                           '${requestScope.customer.lastName}',
-                                                           '${requestScope.customer.phone}',
-                                                           '${requestScope.customer.account.email}',
-                                                           '${requestScope.customer.address}',
-                                                           '${requestScope.customer.province}',
-                                                           '${requestScope.customer.district}')"/>
-                                    <label for="chk-2">Use your account's information</label>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.account eq null}">
-                                <span>Do you have an account? 
-                                    <a href="login">Login </a>
-                                    to quickly fill!</span> <br/>
-                                </c:if>
                             <label for="txt5" class="label-input">Full name (*):</label>
                             <input id="txt5" class="inputdata" type="text" required
                                    name="deliveryName"
