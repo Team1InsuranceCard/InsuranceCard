@@ -598,7 +598,6 @@ public class CustomerDBContext extends DBContext {
                     + "	, LastName = ?\n"
                     + "	, Address = ?\n"
                     + "	, Dob = ?\n"
-                    + "	, JoinDate = ?\n"
                     + "	, Phone = ?\n"
                     + "	, PersonalID = ?\n"
                     + "	, Province = ?\n"
