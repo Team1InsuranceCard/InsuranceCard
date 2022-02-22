@@ -64,6 +64,9 @@ public class ContractDBContext extends DBContext {
             case "customername":
                 querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
                 break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
             default:
                 break;
         }
@@ -78,7 +81,7 @@ public class ContractDBContext extends DBContext {
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
             int i = 0;
-            if (queryChoose != null || !queryChoose.isEmpty()) {
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
                 stm_total.setString(++i, query);
             }
 
@@ -108,6 +111,9 @@ public class ContractDBContext extends DBContext {
             case "customername":
                 querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
                 break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
             default:
                 break;
         }
@@ -124,7 +130,7 @@ public class ContractDBContext extends DBContext {
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
             int i = 0;
             stm_total.setInt(++i, staffId);
-            if (queryChoose != null || !queryChoose.isEmpty()) {
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
                 stm_total.setString(++i, query);
             }
 
@@ -178,6 +184,9 @@ public class ContractDBContext extends DBContext {
             case "customername":
                 querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
                 break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
             default:
                 break;
         }
@@ -206,9 +215,9 @@ public class ContractDBContext extends DBContext {
 
             PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
 
-            int i = 1;
+            int i = 0;
             stm_select_contract.setInt(++i, staffId);
-            if (queryChoose != null || !queryChoose.isEmpty()) {
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
                 stm_select_contract.setString(++i, query);
             }
 
@@ -250,7 +259,7 @@ public class ContractDBContext extends DBContext {
 
     public HashMap<Integer, Contract> getContracts(String query, String queryChoose, int pageIndex, String contractStatus, String orderby,
             String ordertype) {
-        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 2);
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
         HashMap<Integer, Contract> contracts = new HashMap<>();
         if (query == null) {
             query = "";
@@ -286,7 +295,10 @@ public class ContractDBContext extends DBContext {
                 querySearch = "Product.Title LIKE '%' + ? + '%'";
                 break;
             case "customername":
-                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ?+'%'";
+                querySearch = "(Customer.FirstName + Customer.LastName) LIKE '%' + ? +'%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
                 break;
             default:
                 break;
@@ -317,7 +329,7 @@ public class ContractDBContext extends DBContext {
         try {
             PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
             int i = 0;
-            if (queryChoose != null || !queryChoose.isEmpty()) {
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
                 stm_select_contract.setString(++i, query);
             }
 

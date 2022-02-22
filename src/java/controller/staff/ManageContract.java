@@ -70,7 +70,7 @@ public class ManageContract extends HttpServlet {
         HttpSession session = request.getSession();
         Account currentStaffAccount = (Account) session.getAttribute("account");
 //        int staffAccountID = currentStaffAccount.getId();
-        int staffAccountID = 12;
+        int staffAccountID = 2;
         String query = request.getParameter("query");
         String orderBy = request.getParameter("orderby");
         String orderType = request.getParameter("ordertype");
@@ -89,7 +89,6 @@ public class ManageContract extends HttpServlet {
         queryOption = (queryOption == null)? "": queryOption;
         StatusCodeDBContext statusDBC = new StatusCodeDBContext();
         ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
-
         String stringAllStatus = "0";
         for (ContractStatusCode statusCode : statusCodes) {
             stringAllStatus += "," + statusCode.getStatusCode();
@@ -110,7 +109,7 @@ public class ManageContract extends HttpServlet {
                         contractStatusCode, orderBy, orderType);
                 totalRecord = contractDBC.totalContracts(query , queryOption,  contractStatusCode);
         }
-        int totalPage = PaginationModule.calcTotalPage(totalRecord, 2);
+        int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         request.setAttribute("query_option", queryOption);
         request.setAttribute("contract_list", contractList);
         request.setAttribute("status_codes", statusCodes);

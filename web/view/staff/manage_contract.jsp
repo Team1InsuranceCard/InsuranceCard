@@ -39,10 +39,13 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                       </div> -->
                     <div class="col seach-bar">
                         <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
-                            <select name="" id="query-option">
-                                <option value="personalid">Customer Personal ID</option>
-                                <option value="customername">Customer Name</option>
-                                <option value="producttitle">Product Title</option>
+                            <select class="select-search-option" name="" id="query-option">
+                                <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
+                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
+                                
+                                <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
+                                <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
+                                
                             </select>
                             <input
                                 id="search-box"
