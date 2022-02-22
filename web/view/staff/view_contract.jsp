@@ -39,6 +39,11 @@
                         <div class="btn__text">Renew</div>
                     </a>
 
+                    <a class="btn btn--warning" href="staff/contract/update?id=${requestScope.contract.id}">
+                       <img class="btn__icon" src="asset/image/staff/view_contract/icon_edit_file.png"></img>
+                        <div class="btn__text">Update</div>
+                    </a>
+
                     <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
                        href="staff/contract/cancel?id=${requestScope.contract.id}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
