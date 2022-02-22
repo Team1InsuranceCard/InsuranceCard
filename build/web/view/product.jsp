@@ -23,6 +23,8 @@
             rel="stylesheet"
             href="asset/style/customer/customer_dashboard.css"
             />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
         <style>
             main{
                 <c:if test="${role}">
@@ -36,17 +38,18 @@
     </head>
     <body>
         <c:choose>
+            <c:when test="${empty role}">
+                <jsp:include page="header_common.jsp" >
+                    <jsp:param name="currentscreen" value="product"/>
+                </jsp:include>
+            </c:when>
             <c:when test="${role}">
                 <jsp:include page="header_staff.jsp" />
             </c:when>
             <c:when test="${!role}">
                 <jsp:include page="header_customer.jsp" />
             </c:when>
-            <c:otherwise>
-                <jsp:include page="header_common.jsp" >
-                    <jsp:param name="currentscreen" value="product"/>
-                </jsp:include>
-            </c:otherwise>
+
         </c:choose>
 
         <main>

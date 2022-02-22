@@ -93,9 +93,9 @@ public class Login extends HttpServlet {
             request.getSession().setAttribute("account", account);
             Cookie cookieU = new Cookie("userCookie", username);
             Cookie cookieP = new Cookie("passCookie", password);
-            cookieU.setMaxAge(60);
+            cookieU.setMaxAge(3600);
             if (remember != null) {
-                cookieP.setMaxAge(60);
+                cookieP.setMaxAge(3600);
                 request.getSession().setAttribute("remember", remember);
             } else {
                 cookieP.setMaxAge(0);

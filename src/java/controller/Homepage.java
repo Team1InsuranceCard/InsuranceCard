@@ -5,6 +5,9 @@
  */
 package controller;
 
+import dao.ContractDBContext;
+import dao.CustomerDBContext;
+import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -30,7 +33,19 @@ public class Homepage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         request.getRequestDispatcher("view/homepage.jsp").forward(request, response);
+        ContractDBContext contractDBC = new ContractDBContext();
+        int totalActiveContract = contractDBC.totalAcitveContracts();
+
+        CustomerDBContext customerDBC = new CustomerDBContext();
+        int totalCustomer = customerDBC.getTotalActiveCustomers();
+
+        ProductDBContext productDBC = new ProductDBContext();
+        int totalActiveProduct = productDBC.getTotalActiveProducts();
+
+        request.setAttribute("total_active_product", totalActiveProduct);
+        request.setAttribute("total_active_contract", totalActiveContract);
+        request.setAttribute("total_customer", totalCustomer);
+        request.getRequestDispatcher("view/homepage.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

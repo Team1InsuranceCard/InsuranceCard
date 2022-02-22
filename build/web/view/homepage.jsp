@@ -169,7 +169,7 @@
                             <div class="card-body">
                                 <img src="asset/image/bi_people-fill.png" alt="" class="card-img-top"/>
                                 <h3 class="card-title card-subtitle-custom">Customers</h3>
-                                <p class="card-text">5.000.000</p>
+                                <p class="card-text total-number-active">${total_customer}</p>
                             </div>
                         </div>
 
@@ -177,14 +177,14 @@
                             <div class="card-body">
                                 <img src="asset/image/teenyicons_contract-solid.png" alt="" class="card-img-top"/>
                                 <h3 class="card-title card-subtitle-custom">Contracts</h3>
-                                <p class="card-text">7.050.000</p>
+                                <p class="card-text total-number-active">${total_active_contract}</p>
                             </div>
                         </div>
                         <div class="card border-0 achivement-card">
                             <div class="card-body">
                                 <img src="asset/image/ic_round-where-to-vote.png" alt="" class="card-img-top"/>
-                                <h3 class="card-title card-subtitle-custom">Votes</h3>
-                                <p class="card-text">1.172.000</p>
+                                <h3 class="card-title card-subtitle-custom">Products</h3>
+                                <p class="card-text total-number-active">${total_active_product}</p>
                             </div>
                         </div>
                     </div>
