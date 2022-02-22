@@ -110,6 +110,10 @@ table {
     -webkit-border-vertical-spacing: 3px !important;
 }
 
-table thead a:hover {
+table thead a:hover, tbody tr td a:hover {
     text-decoration: none;
+}
+
+table tbody tr td a {
+    font-size: 1.3em;
 }
