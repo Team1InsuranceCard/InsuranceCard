@@ -129,11 +129,11 @@
                     <td>Mark</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
+                    <th scope="row"><div class="rank-value">1</div></th>
                     <td>Jacob</td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
+                    <th scope="row"><div class="rank-value">1</div></th>
                     <td>Larry</td>
                   </tr>
                 </tbody>
