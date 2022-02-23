@@ -33,8 +33,9 @@ main{
 }
 
 .custom-card-rank {
-    border: solid 1px black;
-    background-color: rgba(93, 93, 93, 0.7);;
+    border-radius: 10px;
+    background-color: rgba(93, 93, 93, 0.7);
+
 }
 
 /* .numberCircle {
@@ -106,6 +107,5 @@ main{
 
 
 .rank-value {
-    border-right: 1px solid black;
-    text-align: center;
+    border-right: 2px solid black ;
 }
