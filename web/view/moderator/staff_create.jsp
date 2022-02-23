@@ -67,7 +67,9 @@
 
                     <div class="btn-input">
                         <input type="submit" class="create btn" value="Create"/>
-                        <input type="button" class="cancel btn" value="Cancel"/>
+                        <a href="moderator/staff">
+                            <input type="button" class="cancel btn" value="Cancel"/>
+                        </a>
                     </div>
                 </div>
             </form>
