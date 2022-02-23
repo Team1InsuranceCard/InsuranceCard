@@ -15,7 +15,6 @@
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <link href="../asset/style/moderator/login.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-
     </head>
 
     <body>
@@ -39,7 +38,7 @@
                             <br/>
 
                             <p class="attribute">Password <span>*</span></p>
-                            <input class="input" type="text" 
+                            <input class="input" type="password" 
                                    value="${requestScope.pass}"
                                    name="password" required/>
                             <span class="iconify input-icon" 
@@ -48,7 +47,7 @@
 
                             <div style="margin-left: 0.5rem;">
                                 <input class="checkbox" type="checkbox" 
-                                       value="${requestScope.remember}"
+                                       ${requestScope.remember==null?"":"checked"}
                                        name="remember"/> Remember me
                             </div>
                             <div>
