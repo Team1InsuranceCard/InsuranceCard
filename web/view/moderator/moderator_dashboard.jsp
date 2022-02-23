@@ -116,33 +116,25 @@
                 </div>
                 
               </div>
-              <table class="table table-rank">
+              <table class="table table-borderless table-hover table-rank">
                 <thead class="table-rank-head">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Top 3</th>
+                    <th scope="col">Product Title</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><div class="rank-value">1</div></th>
                     <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
                   </tr>
                   <tr>
                     <th scope="row">3</th>
                     <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
                   </tr>
                 </tbody>
               </table>
