@@ -8,6 +8,7 @@ package controller.customer;
 import dao.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -81,9 +82,9 @@ public class UpdatePersonalInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-//        Account account = (Account) request.getSession().getAttribute("account");
-//        int accountId = account.getId();
-        int accountId = Integer.parseInt(request.getParameter("id"));
+        Account account = (Account) request.getSession().getAttribute("account");
+        int accountId = account.getId();
+//        int accountId = Integer.parseInt(request.getParameter("id"));
         CustomerDBContext dbC = new CustomerDBContext();
         CustomerStaff cusStaff = dbC.viewCustomer(accountId);
         Customer cus = cusStaff.getCustomer();
@@ -121,9 +122,53 @@ public class UpdatePersonalInfo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        int id = Integer.parseInt(request.getParameter("aid"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String pid = request.getParameter("pid");
+        String province = request.getParameter("province");
+        String phone = request.getParameter("phone");
+        String district = request.getParameter("district");
+        Date dob = Date.valueOf(request.getParameter("dob"));
+        String address = request.getParameter("address");
+        Boolean isSuccess = false;
         
+        CustomerDBContext dbC = new CustomerDBContext();
+        CustomerStaff cusStaff = dbC.viewCustomer(id);
         
+        Customer cus = cusStaff.getCustomer();
+        cus.setFirstName(fname);
+        cus.setLastName(lname);
+        cus.setPersonalID(pid);
+        cus.setProvince(province);
+        cus.setPhone(phone);
+        cus.setDistrict(district);
+        cus.setDob(dob);
+        cus.setAddress(address);
+        
+        short raw_status = cus.getAccount().getStatus();
+        request.setAttribute("raw", raw_status);
+        String status = transStatus(raw_status);
+        String staff = staffName(cusStaff.getStaff());
+        
+        dbC.updateInfo(cus);
+        isSuccess = true;
+        
+        request.setAttribute("aid", id);
+        request.setAttribute("email", cus.getAccount().getEmail());
+        request.setAttribute("status", status);
+        request.setAttribute("fname", cus.getFirstName());
+        request.setAttribute("pid", cus.getPersonalID());
+        request.setAttribute("lname", cus.getLastName());
+        request.setAttribute("province", cus.getProvince());
+        request.setAttribute("dob", cus.getDob());
+        request.setAttribute("district", cus.getDistrict());
+        request.setAttribute("phone", cus.getPhone());
+        request.setAttribute("address", cus.getAddress());
+        request.setAttribute("staff", staff);
+        request.setAttribute("joinDate", timestampToDatetimeLocal(cus.getJoinDate()));
+        request.setAttribute("isSuccess", isSuccess);
+        request.getRequestDispatcher("../../view/customer/customer_info_update.jsp").forward(request, response);
     }
 
     /**
