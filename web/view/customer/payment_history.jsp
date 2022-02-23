@@ -32,7 +32,7 @@
             }
 
             .table td {
-                /*max-width: 15rem;*/
+                border-bottom: 0.5px solid #000000;
             }
 
             .table thead {
@@ -57,13 +57,23 @@
 
             .table .stt {
                 max-width: 4rem;
-                text-align: center;
-                word-break: break-all;
+                
             }
             
             .table .proTitle {
-                max-width: 15rem;
-                /*text-align: center;*/
+                max-width: 12rem;
+            }
+            
+            .table .amount, .method {
+                max-width: 3rem;
+            }  
+            
+            .table .note {
+                max-width: 6rem;
+            }
+            
+            .table .stt, .amount, .date, .method, .note {
+                text-align: center;
                 word-break: break-all;
             }
         </style>
@@ -98,11 +108,11 @@
                     <tr>
                         <td class="stt">1</td>
                         <td class="proTitle">Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td class="amount">300.000</td>
+                        <td class="amount">3.000.000</td>
                         <td class="date">11/05/2018 21:01:58</td>
                         <td class="date">15/05/2018 21:01:58</td>
                         <td class="method">Tiền mặt</td>
-                        <td class="note"></td>
+                        <td class="note">aaaaa</td>
                     </tr>
                     <tr>
                         <td class="stt">2</td>
