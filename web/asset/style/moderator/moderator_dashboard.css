@@ -127,6 +127,6 @@ main {
   border-left: 2px solid black;
 }
 
-#myChart {
+.dashboard-chard {
     margin: 1em;
 }
