@@ -88,6 +88,7 @@ main{
 
 .table-rank {
     color: #FFF9EC;
+    border-top: 2px solid #40a977;
 }
 
 .table-rank-head {
@@ -95,9 +96,14 @@ main{
     background-color: rgba(78, 75, 75, 0.5);   
 }
 
+.table-rank tr th {
+    text-align: center;
+}
+
 .table-rank tr th:first-child {
     width: 80px;
 }
+
 
 .rank-value {
     border-right: 1px solid black;
