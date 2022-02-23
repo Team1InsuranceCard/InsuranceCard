@@ -125,16 +125,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row"><div class="rank-value">1</div></th>
-                    <td>Mark</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><div class="rank-value">1</div></th>
-                    <td>Jacob</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><div class="rank-value">1</div></th>
-                    <td>Larry</td>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Group_3.png" style="height: 40px; margin-top: 10px; margin-right: 10px;" alt=""></div></th>
+                    <td ><div class="">Jacob</div></td>
                   </tr>
                 </tbody>
               </table>
