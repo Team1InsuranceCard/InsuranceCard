@@ -236,13 +236,16 @@
                   </tr>
                 </tbody>
               </table>
-              <canvas
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <canvas
               class="dashboard-chard"
                 id="staffChart"
                 style="width: 100%; max-width: 600px"
               ></canvas>
-            </div>
-          </div>
         </div>
       </div>
     </main>
