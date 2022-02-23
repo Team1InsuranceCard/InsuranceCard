@@ -76,10 +76,12 @@ public class RenewContract extends HttpServlet {
         contract.setContractFee(newFee);
         contract.setStartStaff(staff);
         
-        db.staffRenewContract(contract, payMethodID);
+        int renewContractID = db.staffRenewContract(contract, payMethodID);
+        
         request.setAttribute("contract", contract);
         request.setAttribute("isSuccess", true);
         request.setAttribute("check", db.staffRenewCheck(contract));
+        request.setAttribute("renewContractID", renewContractID);
         request.getRequestDispatcher("../../view/staff/renew_contract.jsp").forward(request, response);
     }
 
