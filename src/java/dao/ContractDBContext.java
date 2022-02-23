@@ -667,6 +667,7 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "select ProductID\n"
                     + "	, Title\n"
+                    + "	, Price\n"
                     + "	, ContentDetail\n"
                     + "	, p.Status as proStatusID\n"
                     + "	, ps.StatusName as proStatusName\n"
@@ -736,6 +737,7 @@ public class ContractDBContext extends DBContext {
                 pro.setId(rs.getInt("ProductID"));
                 pro.setTitle(rs.getString("Title"));
                 pro.setContentDetail("ContentDetail");
+                pro.setPrice(rs.getDouble("Price"));
                 pro.setStatusCode(proStatus);
 
                 Account cusAcc = new Account();
@@ -936,7 +938,8 @@ public class ContractDBContext extends DBContext {
         }
     }
 
-    public void staffRenewContract(Contract contract, int payMethodID) {
+    public int staffRenewContract(Contract contract, int payMethodID) {
+        int contractID = -1;
         try {
             connection.setAutoCommit(false);
             // insert contract
@@ -1031,6 +1034,7 @@ public class ContractDBContext extends DBContext {
             ps_update.setInt(3, contract.getId());
             ps_update.executeUpdate();
             connection.commit();
+            contractID = contract.getId();
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
             try {
@@ -1045,6 +1049,7 @@ public class ContractDBContext extends DBContext {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return contractID;
     }
 
     public boolean staffRenewCheck(Contract contract) {

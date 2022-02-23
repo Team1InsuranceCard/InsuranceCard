@@ -337,4 +337,68 @@ public class StaffDBContext extends DBContext {
         }
         return null;
     }
+
+    public void createStaff(Account account, Staff staff) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_account = "INSERT INTO [Account]\n"
+                    + "           ([Email]\n"
+                    + "           ,[Password]\n"
+                    + "           ,[Role]\n"
+                    + "           ,[Status])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm_account = connection.prepareStatement(sql_account);
+            stm_account.setString(1, account.getEmail());
+            stm_account.setString(2, account.getPassword());
+            stm_account.setBoolean(3, true);
+            stm_account.setShort(4, Short.parseShort("1"));
+            stm_account.executeUpdate();
+
+            String sql_get_accountid = "select @@identity as account_id";
+            PreparedStatement stm_get_accountid = connection.prepareStatement(sql_get_accountid);
+            ResultSet rs_accountid = stm_get_accountid.executeQuery();
+
+            if (rs_accountid.next()) {
+                account.setId(rs_accountid.getInt("account_id"));
+                staff.setAccount(account);
+            }
+
+            String sql_staff = "INSERT INTO [Staff]\n"
+                    + "           ([AccountID]\n"
+                    + "           ,[FirstName]\n"
+                    + "           ,[LastName]\n"
+                    + "           ,[Phone])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm_staff = connection.prepareStatement(sql_staff);
+            stm_staff.setInt(1, staff.getAccount().getId());
+            stm_staff.setString(2, staff.getFirstName());
+            stm_staff.setString(3, staff.getLastName());
+            stm_staff.setString(4, staff.getPhone());
+            stm_staff.executeUpdate();
+            
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 }
