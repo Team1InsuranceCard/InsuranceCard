@@ -34,7 +34,7 @@
     </jsp:include>
     <main>
       <div class="container">
-        <div class="row" style="margin-bottom: 2em;">
+        <div class="row" style="margin-bottom: 2em">
           <div class="col">
             <div
               class="custom-card"
@@ -111,7 +111,9 @@
                     <div class="total-number">16</div>
                   </div>
                   <div class="col">
-                    <div class="total-title-align total-title">Total Products</div>
+                    <div class="total-title-align total-title">
+                      Total Products
+                    </div>
                   </div>
                 </div>
               </div>
@@ -124,20 +126,44 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img  src="asset/image/moderator/Triangle_1.png" class="icon-rank icon-triangle" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Triangle_1.png"
+                          class="icon-rank icon-triangle"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
                   </tr>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Triangle_2.png" class="icon-rank icon-triangle" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Triangle_2.png"
+                          class="icon-rank icon-triangle"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
                   </tr>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Triangle_3.png" class="icon-rank icon-triangle" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Triangle_3.png"
+                          class="icon-rank icon-triangle"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
                   </tr>
                 </tbody>
               </table>
-              <!-- <canvas id="myChart" style="width:100%;max-width:600px"></canvas> -->
+              <canvas class="dashboard-chard" id="productChart" style="width:100%;max-width:600px"></canvas>
             </div>
           </div>
           <div class="col">
@@ -148,7 +174,9 @@
                     <div class="total-number">16</div>
                   </div>
                   <div class="col">
-                    <div class="total-title-align total-title">Total Staffs</div>
+                    <div class="total-title-align total-title">
+                      Total Staffs
+                    </div>
                   </div>
                 </div>
               </div>
@@ -157,70 +185,159 @@
                   <tr>
                     <th scope="col">Top 3</th>
                     <th scope="col">Name</th>
-                    <th scope="col" style="width: 13em;">Phone</th>
+                    <th scope="col" style="width: 13em">Phone</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_1.png" class="icon-rank" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
-                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Star_1.png"
+                          class="icon-rank"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
+                    <td>
+                      <div class="rank-title rank-userphone">0911101110</div>
+                    </td>
                   </tr>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_2.png" class="icon-rank" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
-                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Star_2.png"
+                          class="icon-rank"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
+                    <td>
+                      <div class="rank-title rank-userphone">0911101110</div>
+                    </td>
                   </tr>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_3.png" class="icon-rank" alt=""></div></th>
-                    <td ><div class="rank-title">Jacob</div></td>
-                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                    <th scope="row">
+                      <div class="rank-value">
+                        <img
+                          src="asset/image/moderator/Star_3.png"
+                          class="icon-rank"
+                          alt=""
+                        />
+                      </div>
+                    </th>
+                    <td><div class="rank-title">Jacob</div></td>
+                    <td>
+                      <div class="rank-title rank-userphone">0911101110</div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+              <canvas
+              class="dashboard-chard"
+                id="staffChart"
+                style="width: 100%; max-width: 600px"
+              ></canvas>
             </div>
           </div>
         </div>
       </div>
     </main>
 
-
-
-
     <script>
-    
-    
-    var xValues = ["Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "USA", "Argentina", "Bảo"];
-    var yValues = [55, 49, 44, 24, 15];
-    var barColors = ["red", "green","blue","orange","brown"];
-    
-    new Chart("myChart", {
-      type: "bar",
-      data: {
-        labels: xValues,
-        datasets: [{
-          backgroundColor: barColors,
-          data: yValues
-        }]
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: {
-            x: {
-                ticks: {
-                    display: false //this will remove only the label
-                }
-            }, y:{
-              ticks: {
-                color: "#fff9ec"
-              }
-            }
-        }
+      var xValues = [];
+      var yValues = [];
+      var barColors = [];
+
+      for (i = 0; i < 16; i++) {
+        xValues.push(i + "x");
+        yValues.push(i * 10);
+        barColors.push(randomColor());
       }
-    });
+
+      function randomColor() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      };
+
+      new Chart("productChart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              ticks: {
+                display: false,
+              },
+            },
+            y: {
+              ticks: {
+                color: "#fff9ec",
+              },
+            },
+          },
+        },
+      });
     </script>
+    <script>
+      var xValues = [];
+      var yValues = [];
+      var barColors = [];
 
+      for (i = 0; i < 16; i++) {
+        xValues.push(i + "x");
+        yValues.push(i * 10);
+        barColors.push(randomColor());
+      }
 
+      function randomColor() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      };
+
+      new Chart("staffChart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              ticks: {
+                display: false,
+              },
+            },
+            y: {
+              ticks: {
+                color: "#fff9ec",
+              },
+            },
+          },
+        },
+      });
+    </script>
   </body>
 </html>
