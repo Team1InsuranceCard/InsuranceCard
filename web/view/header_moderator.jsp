@@ -35,7 +35,7 @@
                    href="${root}/moderator/product">Product</a>
             </li>
             <li>
-                <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" 
+                <a class="sidebar-item <c:if test="${current == 'staff'}">active</c:if>" 
                    href="${root}/moderator/staff">Staff</a>        
             </li>
         </ul>
