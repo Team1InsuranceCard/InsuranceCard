@@ -34,7 +34,7 @@
     </jsp:include>
     <main>
       <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom: 2em;">
           <div class="col">
             <div
               class="custom-card"
@@ -114,7 +114,6 @@
                     <div class="total-title-align total-title">Total Products</div>
                   </div>
                 </div>
-                
               </div>
               <table class="table table-borderless table-hover table-rank">
                 <thead class="table-rank-head">
@@ -125,15 +124,63 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Group_3.png" style="height: 40px; margin-top: 10px; margin-right: 10px;" alt=""></div></th>
-                    <td ><div class="">Jacob</div></td>
+                    <th scope="row"><div class="rank-value"><img  src="asset/image/moderator/Triangle_1.png" class="icon-rank icon-triangle" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Triangle_2.png" class="icon-rank icon-triangle" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Triangle_3.png" class="icon-rank icon-triangle" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
                   </tr>
                 </tbody>
               </table>
               <!-- <canvas id="myChart" style="width:100%;max-width:600px"></canvas> -->
             </div>
           </div>
-          <div class="col"></div>
+          <div class="col">
+            <div class="custom-card-rank">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="total-number">16</div>
+                  </div>
+                  <div class="col">
+                    <div class="total-title-align total-title">Total Staffs</div>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-borderless table-hover table-rank">
+                <thead class="table-rank-head">
+                  <tr>
+                    <th scope="col">Top 3</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" style="width: 13em;">Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_1.png" class="icon-rank" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
+                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_2.png" class="icon-rank" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
+                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><div class="rank-value"><img src="asset/image/moderator/Star_3.png" class="icon-rank" alt=""></div></th>
+                    <td ><div class="rank-title">Jacob</div></td>
+                    <td ><div class="rank-title rank-userphone">0911101110</div></td>
+                  </tr>
+                </tbody>
+              </table>
+              <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -142,7 +189,9 @@
 
 
     <script>
-    var xValues = ["Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "USA", "Argentina"];
+    
+    
+    var xValues = ["Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "Bảo hiểm bảo việt cho xe trên 50cc", "USA", "Argentina", "Bảo"];
     var yValues = [55, 49, 44, 24, 15];
     var barColors = ["red", "green","blue","orange","brown"];
     
@@ -156,10 +205,17 @@
         }]
       },
       options: {
-        legend: {display: false},
-        title: {
-          display: true,
-          text: "Products Usage"
+        plugins: { legend: { display: false } },
+        scales: {
+            x: {
+                ticks: {
+                    display: false //this will remove only the label
+                }
+            }, y:{
+              ticks: {
+                color: "#fff9ec"
+              }
+            }
         }
       }
     });
