@@ -14,11 +14,28 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/moderator/staff_create.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
 
     <body>
         <c:set var="rs" value="${requestScope}"/>
+        <input id="msg" type="hidden" value="${rs.success}"/>
+        <script>
+            var msg = document.getElementById("msg").value;
+            if (msg == "success") {
+                Swal.fire({
+                    timer: 1500,
+                    position: 'center',
+                    title: 'Create successfully!',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                })
+            }
+        </script>
+
+        
         <header>
             <jsp:include page="../header_moderator.jsp">
                 <jsp:param name="currentscreen" value="staff"/>
