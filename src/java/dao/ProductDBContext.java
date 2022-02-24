@@ -21,9 +21,9 @@ import model.ProductStatusCode;
  */
 public class ProductDBContext extends DBContext {
 
-    public HashMap<Product, Integer> getTop10Products() {
-        HashMap<Product, Integer> top10Product = null;
-        String sql_select_top10product = "SELECT TOP 10 COUNT(Contract.ID) AS NumberContracts,\n"
+    public ArrayList<Product> getTop3ProductsRankByContract() {
+        ArrayList<Product> top10Product = new ArrayList<>();
+        String sql_select_top10product = "SELECT TOP 3 COUNT(Contract.ID) AS NumberContracts,\n"
                 + "		SUM(Contract.ContractFee) AS Revenues,\n"
                 + " Product.ID, Product.Title\n"
                 + "  FROM [Product] LEFT JOIN Contract ON Product.ID = Contract.ProductID\n"
@@ -34,7 +34,39 @@ public class ProductDBContext extends DBContext {
             PreparedStatement psm_select_top10product = connection.prepareStatement(sql_select_top10product);
             ResultSet rs_select_top10product = psm_select_top10product.executeQuery();
             while (rs_select_top10product.next()) {
-               
+                Product product = new Product();
+                product.setId(rs_select_top10product.getInt("ID"));
+                product.setTitle(rs_select_top10product.getString("Title"));
+                top10Product.add(product);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return top10Product;
+
+    }
+
+    public HashMap<Product, Integer> getProductsRankByContract() {
+        HashMap<Product, Integer> top10Product = new HashMap<>();
+        String sql_select_top10product = "SELECT COUNT(Contract.ID) AS NumberContracts,\n"
+                + "		SUM(Contract.ContractFee) AS Revenues,\n"
+                + " Product.ID, Product.Title\n"
+                + "  FROM [Product] LEFT JOIN Contract ON Product.ID = Contract.ProductID\n"
+                + "  WHERE Product.isDelete = 0 AND Contract.isDelete = 0 AND Contract.Status IN (1,3)\n"
+                + "  GROUP BY Product.ID, Product.Title\n";
+        try {
+            PreparedStatement psm_select_top10product = connection.prepareStatement(sql_select_top10product);
+            ResultSet rs_select_top10product = psm_select_top10product.executeQuery();
+            while (rs_select_top10product.next()) {
+                Product product = new Product();
+                product.setId(rs_select_top10product.getInt("ID"));
+                product.setTitle(rs_select_top10product.getString("Title"));
+                int numberContracts = rs_select_top10product.getInt("NumberContracts");
+                top10Product.put(product, numberContracts);
+
             }
 
         } catch (SQLException ex) {
