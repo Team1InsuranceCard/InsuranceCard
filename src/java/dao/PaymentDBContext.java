@@ -20,6 +20,23 @@ import model.PaymentMethod;
  */
 public class PaymentDBContext extends DBContext {
 
+    public double totalRevenues() {
+        double total = 0;
+        String sql_select_count_revenues = "SELECT SUM([Amount]) AS TotalRevenues\n"
+                + "  FROM [Payment]\n"
+                + "  WHERE Payment.isDelete = 0 AND PaidDate IS NOT NULL";
+        try {
+            PreparedStatement psm_select_count_revenues = connection.prepareStatement(sql_select_count_revenues);
+            ResultSet rs_select_count_revenues = psm_select_count_revenues.executeQuery();
+            if (rs_select_count_revenues.next()) {
+                total = rs_select_count_revenues.getDouble("TotalRevenues");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
     public double totalAmountSpent(int customerID) {
         try {
             double totalAmount = 0;
