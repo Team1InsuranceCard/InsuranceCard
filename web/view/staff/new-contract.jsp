@@ -83,7 +83,9 @@
                                         </c:forEach>
                                     </select>
                                     <input type="hidden" id="currentProductPrice" 
-                                           value="${requestScope.productSent.price}"/>
+                                           value="${requestScope.productSent ne null ? 
+                                                    requestScope.productSent.price : 
+                                                    requestScope.products.get(0).price}"/>
                                 </span>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>

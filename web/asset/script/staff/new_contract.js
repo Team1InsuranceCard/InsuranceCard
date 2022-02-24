@@ -86,6 +86,10 @@ function fillEndDate() {
 
 function changePeriod() {
     fillEndDate();
+    changeContractFee();
+}
+
+function changeContractFee(){
     var productPrice = $("#currentProductPrice").val();
     var contractFee;
     if ($("#select2").val() === "1") {
@@ -106,6 +110,7 @@ function changePeriod() {
 
     $("#contractFee").val(contractFee);
 }
+
 function enableCheckout() {
     if ($("#chk-3").prop('checked')) {
         document.getElementById("btnCheckout").classList.remove("btnDisable");
@@ -116,3 +121,21 @@ function enableCheckout() {
     }
 }
 
+function changeProduct(){
+    var priceInput = document.getElementById("currentProductPrice");
+    console.log(priceInput);
+    var pid = $("#select4").val();
+    $.ajax({
+        type: "GET",
+        data: {id: pid},
+        url: "get-product-info",
+        success: function (responseJson) {
+            if (responseJson.id != null) {
+                priceInput.value = responseJson.price;
+            } else {
+                priceInput.value = "";
+            }
+        }
+    });
+    changeContractFee();
+}
