@@ -37,7 +37,9 @@
                             <a href="staff/customer/create">Create a customer account</a><br/>
                             <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
-                                   placeholder="Customer ID"/><br/>
+                                   placeholder="Customer ID"
+                                   onkeyup="checkCustomerID()"/>
+                            <span id="msgCustomer"></span><br/>
                             <label class="label-input">Customer Name:</label>
                             <input id="txt11" class="inputdata" type="text" disabled/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>

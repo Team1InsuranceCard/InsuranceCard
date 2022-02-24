@@ -89,7 +89,7 @@ function changePeriod() {
     changeContractFee();
 }
 
-function changeContractFee(){
+function changeContractFee() {
     var productPrice = $("#currentProductPrice").val();
     var contractFee;
     if ($("#select2").val() === "1") {
@@ -121,9 +121,8 @@ function enableCheckout() {
     }
 }
 
-function changeProduct(){
+function changeProduct() {
     var priceInput = document.getElementById("currentProductPrice");
-    console.log(priceInput);
     var pid = $("#select4").val();
     $.ajax({
         type: "GET",
@@ -138,4 +137,30 @@ function changeProduct(){
         }
     });
     changeContractFee();
+}
+
+function checkCustomerID() {
+    var msgSpan = document.getElementById("msgCustomer");
+    var txtCustomerName = document.getElementById("txt11");
+    var cid = $("#txt2").val();
+    if (cid.trim() === "") {
+        msgSpan.innerHTML = "";
+        txtCustomerName.value = "";
+    } else {
+        $.ajax({
+            type: "GET",
+            data: {id: cid},
+            url: "get-customer-info",
+            success: function (responseJson) {
+                if (responseJson.account != null) {
+                    txtCustomerName.value = responseJson.firstName + " " + responseJson.lastName;
+                    msgSpan.innerHTML = "";
+                } else {
+                    txtCustomerName.value = "";
+                    msgSpan.innerHTML = "Customer is not existed or not activated!";
+                }
+            }
+        });
+    }
+
 }
