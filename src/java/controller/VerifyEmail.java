@@ -95,7 +95,7 @@ public class VerifyEmail extends HttpServlet {
                 customer.setAddress(address);
                 customer.setFirstName(firstName);
                 customer.setLastName(lastName);
-            customer.setDob((dob == null) ? null : Date.valueOf(dob));
+                customer.setDob((dob == null) ? null : Date.valueOf(dob));
                 customer.setProvince(province);
                 customer.setDistrict(district);
                 customer.setJoinDate(ts);
