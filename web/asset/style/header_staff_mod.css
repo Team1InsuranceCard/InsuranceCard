@@ -48,7 +48,6 @@ header {
 
 .header-element .icon-header {
   text-decoration: none;
-  color: inherit;
 }
 
 .icon-header + .icon-header {
