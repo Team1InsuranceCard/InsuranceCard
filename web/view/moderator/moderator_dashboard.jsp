@@ -103,18 +103,18 @@
         </div>
         <div class="row">
           <div class="col">
-              <div class="custom-card-rank">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col">
-                              <div class="total-number">16</div>
-                          </div>
-                          <div class="col">
-                              <div class="total-title">Total Products</div>
-                          </div>
-                      </div>
+            <div class="custom-card-rank">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="total-number">16</div>
                   </div>
+                  <div class="col">
+                    <div class="total-title-align total-title">Total Products</div>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
           <div class="col"></div>
         </div>

@@ -33,10 +33,6 @@ public class EditCustomer extends HttpServlet {
         return dateTimeLocal;
     }
 
-    private Timestamp datetimeLocalToTimestamp(String datetimeLocal) {
-        return Timestamp.valueOf(datetimeLocal.replace("T", " ") + ":00");
-    }
-
     private Staff getStaff(ArrayList<Staff> staffs, int id) {
         for (Staff staff : staffs) {
             if (staff.getAccount().getId() == id) {
@@ -65,9 +61,6 @@ public class EditCustomer extends HttpServlet {
 
         StaffDBContext staffDb = new StaffDBContext();
         ArrayList<Staff> staffs = staffDb.getStaffs();
-
-        // convert Timestamp to datetime-local
-        String[] joinDate = cus.getJoinDate().toString().split(" ");
 
         // set attribute
         request.setAttribute("aid", id);
@@ -134,7 +127,6 @@ public class EditCustomer extends HttpServlet {
         cus.setLastName(lname);
         cus.setAddress(address);
         cus.setDob(dob);
-        cus.setJoinDate(datetimeLocalToTimestamp(joinDate));
         cus.setPhone(phone);
         cus.setPersonalID(pid);
         cus.setProvince(province);

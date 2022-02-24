@@ -46,6 +46,7 @@ public class ViewCustomer extends HttpServlet {
         
         request.setAttribute("viewCustomer", viewCustomer);
         request.setAttribute("totalContract", totalContract);
+        request.setAttribute("cusID", id);
         request.getRequestDispatcher("../../view/staff/customer_detail.jsp").forward(request, response);
     }
 

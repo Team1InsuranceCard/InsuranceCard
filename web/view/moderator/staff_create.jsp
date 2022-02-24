@@ -12,78 +12,8 @@
         <title>InsuranceCard</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="../../asset/style/moderator/staff_create.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-                color: #5C2941;
-                /*overflow-x: hidden;*/
-            }
-
-            section .func-label {
-                margin: 7rem 0 3rem 23rem;
-                font-weight: bold;
-            }
-
-            section .container {
-                margin-left: 23rem;
-            }
-
-            .container .row .attribute {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 1.5rem;
-                margin-left: 5rem;
-            }
-
-            .container .row .input {
-                margin-bottom: 3rem;
-                margin-left: 5rem;
-            }
-
-            .container .row .input input {
-                width: 20rem;
-                height: 3.5rem;
-                background: #FFF9EC;
-                border: 1.75px solid #000000;
-                box-sizing: border-box;
-                border-radius: 10px;
-                padding-left: 1.5rem;
-            }
-
-            .container .row span {
-                color: red;
-            }
-
-            .btn-input {
-                margin: 1rem 0 3rem 24.75rem;
-            }
-
-            .btn-input .btn {
-                width: 7rem;
-                height: 3rem;
-                border-radius: 10px;
-                font-weight: bold;
-            }
-
-            .create {
-                background: #FC6376;
-                margin-right: 1rem;
-                color: #FFFFFF;
-            }
-
-            .cancel {
-                background: #C4C4C4;
-                color: #5C2941;
-            }
-            
-            ::placeholder {
-                color: rgba(0, 0, 0, 0.4);
-                font-style: italic;
-            }
-        </style>
     </head>
 
     <body>
@@ -137,7 +67,9 @@
 
                     <div class="btn-input">
                         <input type="submit" class="create btn" value="Create"/>
-                        <input type="button" class="cancel btn" value="Cancel"/>
+                        <a href="moderator/staff">
+                            <input type="button" class="cancel btn" value="Cancel"/>
+                        </a>
                     </div>
                 </div>
             </form>

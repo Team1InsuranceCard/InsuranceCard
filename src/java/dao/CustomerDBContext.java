@@ -28,9 +28,9 @@ public class CustomerDBContext extends DBContext {
     public int getTotalActiveCustomers() {
         int total = 0;
 
-        String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n" +
-                "  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n" +
-                "  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
+        String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n"
+                + "  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n"
+                + "  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
         try {
             PreparedStatement psm_select_totalcustomer = connection.prepareStatement(sql_select_totalcustomer);
             ResultSet rs_select_totalcustomer = psm_select_totalcustomer.executeQuery();
@@ -598,7 +598,6 @@ public class CustomerDBContext extends DBContext {
                     + "	, LastName = ?\n"
                     + "	, Address = ?\n"
                     + "	, Dob = ?\n"
-                    + "	, JoinDate = ?\n"
                     + "	, Phone = ?\n"
                     + "	, PersonalID = ?\n"
                     + "	, Province = ?\n"
@@ -873,5 +872,34 @@ public class CustomerDBContext extends DBContext {
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public void updateInfo(Customer cus) {
+        try {
+            String sql = "UPDATE [Customer]\n"
+                    + "   SET [FirstName] = ?\n"
+                    + "      ,[LastName] = ?\n"
+                    + "      ,[Address] = ?\n"
+                    + "      ,[Dob] = ?\n"
+                    + "      ,[Phone] = ?\n"
+                    + "      ,[PersonalID] = ?\n"
+                    + "      ,[Province] = ?\n"
+                    + "      ,[District] = ?\n"
+                    + " WHERE [AccountID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, cus.getFirstName());
+            stm.setString(2, cus.getLastName());
+            stm.setString(3, cus.getAddress());
+            stm.setDate(4, cus.getDob());
+            stm.setString(5, cus.getPhone());
+            stm.setString(6, cus.getPersonalID());
+            stm.setString(7, cus.getProvince());
+            stm.setString(8, cus.getDistrict());
+            stm.setInt(9, cus.getAccount().getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
