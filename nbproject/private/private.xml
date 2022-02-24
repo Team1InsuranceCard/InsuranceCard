@@ -16,7 +16,7 @@
             <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/web/view/staff/new-contract.jsp</file>
             <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/src/java/controller/staff/StaffNewContractController.java</file>
             <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/web/asset/script/staff/new_contract.js</file>
-            <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/web/asset/script/customer/new_contract.js</file>
+            <file>file:/E:/FPTU/2022-1SP-Semester5/5-SWP391/SourceCode/InsuranceCard/src/java/dao/CustomerDBContext.java</file>
         </group>
     </open-files>
 </project-private>

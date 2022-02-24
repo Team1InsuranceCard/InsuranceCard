@@ -7,6 +7,7 @@ package controller.staff;
 
 import dao.AccountDBContext;
 import dao.BrandDBContext;
+import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
 import dao.ProductDBContext;
@@ -19,6 +20,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -69,7 +72,7 @@ public class StaffNewContractController extends HttpServlet {
         }
         //get Product sent by URL if there is
         Product product = pdb.getProductByID(pID);
-        request.setAttribute("productSent", product);
+        request.setAttribute("productSentURL", product);
 
         //get current date
         LocalDate d = LocalDate.now();
@@ -143,13 +146,17 @@ public class StaffNewContractController extends HttpServlet {
         }
         //getCustomer
         Customer customer = null;
+        int cid = 0;
         try {
-            int cid = Integer.parseInt("cusID");
-            Account cusAccount = adb.getAccount(cid);
-            customer = cdb.getCustomerByAccount(cusAccount);
-        } catch (Exception e) {
+            cid = Integer.parseInt(cusID);
+        } catch (Exception ex) {
+            Logger.getLogger(StaffNewContractController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        Account cusAccount = adb.getAccount(cid);
+        if (cusAccount != null) {
+            customer = cdb.getCustomerByAccount(cusAccount);
+        }
         VehicleType type = vtdb.getVehicleTypeByID(Integer.parseInt(vehicleTypeID));
         Brand brand = bdb.getBrandByID(Integer.parseInt(brandID));
         Product product = pdb.getProduct(Integer.parseInt(productID));
@@ -182,10 +189,28 @@ public class StaffNewContractController extends HttpServlet {
             contract.setId(ctdb.insertContract(contract));
 
             //redirect to view contract detail page
-            response.sendRedirect("/staff/contract/detail?id=" + contract.getId());
-        } else{
+            response.sendRedirect("../../staff/contract/detail?id=" + contract.getId());
+        } else {
             String errorMessage = "Invalid customer account! Cannot create new contract!";
             request.setAttribute("errorMessage", errorMessage);
+            request.setAttribute("ownerNameSent", ownerName);
+            request.setAttribute("cusIDSent", cusID);
+            request.setAttribute("vehicleTypeIDSent", vehicleTypeID);
+            request.setAttribute("brandIDSent", brandID);
+            request.setAttribute("licensePlateSent", licensePlate);
+            request.setAttribute("chassisSent", chassis);
+            request.setAttribute("engineSent", engine);
+            request.setAttribute("productSent", product);
+            request.setAttribute("startDateSent", start);
+            request.setAttribute("deliveryNameSent", deliveryName);
+            request.setAttribute("deliveryPhoneSent", deliveryPhone);
+            request.setAttribute("deliveryEmailSent", deliveryEmail);
+            request.setAttribute("deliveryAddressSent", deliveryAddress);
+            request.setAttribute("deliveryProvinceSent", deliveryProvince);
+            request.setAttribute("deliveryDistrictSent", deliveryDistrict);
+            request.setAttribute("feeSent", fee);
+            request.setAttribute("cusNameSent", request.getParameter("cusName"));
+            request.setAttribute("contractTypeSent", request.getParameter("contractType"));
             doGet(request, response);
         }
 

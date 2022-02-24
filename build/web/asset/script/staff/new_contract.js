@@ -52,13 +52,9 @@ $('select[name="calc_shipping_provinces"]').each(function () {
 
 //main script
 $(document).ready(function () {
-    var startdate = new Date($("#startdate").val());
-    //oneday = hour * minute * second * milliseconds
-    var oneday = 24 * 60 * 60 * 1000;
-    var enddate = $.datepicker.formatDate('yy-mm-dd',
-            new Date(startdate.getTime() + 365 * oneday));
-    $("#enddate").val(enddate);
-    $("#endDateSent").val($("#enddate").val());
+    fillEndDate();
+    changeContractFee();
+    checkCustomerID();
 })
 
 function calculateEndDate() {
@@ -143,6 +139,7 @@ function changeProduct() {
 function checkCustomerID() {
     var msgSpan = document.getElementById("msgCustomer");
     var txtCustomerName = document.getElementById("txt11");
+    var txtCustomerNameHidden = document.getElementById("txt12");
     var cid = $("#txt2").val();
     if (cid.trim() === "") {
         msgSpan.innerHTML = "";
@@ -155,6 +152,7 @@ function checkCustomerID() {
             success: function (responseJson) {
                 if (responseJson.account != null) {
                     txtCustomerName.value = responseJson.firstName + " " + responseJson.lastName;
+                    txtCustomerNameHidden.value = txtCustomerName.value;
                     msgSpan.innerHTML = "";
                 } else {
                     txtCustomerName.value = "";

@@ -36,41 +36,61 @@
                             <label for="txt1" class="label-input">Full name (*):</label>
                             <input id="txt1" class="inputdata" type="text" required
                                    name="ownerName" onchange="fillRightOwner()"
-                                   placeholder="Owner full name (in vehicle registration)"/><br/>
+                                   placeholder="Owner full name (in vehicle registration)"
+                                   value="${requestScope.ownerNameSent ne null ?
+                                            requestScope.ownerNameSent : ""}"/><br/>
                             <a href="staff/customer/create">Create a customer account</a><br/>
                             <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
                                    placeholder="Customer ID" name="customerID"
+                                   value="${requestScope.cusIDSent ne null ?
+                                            requestScope.cusIDSent : ""}"
                                    onkeyup="checkCustomerID()"/>
                             <span class="errorMessage" id="msgCustomer"></span><br/>
                             <label class="label-input">Customer Name:</label>
-                            <input id="txt11" class="inputdata" type="text" disabled/><br/>
+                            <input id="txt11" class="inputdata" type="text" disabled
+                                   value="${requestScope.cusNameSent ne null ?
+                                            requestScope.cusNameSent : ""}"/><br/>
+                            <input id="txt12" type="hidden" name="CusName"
+                                   value="${requestScope.cusNameSent ne null ?
+                                            requestScope.cusNameSent : ""}"/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                             <label for="select1" class="label-input">Type (*):</label>
                             <select id="select1" class="selectdata" name="vehicleTypeID">
                                 <c:forEach items="${requestScope.vehicletypes}" var="type">
-                                    <option value="${type.id}">${type.vehicleType}</option>
+                                    <option value="${type.id}" 
+                                            ${requestScope.vehicleTypeIDSent eq type.id ? 'selected':''}>
+                                        ${type.vehicleType}
+                                    </option>
                                 </c:forEach>
                             </select><br/>
                             <label for="select3" class="label-input">Brand (*):</label>
                             <select id="select3" class="selectdata" name="brandID">
                                 <c:forEach items="${requestScope.brands}" var="brand">
-                                    <option value="${brand.id}">${brand.brand}</option>
+                                    <option value="${brand.id}" 
+                                            ${requestScope.brandIDSent eq brand.id ? 'selected':''}>
+                                        ${brand.brand}
+                                    </option>
                                 </c:forEach>
                             </select><br/>
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
-                                   name="licensePlate"
-                                   onchange="fillRightLicensePlate()"
-                                   placeholder="License plate (in vehicle registration)"/><br/>
+                                   name="licensePlate" onchange="fillRightLicensePlate()"
+                                   placeholder="License plate (in vehicle registration)"
+                                   value="${requestScope.licensePlateSent ne null ?
+                                            requestScope.licensePlateSent : ""}"/><br/>
                             <label for="txt9" class="label-input">Chassis number:</label>
                             <input id="txt9" class="inputdata" type="text"
                                    name="chassis"
-                                   placeholder="Chassis number (in vehicle registration)"/><br/>
+                                   placeholder="Chassis number (in vehicle registration)"
+                                   value="${requestScope.chassisSent ne null ?
+                                            requestScope.chassisSent : ""}"/><br/>
                             <label for="txt10" class="label-input">Engine number:</label>
                             <input id="txt10" class="inputdata" type="text" 
                                    name="engine"
-                                   placeholder="Engine number (in vehicle registration)"/><br/>
+                                   placeholder="Engine number (in vehicle registration)"
+                                   value="${requestScope.engineSent ne null ?
+                                            requestScope.engineSent : ""}"/><br/>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
@@ -79,7 +99,12 @@
                                             onchange="changeProduct()">
                                         <c:forEach items="${requestScope.products}" var="product">
                                             <option value="${product.id}"
-                                                    <c:if test="${requestScope.productSent ne null 
+                                                    <c:if test="${requestScope.productSentURL ne null 
+                                                                  and requestScope.productSentURL.id eq product.id}">
+                                                          selected="true"
+                                                    </c:if>
+                                                    <c:if test="${requestScope.productSentURL eq null 
+                                                                  and requestScope.productSent ne null
                                                                   and requestScope.productSent.id eq product.id}">
                                                           selected="true"
                                                     </c:if>>
@@ -88,17 +113,37 @@
                                         </c:forEach>
                                     </select>
                                     <input type="hidden" id="currentProductPrice" 
-                                           value="${requestScope.productSent ne null ? 
-                                                    requestScope.productSent.price : 
-                                                    requestScope.products.get(0).price}"/>
+                                           value="${requestScope.productSentURL ne null ? 
+                                                    requestScope.productSentURL.price : 
+                                                    (requestScope.productSent ne null ? 
+                                                    requestScope.productSent.price :
+                                                    requestScope.products.get(0).price)}"/>
                                 </span>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>
-                            <select id="select2" class="selectdata" 
+                            <select id="select2" class="selectdata" name="contractType"
                                     onchange="changePeriod()">
-                                <option value="1">1 year</option>
-                                <option value="2">2 years</option>
-                                <option value="3">3 years</option>
+                                <option value="1"
+                                        <c:if test="${requestScope.contractTypeSent ne null 
+                                                      and requestScope.contractTypeSent eq '1'}">
+                                              selected="true"
+                                        </c:if>>
+                                    1 year
+                                </option>
+                                <option value="2"
+                                        <c:if test="${requestScope.contractTypeSent ne null 
+                                                      and requestScope.contractTypeSent eq '2'}">
+                                              selected="true"
+                                        </c:if>>
+                                    2 years
+                                </option>
+                                <option value="3"
+                                        <c:if test="${requestScope.contractTypeSent ne null 
+                                                      and requestScope.contractTypeSent eq '3'}">
+                                              selected="true"
+                                        </c:if>>
+                                    3 years
+                                </option>
                             </select><br/>
                             <div class="row-input">
                                 <span class=  "row-input1">
@@ -106,7 +151,9 @@
                                     <input id="startdate" class="startdate" type="date"
                                            name="startDate"
                                            onchange="fillEndDate()" required
-                                           value="${requestScope.now}"/>
+                                           value="${requestScope.startDateSent ne null ?
+                                                    requestScope.startDateSent :
+                                                    requestScope.now}"/>
                                 </span>
                                 <span class="row-input2">
                                     <label for="enddate" class="label-input">End date:</label>
@@ -118,20 +165,28 @@
                             <label for="txt5" class="label-input">Full name (*):</label>
                             <input id="txt5" class="inputdata" type="text" required
                                    name="deliveryName"
-                                   placeholder="Full name of recipient"/><br/>
+                                   placeholder="Full name of recipient"
+                                   value="${requestScope.deliveryNameSent ne null ?
+                                            requestScope.deliveryNameSent : ""}"/><br/>
                             <label for="txt6" class="label-input">Phone number (*):</label>
                             <input id="txt6" class="inputdata" type="text" required
                                    name="deliveryPhone"
-                                   placeholder="Phone number"/><br/>
+                                   placeholder="Phone number"
+                                   value="${requestScope.deliveryPhoneSent ne null ?
+                                            requestScope.deliveryPhoneSent : ""}"/><br/>
                             <label for="txt7" class="label-input">Email (*):</label>
                             <input id="txt7" class="inputdata" type="text" required
                                    name="deliveryEmail"
-                                   placeholder="Email"/><br/>
+                                   placeholder="Email"
+                                   value="${requestScope.deliveryEmailSent ne null ?
+                                            requestScope.deliveryEmailSent : ""}"/><br/>
                             <label for="txt8" class="label-input">Address (*):</label>
                             <span class="address-container">
                                 <input id="txt8" class="inputdata" type="text" 
                                        name="deliveryAddress"
-                                       placeholder="Address" required/><br/>
+                                       placeholder="Address" required
+                                       value="${requestScope.deliveryAddressSent ne null ?
+                                                requestScope.deliveryAddressSent : ""}"/><br/>
                                 <div class="select-container">
                                     <span class="province-container">
                                         <select id="province" name="calc_shipping_provinces" required>
@@ -166,16 +221,20 @@
                                 <p class="contractFee">                                    
                                     <b id="totalFee">TOTAL PAYMENT: đ
                                         <fmt:formatNumber type="number" pattern="#,###" 
-                                                          value="${requestScope.productSent ne null ? 
-                                                                   requestScope.productSent.price : 
-                                                                   requestScope.products.get(0).price}">
+                                                          value="${requestScope.productSentURL ne null ? 
+                                                                   requestScope.productSentURL.price : 
+                                                                   (requestScope.fee ne null ? 
+                                                                   requestScope.fee :
+                                                                   requestScope.products.get(0).price)}">
 
                                         </fmt:formatNumber>
                                     </b>
                                     <input type="hidden" name="fee" id="contractFee"
-                                           value="${requestScope.productSent ne null ? 
-                                                    requestScope.productSent.price : 
-                                                    requestScope.products.get(0).price}"/>
+                                           value="${requestScope.productSentURL ne null ? 
+                                                    requestScope.productSentURL.price : 
+                                                    (requestScope.fee ne null ? 
+                                                    requestScope.fee :
+                                                    requestScope.products.get(0).price)}"/>
                                 </p>
                                 <div class="btn">
                                     <input type="reset" class="btnReset" value="CLEAR"/>
