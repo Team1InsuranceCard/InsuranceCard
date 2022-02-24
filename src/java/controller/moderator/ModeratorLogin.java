@@ -59,7 +59,7 @@ public class ModeratorLogin extends HttpServlet {
         Moderator acc = mdb.getModAccount(user, pass);
 
         if (acc != null) {
-            request.getSession().setAttribute("account", acc);
+            request.getSession().setAttribute("mod_account", acc);
             if (remember.equals("on")) {
                 Cookie u = new Cookie("userC", user);
                 Cookie p = new Cookie("passC", pass);
@@ -83,7 +83,7 @@ public class ModeratorLogin extends HttpServlet {
             }
             response.sendRedirect("dashboard");
         } else {
-            request.getSession().setAttribute("account", null);
+            request.getSession().setAttribute("mod_account", null);
             request.setAttribute("user", user);
             request.setAttribute("pass", pass);
             request.setAttribute("msg", "Please check username or password!");
