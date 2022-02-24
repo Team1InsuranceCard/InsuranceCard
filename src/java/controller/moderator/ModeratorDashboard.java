@@ -8,12 +8,18 @@ package controller.moderator;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
 import dao.PaymentDBContext;
+import dao.ProductDBContext;
+import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Product;
+import model.Staff;
 
 /**
  *
@@ -38,10 +44,25 @@ public class ModeratorDashboard extends HttpServlet {
         int totalCustomers = customerDBC.getTotalActiveCustomers();
         ContractDBContext contractDBC = new ContractDBContext();
         int totalContracts = contractDBC.totalAcitveContracts();
+        ProductDBContext productDBC = new ProductDBContext();
+        int totalActiveProducts = productDBC.getTotalActiveProducts();
+        ArrayList<Product> top3Products = productDBC.getTop3ProductsRankByContract();
+        HashMap<Product, Integer> top10Products = productDBC.getProductsRankByContract();
+        StaffDBContext staffDBC = new StaffDBContext();
+        int totalStaffs = staffDBC.getTotalActiveStaffs();
+        HashMap<Staff, Integer> top10Staffs = staffDBC.getTop10RankStaffByContract();
+        ArrayList<Staff> top3Staffs = staffDBC.getTop3RankStaffByContract();
+        
         
         request.setAttribute("total_revenues", totalRevenues);
         request.setAttribute("total_customers", totalCustomers);
         request.setAttribute("total_contracts", totalContracts);
+        request.setAttribute("products_rank_by_contract", top10Products);
+        request.setAttribute("total_active_products", totalActiveProducts);
+        request.setAttribute("top3_products", top3Products);
+        request.setAttribute("total_active_staffs", totalStaffs);
+        request.setAttribute("top10_staffs", top10Staffs);
+        request.setAttribute("top3_staffs", top3Staffs);
         
         request.getRequestDispatcher("../view/moderator/moderator_dashboard.jsp").forward(request, response);
     }
