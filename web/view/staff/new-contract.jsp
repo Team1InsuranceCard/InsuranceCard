@@ -37,7 +37,7 @@
                             <a href="staff/customer/create">Create a customer account</a><br/>
                             <label for="txt2" class="label-input">Customer ID (*):</label>
                             <input id="txt2" class="inputdata" type="text" required
-                                   placeholder="Customer ID"
+                                   placeholder="Customer ID" name="customerID"
                                    onkeyup="checkCustomerID()"/>
                             <span id="msgCustomer"></span><br/>
                             <label class="label-input">Customer Name:</label>

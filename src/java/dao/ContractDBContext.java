@@ -772,7 +772,7 @@ public class ContractDBContext extends DBContext {
         }
     }
 
-    public void insertContract(Contract contract) {
+    public int insertContract(Contract contract) {
         try {
             connection.setAutoCommit(false);
             String sql_contract = "INSERT INTO [Contract]\n"
@@ -844,6 +844,7 @@ public class ContractDBContext extends DBContext {
             }
 
             connection.commit();
+            return contract.getId();
 
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -859,6 +860,7 @@ public class ContractDBContext extends DBContext {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return -1;
     }
     
     public void staffRenewContract(Contract contract, int payMethodID) {
