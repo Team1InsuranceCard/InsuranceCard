@@ -843,6 +843,24 @@ public class ContractDBContext extends DBContext {
                 stm_update_customer.executeUpdate();
             }
 
+            //add a record to payment table
+            //By default, when a new contract created, status is processing and not yet paid
+            String sql_insert_payment = "INSERT INTO [Payment]\n"
+                    + "           ([Amount]\n"
+                    + "           ,[StartDate]\n"
+                    + "           ,[ContractID]\n"
+                    + "           ,[isDelete])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,0)";
+            PreparedStatement stm_insert_payment = connection.prepareStatement(sql_insert_payment);
+            stm_insert_payment.setDouble(1, contract.getContractFee());
+            stm_insert_payment.setTimestamp(2, contract.getStartDate());
+            stm_insert_payment.setInt(3, contract.getId());
+            stm_insert_payment.executeUpdate();
+
             connection.commit();
             return contract.getId();
 
@@ -853,7 +871,7 @@ public class ContractDBContext extends DBContext {
             } catch (SQLException ex1) {
                 Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        } finally{
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
@@ -862,7 +880,7 @@ public class ContractDBContext extends DBContext {
         }
         return -1;
     }
-    
+
     public void staffRenewContract(Contract contract, int payMethodID) {
         try {
             connection.setAutoCommit(false);
@@ -973,7 +991,7 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
-    
+
     public boolean staffRenewCheck(Contract contract) {
         try {
             String sql = "select *\n"
