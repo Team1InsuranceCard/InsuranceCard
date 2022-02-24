@@ -40,7 +40,7 @@ public class PaymentDBContext extends DBContext {
     public double totalAmountSpent(int customerID) {
         try {
             double totalAmount = 0;
-            String sql_count_total_amount = "SELECT SUM(Payment.Amout) AS TotalAmount\n"
+            String sql_count_total_amount = "SELECT SUM(Payment.Amount) AS TotalAmount\n"
                     + "  FROM [Contract] INNER JOIN Payment ON Contract.ID=Payment.ContractID\n"
                     + "	WHERE Contract.CustomerID = ? AND Payment.PaidDate IS NOT NULL";
             PreparedStatement psm_count_total_amount = connection.prepareStatement(sql_count_total_amount);
