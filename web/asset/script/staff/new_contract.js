@@ -50,3 +50,69 @@ $('select[name="calc_shipping_provinces"]').each(function () {
     });
 });
 
+//main script
+$(document).ready(function () {
+    var startdate = new Date($("#startdate").val());
+    //oneday = hour * minute * second * milliseconds
+    var oneday = 24 * 60 * 60 * 1000;
+    var enddate = $.datepicker.formatDate('yy-mm-dd',
+            new Date(startdate.getTime() + 365 * oneday));
+    $("#enddate").val(enddate);
+    $("#endDateSent").val($("#enddate").val());
+})
+
+function calculateEndDate() {
+    var startdate = new Date($("#startdate").val());
+    //oneday = hour * minute * second * milliseconds
+    var oneday = 24 * 60 * 60 * 1000;
+    var enddate;
+    if ($("#select2").val() === "1") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 365 * oneday));
+    } else if ($("#select2").val() === "2") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 2 * 365 * oneday));
+    } else if ($("#select2").val() === "3") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 3 * 365 * oneday));
+    }
+    return enddate;
+}
+
+function fillEndDate() {
+    $("#enddate").val(calculateEndDate());
+    $("#endDateSent").val($("#enddate").val());
+}
+
+function changePeriod() {
+    fillEndDate();
+    var productPrice = $("#currentProductPrice").val();
+    var contractFee;
+    if ($("#select2").val() === "1") {
+        contractFee = productPrice;
+    } else if ($("#select2").val() === "2") {
+        contractFee = productPrice * 2;
+    } else if ($("#select2").val() === "3") {
+        contractFee = productPrice * 3;
+    }
+
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'VND',
+    });
+    var fee = formatter.format(contractFee);
+    $("#ProductFee").text(fee);
+    $("#totalFee").text("TOTAL PAYMENT: " + fee);
+
+    $("#contractFee").val(contractFee);
+}
+function enableCheckout() {
+    if ($("#chk-3").prop('checked')) {
+        document.getElementById("btnCheckout").classList.remove("btnDisable");
+        document.getElementById("btnCheckout").disabled = false;
+    } else {
+        document.getElementById("btnCheckout").classList.add("btnDisable");
+        document.getElementById("btnCheckout").disabled = true;
+    }
+}
+

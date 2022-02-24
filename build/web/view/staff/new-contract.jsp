@@ -70,7 +70,8 @@
                             <div class="row-input">
                                 <span class="row-input1">
                                     <label for="select4" class="label-input">Product (*):</label>
-                                    <select id="select4" class="selectdata" name="productID">
+                                    <select id="select4" class="selectdata" name="productID"
+                                            onchange="changeProduct()">
                                         <c:forEach items="${requestScope.products}" var="product">
                                             <option value="${product.id}"
                                                     <c:if test="${requestScope.productSent ne null 
@@ -81,11 +82,13 @@
                                             </option>
                                         </c:forEach>
                                     </select>
+                                    <input type="hidden" id="currentProductPrice" 
+                                           value="${requestScope.productSent.price}"/>
                                 </span>
                             </div>
                             <label for="select2" class="label-input">Type (*):</label>
                             <select id="select2" class="selectdata" 
-                                    onchange="changePeriod(${requestScope.product.price})">
+                                    onchange="changePeriod()">
                                 <option value="1">1 year</option>
                                 <option value="2">2 years</option>
                                 <option value="3">3 years</option>
