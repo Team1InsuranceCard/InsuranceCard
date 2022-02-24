@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Product;
@@ -19,6 +20,30 @@ import model.ProductStatusCode;
  * @author area1
  */
 public class ProductDBContext extends DBContext {
+
+    public HashMap<Product, Integer> getTop10Products() {
+        HashMap<Product, Integer> top10Product = null;
+        String sql_select_top10product = "SELECT TOP 10 COUNT(Contract.ID) AS NumberContracts,\n"
+                + "		SUM(Contract.ContractFee) AS Revenues,\n"
+                + " Product.ID, Product.Title\n"
+                + "  FROM [Product] LEFT JOIN Contract ON Product.ID = Contract.ProductID\n"
+                + "  WHERE Product.isDelete = 0 AND Contract.isDelete = 0 AND Contract.Status IN (1,3)\n"
+                + "  GROUP BY Product.ID, Product.Title\n"
+                + "  ORDER BY COUNT(Contract.ID) DESC, SUM(Contract.ContractFee) DESC";
+        try {
+            PreparedStatement psm_select_top10product = connection.prepareStatement(sql_select_top10product);
+            ResultSet rs_select_top10product = psm_select_top10product.executeQuery();
+            while (rs_select_top10product.next()) {
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return top10Product;
+
+    }
 
     public int getTotalActiveProducts() {
         int total = 0;
