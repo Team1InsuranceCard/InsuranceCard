@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,7 @@
     </head>
 
     <body>
+        <c:set var="rs" value="${requestScope}"/>
         <header>
             <jsp:include page="../header_moderator.jsp">
                 <jsp:param name="currentscreen" value="staff"/>
@@ -36,12 +38,12 @@
 
                     <div class="row">
                         <div class="col-md-5 input fname">
-                            <input type="text"  name="firstName"
+                            <input type="text"  name="firstName" value="${rs.fname}"
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
                                    placeholder="Nguyễn Văn" required/>
                         </div>
                         <div class="col-md-5 input lname">
-                            <input type="text"  name="lastName"
+                            <input type="text"  name="lastName" value="${rs.lname}"
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
                                    placeholder="Anh" required/>
                         </div>
@@ -55,14 +57,18 @@
 
                     <div class="row">
                         <div class="col-md-5 input email">
-                            <input type="email" name="email"
+                            <input type="email" name="email" value="${rs.email}"
                                    placeholder="anhnv@gmail.com" required/>
                         </div>
                         <div class="col-md-5 input phone">
                             <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"  
-                                   minlength="10" maxlength="10"
+                                   minlength="10" maxlength="10" value="${rs.phone}"
                                    placeholder="0123456789" required/>
                         </div>
+                    </div>
+
+                    <div class="msg" style="${rs.msg==null?"":"background-color: #EBCCD1; padding: 0.5rem 1rem;"}">
+                        ${rs.msg}
                     </div>
 
                     <div class="btn-input">
