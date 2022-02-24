@@ -6,6 +6,7 @@
 package controller.moderator;
 
 import controller.SendMail;
+import dao.AccountDBContext;
 import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,25 +47,30 @@ public class CreateStaff extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
-        Account account = new Account();
-        account.setEmail(email);
+        AccountDBContext adb = new AccountDBContext();
+        boolean check = adb.checkExistEmailOfStaff(email);
 
-        Staff staff = new Staff();
-        staff.setFirstName(fname);
-        staff.setLastName(lname);
-        staff.setPhone(phone);
+        if (!check) {
 
-        int n = 8;
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
+            Account account = new Account();
+            account.setEmail(email);
 
-        StringBuilder sb = new StringBuilder(n);
+            Staff staff = new Staff();
+            staff.setFirstName(fname);
+            staff.setLastName(lname);
+            staff.setPhone(phone);
 
-        for (int i = 0; i < n; i++) {
-            int index = (int) (AlphaNumericString.length() * Math.random());
-            sb.append(AlphaNumericString.charAt(index));
-        }
+            int n = 8;
+            String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    + "0123456789"
+                    + "abcdefghijklmnopqrstuvxyz";
+
+            StringBuilder sb = new StringBuilder(n);
+
+            for (int i = 0; i < n; i++) {
+                int index = (int) (AlphaNumericString.length() * Math.random());
+                sb.append(AlphaNumericString.charAt(index));
+            }
 
 //        String subject = "INSURANCE CARD SYSTEM";
 //        String message = "<!DOCTYPE html>\n"
@@ -85,12 +91,20 @@ public class CreateStaff extends HttpServlet {
 //                + "\n"
 //                + "</html>";
 //        SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
+            account.setPassword(sb.toString());
+            staff.setAccount(account);
 
-        account.setPassword(sb.toString());
-        staff.setAccount(account);
+            StaffDBContext sdb = new StaffDBContext();
+            sdb.createStaff(account, staff);
+            request.setAttribute("msg", "success");
+        } else {
+            request.setAttribute("msg", "Email does exist!");
+        }
         
-        StaffDBContext sdb = new StaffDBContext();
-        sdb.createStaff(account, staff);
+        request.setAttribute("fname", fname);
+        request.setAttribute("lname", lname);
+        request.setAttribute("email", email);
+        request.setAttribute("phone", phone);
         request.getRequestDispatcher("../../view/moderator/staff_create.jsp").forward(request, response);
     }
 
