@@ -85,7 +85,7 @@ and open the template in the editor.
     width: 25%;
 }
 
-.left #msgCustomer{
+.left .errorMessage{
     color: red;
 }
 

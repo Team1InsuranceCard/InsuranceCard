@@ -25,6 +25,9 @@
         </jsp:include>
         <div class="container">
             <h2 class="title">NEW CONTRACT</h2>
+            <c:if test="${requestScope.errorMessage ne null and not empty requestScope.errorMessage}">
+                <span class="errorMessage">${requestScope.errorMessage}</span><br/>
+            </c:if>
             <form method="POST" action="staff/contract/create">
                 <div class="content_container">
                     <div class="row">
@@ -39,7 +42,7 @@
                             <input id="txt2" class="inputdata" type="text" required
                                    placeholder="Customer ID" name="customerID"
                                    onkeyup="checkCustomerID()"/>
-                            <span id="msgCustomer"></span><br/>
+                            <span class="errorMessage" id="msgCustomer"></span><br/>
                             <label class="label-input">Customer Name:</label>
                             <input id="txt11" class="inputdata" type="text" disabled/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>

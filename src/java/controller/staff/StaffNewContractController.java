@@ -70,7 +70,7 @@ public class StaffNewContractController extends HttpServlet {
         //get Product sent by URL if there is
         Product product = pdb.getProductByID(pID);
         request.setAttribute("productSent", product);
-        
+
         //get current date
         LocalDate d = LocalDate.now();
         request.setAttribute("now", d);
@@ -148,7 +148,6 @@ public class StaffNewContractController extends HttpServlet {
             Account cusAccount = adb.getAccount(cid);
             customer = cdb.getCustomerByAccount(cusAccount);
         } catch (Exception e) {
-            
         }
 
         VehicleType type = vtdb.getVehicleTypeByID(Integer.parseInt(vehicleTypeID));
@@ -161,31 +160,35 @@ public class StaffNewContractController extends HttpServlet {
         Timestamp requestDate = Timestamp.valueOf(LocalDateTime.now());
         Double contractFee = Double.parseDouble(fee);
 
-        Contract contract = new Contract();
-        contract.setOwner(ownerName);
-        contract.setVehicleType2(type);
-        contract.setBrand2(brand);
-        contract.setLicensePlate(licensePlate);
-        contract.setChassis(chassis);
-        contract.setEngine(engine);
-        contract.setProduct(product);
-        contract.setStartDate(startDate);
-        contract.setEndDate(endDate);
-        contract.setCustomer(customer);
-        contract.setStatusCode(status); //pending
-        contract.setRequestDate(requestDate);
-        contract.setContractFee(contractFee);
-        contract.setStartStaff(startStaff);
-        
-        //save delivery info to delivery table (not yet)
-        
-        
-        //insert to DB
-        contract.setId(ctdb.insertContract(contract));
-        
-        //redirect to view contract detail page
-        request.getRequestDispatcher("/staff/contract/detail?id="+contract.getId())
-                .forward(request, response);
+        if (customer != null) {
+            Contract contract = new Contract();
+            contract.setOwner(ownerName);
+            contract.setVehicleType2(type);
+            contract.setBrand2(brand);
+            contract.setLicensePlate(licensePlate);
+            contract.setChassis(chassis);
+            contract.setEngine(engine);
+            contract.setProduct(product);
+            contract.setStartDate(startDate);
+            contract.setEndDate(endDate);
+            contract.setCustomer(customer);
+            contract.setStatusCode(status); //pending
+            contract.setRequestDate(requestDate);
+            contract.setContractFee(contractFee);
+            contract.setStartStaff(startStaff);
+
+            //save delivery info to delivery table (not yet)
+            //insert to DB
+            contract.setId(ctdb.insertContract(contract));
+
+            //redirect to view contract detail page
+            response.sendRedirect("/staff/contract/detail?id=" + contract.getId());
+        } else{
+            String errorMessage = "Invalid customer account! Cannot create new contract!";
+            request.setAttribute("errorMessage", errorMessage);
+            doGet(request, response);
+        }
+
     }
 
     /**
