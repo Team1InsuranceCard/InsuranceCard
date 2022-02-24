@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
@@ -21,6 +22,100 @@ import model.Staff;
  * @author area1
  */
 public class StaffDBContext extends DBContext {
+
+    public HashMap<Staff, Integer> getTop10RankStaffByContract() {
+        HashMap<Staff, Integer> top10Ranks = new HashMap<>();
+        String sql_select_top10_staff = "SELECT TOP 10 COUNT(Contract.ID) AS NumberContract,\n"
+                + "	SUM(Payment.Amount) AS Revenues,\n"
+                + "	Contract.StartStaff	\n"
+                + "      ,[FirstName]\n"
+                + "      ,[LastName]\n"
+                + "      ,[Phone]\n"
+                + "  FROM [Staff] LEFT JOIN Contract ON Contract.StartStaff = Staff.AccountID\n"
+                + "	LEFT JOIN Account ON Staff.AccountID = Account.ID\n"
+                + "	LEFT JOIN Payment ON Payment.ContractID = Contract.ID\n"
+                + "	WHERE Account.isDelete = 0 AND Account.Status IN (1) AND Staff.isDelete = 0\n"
+                + "	AND Contract.isDelete = 0\n"
+                + "	GROUP BY Contract.StartStaff, Staff.[FirstName], Staff.LastName, Staff.Phone\n"
+                + "	ORDER BY COUNT(Contract.CustomerID) DESC, SUM(Payment.Amount) DESC";
+        try {
+            PreparedStatement psm_select_top10_staff = connection.prepareStatement(sql_select_top10_staff);
+            ResultSet rs_select_top10_staff = psm_select_top10_staff.executeQuery();
+            while (rs_select_top10_staff.next()) {
+                Staff staff = new Staff();
+                Account account = new Account();
+                account.setId(rs_select_top10_staff.getInt("StartStaff"));
+                staff.setAccount(account);
+                staff.setFirstName(rs_select_top10_staff.getString("FirstName"));
+                staff.setLastName(rs_select_top10_staff.getString("LastName"));
+
+                int numberContracts = rs_select_top10_staff.getInt("NumberContract");
+
+                top10Ranks.put(staff, numberContracts);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return top10Ranks;
+    }
+
+    public ArrayList<Staff> getTop3RankStaffByContract() {
+        ArrayList<Staff> topRank = new ArrayList<>();
+
+        String sql_select_top3_staff = "SELECT TOP 3 COUNT(Contract.ID) AS NumberContract,\n"
+                + "	SUM(Payment.Amount) AS Revenues,\n"
+                + "	Contract.StartStaff	\n"
+                + "      ,[FirstName]\n"
+                + "      ,[LastName]\n"
+                + "      ,[Phone]\n"
+                + "  FROM [Staff] LEFT JOIN Contract ON Contract.StartStaff = Staff.AccountID\n"
+                + "	LEFT JOIN Account ON Staff.AccountID = Account.ID\n"
+                + "	LEFT JOIN Payment ON Payment.ContractID = Contract.ID\n"
+                + "	WHERE Account.isDelete = 0 AND Account.Status IN (1) AND Staff.isDelete = 0\n"
+                + "	AND Payment.PaidDate IS NOT NULL\n"
+                + "	AND Contract.isDelete = 0\n"
+                + "	GROUP BY Contract.StartStaff, Staff.[FirstName], Staff.LastName, Staff.Phone\n"
+                + "	ORDER BY COUNT(Contract.CustomerID) DESC, SUM(Payment.Amount) DESC";
+        PreparedStatement psm_select_top3_staff;
+        try {
+            psm_select_top3_staff = connection.prepareStatement(sql_select_top3_staff);
+            ResultSet rs_select_top3_staff = psm_select_top3_staff.executeQuery();
+            while (rs_select_top3_staff.next()) {
+                Staff staff = new Staff();
+                Account account = new Account();
+                account.setId(rs_select_top3_staff.getInt("StartStaff"));
+                staff.setAccount(account);
+                staff.setFirstName(rs_select_top3_staff.getString("FirstName"));
+                staff.setLastName(rs_select_top3_staff.getString("LastName"));
+                staff.setPhone(rs_select_top3_staff.getString("Phone"));
+
+                topRank.add(staff);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return topRank;
+    }
+
+    public int getTotalActiveStaffs() {
+        int total = 0;
+        String sql_select_count_staff = "SELECT COUNT([AccountID]) AS TotalStaffs\n"
+                + "  FROM [Staff] INNER JOIN Account ON Staff.AccountID = Account.ID\n"
+                + "  WHERE Staff.isDelete = 0 AND Account.isDelete = 0 AND Account.Status IN (1)";
+        try {
+            PreparedStatement psm_select_count_staff = connection.prepareStatement(sql_select_count_staff);
+            ResultSet rs_select_count_staff = psm_select_count_staff.executeQuery();
+            if (rs_select_count_staff.next()) {
+                total = rs_select_count_staff.getInt("TotalStaffs");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return total;
+    }
 
     public ArrayList<Staff> getStaffs() {
         ArrayList<Staff> staffs = new ArrayList<>();
@@ -383,7 +478,7 @@ public class StaffDBContext extends DBContext {
             stm_staff.setString(3, staff.getLastName());
             stm_staff.setString(4, staff.getPhone());
             stm_staff.executeUpdate();
-            
+
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);

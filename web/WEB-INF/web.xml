@@ -117,8 +117,8 @@
         <servlet-class>controller.moderator.ModeratorLogin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetPassword</servlet-name>
-        <servlet-class>controller.ResetPassword</servlet-class>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <servlet-class>controller.moderator.ModeratorDashboard</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -229,8 +229,8 @@
         <url-pattern>/moderator/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/resetPass</url-pattern>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <url-pattern>/moderator/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

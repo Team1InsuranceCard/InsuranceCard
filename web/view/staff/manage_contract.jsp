@@ -129,29 +129,30 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                             var="statuscode"
                                             value="${contract.statusCode.statusCode}"
                                             />
-                                        <span >${contract.statusCode.statusName}</span>
-                                        <!--                               
                                         <c:choose>
                                             <c:when test="${statuscode == 0}">
-                                                <span style="color: #5c2941">Out of date</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 1}">
-                                                <span style="color: #0dc858">Active</span>
+                                                <span style="color: #0dc858">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 2}">
-                                                <span style="color: #ff7d42">Processing</span>
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 3}">
-                                                <span style="color: #ff7d42">Canceling</span>
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 4}">
-                                                <span style="color: #5c2941">Canceled</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 5}">
-                                                <span style="color: #5c2941">Rejected</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
+                                            <c:otherwise>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:otherwise>
                                         </c:choose>
-                                        -->
+                                        
                                     </td>
                                     <td>
                                         <a href="staff/contract/detail?id=${contract.id}">Detail</a>
