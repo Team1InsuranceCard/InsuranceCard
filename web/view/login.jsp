@@ -25,12 +25,14 @@
         <div class="limiter">
             <form action="login" method="POST">
                 <div class="logo-group">
-                    <div class="car">
-                        <img src="asset/image/icon_car.png" alt="LogoIcon"/>
-                    </div>
-                    <div class="insurance-card">
-                        <img src="asset/image/InsuranceCard.png" alt="LogoTitle"/>
-                    </div>
+                    <a href="homepage">
+                        <div class="car">
+                            <img src="asset/image/icon_car.png" alt="LogoIcon"/>
+                        </div>
+                        <div class="insurance-card">
+                            <img src="asset/image/InsuranceCard.png" alt="LogoTitle"/>
+                        </div>
+                    </a>
                 </div>
 
                 <c:if test="${requestScope.alert != null}">
