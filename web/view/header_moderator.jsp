@@ -25,19 +25,30 @@
 
     <div class="sidebar-staff">
         <ul>
-            <c:set var="current" value="${param.currentscreen}"/> 
             <li>
-                <a class="sidebar-item <c:if test="${current == 'dashboard'}">active</c:if>" 
+                <a class="sidebar-item" 
                    href="${root}/moderator/dashboard">DashBoard</a>
             </li>
             <li>
-                <a class="sidebar-item <c:if test="${current == 'product'}">active</c:if>" 
+                <a class="sidebar-item" 
                    href="${root}/moderator/product">Product</a>
             </li>
             <li>
-                <a class="sidebar-item <c:if test="${current == 'contract'}">active</c:if>" 
+                <a class="sidebar-item" 
                    href="${root}/moderator/staff">Staff</a>        
             </li>
         </ul>
     </div>
 </header>
+
+<!-- active sidebar item based on url -->
+<script>
+    var nav = document.getElementById('sidebarStaff'),
+            anchor = nav.getElementsByTagName('a'),
+            current = "${root}/moderator/" + window.location.pathname.split('/')[3];
+    for (var i = 0; i < anchor.length; i++) {
+        if (anchor[i].href.toString().includes(current)) {
+            anchor[i].classList.add("active");
+        }
+    }
+</script>
