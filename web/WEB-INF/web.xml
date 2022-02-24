@@ -128,6 +128,10 @@
         <servlet-name>ModeratorDashboard</servlet-name>
         <servlet-class>controller.moderator.ModeratorDashboard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateContractController</servlet-name>
+        <servlet-class>controller.staff.UpdateContractController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -248,9 +252,11 @@
         <servlet-name>ModeratorDashboard</servlet-name>
         <url-pattern>/moderator/dashboard</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateContractController</servlet-name>
+        <url-pattern>/staff/contract/update</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>
