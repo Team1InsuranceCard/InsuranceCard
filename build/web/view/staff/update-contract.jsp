@@ -28,28 +28,11 @@
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
 
                 <div class="header__btn">
-                    <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}"
-                            onclick="confirmBox('Are you sure you want to pay?', 'staff/contract/pay')">
-                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
-                        <div class="btn__text">Payment</div>
+                    <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}">
+                        <div class="btn__text">Update</div>
                     </button>
 
-                    <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
-                                                 || requestScope.contract.statusCode.statusCode == 1) 
-                                                 && requestScope.contract.product.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
-                       onclick="confirmBox('Are you sure you want to renew this contract?', 'staff/contract/renew?id=${requestScope.contract.id}')">
-                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_reload.png"></img>
-                        <div class="btn__text">Renew</div>
-                    </a>
-
-                    <a class="btn btn--warning" 
-                       onclick="confirmBox('Are you sure you want to update this contract?', 'staff/contract/update?id=${requestScope.contract.id}')">
-                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_edit_file.png"></img>
-                        <div class="btn__text">Update</div>
-                    </a>
-
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
-                       onclick="confirmBox('Are you sure you want to cancel this contract?', 'staff/contract/cancel?id=${requestScope.contract.id}')">
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
                     </a>
@@ -245,70 +228,6 @@
                         <div class="section__title">Content detail</div>
                         <div class="section__text">${requestScope.contract.product.contentDetail}</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section__heading">Payment history</h2>
-
-                <div class="section__main">
-                    <table class="section__table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Start date</th>
-                                <th>Paid date</th>
-                                <th>Payment method</th>
-                                <th>Amount</th>
-                                <th>Note</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.payments}" var="pay">
-                                <tr>
-                                    <td>${pay.id}</td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${pay.startDate}" /></td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${pay.paidDate}" /></td>
-                                    <td>${pay.paymentMethod2.paymentMethod}</td>
-                                    <td>${pay.amount}</td>
-                                    <td>${pay.note}</td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section__heading">Compensation history</h2>
-
-                <div class="section__main">
-                    <table class="section__table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Created date</th>
-                                <th>Resolve date</th>
-                                <th>Status</th>
-                                <th>Detail</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.compensations}" var="com">
-                                <tr>
-                                    <td>${com.id}</td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${com.createDate}" /></td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${com.resolveDate}" /></td>
-                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
-                                        ${com.status.statusName}</td>
-                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
-                                </tr>
-                            </c:forEach>
-                    </table>
                 </div>
             </div>
         </div>
