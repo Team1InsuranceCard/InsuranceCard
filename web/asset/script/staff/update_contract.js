@@ -4,4 +4,8 @@
  * and open the template in the editor.
  */
 
-
+function confirmBox(mess, url) {
+    if (confirm(mess)) {
+        location.href = url;
+    }
+}

@@ -113,17 +113,16 @@
         <servlet-class>controller.customer.UpdatePersonalInfo</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>GetProductInfoForAjax</servlet-name>
         <servlet-class>controller.GetProductInfoForAjax</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetCustomerInfoForAjax</servlet-name>
         <servlet-class>controller.GetCustomerInfoForAjax</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>ModeratorLogin</servlet-name>
         <servlet-class>controller.moderator.ModeratorLogin</servlet-class>
->>>>>>> main
     </servlet>
     <servlet>
         <servlet-name>ModeratorDashboard</servlet-name>
@@ -234,17 +233,16 @@
         <url-pattern>/customer/info/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>GetProductInfoForAjax</servlet-name>
         <url-pattern>/get-product-info</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetCustomerInfoForAjax</servlet-name>
         <url-pattern>/get-customer-info</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ModeratorLogin</servlet-name>
         <url-pattern>/moderator/login</url-pattern>
->>>>>>> main
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModeratorDashboard</servlet-name>
