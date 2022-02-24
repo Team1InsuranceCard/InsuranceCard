@@ -958,12 +958,8 @@ public class ContractDBContext extends DBContext {
         return -1;
     }
 
-<<<<<<< HEAD
-    public void staffRenewContract(Contract contract, int payMethodID) {
-=======
     public int staffRenewContract(Contract contract, int payMethodID) {
         int contractID = -1;
->>>>>>> main
         try {
             connection.setAutoCommit(false);
             // insert contract
