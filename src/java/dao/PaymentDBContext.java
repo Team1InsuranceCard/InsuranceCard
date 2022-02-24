@@ -20,10 +20,27 @@ import model.PaymentMethod;
  */
 public class PaymentDBContext extends DBContext {
 
+    public double totalRevenues() {
+        double total = 0;
+        String sql_select_count_revenues = "SELECT SUM([Amount]) AS TotalRevenues\n"
+                + "  FROM [Payment]\n"
+                + "  WHERE Payment.isDelete = 0 AND PaidDate IS NOT NULL";
+        try {
+            PreparedStatement psm_select_count_revenues = connection.prepareStatement(sql_select_count_revenues);
+            ResultSet rs_select_count_revenues = psm_select_count_revenues.executeQuery();
+            if (rs_select_count_revenues.next()) {
+                total = rs_select_count_revenues.getDouble("TotalRevenues");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
     public double totalAmountSpent(int customerID) {
         try {
             double totalAmount = 0;
-            String sql_count_total_amount = "SELECT SUM(Payment.Amout) AS TotalAmount\n"
+            String sql_count_total_amount = "SELECT SUM(Payment.Amount) AS TotalAmount\n"
                     + "  FROM [Contract] INNER JOIN Payment ON Contract.ID=Payment.ContractID\n"
                     + "	WHERE Contract.CustomerID = ? AND Payment.PaidDate IS NOT NULL";
             PreparedStatement psm_count_total_amount = connection.prepareStatement(sql_count_total_amount);
