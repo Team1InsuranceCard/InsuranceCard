@@ -44,7 +44,7 @@
                 <div class="row">
                   <div class="col-7">
                     <div class="custom-card-text">
-                      <div class="custom-card-title">250.000.000</div>
+                      <div class="custom-card-title">${total_revenues}</div>
                       <div class="custom-card-subtitle">Total Revenues</div>
                     </div>
                   </div>
@@ -66,7 +66,7 @@
                 <div class="row">
                   <div class="col-7">
                     <div class="custom-card-text">
-                      <div class="custom-card-title">250.000.000</div>
+                      <div class="custom-card-title">${total_contracts}</div>
                       <div class="custom-card-subtitle">Total Contracts</div>
                     </div>
                   </div>
@@ -88,7 +88,7 @@
                 <div class="row">
                   <div class="col-7">
                     <div class="custom-card-text">
-                      <div class="custom-card-title">250.000.000</div>
+                      <div class="custom-card-title">${total_customers}</div>
                       <div class="custom-card-subtitle">Total Customers</div>
                     </div>
                   </div>
@@ -163,7 +163,11 @@
                   </tr>
                 </tbody>
               </table>
-              <canvas class="dashboard-chard" id="productChart" style="width:100%;max-width:600px"></canvas>
+              <canvas
+                class="dashboard-chard"
+                id="productChart"
+                style="width: 100%; max-width: 600px"
+              ></canvas>
             </div>
           </div>
           <div class="col">
@@ -236,17 +240,15 @@
                   </tr>
                 </tbody>
               </table>
-
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <canvas
-              class="dashboard-chard"
+              <canvas
+                class="dashboard-chard"
                 id="staffChart"
                 style="width: 100%; max-width: 600px"
               ></canvas>
+            </div>
+          </div>
         </div>
+        <div class="row"></div>
       </div>
     </main>
 
@@ -266,7 +268,7 @@
         var g = Math.floor(Math.random() * 255);
         var b = Math.floor(Math.random() * 255);
         return "rgb(" + r + "," + g + "," + b + ")";
-      };
+      }
 
       new Chart("productChart", {
         type: "bar",
@@ -312,7 +314,7 @@
         var g = Math.floor(Math.random() * 255);
         var b = Math.floor(Math.random() * 255);
         return "rgb(" + r + "," + g + "," + b + ")";
-      };
+      }
 
       new Chart("staffChart", {
         type: "bar",
