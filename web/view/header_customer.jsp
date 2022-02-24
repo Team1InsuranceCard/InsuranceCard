@@ -46,8 +46,8 @@
                             History
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Payment</a>
-                            <a class="dropdown-item" href="#">Compensation</a>
+                            <a class=" <c:if test="${currentHistoryMenu == 'payment'}">active</c:if>dropdown-item" href="#">Payment</a>
+                            <a class=" <c:if test="${currentHistoryMenu == 'compensation'}">active</c:if> dropdown-item" href="#">Compensation</a>
                         </div>
                     </li>
                     <li class="nav-item">
