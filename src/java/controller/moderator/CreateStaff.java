@@ -96,15 +96,15 @@ public class CreateStaff extends HttpServlet {
 
             StaffDBContext sdb = new StaffDBContext();
             sdb.createStaff(account, staff);
-            request.setAttribute("msg", "success");
+            request.setAttribute("success", "success");
         } else {
             request.setAttribute("msg", "Email does exist!");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname", lname);
+            request.setAttribute("email", email);
+            request.setAttribute("phone", phone);
         }
-        
-        request.setAttribute("fname", fname);
-        request.setAttribute("lname", lname);
-        request.setAttribute("email", email);
-        request.setAttribute("phone", phone);
+
         request.getRequestDispatcher("../../view/moderator/staff_create.jsp").forward(request, response);
     }
 
