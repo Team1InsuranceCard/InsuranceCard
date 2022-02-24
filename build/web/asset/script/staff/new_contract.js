@@ -131,12 +131,13 @@ function changeProduct() {
         success: function (responseJson) {
             if (responseJson.id != null) {
                 priceInput.value = responseJson.price;
+                changeContractFee();
             } else {
-                priceInput.value = "";
+                priceInput.value = "0";
+                changeContractFee();
             }
         }
     });
-    changeContractFee();
 }
 
 function checkCustomerID() {
