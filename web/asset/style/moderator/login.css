@@ -97,3 +97,10 @@ body {
     color: #5C2941;
     background-color: #FC6376;
 }
+
+.container .msg {
+    margin: 2rem 3rem 0 3rem;
+    display: inline;
+    color: #FFFFFF; 
+    transition: 0.25s ease;
+}

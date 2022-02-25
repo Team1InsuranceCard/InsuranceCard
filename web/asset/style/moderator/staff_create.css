@@ -75,3 +75,26 @@ section .container {
 .container .btn-input .cancel:hover {
     color: #FEE7DA;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    /*border: none;*/
+    background: #FFF9EC;
+    border-radius: 10px;
+    -webkit-text-fill-color: #000000;
+    transition: background-color 5000s;
+}
+
+.container .msg {
+    margin-left: 27.5rem;
+    display: inline;
+    color: #A94442; 
+    transition: 0.5s ease;
+}
