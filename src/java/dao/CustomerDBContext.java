@@ -900,6 +900,5 @@ public class CustomerDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 }

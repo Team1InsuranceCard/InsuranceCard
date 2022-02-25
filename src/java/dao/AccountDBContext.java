@@ -114,4 +114,18 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    public void resetPass(String newPass, String email) {
+        try {
+            String sql = "UPDATE [Account]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE Email like ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, newPass);
+            stm.setString(2, email);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
