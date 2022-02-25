@@ -114,22 +114,18 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
-    public boolean checkExistEmailOfStaff(String email) {
+    public void resetPass(String newPass, String email) {
         try {
-            String sql = "SELECT ID\n"
-                    + "  FROM [Account]\n"
-                    + "  WHERE Role = 1 and BINARY_CHECKSUM(Email) = BINARY_CHECKSUM(?)";
+            String sql = "UPDATE [Account]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE Email like ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, email);
-            ResultSet rs = stm.executeQuery();
-
-            if (rs.next()) {
-                return true;
-            }
+            stm.setString(1, newPass);
+            stm.setString(2, email);
+            stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
-    }
 
+    }
 }
