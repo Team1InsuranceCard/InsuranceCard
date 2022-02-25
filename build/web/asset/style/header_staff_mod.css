@@ -47,10 +47,6 @@ header {
 }
 
 .header-element .icon-header {
-  text-decoration: none;
-}
-
-.icon-header + .icon-header {
   margin-left: 14px;
 }
 
@@ -83,7 +79,7 @@ header {
   font-size: 22px;
   font-weight: bolder;
   text-align: center;
-  padding: 14px 4px;
+  padding: 12px 0;
   text-decoration: none;
   display: block;
 }

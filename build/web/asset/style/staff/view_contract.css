@@ -84,18 +84,6 @@ main {
   transition: all 0.2s;
 }
 
-.btn--warning {
-  background-color: #f9c733;
-  color: #fff;
-  transition: all 0.2s;
-}
-
-.btn--warning:hover {
-  background-color: #d9ab1f;
-  color: #fff;
-  transition: all 0.2s;
-}
-
 .btn--primary {
   background-color: #5bc0de;
   color: #fff;

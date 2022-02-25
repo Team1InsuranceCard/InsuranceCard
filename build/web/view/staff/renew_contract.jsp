@@ -21,11 +21,9 @@
         </jsp:include>
 
         <main>
-            ${param.currentscreen}
-            <form action="staff/contract/renew" method="POST"
-                  onSubmit="submit(this)">
+            <form action="staff/contract/renew" method="POST">
                 <div class="header">
-                    <h1 class="header__heading">Renew contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
 
                     <div class="header__btn">
                         <input class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
@@ -33,10 +31,9 @@
                                                          && requestScope.contract.product.statusCode.statusCode == 1
                                                          && requestScope.check
                                                          ? '' : 'btn--disabled'}" 
-                               type="submit" value="Renew" />
+                               type="submit" value="Renew">
 
-                        <a class="btn btn--secondary"
-                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
+                        <a class="btn btn--secondary" href="staff/contract/view">Cancel</a>
                     </div>
                 </div>
 
@@ -44,22 +41,18 @@
                      style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
                     <img src="asset/image/staff/customer_create_edit/icon_approve.png" 
                          class="mess-box__icon" />
-                    <p class="mess-box__mess">
-                        Renew contract successful! View renew contract at 
-                        <a href="staff/contract/detail?id=${requestScope.renewContractID}" 
-                           class="mess-box__link" >this</a>.
-                    </p>
+                    <p class="mess-box__mess">Renew contract successful!</p>
                 </div>
 
                 <div class="mess-box mess-box--danger" 
                      style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
                     <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
                 </div>
 
                 <div class="mess-box mess-box--danger" 
                      style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
                     <p class="mess-box__mess">Product is inactive!</p>
                 </div>
 
@@ -279,31 +272,21 @@
 
         <!-- confirm box -->
         <script>
-            function confirmBox(mess, url) {
-                if (confirm(mess)) {
-                    location.href = url;
-                }
-            }
-            
-            function submit() {
-                return confirm('Do you want to submit?');                
+            function confirmBox() {
+                confirm("Are you sure you want to do this?")
             }
         </script>
 
+        <!-- set new contract fee -->
         <script>
-            // set new contract fee at beginning
             // contractStatus in script set status color
             var contractTerm = document.getElementById("contractTerm");
             var newFee = document.getElementById("newFee");
             newFee.value = contractTerm.value * ${requestScope.contract.product.price};
 
-            // set new contract fee & new end date 
-            // when change contract term
             contractTerm.onchange = function () {
-                // change new fee
                 newFee.value = contractTerm.value * ${requestScope.contract.product.price};
 
-                // change new end date
                 datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
                 month = datetime.getMonth() + 1;
                 day = datetime.getDate();
@@ -312,7 +295,7 @@
             };
         </script>
 
-        <!-- set new start date at beginning -->
+        <!-- set new start date -->
         <script>
             // contractStatus in script set status color
             var newStartDate = document.getElementById("newStartDate");
@@ -328,8 +311,8 @@
             newStartDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
         </script>
 
+        <!-- set new end date -->
         <script>
-            // set new end date at beginning
             // contractStatus in script set status color
             var newEndDate = document.getElementById("newEndDate");
             datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
@@ -338,8 +321,6 @@
             date = datetime.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
             newEndDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
 
-            // set new end date
-            // when new start date change
             newStartDate.onchange = function () {
                 datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
                 month = datetime.getMonth() + 1;

@@ -169,14 +169,3 @@ function createPager(domElementID, pageIndex, totalPage, rootURL) {
   //     }">&raquo;</a>`;
   //   }
 }
-
-function mySubmitQuerySearch(e) {
-  e.preventDefault();
-  var search = document.querySelector("#search-box").value;
-  var querySearchOption = document.querySelector("#query-option").value;
-  rootURL.searchParams.delete("page")
-  rootURL.searchParams.set("query", search);
-  rootURL.searchParams.set("queryoption", querySearchOption);
-  window.location.href = rootURL;
-  return false;
-}

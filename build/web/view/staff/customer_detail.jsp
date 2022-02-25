@@ -13,7 +13,6 @@
         <link href="../../asset/style/staff/customer_detail.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
-    
     <body>
         <c:set var="c" value="${requestScope.viewCustomer.customer}"/>
         <c:set var="s" value="${requestScope.viewCustomer.staff}"/>
@@ -25,13 +24,12 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="asset/image/staff/icon member.png" alt="member icon"/>
-                    <p class="cusID">ID: ${requestScope.cusID}</p>
                     <h3 id="name">${c.firstName} ${c.lastName}</h3>
                     <p>Join date: <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
                                     value = "${c.joinDate}" /></p>
-                    <a href="staff/customer/edit?id=${requestScope.cusID}">
+                    <form action="customerEdit" method="POST">
                         <input type="submit" id="edit" value="Edit"/>
-                    </a>
+                    </form>
                 </div>
                 <div class="col-md-8">
                     <div class="acc info">
@@ -95,8 +93,7 @@
                             <div class="right">
                                 <p class="info-label">Toal contracts</p>
                                 <p class="info-content">${requestScope.totalContract}
-                                    <a href="http://localhost:8080/insurancecard/staff/contract/view?queryoption=personalid&query=${c.personalID}" 
-                                       style="margin-left:10px;
+                                    <a href="#" style="margin-left:10px;
                                        text-decoration: underline;">View</a>
                                 </p>
                             </div>
