@@ -124,6 +124,14 @@
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetCustomerInfoForAjax</servlet-name>
+        <servlet-class>controller.GetCustomerInfoForAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetProductInfoForAjax</servlet-name>
+        <servlet-class>controller.GetProductInfoForAjax</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -239,6 +247,14 @@
     <servlet-mapping>
         <servlet-name>ResetPassword</servlet-name>
         <url-pattern>/resetPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCustomerInfoForAjax</servlet-name>
+        <url-pattern>/get-customer-info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProductInfoForAjax</servlet-name>
+        <url-pattern>/get-product-info</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
