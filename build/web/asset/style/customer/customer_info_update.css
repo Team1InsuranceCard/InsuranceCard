@@ -130,18 +130,22 @@ body {
 }
 
 .mess-box__icon {
-    /*margin-left: 40px;*/
+    margin-left: 40px;
     margin-right: 20px;
-
-    width: 8%;
 }
 
 .mess-box {
     display: none;
     align-items: center;
-    padding: 10px 10px;
+    padding: 20px 15px;
     border-radius: 4px;
     margin: 0 60px 30px 60px;
+}
+
+.mess-box--danger {
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    color: #a94442;
 }
 
 .mess-box--success {
@@ -150,6 +154,3 @@ body {
     color: #3c763d;
 }
 
-.mess-box p {
-    margin: auto 0;
-}

@@ -38,15 +38,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </label>
                       </div> -->
                     <div class="col seach-bar">
-                        <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
-                            <select class="select-search-option" name="" id="query-option">
-                                <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
-                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
-                                
-                                <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
-                                <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
-                                
-                            </select>
+                        <form class="form-inline" action="staff/contract/view" method="GET">
                             <input
                                 id="search-box"
                                 class="form-control mr-sm-2"
@@ -56,7 +48,6 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                 value="${query}"
                                 name="query"
                                 />
-                         
                             <button
                                 class="search-button btn-secondary btn  my-2 my-sm-0"
                                 type="submit"
@@ -129,30 +120,29 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                             var="statuscode"
                                             value="${contract.statusCode.statusCode}"
                                             />
+                                        <span >${contract.statusCode.statusName}</span>
+                                        <!--                               
                                         <c:choose>
                                             <c:when test="${statuscode == 0}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">Out of date</span>
                                             </c:when>
                                             <c:when test="${statuscode == 1}">
-                                                <span style="color: #0dc858">${contract.statusCode.statusName}</span>
+                                                <span style="color: #0dc858">Active</span>
                                             </c:when>
                                             <c:when test="${statuscode == 2}">
-                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                                <span style="color: #ff7d42">Processing</span>
                                             </c:when>
                                             <c:when test="${statuscode == 3}">
-                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                                <span style="color: #ff7d42">Canceling</span>
                                             </c:when>
                                             <c:when test="${statuscode == 4}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">Canceled</span>
                                             </c:when>
                                             <c:when test="${statuscode == 5}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">Rejected</span>
                                             </c:when>
-                                            <c:otherwise>
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
-                                            </c:otherwise>
                                         </c:choose>
-                                        
+                                        -->
                                     </td>
                                     <td>
                                         <a href="staff/contract/detail?id=${contract.id}">Detail</a>

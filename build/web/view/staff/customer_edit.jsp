@@ -19,13 +19,13 @@
                     <h1 class="card__heading">EDIT CUSTOMER</h1>
 
                     <div class="mess-box mess-box--danger" 
-                         style="${requestScope.isExistEmail ? "display:flex;" : "display:none;"}">
+                         style="${requestScope.isExistEmail ? "display:flex;" : ""}">
                         <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
                         <p class="mess-box__mess">The email address is already taken!</p>
                     </div>
 
                     <div class="mess-box mess-box--success" 
-                         style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                         style="${requestScope.isSuccess ? "display:flex;" : ""}">
                         <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
                         <p class="mess-box__mess">Success! Your submission has been saved!</p>
                     </div>
@@ -195,9 +195,10 @@
                                     <input
                                         class="section__input"
                                         type="datetime-local"
+                                        id="joinDate"
                                         name="joinDate"
                                         value="${requestScope.joinDate}"
-                                        readonly
+                                        required
                                         />
                                 </div>
                             </div>

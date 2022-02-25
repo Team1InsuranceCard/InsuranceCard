@@ -66,14 +66,9 @@ main {
   color: #5C2941;
 
 }
-
-.select-search-option{
-  border: none;
-  text-align: right;
-  /* -moz-appearance:none; 
-  -webkit-appearance:none; 
-  appearance:none; */
-  font-size: 15px;
-  font-weight: 600;
-  margin: 1em;
+.search-button {
+  background-color: ;
+}
+.status-select:focus-visible{
+  /* border:none; */
 }
