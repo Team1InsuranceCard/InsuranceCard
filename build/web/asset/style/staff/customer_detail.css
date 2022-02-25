@@ -85,4 +85,8 @@ section {
     border: none;
 }
 
-
+.row .col-md-4 .cusID {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}

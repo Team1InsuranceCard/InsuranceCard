@@ -112,6 +112,26 @@
         <servlet-name>UpdatePersonalInfo</servlet-name>
         <servlet-class>controller.customer.UpdatePersonalInfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetProductInfoForAjax</servlet-name>
+        <servlet-class>controller.GetProductInfoForAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCustomerInfoForAjax</servlet-name>
+        <servlet-class>controller.GetCustomerInfoForAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModeratorLogin</servlet-name>
+        <servlet-class>controller.moderator.ModeratorLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <servlet-class>controller.moderator.ModeratorDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateContractController</servlet-name>
+        <servlet-class>controller.staff.UpdateContractController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -216,9 +236,27 @@
         <servlet-name>UpdatePersonalInfo</servlet-name>
         <url-pattern>/customer/info/update</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProductInfoForAjax</servlet-name>
+        <url-pattern>/get-product-info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCustomerInfoForAjax</servlet-name>
+        <url-pattern>/get-customer-info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModeratorLogin</servlet-name>
+        <url-pattern>/moderator/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <url-pattern>/moderator/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateContractController</servlet-name>
+        <url-pattern>/staff/contract/update</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>
