@@ -112,6 +112,18 @@
         <servlet-name>UpdatePersonalInfo</servlet-name>
         <servlet-class>controller.customer.UpdatePersonalInfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModeratorLogin</servlet-name>
+        <servlet-class>controller.moderator.ModeratorLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <servlet-class>controller.moderator.ModeratorDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>controller.ResetPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -215,6 +227,18 @@
     <servlet-mapping>
         <servlet-name>UpdatePersonalInfo</servlet-name>
         <url-pattern>/customer/info/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModeratorLogin</servlet-name>
+        <url-pattern>/moderator/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModeratorDashboard</servlet-name>
+        <url-pattern>/moderator/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/resetPass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
