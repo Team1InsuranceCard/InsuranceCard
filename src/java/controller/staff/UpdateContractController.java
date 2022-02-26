@@ -5,10 +5,12 @@
  */
 package controller.staff;
 
+import dao.BrandDBContext;
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.PaymentDBContext;
 import dao.StaffDBContext;
+import dao.VehicleTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,10 +18,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Brand;
 import model.Compensation;
 import model.Contract;
 import model.Payment;
 import model.Staff;
+import model.VehicleType;
 
 /**
  *
@@ -44,7 +48,7 @@ public class UpdateContractController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateContractController</title>");            
+            out.println("<title>Servlet UpdateContractController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateContractController at " + request.getContextPath() + "</h1>");
@@ -65,24 +69,41 @@ public class UpdateContractController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id") != null ? 
+                request.getParameter("id") : "0");
         ContractDBContext contractDB = new ContractDBContext();
         Contract contract = contractDB.staffGetContractDetail(id);
 
-        PaymentDBContext payDB = new PaymentDBContext();
-        ArrayList<Payment> payments = payDB.getContractPayments(id);
+        if (contract != null) {
+            PaymentDBContext payDB = new PaymentDBContext();
+            ArrayList<Payment> payments = payDB.getContractPayments(id);
 
-        CompensationDBContext comDB = new CompensationDBContext();
-        ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
-        
-        StaffDBContext sdb = new StaffDBContext();
-        ArrayList<Staff> staffs = sdb.getStaffs();
+            CompensationDBContext comDB = new CompensationDBContext();
+            ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
 
-        request.setAttribute("contract", contract);
-        request.setAttribute("payments", payments);
-        request.setAttribute("compensations", compensations);
-        request.setAttribute("staffs", staffs);
-        request.getRequestDispatcher("../../view/staff/update-contract.jsp").forward(request, response);
+            StaffDBContext sdb = new StaffDBContext();
+            ArrayList<Staff> staffs = sdb.getStaffs();
+
+            int type = contract.getEndDate().getYear() - contract.getStartDate().getYear();
+            
+            VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
+            ArrayList<VehicleType> vehicleTypes = vtdb.getVehicleTypes();
+            
+            BrandDBContext bdb = new BrandDBContext();
+            ArrayList<Brand> brands = bdb.getBrands();
+
+            request.setAttribute("contract", contract);
+            request.setAttribute("payments", payments);
+            request.setAttribute("compensations", compensations);
+            request.setAttribute("staffs", staffs);
+            request.setAttribute("contractType", type);
+            request.setAttribute("vehicleTypes", vehicleTypes);
+            request.setAttribute("brands", brands);
+            request.getRequestDispatcher("../../view/staff/update-contract.jsp").forward(request, response);
+        } else{
+            response.sendRedirect("../dashboard");
+        }
+
     }
 
     /**

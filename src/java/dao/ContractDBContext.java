@@ -806,11 +806,12 @@ public class ContractDBContext extends DBContext {
                 contract.setContractFee(rs.getDouble("ContractFee"));
                 contract.setVehicleType2(vehicleType);
                 contract.setBrand2(brand);
+                return contract;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return contract;
+        return null;
     }
 
     public void staffContractPayment(int contractID) {
