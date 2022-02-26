@@ -23,274 +23,228 @@
         <jsp:include page="../header_staff.jsp">
             <jsp:param name="currentscreen" value="contract" />
         </jsp:include>
-        <div class="container">
-            <div class="header">
-                <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
+        <form method="POST" action="staff/contract/update">
+            <div class="container">
+                <div class="header">
+                    <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
 
-                <div class="header__btn">
-                    <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}">
-                        <div class="btn__text">Update</div>
-                    </button>
+                    <div class="header__btn">
+                        <input type="submit" class="btn btn--success" id="btnUpdate"
+                               value="Update"/>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}">
-                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
-                        <div class="btn__text">Cancel</div>
-                    </a>
+                        <a class="btn btn--danger" href="staff/contract/detail?id=${requestScope.contract.id}">
+                            <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
+                            <div class="btn__text">Cancel</div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+                <div class="section">
+                    <h2 class="section__heading">Contract Information</h2>
 
-            <div class="mess-box mess-box--success" 
-                 style="${param.isPay ? "display:flex;" : ""}">
-                <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
-                <p class="mess-box__mess">Payment successful!</p>
-            </div>
-
-            <div class="section">
-                <h2 class="section__heading">Contract Information</h2>
-
-                <div class="section__main">
-                    <div class="section__item">
-                        <div class="section__title">Contract ID</div>
-                        <div class="section__text">${requestScope.contract.id}</div>
-                    </div>
-
-                    <div class="section__item">
-                        <div class="section__title">Status</div>
-                        <div class="section__text" id="contractStatus">${requestScope.contract.statusCode.statusName}</div>
-                    </div>
-
-                    <div class="section__item">
-                        <div class="section__title">Product</div>
-                        <div class="section__text">${requestScope.contract.product.title}</div>
-                    </div>
-
-                    <div class="section__item">
-                        <div class="section__title">Contract fee</div>
-                        <div class="section__text">
-                            <input type="text" id="contractFee" disabled
-                                   value = "${requestScope.contract.contractFee}" />
-                            <input type="hidden" id="contractFeeSent"
-                                   value = "${requestScope.contract.contractFee}" />
-                        </div>
-                    </div>                        
-
-                    <div class="section__item">
-                        <div class="section__title">Start Staff</div>
-                        <div class="section__text">
-                            <!--if status is processing, edit is allowed-->
-                            <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                <select name="startStaffID">
-                                    <c:forEach items="${requestScope.staffs}" var="staff">
-                                        <option value="${staff.account.id}"
-                                                ${staff.account.id eq requestScope.contract.startStaff.account.id ?
-                                                  'selected':''}>
-                                                    ${staff.firstName} ${staff.lastName}
-                                                </option>
-                                        </c:forEach>
-                                    </select>
-                                </c:if>
-                                <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
-                                    ${requestScope.contract.startStaff.firstName}  ${requestScope.contract.startStaff.lastName}
-                                </c:if>
-
-                            </div>
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Contract ID</div>
+                            <div class="section__text">${requestScope.contract.id}</div>
                         </div>
 
                         <div class="section__item">
-                            <div class="section__title">Contract type</div>
+                            <div class="section__title">Status</div>
+                            <div class="section__text" id="contractStatus">${requestScope.contract.statusCode.statusName}</div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Product</div>
+                            <div class="section__text">${requestScope.contract.product.title}</div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Contract fee</div>
+                            <div class="section__text">
+                                <input type="text" id="contractFee" disabled
+                                       value = "${requestScope.contract.contractFee}" />
+                                <input type="hidden" id="contractFeeSent"
+                                       value = "${requestScope.contract.contractFee}" />
+                            </div>
+                        </div>                        
+
+                        <div class="section__item">
+                            <div class="section__title">Start Staff</div>
                             <div class="section__text">
                                 <!--if status is processing, edit is allowed-->
                                 <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                    <select id="selectContractType" onchange="changePeriod()">
-                                        <option value ="1">1 year</option>
-                                        <option value ="2">2 years</option>
-                                        <option value ="3">3 years</option>
-                                    </select>
-                                </c:if>
-                                <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
-                                    ${requestScope.contractType}  ${requestScope.contractType eq 1 ?
-                                      " year" : " years"}
-                                </c:if>
-
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Start Date</div>
-                            <div class="section__text">
-                                <input type="datetime" id="startdate"
-                                       onchange="fillEndDate()"
-                                       value = "${requestScope.contract.startDate}" />
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Request Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                            value = "${requestScope.contract.requestDate}" /></div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">End Date</div>
-                            <div class="section__text">
-                                <input type="datetime" id="enddate" disabled
-                                       value = "${requestScope.contract.endDate}" />
-                                <input type="hidden" id="endDateSent"
-                                       value = "${requestScope.contract.endDate}" />
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Resolve Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                            value = "${requestScope.contract.resolveDate}" /></div>
-                        </div>
-
-                        <c:if test="${requestScope.contract.statusCode.statusCode >= 3 && requestScope.contract.statusCode.statusCode <= 4}">
-                            <div class="section__item">
-                                <div class="section__title">Cancel Date</div>
-                                <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                                value = "${requestScope.contract.cancelDate}" /></div>
-                            </div>
-
-                            <div class="section__item">
-                                <div class="section__title">Cancel Reason</div>
-                                <div class="section__text">
-                                    <input type="text" name="cancelReason"
-                                           value="${requestScope.contract.cancelReason}"/>
-                                </div>
-                            </div>
-
-                            <div class="section__item">
-                                <div class="section__title">Cancel Comment</div>
-                                <div class="section__text">
-                                    <input type="text" name="cancelComment"
-                                           value="${requestScope.contract.cancelComment}"/>
-                                </div>
-                            </div>
-                        </c:if>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2 class="section__heading">Customer Information</h2>
-                    <div class="section__main">
-                        <div class="section__item">
-                            <div class="section__title">ID</div>
-                            <div class="section__text">
-                                <!--if status is processing, edit is allowed-->
-                                <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                    <input type="text" id="customerID" onkeyup="checkCustomerID()"
-                                           value="${requestScope.contract.customer.account.id}"/>
-                                </c:if>
-                                <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
-                                    ${requestScope.contract.customer.account.id}
-                                </c:if>
-
-                            </div>
-                        </div>
-                        <div class="section__item">
-                            <span class="errorMessage" id="msgCustomer"></span>
-                        </div>
-                        <div class="section__item">
-                            <div class="section__title">Name</div>
-                            <div class="section__text">
-                                <span id="customerName">
-                                    ${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Email</div>
-                            <div class="section__text">
-                                <span id="customerEmail">${requestScope.contract.customer.account.email}</span>
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Date of Birth</div>
-                            <div class="section__text">
-                                <span id="customerDob">${requestScope.contract.customer.dob}</span>
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Personal ID</div>
-                            <div class="section__text">
-                                <span id="customerPersonalID">${requestScope.contract.customer.personalID}</span>
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Phone</div>
-                            <div class="section__text">
-                                <span id="customerPhone">${requestScope.contract.customer.phone}</span>
-                            </div>
-                        </div>
-
-                        <div class="section__item">
-                            <div class="section__title">Address</div>
-                            <div class="section__text">
-                                <span id="customerAddress">${requestScope.contract.customer.address}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2 class="section__heading">Vehicle Information</h2>
-
-                    <div class="section__main">
-                        <div class="section__left">
-                            <div class="section__item">
-                                <div class="section__title">Vehicle type</div>
-                                <div class="section__text">
-                                    <select name="vehicleTypeID">
-                                        <c:forEach items="${requestScope.vehicleTypes}" var="vtype">
-                                            <option value="${vtype.id}"
-                                                    ${vtype.id eq requestScope.contract.vehicleType2.id?
+                                    <select name="startStaffID">
+                                        <c:forEach items="${requestScope.staffs}" var="staff">
+                                            <option value="${staff.account.id}"
+                                                    ${staff.account.id eq requestScope.contract.startStaff.account.id ?
                                                       'selected':''}>
-                                                        ${vtype.vehicleType}
+                                                        ${staff.firstName} ${staff.lastName}
                                                     </option>
                                             </c:forEach>
                                         </select>
+                                    </c:if>
+                                    <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
+                                        ${requestScope.contract.startStaff.firstName}  ${requestScope.contract.startStaff.lastName}
+                                    </c:if>
+
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Contract type</div>
+                                <div class="section__text">
+                                    <!--if status is processing, edit is allowed-->
+                                    <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
+                                        <select id="selectContractType" onchange="changePeriod()">
+                                            <option value ="1">1 year</option>
+                                            <option value ="2">2 years</option>
+                                            <option value ="3">3 years</option>
+                                        </select>
+                                    </c:if>
+                                    <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
+                                        ${requestScope.contractType}  ${requestScope.contractType eq 1 ?
+                                          " year" : " years"}
+                                    </c:if>
+
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Start Date</div>
+                                <div class="section__text">
+                                    <input type="datetime" id="startdate"
+                                           onchange="fillEndDate()"
+                                           value = "${requestScope.contract.startDate}" />
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Request Date</div>
+                                <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
+                                                value = "${requestScope.contract.requestDate}" /></div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">End Date</div>
+                                <div class="section__text">
+                                    <input type="datetime" id="enddate" disabled
+                                           value = "${requestScope.contract.endDate}" />
+                                    <input type="hidden" id="endDateSent"
+                                           value = "${requestScope.contract.endDate}" />
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Resolve Date</div>
+                                <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                                value = "${requestScope.contract.resolveDate}" /></div>
+                            </div>
+
+                            <c:if test="${requestScope.contract.statusCode.statusCode >= 3 && requestScope.contract.statusCode.statusCode <= 4}">
+                                <div class="section__item">
+                                    <div class="section__title">Cancel Date</div>
+                                    <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                                    value = "${requestScope.contract.cancelDate}" /></div>
+                                </div>
+
+                                <div class="section__item">
+                                    <div class="section__title">Cancel Reason</div>
+                                    <div class="section__text">
+                                        <input type="text" name="cancelReason"
+                                               value="${requestScope.contract.cancelReason}"/>
                                     </div>
                                 </div>
 
                                 <div class="section__item">
-                                    <div class="section__title">Engine</div>
+                                    <div class="section__title">Cancel Comment</div>
                                     <div class="section__text">
-                                        <input type="text" 
-                                               value="${requestScope.contract.engine}"/>
+                                        <input type="text" name="cancelComment"
+                                               value="${requestScope.contract.cancelComment}"/>
                                     </div>
                                 </div>
+                            </c:if>
+                        </div>
+                    </div>
 
-                                <div class="section__item">
-                                    <div class="section__title">License Plate</div>
-                                    <div class="section__text">
-                                        <input type="text" 
-                                               value="${requestScope.contract.licensePlate}"/>
-                                    </div>
+                    <div class="section">
+                        <h2 class="section__heading">Customer Information</h2>
+                        <div class="section__main">
+                            <div class="section__item">
+                                <div class="section__title">ID</div>
+                                <div class="section__text">
+                                    <!--if status is processing, edit is allowed-->
+                                    <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
+                                        <input type="text" id="customerID" onkeyup="checkCustomerID()"
+                                               value="${requestScope.contract.customer.account.id}"/>
+                                    </c:if>
+                                    <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
+                                        ${requestScope.contract.customer.account.id}
+                                    </c:if>
+
                                 </div>
-
-                                <div class="section__item">
-                                    <div class="section__title">Color</div>
-                                    <div class="section__text">
-                                        <input type="text" 
-                                               value="${requestScope.contract.color}"/>
-                                    </div>
+                            </div>
+                            <div class="section__item">
+                                <span class="errorMessage" id="msgCustomer"></span>
+                            </div>
+                            <div class="section__item">
+                                <div class="section__title">Name</div>
+                                <div class="section__text">
+                                    <span id="customerName">
+                                        ${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}
+                                    </span>
                                 </div>
+                            </div>
 
+                            <div class="section__item">
+                                <div class="section__title">Email</div>
+                                <div class="section__text">
+                                    <span id="customerEmail">${requestScope.contract.customer.account.email}</span>
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Date of Birth</div>
+                                <div class="section__text">
+                                    <span id="customerDob">${requestScope.contract.customer.dob}</span>
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Personal ID</div>
+                                <div class="section__text">
+                                    <span id="customerPersonalID">${requestScope.contract.customer.personalID}</span>
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Phone</div>
+                                <div class="section__text">
+                                    <span id="customerPhone">${requestScope.contract.customer.phone}</span>
+                                </div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Address</div>
+                                <div class="section__text">
+                                    <span id="customerAddress">${requestScope.contract.customer.address}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section__heading">Vehicle Information</h2>
+
+                        <div class="section__main">
+                            <div class="section__left">
                                 <div class="section__item">
-                                    <div class="section__title">Brand</div>
+                                    <div class="section__title">Vehicle type</div>
                                     <div class="section__text">
-                                        <select name="brandID">
-                                            <c:forEach items="${requestScope.brands}" var="brand">
-                                                <option value="${brand.id}"
-                                                        ${brand.id eq requestScope.contract.brand2.id?
+                                        <select name="vehicleTypeID">
+                                            <c:forEach items="${requestScope.vehicleTypes}" var="vtype">
+                                                <option value="${vtype.id}"
+                                                        ${vtype.id eq requestScope.contract.vehicleType2.id?
                                                           'selected':''}>
-                                                            ${brand.brand}
+                                                            ${vtype.vehicleType}
                                                         </option>
                                                 </c:forEach>
                                             </select>
@@ -298,68 +252,110 @@
                                     </div>
 
                                     <div class="section__item">
-                                        <div class="section__title">Owner</div>
+                                        <div class="section__title">Engine</div>
                                         <div class="section__text">
                                             <input type="text" 
-                                                   value="${requestScope.contract.owner}"/>
+                                                   value="${requestScope.contract.engine}"/>
                                         </div>
                                     </div>
 
                                     <div class="section__item">
-                                        <div class="section__title">Chassis</div>
+                                        <div class="section__title">License Plate</div>
                                         <div class="section__text">
                                             <input type="text" 
-                                                   value="${requestScope.contract.chassis}"/>
+                                                   value="${requestScope.contract.licensePlate}"/>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="section__right">
                                     <div class="section__item">
-                                        <div class="section__title">Cert Image</div>
-                                        <img class="section__img" src="${requestScope.contract.certImage}"></img>
+                                        <div class="section__title">Color</div>
+                                        <div class="section__text">
+                                            <input type="text" 
+                                                   value="${requestScope.contract.color}"/>
+                                        </div>
                                     </div>
-                                </div>          
+
+                                    <div class="section__item">
+                                        <div class="section__title">Brand</div>
+                                        <div class="section__text">
+                                            <select name="brandID">
+                                                <c:forEach items="${requestScope.brands}" var="brand">
+                                                    <option value="${brand.id}"
+                                                            ${brand.id eq requestScope.contract.brand2.id?
+                                                              'selected':''}>
+                                                                ${brand.brand}
+                                                            </option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="section__item">
+                                            <div class="section__title">Owner</div>
+                                            <div class="section__text">
+                                                <input type="text" 
+                                                       value="${requestScope.contract.owner}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="section__item">
+                                            <div class="section__title">Chassis</div>
+                                            <div class="section__text">
+                                                <input type="text" 
+                                                       value="${requestScope.contract.chassis}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__right">
+                                        <div class="section__item">
+                                            <div class="section__title">Cert Image</div>
+                                            <img class="section__img" src="${requestScope.contract.certImage}"></img>
+                                        </div>
+                                    </div>          
+                                </div>
+                            </div>
+
+                            <div class="section">
+                                <h2 class="section__heading">Product Information</h2>
+
+                                <div class="section__main">
+                                    <div class="section__item">
+                                        <div class="section__title">Product ID</div>
+                                        <div class="section__text">
+                                            <!--if status is processing, edit is allowed-->
+                                            <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
+                                                <input type="text" id="productID"
+                                                       onkeyup="changeProduct()"
+                                                       value="${requestScope.contract.product.id}"/>
+                                            </c:if>
+                                            <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
+                                                ${requestScope.contract.product.id}
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    <div class="section__item">
+                                        <span class="errorMessage" id="msgProduct"></span>
+                                    </div>
+                                    <div class="section__item">
+                                        <div class="section__title">Product Title</div>
+                                        <div class="section__text">
+                                            <span id="productTitle">${requestScope.contract.product.title}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__item">
+                                        <div class="section__title">Status</div>
+                                        <div class="section__text" id="productStatus">
+                                            <span id="productStatus">${requestScope.contract.product.statusCode.statusName}</span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="currentProductPrice"
+                                           value="${requestScope.contract.product.price}"/>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="section">
-                            <h2 class="section__heading">Product Information</h2>
-
-                            <div class="section__main">
-                                <div class="section__item">
-                                    <div class="section__title">Product ID</div>
-                                    <div class="section__text">
-                                        <!--if status is processing, edit is allowed-->
-                                        <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                            <input type="text" id="productID"
-                                                   onchange="changeProduct()"
-                                                   value="${requestScope.contract.product.id}"/>
-                                        </c:if>
-                                        <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
-                                            ${requestScope.contract.product.id}
-                                        </c:if>
-                                    </div>
-                                </div>
-
-                                <div class="section__item">
-                                    <div class="section__title">Product Title</div>
-                                    <div class="section__text">
-                                        <span id="productTitle">${requestScope.contract.product.title}</span>
-                                    </div>
-                                </div>
-
-                                <div class="section__item">
-                                    <div class="section__title">Status</div>
-                                    <div class="section__text" id="productStatus">
-                                        <span id="productStatus">${requestScope.contract.product.statusCode.statusName}</span>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="currentProductPrice"
-                                       value="${requestScope.contract.product.price}"/>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                     <jsp:include page="../footer_full.jsp"></jsp:include>
 
 

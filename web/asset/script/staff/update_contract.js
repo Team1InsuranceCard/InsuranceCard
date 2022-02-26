@@ -59,30 +59,53 @@ function changeContractFee() {
 }
 
 function changeProduct() {
+    var msgSpan = document.getElementById("msgProduct");
     var productTitle = document.getElementById("productTitle");
     var productStatus = document.getElementById("productStatus");
     var productPrice = document.getElementById("currentProductPrice");
+    var btnUpdate = document.getElementById("btnUpdate");
     var pid = $("#productID").val();
-    $.ajax({
-        type: "GET",
-        data: {id: pid},
-        url: "get-product-info",
-        success: function (responseJson) {
-            if (responseJson.id != null) {
-                productPrice.value = responseJson.price;
-                productTitle.innerHTML = responseJson.title;
-                productStatus.innerHTML = responseJson.statusCode.statusName;
-                changeContractFee();
-            } else {
-                productPrice.value = "0";
-                productTitle.text = "";
-                productStatus.text = "";
-                changeContractFee();
-            }
+    if (pid.trim() === "") {
+        msgSpan.innerHTML = "Invalid product ID";
+        productTitle.innerHTML = "";
+        productStatus.innerHTML = "";
+        productPrice.value = "0";
+        changeContractFee();
+        if (!btnUpdate.classList.contains("btn--disabled"))
+            btnUpdate.classList.add("btn--disabled");
+        else {
         }
-    });
+    } else {
+        $.ajax({
+            type: "GET",
+            data: {id: pid},
+            url: "get-product-info",
+            success: function (responseJson) {
+                if (responseJson.id != 0) {
+                    productPrice.value = responseJson.price;
+                    productTitle.innerHTML = responseJson.title;
+                    productStatus.innerHTML = responseJson.statusCode.statusName;
+                    changeContractFee();
+                    if (btnUpdate.classList.contains("btn--disabled"))
+                        btnUpdate.classList.remove("btn--disabled");
+                    else {
+                    }
+                    msgSpan.innerHTML = "";
+                } else {
+                    productPrice.value = "0";
+                    productTitle.innerHTML = "";
+                    productStatus.innerHTML = "";
+                    changeContractFee();
+                    if (!btnUpdate.classList.contains("btn--disabled"))
+                        btnUpdate.classList.add("btn--disabled");
+                    else {
+                    }
+                    msgSpan.innerHTML = "Product is not existed or not activated!";
+                }
+            }
+        });
+    }
 }
-
 function checkCustomerID() {
     var msgSpan = document.getElementById("msgCustomer");
     var customerName = document.getElementById("customerName");
@@ -91,16 +114,21 @@ function checkCustomerID() {
     var customerPersonalID = document.getElementById("customerPersonalID");
     var customerPhone = document.getElementById("customerPhone");
     var customerAddress = document.getElementById("customerAddress");
+    var btnUpdate = document.getElementById("btnUpdate");
 
     var cid = $("#customerID").val();
     if (cid.trim() === "") {
-        msgSpan.innerHTML = "";
+        msgSpan.innerHTML = "Invalid customer ID";
         customerName.innerHTML = "";
         customerEmail.innerHTML = "";
         customerDob.innerHTML = "";
         customerPersonalID.innerHTML = "";
         customerPhone.innerHTML = "";
         customerAddress.innerHTML = "";
+        if (!btnUpdate.classList.contains("btn--disabled"))
+            btnUpdate.classList.add("btn--disabled");
+        else {
+        }
     } else {
         $.ajax({
             type: "GET",
@@ -114,6 +142,11 @@ function checkCustomerID() {
                     customerPersonalID.innerHTML = responseJson.personalID;
                     customerPhone.innerHTML = responseJson.phone;
                     customerAddress.innerHTML = responseJson.address;
+                    if (btnUpdate.classList.contains("btn--disabled"))
+                        btnUpdate.classList.remove("btn--disabled");
+                    else {
+                    }
+                    msgSpan.innerHTML = "";
                 } else {
                     customerName.innerHTML = "";
                     customerEmail.innerHTML = "";
@@ -121,6 +154,10 @@ function checkCustomerID() {
                     customerPersonalID.innerHTML = "";
                     customerPhone.innerHTML = "";
                     customerAddress.innerHTML = "";
+                    if (!btnUpdate.classList.contains("btn--disabled"))
+                        btnUpdate.classList.add("btn--disabled");
+                    else {
+                    }
                     msgSpan.innerHTML = "Customer is not existed or not activated!";
                 }
             }
