@@ -61,6 +61,7 @@ function changeContractFee() {
 function changeProduct() {
     var msgSpan = document.getElementById("msgProduct");
     var productTitle = document.getElementById("productTitle");
+    var contractProductTitle = document.getElementById("contractProduct");
     var productStatus = document.getElementById("productStatus");
     var productPrice = document.getElementById("currentProductPrice");
     var btnUpdate = document.getElementById("btnUpdate");
@@ -68,6 +69,7 @@ function changeProduct() {
     if (pid.trim() === "") {
         msgSpan.innerHTML = "Invalid product ID";
         productTitle.innerHTML = "";
+        contractProductTitle.innerHTML = "";
         productStatus.innerHTML = "";
         productPrice.value = "0";
         changeContractFee();
@@ -84,6 +86,7 @@ function changeProduct() {
                 if (responseJson.id != 0) {
                     productPrice.value = responseJson.price;
                     productTitle.innerHTML = responseJson.title;
+                    contractProductTitle.innerHTML = productTitle.innerHTML;
                     productStatus.innerHTML = responseJson.statusCode.statusName;
                     changeContractFee();
                     if (btnUpdate.classList.contains("btn--disabled"))
@@ -94,6 +97,7 @@ function changeProduct() {
                 } else {
                     productPrice.value = "0";
                     productTitle.innerHTML = "";
+                    contractProductTitle.innerHTML = "";
                     productStatus.innerHTML = "";
                     changeContractFee();
                     if (!btnUpdate.classList.contains("btn--disabled"))

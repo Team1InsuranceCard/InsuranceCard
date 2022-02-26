@@ -54,7 +54,7 @@
 
                         <div class="section__item">
                             <div class="section__title">Product</div>
-                            <div class="section__text">${requestScope.contract.product.title}</div>
+                            <div class="section__text" id="contractProduct">${requestScope.contract.product.title}</div>
                         </div>
 
                         <div class="section__item">
