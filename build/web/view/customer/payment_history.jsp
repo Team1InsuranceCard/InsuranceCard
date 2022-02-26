@@ -23,9 +23,9 @@
                 var container = document.getElementById(div);
                 if (totalPage > 1) {
                     if (pageIndex - 1 > 0) {
-                        container.innerHTML += '<a class="page" href="' + url + '?page=' + before + '"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                        container.innerHTML += '<a class="move" href="' + url + '?page=' + before + '"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
                     } else {
-                        container.innerHTML += '<a class="page" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
                     }
 
                     if (pageIndex - gap > 1) {
@@ -38,7 +38,7 @@
                         }
                     }
 
-                    container.innerHTML += '<span>' + pageIndex + '</span>';
+                    container.innerHTML += '<span class="page">' + pageIndex + '</span>';
 
                     for (var i = pageIndex + 1; i <= pageIndex + gap; i++) {
                         if (i <= totalPage) {
@@ -51,13 +51,27 @@
                     }
 
                     if (pageIndex + 1 <= totalPage) {
-                        container.innerHTML += '<a class="page" href="' + url + '?page=' + after + '"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                        container.innerHTML += '<a class="move" href="' + url + '?page=' + after + '"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
                     } else {
-                        container.innerHTML += '<a class="page" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
                     }
                 }
             }
         </script>
+        
+        <style>
+            .pagging .page {
+                background: #FA7C7C;
+                color: #FFFFFF;
+                padding: 0.1rem 0.6rem;
+                border-radius: 30px;
+            }
+            
+            .pagging a, span {
+                color: #000000;
+                margin-left: 0.75rem;
+            }
+        </style>
     </head>
 
     <body>
