@@ -18,7 +18,7 @@
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
-    
+
     <body>
         <header>
             <jsp:include page="../header_customer.jsp">
@@ -51,10 +51,12 @@
                         <c:set var="i" value="${i+1}"/>
                         <tr>
                             <td class="stt">${i}</td>
-                            <td class="proTitle">${p.contractID.product.title}</td>
+                            <td class="proTitle">
+                                <a href="contract/detail?id="> ${p.contractID.product.title}</a>
+                            </td>
                             <td class="amount">
                                 <fmt:formatNumber type = "number" 
-                                              value = "${p.amount}"/>
+                                                  value = "${p.amount}"/>
                             </td>
                             <td class="date">
                                 <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 

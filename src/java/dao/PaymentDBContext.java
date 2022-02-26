@@ -124,6 +124,7 @@ public class PaymentDBContext extends DBContext {
                     + "          ,Payment.StartDate\n"
                     + "		  ,PaymentMethod.PaymentMethod\n"
                     + "          ,Product.Title\n"
+                    + "		  ,Contract.ID as ContractID\n"
                     + "          ,ROW_NUMBER() OVER (ORDER BY Payment.ID) AS 'RowNumber'\n"
                     + "          FROM Payment\n"
                     + "		  INNER JOIN PaymentMethod\n"
@@ -135,7 +136,7 @@ public class PaymentDBContext extends DBContext {
                     + "          ) \n"
                     + "SELECT PaidDate, Note, Amount,\n"
                     + "       StartDate, PaymentMethod,\n"
-                    + "       Title\n"
+                    + "       Title, ContractID\n"
                     + "FROM Pay\n"
                     + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?";
 
@@ -154,6 +155,7 @@ public class PaymentDBContext extends DBContext {
                 pro.setTitle(rs.getString("Title"));
 
                 Contract contract = new Contract();
+                contract.setId(rs.getInt("ContractID"));
                 contract.setProduct(pro);
 
                 Payment payment = new Payment();
