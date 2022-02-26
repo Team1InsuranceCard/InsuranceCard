@@ -8,6 +8,7 @@ package controller.staff;
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.PaymentDBContext;
+import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Compensation;
 import model.Contract;
 import model.Payment;
+import model.Staff;
 
 /**
  *
@@ -72,10 +74,14 @@ public class UpdateContractController extends HttpServlet {
 
         CompensationDBContext comDB = new CompensationDBContext();
         ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
+        
+        StaffDBContext sdb = new StaffDBContext();
+        ArrayList<Staff> staffs = sdb.getStaffs();
 
         request.setAttribute("contract", contract);
         request.setAttribute("payments", payments);
         request.setAttribute("compensations", compensations);
+        request.setAttribute("staffs", staffs);
         request.getRequestDispatcher("../../view/staff/update-contract.jsp").forward(request, response);
     }
 
