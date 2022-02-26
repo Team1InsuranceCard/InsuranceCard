@@ -52,7 +52,9 @@
                         <tr>
                             <td class="stt">${i}</td>
                             <td class="proTitle">
-                                <a href="contract/detail?id="> ${p.contractID.product.title}</a>
+                                <a href="customer/contract/detail?id=${p.contractID.id}"> 
+                                    ${p.contractID.product.title}
+                                </a>
                             </td>
                             <td class="amount">
                                 <fmt:formatNumber type = "number" 
