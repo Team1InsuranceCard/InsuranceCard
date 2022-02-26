@@ -8,6 +8,13 @@ and open the template in the editor.
     Author     : quynm
 */
 
+:root{
+    --color1: #ffdccc00;
+    --color2: #fdb1a6;
+    --color3: #fc6376;
+    --color4: #5c2941;
+}
+
 input,
 select{
     background: none;
