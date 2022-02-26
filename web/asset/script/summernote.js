@@ -12,7 +12,7 @@ $(document).ready(function () {
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontname', ['fontname']],
             ['fontsize', ['fontsize']],
-            ['color', ['color']], 
+            ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
             ['table', ['table']],
