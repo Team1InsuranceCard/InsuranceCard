@@ -45,6 +45,7 @@
                         <div class="section__item">
                             <div class="section__title">Contract ID</div>
                             <div class="section__text">${requestScope.contract.id}</div>
+                            <input type="hidden" name="contractID" value="${requestScope.contract.id}"/>
                         </div>
 
                         <div class="section__item">
@@ -62,7 +63,7 @@
                             <div class="section__text">
                                 <input type="text" id="contractFee" disabled
                                        value = "${requestScope.contract.contractFee}" />
-                                <input type="hidden" id="contractFeeSent"
+                                <input type="hidden" id="contractFeeSent" name="contractFee"
                                        value = "${requestScope.contract.contractFee}" />
                             </div>
                         </div>                        
@@ -112,7 +113,7 @@
                                 <div class="section__title">Start Date</div>
                                 <div class="section__text">
                                     <input type="datetime" id="startdate"
-                                           onchange="fillEndDate()"
+                                           onchange="fillEndDate()" name="startDate"
                                            value = "${requestScope.contract.startDate}" />
                                 </div>
                             </div>
@@ -128,7 +129,7 @@
                                 <div class="section__text">
                                     <input type="datetime" id="enddate" disabled
                                            value = "${requestScope.contract.endDate}" />
-                                    <input type="hidden" id="endDateSent"
+                                    <input type="hidden" id="endDateSent" name="endDate"
                                            value = "${requestScope.contract.endDate}" />
                                 </div>
                             </div>
@@ -173,7 +174,8 @@
                                 <div class="section__text">
                                     <!--if status is processing, edit is allowed-->
                                     <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                        <input type="text" id="customerID" onkeyup="checkCustomerID()"
+                                        <input type="text" id="customerID" name="customerID"
+                                               onkeyup="checkCustomerID()"
                                                value="${requestScope.contract.customer.account.id}"/>
                                     </c:if>
                                     <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
@@ -254,7 +256,7 @@
                                     <div class="section__item">
                                         <div class="section__title">Engine</div>
                                         <div class="section__text">
-                                            <input type="text" 
+                                            <input type="text" name="engine"
                                                    value="${requestScope.contract.engine}"/>
                                         </div>
                                     </div>
@@ -262,7 +264,7 @@
                                     <div class="section__item">
                                         <div class="section__title">License Plate</div>
                                         <div class="section__text">
-                                            <input type="text" 
+                                            <input type="text" name="licensePlate"
                                                    value="${requestScope.contract.licensePlate}"/>
                                         </div>
                                     </div>
@@ -270,7 +272,7 @@
                                     <div class="section__item">
                                         <div class="section__title">Color</div>
                                         <div class="section__text">
-                                            <input type="text" 
+                                            <input type="text" name="color"
                                                    value="${requestScope.contract.color}"/>
                                         </div>
                                     </div>
@@ -293,7 +295,7 @@
                                         <div class="section__item">
                                             <div class="section__title">Owner</div>
                                             <div class="section__text">
-                                                <input type="text" 
+                                                <input type="text" name="owner"
                                                        value="${requestScope.contract.owner}"/>
                                             </div>
                                         </div>
@@ -301,7 +303,7 @@
                                         <div class="section__item">
                                             <div class="section__title">Chassis</div>
                                             <div class="section__text">
-                                                <input type="text" 
+                                                <input type="text" name="chasis"
                                                        value="${requestScope.contract.chassis}"/>
                                             </div>
                                         </div>
@@ -325,7 +327,7 @@
                                         <div class="section__text">
                                             <!--if status is processing, edit is allowed-->
                                             <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                                <input type="text" id="productID"
+                                                <input type="text" id="productID" name="productID"
                                                        onkeyup="changeProduct()"
                                                        value="${requestScope.contract.product.id}"/>
                                             </c:if>
