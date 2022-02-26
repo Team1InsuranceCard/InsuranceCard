@@ -66,11 +66,11 @@
                 max-width: 12rem;
             }
 
-            .table .amount, .method {
-                max-width: 3rem;
+            .table .amount {
+                max-width: 4rem;
             }  
 
-            .table .note {
+            .table .note, .method, .date {
                 max-width: 6rem;
             }
 
@@ -113,7 +113,10 @@
                         <tr>
                             <td class="stt">${i}</td>
                             <td class="proTitle">${p.contractID.product.title}</td>
-                            <td class="amount">${p.amount}</td>
+                            <td class="amount">
+                                <fmt:formatNumber type = "number" 
+                                              value = "${p.amount}"/>
+                            </td>
                             <td class="date">
                                 <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
                                                 value = "${p.startDate}"/>
