@@ -14,7 +14,7 @@ $(document).ready(function () {
             ['fontsize', ['fontsize']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
+            ['height', ['height']], 
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
             ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
