@@ -15,71 +15,10 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+        <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-                color: #5C2941;
-            }
-
-            section {
-                margin: 10rem 8rem 0 8rem;
-            }
-
-            section .title {
-                margin-bottom: 3rem;
-                margin-left: 5rem;
-            }
-
-            .table td {
-                border-bottom: 0.5px solid #000000;
-            }
-
-            .table thead {
-                background-color: rgba(255, 124, 140, 0.8);
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-
-            .table tr:nth-child(even) {
-                background-color: #FFF9EC;
-            }
-
-            .input-date {
-                margin-left: 7rem;
-            }
-
-            .pagging {
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-                text-align: right;
-            }
-
-            .table .stt {
-                max-width: 4rem;
-
-            }
-
-            .table .proTitle {
-                max-width: 12rem;
-            }
-
-            .table .amount {
-                max-width: 4rem;
-            }  
-
-            .table .note, .method, .date {
-                max-width: 6rem;
-            }
-
-            .table .stt, .amount, .date, .method, .note {
-                text-align: center;
-                word-break: break-all;
-            }
-        </style>
     </head>
+    
     <body>
         <header>
             <jsp:include page="../header_customer.jsp">
