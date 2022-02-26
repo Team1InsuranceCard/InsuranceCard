@@ -11,8 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Contract;
 import model.Payment;
 import model.PaymentMethod;
+import model.Product;
 
 /**
  *
@@ -86,6 +88,65 @@ public class PaymentDBContext extends DBContext {
                 pay.setStartDate(rs.getTimestamp("StartDate"));
                 pay.setPaymentMethod2(payMethod);
                 payments.add(pay);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
+    }
+
+    public ArrayList<Payment> paymentHistory(int pagesize, int pageindex) {
+        ArrayList<Payment> payments = new ArrayList<>();
+
+        try {
+            String sql = "WITH Pay AS (\n"
+                    + "          SELECT Payment.PaidDate\n"
+                    + "		  ,Note\n"
+                    + "		  ,Amount\n"
+                    + "          ,Payment.StartDate\n"
+                    + "		  ,PaymentMethod.PaymentMethod\n"
+                    + "          ,Product.Title\n"
+                    + "          ,ROW_NUMBER() OVER (ORDER BY Payment.ID) AS 'RowNumber'\n"
+                    + "          FROM Payment\n"
+                    + "		  INNER JOIN PaymentMethod\n"
+                    + "		  ON PaymentMethod.ID = Payment.PaymentMethodID\n"
+                    + "		  INNER JOIN Contract\n"
+                    + "		  ON Contract.ID = Payment.ContractID\n"
+                    + "		  INNER JOIN Product\n"
+                    + "		  ON Product.ID = Contract.ProductID\n"
+                    + "          ) \n"
+                    + "SELECT PaidDate, Note, Amount,\n"
+                    + "       StartDate, PaymentMethod,\n"
+                    + "       Title\n"
+                    + "FROM Pay\n"
+                    + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pageindex);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                PaymentMethod pm = new PaymentMethod();
+                pm.setPaymentMethod(rs.getString("PaymentMethod"));
+
+                Product pro = new Product();
+                pro.setTitle(rs.getString("Title"));
+
+                Contract contract = new Contract();
+                contract.setProduct(pro);
+
+                Payment payment = new Payment();
+                payment.setPaidDate(rs.getTimestamp("PaidDate"));
+                payment.setNote(rs.getString("Note"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setStartDate(rs.getTimestamp("StartDate"));
+                payment.setPaymentMethod2(pm);
+                payment.setContractID(contract);
+
+                payments.add(payment);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
