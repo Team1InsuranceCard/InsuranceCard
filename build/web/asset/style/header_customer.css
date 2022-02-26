@@ -136,3 +136,6 @@ body {
     color: #5C2941;
     margin: 10px;
 }
+a.active {
+    background: none;
+}

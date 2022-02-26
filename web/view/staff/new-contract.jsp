@@ -35,7 +35,7 @@
                             <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                             <label for="txt1" class="label-input">Full name (*):</label>
                             <input id="txt1" class="inputdata" type="text" required
-                                   name="ownerName" onchange="fillRightOwner()"
+                                   name="ownerName"
                                    placeholder="Owner full name (in vehicle registration)"
                                    value="${requestScope.ownerNameSent ne null ?
                                             requestScope.ownerNameSent : ""}"/><br/>

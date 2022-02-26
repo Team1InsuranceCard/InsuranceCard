@@ -101,12 +101,14 @@ public class ProductDBContext extends DBContext {
                 + "      ,[Description]\n"
                 + "      ,[Price]\n"
                 + "      ,[ImageURL]\n"
-                + "      ,[Status]\n"
-                + "      ,[isDelete]\n"
+                + "      ,[StatusCode]\n"
+                + "	  ,[StatusName]\n"
+                + "      ,p.[isDelete]\n"
                 + "      ,[ContentDetail]\n"
                 + "      ,[StartDate]\n"
-                + "  FROM [Product]\n"
-                + "  WHERE Product.ID = ? AND (Product.isDelete = 0 OR Product.isDelete is NULL)";
+                + "  FROM [Product] p JOIN [ProductStatusCode] psc\n"
+                + "  ON p.Status = psc.StatusCode\n"
+                + "  WHERE p.ID = ? AND (p.isDelete = 0 OR p.isDelete is NULL)";
         try {
             PreparedStatement psm_select_product = connection.prepareStatement(sql_select_product);
             psm_select_product.setInt(1, productID);
@@ -118,7 +120,8 @@ public class ProductDBContext extends DBContext {
                 product.setImageURL(rs_select_product.getString("ImageURL"));
 
                 ProductStatusCode statusCode = new ProductStatusCode();
-                statusCode.setStatusCode(rs_select_product.getShort("Status"));
+                statusCode.setStatusCode(rs_select_product.getShort("StatusCode"));
+                statusCode.setStatusName(rs_select_product.getString("StatusName"));
 
                 product.setStatusCode(statusCode);
                 product.setDescription(rs_select_product.getString("Description"));

@@ -165,6 +165,7 @@ public class StaffNewContractController extends HttpServlet {
         //set default status to pending - code:2
         ContractStatusCode status = scdb.getContractStatusCode(2);
         Timestamp requestDate = Timestamp.valueOf(LocalDateTime.now());
+        Timestamp resolveDate = requestDate;
         Double contractFee = Double.parseDouble(fee);
 
         if (customer != null) {
@@ -181,6 +182,7 @@ public class StaffNewContractController extends HttpServlet {
             contract.setCustomer(customer);
             contract.setStatusCode(status); //pending
             contract.setRequestDate(requestDate);
+            contract.setResolveDate(resolveDate);
             contract.setContractFee(contractFee);
             contract.setStartStaff(startStaff);
 

@@ -8,6 +8,30 @@ and open the template in the editor.
     Author     : quynm
 */
 
+:root{
+    --color1: #ffdccc00;
+    --color2: #fdb1a6;
+    --color3: #fc6376;
+    --color4: #5c2941;
+}
+
+input,
+select{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+}
+
+input:focus,
+select:focus{
+    border-bottom: 1px solid var(--color2);
+    outline: none;
+}
+
+
 .mess-box {
   display: none;
   align-items: center;
@@ -30,6 +54,10 @@ and open the template in the editor.
 .mess-box__mess {
   font-size: 18px;
   font-weight: bold;
+}
+
+.errorMessage{
+    color: red;
 }
 
 body {

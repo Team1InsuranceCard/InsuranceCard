@@ -161,5 +161,4 @@ function checkCustomerID() {
             }
         });
     }
-
 }
