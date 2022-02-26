@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -57,21 +59,21 @@
 
             .table .stt {
                 max-width: 4rem;
-                
+
             }
-            
+
             .table .proTitle {
                 max-width: 12rem;
             }
-            
+
             .table .amount, .method {
                 max-width: 3rem;
             }  
-            
+
             .table .note {
                 max-width: 6rem;
             }
-            
+
             .table .stt, .amount, .date, .method, .note {
                 text-align: center;
                 word-break: break-all;
@@ -105,63 +107,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="stt">1</td>
-                        <td class="proTitle">Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td class="amount">3.000.000</td>
-                        <td class="date">11/05/2018 21:01:58</td>
-                        <td class="date">15/05/2018 21:01:58</td>
-                        <td class="method">Tiền mặt</td>
-                        <td class="note">aaaaa</td>
-                    </tr>
-                    <tr>
-                        <td class="stt">2</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <td class="stt">3</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Bảo hiểm Bảo Việt cho xe 50cc trở xuống</td>
-                        <td>300.000</td>
-                        <td>11/05/2018 21:01:58</td>
-                        <td>15/05/2018 21:01:58</td>
-                        <td>Tiền mặt</td>
-                    </tr>
+                    <c:set var="i" value="0"/>
+                    <c:forEach items="${requestScope.payments}" var="p">
+                        <c:set var="i" value="${i+1}"/>
+                        <tr>
+                            <td class="stt">${i}</td>
+                            <td class="proTitle">${p.contractID.product.title}</td>
+                            <td class="amount">${p.amount}</td>
+                            <td class="date">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                                value = "${p.startDate}"/>
+                            </td>
+                            <td class="date">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                                value = "${p.paidDate}"/>
+                            </td>
+                            <td class="method">${p.paymentMethod2.paymentMethod}</td>
+                            <td class="note">${p.note}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
             <div class="pagging">
