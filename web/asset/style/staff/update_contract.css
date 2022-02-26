@@ -8,6 +8,23 @@ and open the template in the editor.
     Author     : quynm
 */
 
+input,
+select{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+    resize: none;
+    margin-right: 10px;
+}
+
+input:focus,
+select:focus{
+    border-bottom: 1px solid var(--color2);
+    outline: none;
+}
+
+
 .mess-box {
   display: none;
   align-items: center;
