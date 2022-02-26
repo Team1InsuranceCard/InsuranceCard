@@ -53,10 +53,7 @@
                             <div>
                                 <input class="btn" type="submit" value="Sign In"/>
                             </div>
-                            <p class="msg" style="margin: 2rem 3rem 0 3rem;
-                               display: inline;color: #FFFFFF; 
-                               transition: 0.25s ease;
-                               ${requestScope.msg==null?"":"background-color: #FC6376; padding: 0.5rem 1rem;"}">
+                            <p class="msg" style="${requestScope.msg==null?"":"background-color: #FC6376; padding: 0.5rem 1rem;"}">
                                 ${requestScope.msg}</p>
                         </div>
                     </div>
