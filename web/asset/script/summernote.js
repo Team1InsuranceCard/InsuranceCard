@@ -13,7 +13,7 @@ $(document).ready(function () {
             ['fontname', ['fontname']],
             ['fontsize', ['fontsize']],
             ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
+            ['para', ['ul', 'ol', 'paragraph']], 
             ['height', ['height']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
