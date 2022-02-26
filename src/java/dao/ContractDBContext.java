@@ -828,8 +828,9 @@ public class ContractDBContext extends DBContext {
             ps_payment.executeUpdate();
             // update contract status
             String sql_contract = "update Contract\n"
-                    + "set Status = 1\n"
-                    + "where ID = ?";
+                    + " set Status = 1\n"
+                    + "    ,[ResolveDate] = GETDATE()\n"
+                    + " where ID = ?";
             PreparedStatement ps_contract = connection.prepareStatement(sql_contract);
             ps_contract.setInt(1, contractID);
             ps_contract.executeUpdate();
