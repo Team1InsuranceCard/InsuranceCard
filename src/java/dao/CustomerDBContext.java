@@ -50,10 +50,13 @@ public class CustomerDBContext extends DBContext {
                     + "      ,[FirstName]\n"
                     + "      ,[LastName]\n"
                     + "      ,[Address]\n"
+                    + "      ,[Dob]\n"
+                    + "      ,[JoinDate]\n"
                     + "      ,[Phone]\n"
                     + "      ,[PersonalID]\n"
                     + "      ,[Province]\n"
                     + "      ,[District]\n"
+                    + "      ,[isDelete]\n"
                     + "  FROM [Customer]\n"
                     + "  where [AccountID] = ?";
             PreparedStatement psm_select_customer = connection.prepareStatement(sql_select_customer);
@@ -65,6 +68,8 @@ public class CustomerDBContext extends DBContext {
                 cus.setFirstName(rs_select_customer.getString("Firstname"));
                 cus.setLastName(rs_select_customer.getString("LastName"));
                 cus.setAddress(rs_select_customer.getString("Address"));
+                cus.setDob(rs_select_customer.getDate("Dob"));
+                cus.setJoinDate(rs_select_customer.getTimestamp("JoinDate"));
                 cus.setPhone(rs_select_customer.getString("Phone"));
                 cus.setPersonalID(rs_select_customer.getString("PersonalID"));
                 cus.setProvince(rs_select_customer.getString("Province"));
