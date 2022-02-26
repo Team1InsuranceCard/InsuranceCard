@@ -24,7 +24,7 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <link rel="stylesheet" href="asset/style/product_detail.css" />
         <style>
             main {
-                <c:if test="${role}">
+                <c:if test="${role || !empty mod_account.userName}">
                     margin-left: 20em;
                 </c:if>
                 /* margin-left: 20em; */
@@ -35,6 +35,9 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     </head>
     <body>
         <c:choose>
+            <c:when test="${!empty mod_account.userName}">
+                <jsp:include page="header_moderator.jsp" />
+            </c:when>
             <c:when test="${empty role}">
                 <jsp:include page="header_common.jsp" />
             </c:when>

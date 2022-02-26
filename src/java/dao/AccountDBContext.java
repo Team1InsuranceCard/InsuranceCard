@@ -128,4 +128,22 @@ public class AccountDBContext extends DBContext {
         }
 
     }
+
+    public boolean checkExistEmailOfStaff(String email) {
+        try {
+            String sql = "SELECT ID\n"
+                    + "  FROM [Account]\n"
+                    + "  WHERE Role = 1 and BINARY_CHECKSUM(Email) = BINARY_CHECKSUM(?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

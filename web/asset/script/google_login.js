@@ -1,10 +1,5 @@
-onLoad();
-function onLoad() {
-    gapi.load('auth2', function () {
-        gapi.auth2.init();
-    });
-}
 function onSignIn(googleUser) {
+    signOut();
     var profile = googleUser.getBasicProfile();
     var id = profile.getId();
     var name = !profile.getName() ? "" : profile.getName();
