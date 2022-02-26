@@ -17,6 +17,47 @@
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
+
+        <script>
+            function createPagger(url, div, before, pageIndex, after, gap, totalPage) {
+                var container = document.getElementById(div);
+                if (totalPage > 1) {
+                    if (pageIndex - 1 > 0) {
+                        container.innerHTML += '<a class="page" href="' + url + '?page=' + before + '"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                    } else {
+                        container.innerHTML += '<a class="page" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                    }
+
+                    if (pageIndex - gap > 1) {
+                        container.innerHTML += '<a href="' + url + '?page=1"><span class="iconify" data-icon="bx:first-page"></span></a>';
+                    }
+
+                    for (var i = pageIndex - gap; i < pageIndex; i++) {
+                        if (i > 0) {
+                            container.innerHTML += '<a href="' + url + '?page=' + i + '">' + i + '</a>';
+                        }
+                    }
+
+                    container.innerHTML += '<span>' + pageIndex + '</span>';
+
+                    for (var i = pageIndex + 1; i <= pageIndex + gap; i++) {
+                        if (i <= totalPage) {
+                            container.innerHTML += '<a href="' + url + '?page=' + i + '">' + i + '</a>';
+                        }
+                    }
+
+                    if (pageIndex + gap < totalPage) {
+                        container.innerHTML += '<a href="' + url + '?page=' + totalPage + '"><span class="iconify" data-icon="bx:last-page"></span></a>';
+                    }
+
+                    if (pageIndex + 1 <= totalPage) {
+                        container.innerHTML += '<a class="page" href="' + url + '?page=' + after + '"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                    } else {
+                        container.innerHTML += '<a class="page" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                    }
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -77,13 +118,15 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <div class="pagging">
-                <span class="iconify" data-icon="codicon:triangle-left"></span>
-                1
-                2
-                3
-                <span class="iconify" data-icon="codicon:triangle-right"></span>
+                    
+            <div class="pagging" id="pagging">
             </div>
+                    
+            <script>
+                createPagger('customer/history/payment', 'pagging',
+                ${requestScope.pageIndex-1}, ${requestScope.pageIndex},
+                ${requestScope.pageIndex+1}, 2, ${requestScope.totalPage});
+            </script> 
         </section>
 
         <footer>
