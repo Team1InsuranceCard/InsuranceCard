@@ -95,6 +95,24 @@ public class PaymentDBContext extends DBContext {
         return payments;
     }
 
+    public int countPaymentRecord() {
+        int num = 0;
+        try {
+            String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
+                    + "       FROM Payment";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                num = rs.getInt("NumberOfRecord");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return num;
+    }
+
     public ArrayList<Payment> paymentHistory(int pagesize, int pageindex) {
         ArrayList<Payment> payments = new ArrayList<>();
 
