@@ -180,7 +180,7 @@
                             <div class="section__text">
                                 <!--if status is processing, edit is allowed-->
                                 <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
-                                    <input type="text" 
+                                    <input type="text" id="customerID" onkeyup="checkCustomerID()"
                                            value="${requestScope.contract.customer.account.id}"/>
                                 </c:if>
                                 <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
@@ -190,34 +190,50 @@
                             </div>
                         </div>
                         <div class="section__item">
+                            <span class="errorMessage" id="msgCustomer"></span>
+                        </div>
+                        <div class="section__item">
                             <div class="section__title">Name</div>
-                            <div class="section__text">${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}</div>
+                            <div class="section__text">
+                                <span id="customerName">
+                                    ${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}
+                                </span>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Email</div>
-                            <div class="section__text">${requestScope.contract.customer.account.email}</div>
+                            <div class="section__text">
+                                <span id="customerEmail">${requestScope.contract.customer.account.email}</span>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Date of Birth</div>
-                            <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                            value = "${requestScope.contract.customer.dob}" /></div>
+                            <div class="section__text">
+                                <span id="customerDob">${requestScope.contract.customer.dob}</span>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Personal ID</div>
-                            <div class="section__text">${requestScope.contract.customer.personalID}</div>
+                            <div class="section__text">
+                                <span id="customerPersonalID">${requestScope.contract.customer.personalID}</span>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Phone</div>
-                            <div class="section__text">${requestScope.contract.customer.phone}</div>
+                            <div class="section__text">
+                                <span id="customerPhone">${requestScope.contract.customer.phone}</span>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Address</div>
-                            <div class="section__text">${requestScope.contract.customer.address}</div>
+                            <div class="section__text">
+                                <span id="customerAddress">${requestScope.contract.customer.address}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -85,12 +85,22 @@ function changeProduct() {
 
 function checkCustomerID() {
     var msgSpan = document.getElementById("msgCustomer");
-    var txtCustomerName = document.getElementById("txt11");
-    var txtCustomerNameHidden = document.getElementById("txt12");
-    var cid = $("#txt2").val();
+    var customerName = document.getElementById("customerName");
+    var customerEmail = document.getElementById("customerEmail");
+    var customerDob = document.getElementById("customerDob");
+    var customerPersonalID = document.getElementById("customerPersonalID");
+    var customerPhone = document.getElementById("customerPhone");
+    var customerAddress = document.getElementById("customerAddress");
+
+    var cid = $("#customerID").val();
     if (cid.trim() === "") {
         msgSpan.innerHTML = "";
-        txtCustomerName.value = "";
+        customerName.innerHTML = "";
+        customerEmail.innerHTML = "";
+        customerDob.innerHTML = "";
+        customerPersonalID.innerHTML = "";
+        customerPhone.innerHTML = "";
+        customerAddress.innerHTML = "";
     } else {
         $.ajax({
             type: "GET",
@@ -98,11 +108,19 @@ function checkCustomerID() {
             url: "get-customer-info",
             success: function (responseJson) {
                 if (responseJson.account != null) {
-                    txtCustomerName.value = responseJson.firstName + " " + responseJson.lastName;
-                    txtCustomerNameHidden.value = txtCustomerName.value;
-                    msgSpan.innerHTML = "";
+                    customerName.innerHTML = responseJson.firstName + " " + responseJson.lastName;
+                    customerEmail.innerHTML = responseJson.account.email;
+                    customerDob.innerHTML = responseJson.dob;
+                    customerPersonalID.innerHTML = responseJson.personalID;
+                    customerPhone.innerHTML = responseJson.phone;
+                    customerAddress.innerHTML = responseJson.address;
                 } else {
-                    txtCustomerName.value = "";
+                    customerName.innerHTML = "";
+                    customerEmail.innerHTML = "";
+                    customerDob.innerHTML = "";
+                    customerPersonalID.innerHTML = "";
+                    customerPhone.innerHTML = "";
+                    customerAddress.innerHTML = "";
                     msgSpan.innerHTML = "Customer is not existed or not activated!";
                 }
             }
