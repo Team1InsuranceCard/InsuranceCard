@@ -52,7 +52,10 @@
                         <tr>
                             <td class="stt">${i}</td>
                             <td class="proTitle">
-                                <a href="customer/contract/detail?id=${p.contractID.id}"> 
+                                <c:set var="s" value="${p.contractID.statusCode.statusCode}"/>
+                                <a href="customer/contract/detail?id=${p.contractID.id}"
+                                   style="${s==0?"color:#E02A2A;":""} 
+                                   ${s==1?"color:#0DC858;":""}"> 
                                     ${p.contractID.product.title}
                                 </a>
                             </td>
