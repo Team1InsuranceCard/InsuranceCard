@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Contract;
+import model.ContractStatusCode;
 import model.Payment;
 import model.PaymentMethod;
 import model.Product;
@@ -125,6 +126,7 @@ public class PaymentDBContext extends DBContext {
                     + "		  ,PaymentMethod.PaymentMethod\n"
                     + "          ,Product.Title\n"
                     + "		  ,Contract.ID as ContractID\n"
+                    + "		  ,Contract.Status\n"
                     + "          ,ROW_NUMBER() OVER (ORDER BY Payment.ID) AS 'RowNumber'\n"
                     + "          FROM Payment\n"
                     + "		  INNER JOIN PaymentMethod\n"
@@ -136,7 +138,7 @@ public class PaymentDBContext extends DBContext {
                     + "          ) \n"
                     + "SELECT PaidDate, Note, Amount,\n"
                     + "       StartDate, PaymentMethod,\n"
-                    + "       Title, ContractID\n"
+                    + "       Title, ContractID, Status\n"
                     + "FROM Pay\n"
                     + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?";
 
@@ -153,11 +155,15 @@ public class PaymentDBContext extends DBContext {
 
                 Product pro = new Product();
                 pro.setTitle(rs.getString("Title"));
+                
+                ContractStatusCode csc = new ContractStatusCode();
+                csc.setStatusCode(rs.getShort("Status"));
 
                 Contract contract = new Contract();
                 contract.setId(rs.getInt("ContractID"));
                 contract.setProduct(pro);
-
+                contract.setStatusCode(csc);
+                
                 Payment payment = new Payment();
                 payment.setPaidDate(rs.getTimestamp("PaidDate"));
                 payment.setNote(rs.getString("Note"));
