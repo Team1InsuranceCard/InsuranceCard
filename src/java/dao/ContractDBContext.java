@@ -868,6 +868,7 @@ public class ContractDBContext extends DBContext {
                     + "           ,[Owner]\n"
                     + "           ,[Chassis]\n"
                     + "           ,[RequestDate]\n"
+                    + "           ,[ResolveDate]\n"
                     + "           ,[StartStaff])\n"
                     + "     VALUES\n"
                     + "           (?\n"
@@ -876,6 +877,7 @@ public class ContractDBContext extends DBContext {
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?\n"
+                    + "		   ,?\n"
                     + "		   ,?\n"
                     + "		   ,?\n"
                     + "		   ,?\n"
@@ -900,7 +902,8 @@ public class ContractDBContext extends DBContext {
             stm_contract.setString(12, contract.getOwner());
             stm_contract.setString(13, contract.getChassis());
             stm_contract.setTimestamp(14, contract.getRequestDate());
-            stm_contract.setInt(15, contract.getStartStaff().getAccount().getId());
+            stm_contract.setTimestamp(15, contract.getResolveDate());
+            stm_contract.setInt(16, contract.getStartStaff().getAccount().getId());
             stm_contract.executeUpdate();
 
             String sql_get_contractid = "select @@identity as contract_id";
