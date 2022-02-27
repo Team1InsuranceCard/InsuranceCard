@@ -50,3 +50,115 @@ $('select[name="calc_shipping_provinces"]').each(function () {
     });
 });
 
+//main script
+$(document).ready(function () {
+    fillEndDate();
+    changeContractFee();
+    checkCustomerID();
+})
+
+function calculateEndDate() {
+    var startdate = new Date($("#startdate").val());
+    //oneday = hour * minute * second * milliseconds
+    var oneday = 24 * 60 * 60 * 1000;
+    var enddate;
+    if ($("#select2").val() === "1") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 365 * oneday));
+    } else if ($("#select2").val() === "2") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 2 * 365 * oneday));
+    } else if ($("#select2").val() === "3") {
+        enddate = $.datepicker.formatDate('yy-mm-dd',
+                new Date(startdate.getTime() + 3 * 365 * oneday));
+    }
+    return enddate;
+}
+
+function fillEndDate() {
+    $("#enddate").val(calculateEndDate());
+    $("#endDateSent").val($("#enddate").val());
+}
+
+function changePeriod() {
+    fillEndDate();
+    changeContractFee();
+}
+
+function changeContractFee() {
+    var productPrice = $("#currentProductPrice").val();
+    var contractFee;
+    if ($("#select2").val() === "1") {
+        contractFee = productPrice;
+    } else if ($("#select2").val() === "2") {
+        contractFee = productPrice * 2;
+    } else if ($("#select2").val() === "3") {
+        contractFee = productPrice * 3;
+    }
+
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'VND',
+    });
+    var fee = formatter.format(contractFee);
+    $("#ProductFee").text(fee);
+    $("#totalFee").text("TOTAL PAYMENT: " + fee);
+
+    $("#contractFee").val(contractFee);
+}
+
+function enableCheckout() {
+    if ($("#chk-3").prop('checked')) {
+        document.getElementById("btnCheckout").classList.remove("btnDisable");
+        document.getElementById("btnCheckout").disabled = false;
+    } else {
+        document.getElementById("btnCheckout").classList.add("btnDisable");
+        document.getElementById("btnCheckout").disabled = true;
+    }
+}
+
+function changeProduct() {
+    var priceInput = document.getElementById("currentProductPrice");
+    var pid = $("#select4").val();
+    $.ajax({
+        type: "GET",
+        data: {id: pid},
+        url: "get-product-info",
+        success: function (responseJson) {
+            if (responseJson.id != null) {
+                priceInput.value = responseJson.price;
+                changeContractFee();
+            } else {
+                priceInput.value = "0";
+                changeContractFee();
+            }
+        }
+    });
+}
+
+function checkCustomerID() {
+    var msgSpan = document.getElementById("msgCustomer");
+    var txtCustomerName = document.getElementById("txt11");
+    var txtCustomerNameHidden = document.getElementById("txt12");
+    var cid = $("#txt2").val();
+    if (cid.trim() === "") {
+        msgSpan.innerHTML = "";
+        txtCustomerName.value = "";
+    } else {
+        $.ajax({
+            type: "GET",
+            data: {id: cid},
+            url: "get-customer-info",
+            success: function (responseJson) {
+                if (responseJson.account != null) {
+                    txtCustomerName.value = responseJson.firstName + " " + responseJson.lastName;
+                    txtCustomerNameHidden.value = txtCustomerName.value;
+                    msgSpan.innerHTML = "";
+                } else {
+                    txtCustomerName.value = "";
+                    msgSpan.innerHTML = "Customer is not existed or not activated!";
+                }
+            }
+        });
+    }
+}

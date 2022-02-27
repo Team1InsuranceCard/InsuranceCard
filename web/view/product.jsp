@@ -27,9 +27,10 @@
 
         <style>
             main{
-                <c:if test="${role}">
+                <c:if test="${role || !empty mod_account.userName}">
                     margin-left: 20em;
                 </c:if>
+
                 margin-top: 10em;
                 margin-bottom:  10em;
             }
@@ -38,6 +39,9 @@
     </head>
     <body>
         <c:choose>
+            <c:when test="${!empty mod_account.userName}">
+                <jsp:include page="header_moderator.jsp" />
+            </c:when>
             <c:when test="${empty role}">
                 <jsp:include page="header_common.jsp" >
                     <jsp:param name="currentscreen" value="product"/>
@@ -49,7 +53,6 @@
             <c:when test="${!role}">
                 <jsp:include page="header_customer.jsp" />
             </c:when>
-
         </c:choose>
 
         <main>
