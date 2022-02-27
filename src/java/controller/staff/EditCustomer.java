@@ -7,11 +7,8 @@ package controller.staff;
 
 import dao.AccountDBContext;
 import dao.CustomerDBContext;
-import dao.StaffDBContext;
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,28 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Customer;
 import model.CustomerStaff;
-import model.Staff;
 
 /**
  *
  * @author DELL
  */
 public class EditCustomer extends HttpServlet {
-
-    private String timestampToDatetimeLocal(Timestamp t) {
-        String[] ts = t.toString().split(" ");
-        String dateTimeLocal = ts[0] + "T" + ts[1].substring(0, 5);
-        return dateTimeLocal;
-    }
-
-    private Staff getStaff(ArrayList<Staff> staffs, int id) {
-        for (Staff staff : staffs) {
-            if (staff.getAccount().getId() == id) {
-                return staff;
-            }
-        }
-        return null;
-    }
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -59,9 +40,6 @@ public class EditCustomer extends HttpServlet {
         CustomerStaff cusStaff = cusDb.viewCustomer(id);
         Customer cus = cusStaff.getCustomer();
 
-        StaffDBContext staffDb = new StaffDBContext();
-        ArrayList<Staff> staffs = staffDb.getStaffs();
-
         // set attribute
         request.setAttribute("aid", id);
         request.setAttribute("email", cus.getAccount().getEmail());
@@ -74,9 +52,6 @@ public class EditCustomer extends HttpServlet {
         request.setAttribute("district", cus.getDistrict());
         request.setAttribute("phone", cus.getPhone());
         request.setAttribute("address", cus.getAddress());
-        request.setAttribute("staff", cusStaff.getStaff());
-        request.setAttribute("joinDate", timestampToDatetimeLocal(cus.getJoinDate()));
-        request.setAttribute("staffs", staffs);
         request.getRequestDispatcher("../../view/staff/customer_edit.jsp").forward(request, response);
     }
 
@@ -97,9 +72,6 @@ public class EditCustomer extends HttpServlet {
         CustomerStaff cusStaff = cusDb.viewCustomer(cusId);
         Customer cus = cusStaff.getCustomer();
 
-        StaffDBContext staffDb = new StaffDBContext();
-        ArrayList<Staff> staffs = staffDb.getStaffs();
-
         String email = request.getParameter("email");
         short status = Short.parseShort(request.getParameter("status"));
         String fname = request.getParameter("fname");
@@ -110,9 +82,6 @@ public class EditCustomer extends HttpServlet {
         String district = request.getParameter("district");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        String staffStr = request.getParameter("staff");
-        String joinDate = request.getParameter("joinDate");
-        int staffId = Integer.parseInt(staffStr.split(" - ")[0]);
         Boolean isExistEmail = false;
         Boolean isSuccess = false;
 
@@ -132,11 +101,9 @@ public class EditCustomer extends HttpServlet {
         cus.setProvince(province);
         cus.setDistrict(district);
 
-        Staff staff = getStaff(staffs, staffId);
 
         CustomerStaff cs = new CustomerStaff();
         cs.setCustomer(cus);
-        cs.setStaff(staff);
 
         AccountDBContext accDB = new AccountDBContext();
         // check if exist account is active with same email
@@ -145,7 +112,7 @@ public class EditCustomer extends HttpServlet {
             isExistEmail = true;
         } else {
             CustomerDBContext cusDB = new CustomerDBContext();
-            cusDB.staffEditCustomer(cs);
+            cusDB.staffEditCustomer(cus);
             isSuccess = true;
         }
         
@@ -160,9 +127,6 @@ public class EditCustomer extends HttpServlet {
         request.setAttribute("district", district);
         request.setAttribute("phone", phone);
         request.setAttribute("address", address);
-        request.setAttribute("staff", staff);
-        request.setAttribute("joinDate", joinDate);
-        request.setAttribute("staffs", staffs);
         request.setAttribute("isExistEmail", isExistEmail);
         request.setAttribute("isSuccess", isSuccess);
         request.getRequestDispatcher("../../view/staff/customer_edit.jsp").forward(request, response);
