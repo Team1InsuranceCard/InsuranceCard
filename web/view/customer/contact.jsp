@@ -122,7 +122,8 @@
                                 ></textarea>
                         </div>
                         <div class="text">
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="Submit"/>
+                            
                         </div>
                     </form>
                 </div>
