@@ -9,77 +9,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/customer/contact.css" rel="stylesheet" type="text/css"/>
-<!--        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            }
-
-            section .container {
-                /*                margin-top: 10rem;
-                                margin-bottom: 5em;*/
-                margin: 10em auto 5em auto;
-            }
-
-            @media only screen and (max-width: 800px) {
-                .col-lg-5 img {
-                    display: none;
-                }
-                section .container {
-                    /*                margin-top: 10rem;
-                                    margin-bottom: 5em;*/
-                    margin: 15em auto 3em auto;
-                }
-            }
-
-            @media only screen and (min-width: 992px) and (max-width: 1200px) {
-                .col-lg-5 img {
-                    width: 550px;
-                }
-            }
-
-            h2 {
-                text-align: center;
-            }
-
-            .text input{
-                margin-top: 0.7em;
-                margin-bottom: 10px;
-                border-radius: 30px;
-                padding: 15px 25px;
-                border: none;
-                background: rgba(253, 177, 166, 0.7);
-                color: rgba(252, 99, 118, 1);
-                font-weight: bold;
-                font-size: 18px;
-                width: 100%;
-                height: 3.5rem;
-            }
-            
-            .text input::placeholder {
-                color: rgba(252, 99, 118, 1);
-            }
-
-            .text textarea {
-                margin-top: 1em;
-                margin-bottom: 10px;
-                border-radius: 30px;
-                padding: 15px 25px;
-                border: none;
-                background: rgba(253, 177, 166, 0.7);
-                color: rgba(252, 99, 118, 1);
-                font-weight: bold;
-                font-size: 18px;
-                width: 100%;
-                height: 11rem;
-                resize: none;
-            }
-            
-            .text textarea::placeholder {
-                color: rgba(252, 99, 118, 1);
-            }
-        </style>-->
+        <style>
+/*            .mess-box--success {
+                background-color: #dff0d8;
+                border: 1px solid #d6e9c6;
+                color: #3c763d;
+            }*/
+        </style>
     </head>
     <body>
         <jsp:include page="../header_customer.jsp">
@@ -95,10 +33,11 @@
                     </div>
                 </div>
                 <div class="col-lg-5 main-form">
+                    <div class="mess-box--success" ${requestScope.mess == ""? "display: none;" : "display: flex;"}>${requestScope.mess}</div>
                     <form action="contact" method="POST" autocomplete="off">
                         <div class="text">
                             <input type="text" name="fullName" 
-                                   placeholder="First name*" 
+                                   placeholder="Full name*" 
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
                                    value="${fullName}" required/>
                         </div>
@@ -128,7 +67,6 @@
                 </div>
             </div>
         </section>
-
 
         <jsp:include page="../footer_full.jsp"></jsp:include>
     </body>
