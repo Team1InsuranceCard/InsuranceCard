@@ -26,6 +26,7 @@ public class CreateStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
         request.getRequestDispatcher("../../view/moderator/staff_create.jsp").forward(request, response);
 
@@ -42,6 +43,7 @@ public class CreateStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String fname = request.getParameter("firstName");
         String lname = request.getParameter("lastName");
         String email = request.getParameter("email");

@@ -33,6 +33,8 @@ public class PaymentHistory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String raw_page = request.getParameter("page");
         if (raw_page == null || raw_page.length() == 0) {
             raw_page = "1";
@@ -65,7 +67,7 @@ public class PaymentHistory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
     }
 
     /**
