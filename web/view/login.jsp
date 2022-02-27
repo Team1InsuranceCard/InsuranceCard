@@ -125,7 +125,7 @@
                     <input type="submit" name="log" value="LOGIN">
                 </div>
                 <div class="forgot-sign">
-                    <div class="forgot"><a href="#">Forgot Password?</a></div>
+                    <div class="forgot"><a href="resetPass">Forgot Password?</a></div>
                     <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
