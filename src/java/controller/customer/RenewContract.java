@@ -87,7 +87,7 @@ public class RenewContract extends HttpServlet {
 
         StaffDBContext sdb = new StaffDBContext();
         Account acc_staff = new Account();
-        acc_staff.setId(sdb.getStartStaff(3));
+        acc_staff.setId(sdb.getStartStaff(acc.getId()));
 
         Staff staff = new Staff();
         staff.setAccount(acc_staff);
