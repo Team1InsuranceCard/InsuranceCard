@@ -94,7 +94,7 @@ public class ResetPassword extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String newPass = passwordGenerator();
-        String email = (String) request.getParameter("email");
+        String email = request.getParameter("email");
         String mess = "";
         AccountDBContext dbA = new AccountDBContext();
         boolean checkExist = dbA.checkExist(email);
