@@ -123,7 +123,6 @@
                         </div>
                         <div class="text">
                             <input type="submit" value="Submit"/>
-                            
                         </div>
                     </form>
                 </div>
