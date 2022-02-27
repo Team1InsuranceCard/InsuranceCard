@@ -121,6 +121,8 @@
         <servlet-class>controller.moderator.ModeratorDashboard</servlet-class>
     </servlet>
     <servlet>
+        <description>
+</description>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
@@ -238,7 +240,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/resetPass</url-pattern>
+        <url-pattern>/reset-pass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
