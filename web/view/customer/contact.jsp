@@ -12,11 +12,19 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/customer/contact.css" rel="stylesheet" type="text/css"/>
         <style>
-/*            .mess-box--success {
+            .mess-box {
+                display: none;
+                align-items: center;
+                padding: 10px 10px;
+                border-radius: 4px;
+                margin: 0 60px 30px 60px;
+            }
+
+            .mess-box--success {
                 background-color: #dff0d8;
                 border: 1px solid #d6e9c6;
                 color: #3c763d;
-            }*/
+            }
         </style>
     </head>
     <body>
@@ -33,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 main-form">
-                    <div class="mess-box--success" ${requestScope.mess == ""? "display: none;" : "display: flex;"}>${requestScope.mess}</div>
+                    <div class="mess-box mess-box--success" style="${requestScope.mess == ""? "display: none;" : "display: flex;"}">${requestScope.mess}</div>
                     <form action="contact" method="POST" autocomplete="off">
                         <div class="text">
                             <input type="text" name="fullName" 
