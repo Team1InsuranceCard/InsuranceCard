@@ -1,0 +1,26 @@
+body {
+    background-color: #FFFBF4 !important;
+
+}
+main{
+    margin-top: 10em;
+}
+.custom-container{
+    margin-left: 4em;
+    margin-right: 4em;
+}
+
+.title-card-text{
+    color: #fff;
+    background-color: #FC6376;
+    padding: 10px;
+    font-weight: 400;
+}
+.content-card{
+  
+    display: contents;
+}
+.content-card-table {
+    margin: 2em 3em;
+}
+

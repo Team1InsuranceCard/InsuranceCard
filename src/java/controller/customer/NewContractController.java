@@ -128,9 +128,11 @@ public class NewContractController extends HttpServlet {
         String ownerName = request.getParameter("ownerName");
         String vehicleTypeID = request.getParameter("vehicleTypeID");
         String brandID = request.getParameter("brandID");
+        String color = request.getParameter("color");
         String licensePlate = request.getParameter("licensePlate");
         String chassis = request.getParameter("chassis");
         String engine = request.getParameter("engine");
+        String imgURL = request.getParameter("photo");
         String productID = request.getParameter("productID");
         String start = request.getParameter("startDate");
         String end = request.getParameter("endDate");
@@ -166,9 +168,11 @@ public class NewContractController extends HttpServlet {
         contract.setOwner(ownerName);
         contract.setVehicleType2(type);
         contract.setBrand2(brand);
+        contract.setColor(color);
         contract.setLicensePlate(licensePlate);
         contract.setChassis(chassis);
         contract.setEngine(engine);
+        contract.setCertImage(imgURL);
         contract.setProduct(product);
         contract.setStartDate(startDate);
         contract.setEndDate(endDate);
