@@ -10,166 +10,247 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+        <style>
+            select {
+                padding: 0.2rem 0.7rem;
+                background-color: #FFF9EC;
+                text-align: center;
+            }
+
+            select:hover, #startDate:hover {
+                cursor: pointer;
+                background-color: #FDC8C0;
+            }
+
+            #startDate {
+                background-color: #FFF9EC;
+            }
+        </style>
     </head>
     <body>
-        <section>
-            <form id="myForm" action="customer/contract/renew" method="POST">
-                <input type="hidden" id="price" value="${c.product.price}"/>
-                <div class="product-label">
-                    <div class="row">
-                        <p class="col-md-8 label-title">${c.product.title}</p>
-                        <p class="col-md-4 label-fee" id="fee">Fee: 
-                        <fmt:formatNumber type = "number" 
-                                          value = "${c.product.price}"/> VND</p>
+        <main>
+            ${param.currentscreen}
+            <form action="staff/contract/renew" method="POST"
+                  onSubmit="submit(this)">
+                <div class="header">
+                    <h1 class="header__heading">Renew contract ${requestScope.contract.id}</h1>
+
+                    <div class="header__btn">
+                        <input class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
+                                                         || requestScope.contract.statusCode.statusCode == 1)
+                                                         && requestScope.contract.product.statusCode.statusCode == 1
+                                                         && requestScope.check
+                                                         ? '' : 'btn--disabled'}" 
+                               type="submit" value="Renew" />
+
+                        <a class="btn btn--secondary"
+                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
                     </div>
                 </div>
 
-                <div class="customer-info">
-                    <div class="cus title">
-                        <p>Customer information</p>
-                    </div>
+                <div class="mess-box mess-box--success" 
+                     style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                    <img src="asset/image/staff/customer_create_edit/icon_approve.png" 
+                         class="mess-box__icon" />
+                    <p class="mess-box__mess">
+                        Renew contract successful! View renew contract at 
+                        <a href="staff/contract/detail?id=${requestScope.renewContractID}" 
+                           class="mess-box__link" >this</a>.
+                    </p>
+                </div>
 
-                    <c:set var="cus" value="${requestScope.contract.customer}"/>
-                    <div class="cus-content">
-                        <div class="row">
-                            <p class="col-md-1 bold">Name:</p>
-                            <p class="col-md-3 underline">${cus.firstName} 
-                                ${cus.lastName}</p>
-                            <p class="col-md-1 space bold">DOB:</p>
-                            <p class="col-md-2 underline">${cus.dob}</p>
+                <div class="mess-box mess-box--danger" 
+                     style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                    <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
+                </div>
+
+                <div class="mess-box mess-box--danger" 
+                     style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                    <p class="mess-box__mess">Product is inactive!</p>
+                </div>
+
+                <input type="hidden" name="id" value="${requestScope.contract.id}" />
+
+                <div class="section">
+                    <h2 class="section__heading">Contract Information</h2>
+
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Contract ID</div>
+                            <div class="section__text">${requestScope.contract.id}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-1 bold">Phone:</p>
-                            <p class="col-md-3 underline">${cus.phone}</p>
-                            <p class="col-md-1 space bold">PersonalID:</p>
-                            <p class="col-md-2 underline">${cus.personalID}</p>
+
+                        <div class="section__item">
+                            <div class="section__title">Status</div>
+                            <div class="section__text" id="contractStatus">${requestScope.contract.statusCode.statusName}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-1 bold">Address:</p>
-                            <p class="col-md-5 underline">${cus.address}</p>
+
+                        <div class="section__item">
+                            <div class="section__title">Start Date</div>
+                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
+                                                                       value = "${requestScope.contract.startDate}"/></div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">End Date</div>
+                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                                                       value = "${requestScope.contract.endDate}" /></div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Contract term</div>
+
+                            <select class="section__input" id="contractTerm" required>
+                                <option value="1">1 years</option>
+                                <option value="2">2 years</option>
+                            </select>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Payment method</div>
+
+                            <select name="payMethodID" class="section__input" required>
+                                <option value="1">Tiền mặt</option>
+                                <option value="2">Chuyển khoản</option>
+                            </select>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">New start date</div>
+                            <input class="section__input" type="datetime-local" 
+                                   name="newStartDate" id="newStartDate" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Renew contract fee</div>
+                            <input class="section__input" type="text" 
+                                   name="newFee" id="newFee" readonly>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">New end date</div>
+                            <input class="section__input" type="datetime-local" 
+                                   name="newEndDate" id="newEndDate" readonly>
                         </div>
                     </div>
                 </div>
 
-                <div class="contract-info">
-                    <div class="contract title">
-                        <p>Contract information</p>
-                    </div>
-                    <div class="contract-content">
-                        <div class="row">
-                            <p class="col-md-2 bold">Staff:</p>
-                            <p class="col-md-3 underline">${c.startStaff.firstName} 
-                                ${c.startStaff.lastName}</p>
-                            <p class="col-md-2 space bold">Status:</p>
+                <div class="section">
+                    <h2 class="section__heading">Customer Information</h2>
+
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Name</div>
+                            <div class="section__text">${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-2 bold">Cancel Staff:</p>
-                            <p class="col-md-3 underline"></p>
-                            <p class="col-md-2 space bold">Duration:</p>
-                            <p class="col-md-2">
-                                <select id="duration" name="duration" 
-                                        onchange="calDate()" required>
-                                    <option hidden>Select year</option>
-                                    <option value="1">1 year</option>
-                                    <option value="2">2 year</option>
-                                    <option value="3">3 year</option>
-                                </select>
-                            </p>
+
+                        <div class="section__item">
+                            <div class="section__title">Email</div>
+                            <div class="section__text">${requestScope.contract.customer.account.email}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-2 bold">Request date:</p>
-                            <p class="col-md-3 underline"></p>
-                            <p class="col-md-2 space bold">Resolve date:</p>
-                            <p class="col-md-2 underline"></p>
+
+                        <div class="section__item">
+                            <div class="section__title">Date of Birth</div>
+                            <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
+                                                                       value = "${requestScope.contract.customer.dob}" /></div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-2 bold">Start date:</p>
-                            <p class="col-md-3">
-                                <input type="date" id="startDate" name="startDate"
-                                       min="${requestScope.minDate}" 
-                                       value="${requestScope.minDate}" required/></p>
-                            <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline" id="endDate">
-                            </p>
+
+                        <div class="section__item">
+                            <div class="section__title">Personal ID</div>
+                            <div class="section__text">${requestScope.contract.customer.personalID}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-2 bold">Cancel request date:</p>
-                            <p class="col-md-3 underline"></p>
-                            <p class="col-md-2 space bold">Cancel date:</p>
-                            <p class="col-md-2 underline"></p>
+
+                        <div class="section__item">
+                            <div class="section__title">Phone</div>
+                            <div class="section__text">${requestScope.contract.customer.phone}</div>
                         </div>
-                        <div class="row">
-                            <p class="col-md-2 bold">Cancel reason:</p>
-                            <textarea class="col-md-3 text-area" disabled>
-                            </textarea>
-                            <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>
-                            </textarea>
+
+                        <div class="section__item">
+                            <div class="section__title">Address</div>
+                            <div class="section__text">${requestScope.contract.customer.address}</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="vehicle-info">
-                    <div class="vehicle title">
-                        <p>Vehicle information</p>
-                    </div>
+                <div class="section">
+                    <h2 class="section__heading">Vehicle Information</h2>
 
-                    <div class="vehicle-content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <p class="col-md-4 bold">Vehicle type:</p>
-                                    <p class="col-md-6 underline">${c.vehicleType2.vehicleType}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">Engine:</p>
-                                    <p class="col-md-6 underline">${c.engine}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">License plate:</p>
-                                    <p class="col-md-6 underline">${c.licensePlate}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">Color:</p>
-                                    <p class="col-md-6 underline">${c.color}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">Brand:</p>
-                                    <p class="col-md-6 underline">${c.brand2.brand}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">Owner:</p>
-                                    <p class="col-md-6 underline">${c.owner}</p>
-                                </div>
-                                <div class="row">
-                                    <p class="col-md-4 bold">Chassis:</p>
-                                    <p class="col-md-6 underline">${c.chassis}</p>
-                                </div>
-
+                    <div class="section__main">
+                        <div class="section__left">
+                            <div class="section__item">
+                                <div class="section__title">Vehicle type</div>
+                                <div class="section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="bold space">CertImage:</p>
-                                <div class="row">
-                                    <img class="col-md-12" src="${c.certImage}" alt="cert image"/>
-                                </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Engine</div>
+                                <div class="section__text">${requestScope.contract.engine}</div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">License Plate</div>
+                                <div class="section__text">${requestScope.contract.licensePlate}</div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Color</div>
+                                <div class="section__text">${requestScope.contract.color}</div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Brand</div>
+                                <div class="section__text">${requestScope.contract.brand2.brand}</div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Owner</div>
+                                <div class="section__text">${requestScope.contract.owner}</div>
+                            </div>
+
+                            <div class="section__item">
+                                <div class="section__title">Chassis</div>
+                                <div class="section__text">${requestScope.contract.chassis}</div>
                             </div>
                         </div>
+
+                        <div class="section__right">
+                            <div class="section__item">
+                                <div class="section__title">Cert Image</div>
+                                <img class="section__img" src="${requestScope.contract.certImage}"></img>
+                            </div>
+                        </div>          
                     </div>
                 </div>
 
-                <div class="product-info">
-                    <div class="product title">
-                        <p>Product information</p>
-                    </div>
+                <div class="section">
+                    <h2 class="section__heading">Product Information</h2>
 
-                    <div class="product-content">
-                        <p>${c.product.contentDetail}</p>
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Product ID</div>
+                            <div class="section__text">${requestScope.contract.product.id}</div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Product Title</div>
+                            <div class="section__text">${requestScope.contract.product.title}</div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Status</div>
+                            <div class="section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Content detail</div>
+                            <div class="section__text">${requestScope.contract.product.contentDetail}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="submit">
-                    <input type="button" value="Submit" onclick="renew()"/>
                 </div>
             </form>
-        </section>
+        </main>
     </body>
 </html>
