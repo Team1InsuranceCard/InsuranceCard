@@ -157,7 +157,7 @@ public class PaymentDBContext extends DBContext {
 
                 Product pro = new Product();
                 pro.setTitle(rs.getString("Title"));
-                
+
                 ContractStatusCode csc = new ContractStatusCode();
                 csc.setStatusCode(rs.getShort("Status"));
 
@@ -165,7 +165,7 @@ public class PaymentDBContext extends DBContext {
                 contract.setId(rs.getInt("ContractID"));
                 contract.setProduct(pro);
                 contract.setStatusCode(csc);
-                
+
                 Payment payment = new Payment();
                 payment.setPaidDate(rs.getTimestamp("PaidDate"));
                 payment.setNote(rs.getString("Note"));
@@ -180,5 +180,27 @@ public class PaymentDBContext extends DBContext {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return payments;
+    }
+
+    public double getTotalPayment(int cusID) {
+        double total = 0;
+        try {
+            String sql = "SELECT SUM([Amount]) as Total\n"
+                    + "  FROM [Payment]\n"
+                    + "  INNER JOIN Contract\n"
+                    + "  ON Contract.ID = Payment.ContractID\n"
+                    + "  WHERE CustomerID = ?";
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            ResultSet rs = stm.executeQuery();
+            
+            if(rs.next()) {
+                total = rs.getDouble("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
     }
 }
