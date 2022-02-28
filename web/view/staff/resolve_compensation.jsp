@@ -72,7 +72,7 @@
             }
 
             .header__btn {
-                margin: 1em auto;
+                margin: 1em 32%;
             }
 
             .btn {
@@ -265,16 +265,11 @@
 
                         <div class="section__item">
                             <div class="section__title">Contract term</div>
-
-                            <select class="section__input" id="contractTerm" required>
-                                <option value="1">1 years</option>
-                                <option value="2">2 years</option>
-                            </select>
+                            <div class="section__text" id="contractStatus">${requestScope.contract.term}</div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Payment method</div>
-
                             <select name="payMethodID" class="section__input" required>
                                 <option value="1">Tiền mặt</option>
                                 <option value="2">Chuyển khoản</option>
@@ -288,9 +283,20 @@
                         </div>
 
                         <div class="section__item">
-                            <div class="section__title">Renew contract fee</div>
-                            <input class="section__input" type="text" 
-                                   name="newFee" id="newFee" readonly>
+                            <div class="section__title">Compensation package</div>
+                            <select name="payMethodID" class="section__input" required>
+                                <option value="1">0%</option>
+                                <option value="2">10%</option>
+                                <option value="3">20%</option>
+                                <option value="4">30%</option>
+                                <option value="5">40%</option>
+                                <option value="6">50%</option>
+                                <option value="7">60%</option>
+                                <option value="8">70%</option>
+                                <option value="9">80%</option>
+                                <option value="10">90%</option>
+                                <option value="11">100%</option>
+                            </select>
                         </div>
 
                         <div class="section__item">
@@ -418,7 +424,7 @@
                                                      || requestScope.contract.statusCode.statusCode == 1)
                                                      && requestScope.contract.product.statusCode.statusCode == 1
                                                      && requestScope.check
-                                                     ? '' : 'btn--disabled'--%>}" 
+                                                     ? '' : 'btn--disabled'}--%>" 
                            type="submit" value="Accept" />
 
                     <a class="btn btn--secondary"
