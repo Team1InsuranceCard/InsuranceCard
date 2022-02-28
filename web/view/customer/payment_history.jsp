@@ -18,10 +18,11 @@
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-        
+
         <style>
             section .total {
-                margin-left: 6rem;
+                text-align: right;
+                margin-right: 4rem;
             }
         </style>
     </head>
@@ -40,8 +41,10 @@
                     <input type="date" name="date"/>
                 </div>
             </div>
-            <h6 class="total">Total:</h6>
-            
+            <h6 class="total">Total: <fmt:formatNumber type = "number" 
+                              value = "${requestScope.total}"/> VND
+            </h6>
+
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -86,10 +89,10 @@
                     </c:forEach>
                 </tbody>
             </table>
-                    
+
             <div class="pagging" id="pagging">
             </div>
-                    
+
             <script>
                 createPagger('customer/history/payment', 'pagging',
                 ${requestScope.pageIndex-1}, ${requestScope.pageIndex},
