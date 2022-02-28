@@ -313,7 +313,14 @@
                                     <div class="section__right">
                                         <div class="section__item">
                                             <div class="section__title">Cert Image</div>
-                                            <img class="section__img" src="${requestScope.contract.certImage}"></img>
+                                            <img src="${requestScope.contract.certImage ne null ?
+                                                        requestScope.contract.certImage :
+                                                        "https://via.placeholder.com/400x300?text=Waiting+until+image+change"}" 
+                                                 id="output-cover-img" style="max-width: 70%"/>
+                                            <input class="cover-openfile" id="choose-img" type='file' 
+                                                   onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                                            <input type="hidden" id="cover-url" name="photo"
+                                                   value="${requestScope.contract.certImage}"/>
                                         </div>
                                     </div>          
                                 </div>
