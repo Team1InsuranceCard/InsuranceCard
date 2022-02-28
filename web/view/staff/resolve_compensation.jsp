@@ -40,11 +40,11 @@
                 color: #3c763d;
             }
 
-            .mess-box--danger {
+/*            .mess-box--danger {
                 background-color: #f2dede;
                 border: 1px solid #ebccd1;
                 color: #a94442;
-            }
+            }*/
 
             body {
                 background-color: #f8f8f8;
@@ -196,6 +196,12 @@
         </style>
     </head>
     <body>
+        <header>
+            <jsp:include page="../header_staff.jsp">
+                <jsp:param name="currentscreen" value="" />
+            </jsp:include>
+        </header>
+
         <main>
             ${param.currentscreen}
             <form action="staff/contract/renew" method="POST"
@@ -227,17 +233,17 @@
                     </p>
                 </div>
 
-<!--                <div class="mess-box mess-box--danger" 
-                     style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
-                    <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
-                </div>
-
-                <div class="mess-box mess-box--danger" 
-                     style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
-                    <p class="mess-box__mess">Product is inactive!</p>
-                </div>-->
+                <!--                <div class="mess-box mess-box--danger" 
+                                     style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                                    <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
+                                </div>
+                
+                                <div class="mess-box mess-box--danger" 
+                                     style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
+                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                                    <p class="mess-box__mess">Product is inactive!</p>
+                                </div>-->
 
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
@@ -419,5 +425,9 @@
                 </div>
             </form>
         </main>
+
+        <footer>
+            <jsp:include page="../footer_full.jsp"></jsp:include>
+        </footer>
     </body>
 </html>
