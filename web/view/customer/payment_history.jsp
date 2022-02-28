@@ -24,6 +24,15 @@
                 text-align: right;
                 margin-right: 4rem;
             }
+
+            section table .sub-icon {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+            
+            section table .icon-green {
+                margin-left: 1rem;
+            }
         </style>
     </head>
 
@@ -41,6 +50,7 @@
                     <input type="date" name="date"/>
                 </div>
             </div>
+
             <h6 class="total">Total: <fmt:formatNumber type = "number" 
                               value = "${requestScope.total}"/> VND
             </h6>
@@ -49,7 +59,8 @@
                 <thead>
                     <tr>
                         <th scope="col" class="stt">STT</th>
-                        <th scope="col" class="proTitle">Product title</th>
+                        <th scope="col" class="proTitle">Product title (<span class="iconify sub-icon" data-icon="emojione:red-circle"></span> - inactive
+                            <span class="iconify sub-icon icon-green" data-icon="twemoji:green-circle"></span> - active)</th>
                         <th scope="col" class="amount">Amount</th>
                         <th scope="col" class="date">Start date</th>
                         <th scope="col" class="date">Paid date</th>
