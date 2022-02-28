@@ -189,7 +189,7 @@ public class NewContractController extends HttpServlet {
         //insert to DB
         contract.setId(ctdb.insertContract(contract));
         
-        //save delivery info to delivery table (not yet)
+        //save delivery info to delivery table
         Delivery delivery = new Delivery();
         delivery.setFullName(deliveryName);
         delivery.setPhone(deliveryPhone);
