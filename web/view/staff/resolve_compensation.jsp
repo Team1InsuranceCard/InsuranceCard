@@ -243,7 +243,7 @@
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Contract Information</h2>
 
-                    <div class="row section__main">
+                    <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Contract ID</div>
                             <div class="col-lg-6 section__text">${requestScope.contract.id}</div>
@@ -284,7 +284,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Compensation package</div>
-                            <select name="payMethodID" class="col-lg-6 section__input" required>
+                            <select name="compense_package" class="col-lg-6 section__input" required>
                                 <option value="1">0%</option>
                                 <option value="2">10%</option>
                                 <option value="3">20%</option>
@@ -315,7 +315,7 @@
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Customer Information</h2>
 
-                    <div class="row section__main">
+                    <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Name</div>
                             <div class="col-lg-6 section__text">${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}</div>
@@ -402,7 +402,7 @@
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Product Information</h2>
 
-                    <div class="row section__main">
+                    <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Product ID</div>
                             <div class="col-lg-6 section__text">${requestScope.contract.product.id}</div>
@@ -428,7 +428,7 @@
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Accident Information</h2>
 
-                    <div class="row section__main">
+                    <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Title</div>
                             <div class="col-lg-6 section__text">title</div>
@@ -447,6 +447,23 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date</div>
                             <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Human damage</div>
+                            <div class="col-lg-6 section__text">H-damage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row section">
+                    <h2 class="col-lg-12 section__heading">Staff Note</h2>
+
+                    <div class="row col-lg-12 section__main">
+                        <div class="row col-lg-12 section__item">
+                            <div class="col-lg-3 section__title">Resolve note</div>
+                            <textarea class="col-lg-8 section__input" type="text" 
+                                      name="resolve_note" style="resize: none; height: 5rem;"></textarea>
                         </div>
                     </div>
                 </div>
