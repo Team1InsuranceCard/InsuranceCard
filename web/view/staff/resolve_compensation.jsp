@@ -15,19 +15,15 @@
             .mess-box {
                 display: none;
                 align-items: center;
-                padding: 20px 15px;
+                /*padding: 20px 15px;*/
                 border-radius: 4px;
-                margin: 0 60px 30px 60px;
-            }
-
-            .mess-box__icon {
-                margin-left: 40px;
-                margin-right: 20px;
+                margin: 0 4rem 2rem 4rem;
             }
 
             .mess-box__mess {
                 font-size: 18px;
                 font-weight: bold;
+                margin: 0 auto;
             }
 
             .mess-box__link {
@@ -206,21 +202,19 @@
             ${param.currentscreen}
             <form action="staff/compensation/resolve-compensation" method="POST"
                   onSubmit="submit(this)">
-<!--                <div class="header">
+                
+                <div class="row header">
                     <h1 class="header__heading">Compensation contract ${requestScope.contract.id}</h1>
                 </div>
+                
 
-                <div class="mess-box mess-box--success" 
+                <div class="row mess-box mess-box--success" 
                      style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_approve.png" 
-                         class="mess-box__icon" />
                     <p class="mess-box__mess">
-                        Renew contract successful! View renew contract at 
-                        <a href="staff/contract/detail?id=${requestScope.renewContractID}" 
-                           class="mess-box__link" >this</a>.
+                        Action succeed!
                     </p>
                 </div>
-
+<!--
                                 <div class="mess-box mess-box--danger" 
                                      style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
                                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
