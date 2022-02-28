@@ -11,8 +11,8 @@
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/customer/contact.css" rel="stylesheet" type="text/css"/>
-        <style>
-        </style>
+<!--        <style>
+        </style>-->
     </head>
     <body>
         <jsp:include page="../header_customer.jsp">
