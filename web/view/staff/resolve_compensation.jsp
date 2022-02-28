@@ -12,7 +12,187 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
         <style>
-            
+            .mess-box {
+                display: none;
+                align-items: center;
+                padding: 20px 15px;
+                border-radius: 4px;
+                margin: 0 60px 30px 60px;
+            }
+
+            .mess-box__icon {
+                margin-left: 40px;
+                margin-right: 20px;
+            }
+
+            .mess-box__mess {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .mess-box__link {
+                color: inherit;
+            }
+
+            .mess-box--success {
+                background-color: #dff0d8;
+                border: 1px solid #d6e9c6;
+                color: #3c763d;
+            }
+
+            .mess-box--danger {
+                background-color: #f2dede;
+                border: 1px solid #ebccd1;
+                color: #a94442;
+            }
+
+            body {
+                background-color: #f8f8f8;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            }
+
+            main {
+                margin-top: 73px;
+                margin-left: 290px;
+                padding: 35px 45px 50px;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #e1dede;
+                margin-bottom: 30px;
+                padding-bottom: 6px;
+            }
+
+            .header__heading {
+                font-weight: 400;
+            }
+
+            .header__btn {
+                display: flex;
+            }
+
+            .btn {
+                border: none;
+                padding: 10px 8px;
+                font-size: 18px;
+                border-radius: 4px;
+                min-width: 90px;
+                text-align: center;
+                box-sizing: content-box;
+            }
+
+            .btn--primary {
+                margin-right: 30px;
+                background-color: #5bc0de;
+                color: #fff;
+                transition: all 0.2s;
+            }
+
+            .btn--primary:hover {
+                background-color: #1b5daf;
+            }
+
+            .btn--secondary {
+                background-color: #e7e1e1;
+                color: #000;
+                text-decoration: none;
+                transition: all 0.2s;
+            }
+
+            .btn--secondary:hover {
+                background-color: #806a6a;
+                color: #fff;
+            }
+
+            .btn--disabled {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+
+            .section {
+                background-color: #fff;
+                border-radius: 4px;
+                border: 1px solid #e1dede;
+            }
+
+            .section + .section {
+                margin-top: 30px;
+            }
+
+            .section__heading {
+                background-color: #fc6376;
+                color: #fff;
+                font-weight: 400;
+                padding: 8px 0 8px 30px;
+                border-radius: 4px 4px 0 0;
+            }
+
+            .section__main {
+                font-size: 18px;
+                padding: 20px 30px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .section__item {
+                display: flex;
+                flex: 45%;
+                margin-bottom: 12px;
+                align-items: center;
+            }
+
+            .section__title {
+                font-weight: 500;
+                min-width: 180px;
+            }
+
+            .section__text {
+                color: #555;
+            }
+
+            .section__img {
+                width: 100%;
+            }
+
+            .section__right,
+            .section__left {
+                flex: 50%;
+            }
+
+            .section__right .section__item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section__right .section__title {
+                margin-bottom: 12px;
+            }
+
+            .section__input {
+                padding: 10px 5px;
+                border: 1px solid #e6e6e6;
+                background-color: #f7f7f7;
+                border-radius: 8px;
+                font-size: 17px;
+                color: #555555;
+                width: 270px;
+                box-sizing: border-box;
+            }
+
+            .section__input:focus {
+                border: 1px solid #64334a;
+                background-color: #fff;
+            }
+
+            .section__input option {
+                font-size: 17px;
+                padding: 10px;
+            }
         </style>
     </head>
     <body>
@@ -47,7 +227,7 @@
                     </p>
                 </div>
 
-                <div class="mess-box mess-box--danger" 
+<!--                <div class="mess-box mess-box--danger" 
                      style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                     <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
@@ -57,7 +237,7 @@
                      style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                     <p class="mess-box__mess">Product is inactive!</p>
-                </div>
+                </div>-->
 
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
