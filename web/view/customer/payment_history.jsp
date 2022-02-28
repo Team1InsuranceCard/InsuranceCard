@@ -18,6 +18,30 @@
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
+        <style>
+            section .row .icon-search {
+                background-color: #FF96A3;
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+
+            section .row input {
+                background-color: #FFF9EC;
+            }
+
+            section .row .icon-search:hover {
+                cursor: pointer;
+            }
+        </style>
+
+        <script>
+            function search() {
+                if (document.getElementById("input-search").value != "") {
+                    document.getElementById("searchForm").submit();
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -31,7 +55,12 @@
             <div class="row">
                 <h3 class="col-md-5 title">Payment History</h3>
                 <div class="col-md-5 input-date">
-                    <input type="date" name="date"/>
+                    <form id="searchForm" action="customer/history/payment" method="POST">
+                        <input id="input-search" type="date" name="date" required/>
+                        <span class="iconify icon-search" onclick="search()"
+                              data-icon="bx:search-alt">
+                        </span>
+                    </form>
                 </div>
             </div>
 
@@ -53,9 +82,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%--<c:set var="i" value="0"/>--%>
                     <c:forEach items="${requestScope.payments}" var="p">
-                        <%--<c:set var="i" value="${i+1}"/>--%>
                         <tr>
                             <td class="stt">${p.id}</td>
                             <td class="proTitle">
