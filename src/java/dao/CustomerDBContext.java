@@ -576,21 +576,19 @@ public class CustomerDBContext extends DBContext {
         }
     }
 
-    public void staffEditCustomer(CustomerStaff cusStaff) {
+    public void staffEditCustomer(Customer cus) {
         try {
             connection.setAutoCommit(false);
-            Customer cus = cusStaff.getCustomer();
-            Account cusAcc = cus.getAccount();
-            Account staffAcc = cusStaff.getStaff().getAccount();
+            Account acc = cus.getAccount();
             // update cus acc info
             String sql_acc = "update Account\n"
                     + "set Email = ?\n"
                     + "	, Status = ?\n"
                     + "where ID = ?";
             PreparedStatement ps_acc = connection.prepareStatement(sql_acc);
-            ps_acc.setString(1, cusAcc.getEmail());
-            ps_acc.setInt(2, cusAcc.getStatus());
-            ps_acc.setInt(3, cusAcc.getId());
+            ps_acc.setString(1, acc.getEmail());
+            ps_acc.setInt(2, acc.getStatus());
+            ps_acc.setInt(3, acc.getId());
             ps_acc.executeUpdate();
             // update cus info
             String sql_cus = "update Customer\n"
@@ -613,42 +611,8 @@ public class CustomerDBContext extends DBContext {
             ps_cus.setString(7, cus.getPersonalID());
             ps_cus.setString(8, cus.getProvince());
             ps_cus.setString(9, cus.getDistrict());
-            ps_cus.setInt(10, cusAcc.getId());
+            ps_cus.setInt(10, acc.getId());
             ps_cus.executeUpdate();
-            // if new staff
-            // update old cus_staff
-            String sql_update_cs = "update Customer_Staff\n"
-                    + "set NextStaff = ?\n"
-                    + "	, EndDate = GETDATE()\n"
-                    + "where CustomerID = ? \n"
-                    + "	and StaffID <> ? \n"
-                    + "	and EndDate is null";
-            PreparedStatement ps_update_cs = connection.prepareStatement(sql_update_cs);
-            ps_update_cs.setInt(1, staffAcc.getId());
-            ps_update_cs.setInt(2, cusAcc.getId());
-            ps_update_cs.setInt(3, staffAcc.getId());
-            ps_update_cs.executeUpdate();
-            // if new staff
-            // insert new cus_staff
-            String sql_insert_cs = "if exists (select *\n"
-                    + "			from Customer_Staff\n"
-                    + "			where CustomerID = ? \n"
-                    + "				and StaffID <> ? \n"
-                    + "				and EndDate is null)\n"
-                    + "begin\n"
-                    + "	insert into Customer_Staff (CustomerID\n"
-                    + "								, StaffID\n"
-                    + "								, StartDate)\n"
-                    + "	values (?\n"
-                    + "			, ?\n"
-                    + "			, GETDATE())\n"
-                    + "end";
-            PreparedStatement ps_insert_cs = connection.prepareStatement(sql_insert_cs);
-            ps_insert_cs.setInt(1, cusAcc.getId());
-            ps_insert_cs.setInt(2, staffAcc.getId());
-            ps_insert_cs.setInt(3, cusAcc.getId());
-            ps_insert_cs.setInt(4, staffAcc.getId());
-            ps_insert_cs.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
