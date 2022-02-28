@@ -3,50 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.customer;
 
+import controller.SendMail;
 import dao.AccountDBContext;
-import dao.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Customer;
 
 /**
  *
  * @author ADMIN
  */
-public class ResetPassword extends HttpServlet {
-
-    private String passwordGenerator() {
-        String pass = "";
-        for (int i = 0; i < 10; i++) {
-            pass += randomChar();
-        }
-        return pass;
-    }
-
-    private char randomChar() {
-        int rand = (int) (Math.random() * 62);
-        if (rand <= 9) {
-            int ascii = rand + 48;
-            return (char) ascii;
-        } else if (rand <= 35) {
-            int ascii = rand + 55;
-            return (char) ascii;
-        } else {
-            int ascii = rand + 61;
-            return (char) ascii;
-        }
-    }
+public class Contact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,7 +48,7 @@ public class ResetPassword extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("view/reset_pass.jsp").forward(request, response);
+        request.getRequestDispatcher("view/customer/contact.jsp").forward(request, response);
     }
 
     /**
@@ -93,41 +65,27 @@ public class ResetPassword extends HttpServlet {
 //        processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
 
-        String newPass = passwordGenerator();
+        String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
-        String mess = "";
-        AccountDBContext dbA = new AccountDBContext();
-        boolean checkExist = dbA.checkExist(email);
+        String message = request.getParameter("message");
 
-        if (checkExist) {
-            String subject = "INSURANCE CARD SYSTEM";
-            String message = "<!DOCTYPE html>\n"
-                    + "<html lang=\"en\">\n"
-                    + "\n"
-                    + "<head>\n"
-                    + "</head>\n"
-                    + "\n"
-                    + "<body>\n"
-                    + "    <div>Remember to change your password for a higher security!"
-                    + "</div>\n"
-                    + "    <div>Your new password is: "
-                    + "</div>\n"
-                    + "    <div style=\"font-weight: bold; font-size: 20px;\">" + newPass
-                    + "</div>\n"
-                    + "\n"
-                    + "</body>\n"
-                    + "\n"
-                    + "</html>";
-            SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
-           dbA.resetPass(newPass, email);
-            mess = "A new password has been sent to your email.";
-        } else {
-            mess = "Invalid email. Please check again!";
-        }
-        request.setAttribute("email", email);
-        request.setAttribute("checkExist", checkExist);
+        String mess = "";
+        String subject = "Contact from " + email;
+        String send = "<html lang=\"en\">\n"
+                + "    <head>\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <h3>" + fullName + "</h3>\n"
+                + "        <br>\n"
+                + "        <div>\n"
+                + "            " + message + "\n"
+                + "        </div>\n"
+                + "    </body>\n"
+                + "</html>";
+        SendMail.send("insurancecardcustomercontact@gmail.com", subject, send, "insurancecard1517@gmail.com", "team1se1517");
+        mess = "Thank you for your message. We will contact you soon.";
         request.setAttribute("mess", mess);
-        request.getRequestDispatcher("view/reset_pass.jsp").forward(request, response);
+        request.getRequestDispatcher("view/customer/contact.jsp").forward(request, response);
     }
 
     /**

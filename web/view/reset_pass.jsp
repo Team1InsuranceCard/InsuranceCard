@@ -5,7 +5,7 @@
     <head>
         <base href="${pageContext.request.contextPath}/"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>InsuranceCard</title>
+        <title>Insurance Card</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <Link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/reset_pass.css" rel="stylesheet" type="text/css"/>

@@ -41,14 +41,16 @@ public class CompensationDBContext extends DBContext {
     public ArrayList<Compensation> getContractCompensations(int contractID) {
         ArrayList<Compensation> compensations = new ArrayList<>();
         try {
-            String sql = "select ID\n"
-                    + "	, CreatedDate\n"
+            String sql = "select c.ID\n"
+                    + "	, c.CreatedDate\n"
                     + "	, ResolveDate\n"
                     + "	, Status\n"
                     + "	, StatusName\n"
                     + "from Compensation c inner join CompensationStatusCode cs\n"
                     + "on c.Status = cs.StatusCode\n"
-                    + "where ContractID = ?";
+                    + "inner join Accident a\n"
+                    + "on c.AccidentID = a.ID\n"
+                    + "where a.ContractID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contractID);
             ResultSet rs = ps.executeQuery();
@@ -56,7 +58,7 @@ public class CompensationDBContext extends DBContext {
                 CompensationStatusCode comStatus = new CompensationStatusCode();
                 comStatus.setStatusCode(rs.getInt("Status"));
                 comStatus.setStatusName(rs.getString("StatusName"));
-                
+
                 Compensation com = new Compensation();
                 com.setId(rs.getInt("ID"));
                 com.setCreateDate(rs.getTimestamp("CreatedDate"));
