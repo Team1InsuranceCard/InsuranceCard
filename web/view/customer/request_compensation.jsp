@@ -25,7 +25,7 @@
   <body>
     <jsp:include page="../header_customer.jsp">
       <jsp:param value="history" name="currentscreen" />
-      <jsp:param value="compensation" name="currentHistoryMenu" />
+      <jsp:param value="compensation" name="currenthistory" />
     </jsp:include>
 
     <main>
