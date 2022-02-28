@@ -80,7 +80,6 @@ public class RenewContract extends HttpServlet {
         
         request.setAttribute("contract", contract);
         request.setAttribute("isSuccess", true);
-        request.setAttribute("check", db.staffRenewCheck(contract));
         request.setAttribute("renewContractID", renewContractID);
         request.getRequestDispatcher("../../view/staff/renew_contract.jsp").forward(request, response);
     }

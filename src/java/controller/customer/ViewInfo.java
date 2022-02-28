@@ -31,9 +31,11 @@ public class ViewInfo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerDBContext db = new CustomerDBContext();
         Account acc = (Account) request.getSession().getAttribute("account");
+        
+        CustomerDBContext db = new CustomerDBContext();
         CustomerStaff cusStaff = db.viewCustomer(acc.getId());
+                
         request.setAttribute("cus", cusStaff.getCustomer());
         request.getRequestDispatcher("../view/customer/view_info.jsp").forward(request, response);
     }
