@@ -40,11 +40,11 @@
                 color: #3c763d;
             }
 
-/*            .mess-box--danger {
-                background-color: #f2dede;
-                border: 1px solid #ebccd1;
-                color: #a94442;
-            }*/
+            /*            .mess-box--danger {
+                            background-color: #f2dede;
+                            border: 1px solid #ebccd1;
+                            color: #a94442;
+                        }*/
 
             body {
                 background-color: #f8f8f8;
@@ -72,7 +72,7 @@
             }
 
             .header__btn {
-                display: flex;
+                margin: 1em auto;
             }
 
             .btn {
@@ -87,24 +87,24 @@
 
             .btn--primary {
                 margin-right: 30px;
-                background-color: #5bc0de;
+                background-color: #4FCD5C;
                 color: #fff;
                 transition: all 0.2s;
             }
 
             .btn--primary:hover {
-                background-color: #1b5daf;
+                background: rgba(79, 205, 92, 0.8);
             }
 
             .btn--secondary {
-                background-color: #e7e1e1;
+                background-color: #E76666;
                 color: #000;
                 text-decoration: none;
                 transition: all 0.2s;
             }
 
             .btn--secondary:hover {
-                background-color: #806a6a;
+                background: rgba(231, 102, 102, 0.8);
                 color: #fff;
             }
 
@@ -204,22 +204,12 @@
 
         <main>
             ${param.currentscreen}
-            <form action="staff/contract/renew" method="POST"
+            <form action="staff/compensation/resolve-compensation" method="POST"
                   onSubmit="submit(this)">
                 <div class="header">
-                    <h1 class="header__heading">Renew contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Compensation contract ${requestScope.contract.id}</h1>
 
-                    <div class="header__btn">
-                        <input class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
-                                                         || requestScope.contract.statusCode.statusCode == 1)
-                                                         && requestScope.contract.product.statusCode.statusCode == 1
-                                                         && requestScope.check
-                                                         ? '' : 'btn--disabled'}" 
-                               type="submit" value="Renew" />
 
-                        <a class="btn btn--secondary"
-                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
-                    </div>
                 </div>
 
                 <div class="mess-box mess-box--success" 
@@ -422,6 +412,17 @@
                             <div class="section__text">${requestScope.contract.product.contentDetail}</div>
                         </div>
                     </div>
+                </div>
+                <div class="header__btn">
+                    <input class="btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
+                                                     || requestScope.contract.statusCode.statusCode == 1)
+                                                     && requestScope.contract.product.statusCode.statusCode == 1
+                                                     && requestScope.check
+                                                     ? '' : 'btn--disabled'--%>}" 
+                           type="submit" value="Accept" />
+
+                    <a class="btn btn--secondary"
+                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
                 </div>
             </form>
         </main>
