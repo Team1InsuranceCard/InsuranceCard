@@ -13,7 +13,7 @@
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
         <div class="container header-element">
-            <a class="navbar-brand" href="${root}/customer/dashboard"> 
+            <a class="navbar-brand" href="${root}/homepage"> 
                 <img
                     class="logo-icon"
                     src="${root}/asset/image/icon_car.png"
@@ -28,10 +28,10 @@
             <ul class="navbar-nav mr-auto breadcrumb">
                 <c:set var="current" value="${param.currentscreen}" />
                 <li class="nav-item">
-                    <a <c:if test="${current == 'dashboard'}">class="active"</c:if> href="">DashBoard</a>
+                    <a <c:if test="${current == 'dashboard'}">class="active"</c:if> href="${root}/customer/dashboard">DashBoard</a>
                     </li>
                     <li class="nav-item">
-                        <a <c:if test="${current == 'contract'}">class="active"</c:if> href="">Contract</a>
+                        <a <c:if test="${current == 'contract'}">class="active"</c:if> href="${root}/customer/contract/view">Contract</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a
@@ -46,12 +46,12 @@
                             History
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="<c:if test="${currentHistoryMenu == 'payment'}">active</c:if>dropdown-item" href="#">Payment</a>
-                            <a class="<c:if test="${currentHistoryMenu == 'compensation'}">active</c:if>dropdown-item" href="#">Compensation</a>
+                            <a class="<c:if test="${currentHistoryMenu == 'payment'}">active</c:if>dropdown-item" href="${root}/customer/history/payment">Payment</a>
+                            <a class="<c:if test="${currentHistoryMenu == 'compensation'}">active</c:if>dropdown-item" href="${root}/customer/history/compensation">Compensation</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a <c:if test="${current == 'contacts'}">class="active"</c:if> href="">Contacts</a>
+                        <a <c:if test="${current == 'contacts'}">class="active"</c:if> href="${root}/contact">Contacts</a>
                     </li>
                 </ul>
                 <div class="navbar-nav">
