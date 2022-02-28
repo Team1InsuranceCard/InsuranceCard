@@ -16,9 +16,19 @@
         <Link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/verify_email.css" rel="stylesheet" type="text/css"/>
         <c:set var="rs" value="${requestScope}"/>
-
     </head>
+    
     <body>
+        <a href="homepage">
+            <img class="logo-icon"
+                 src="asset/image/icon_car.png"
+                 alt="LogoIcon" />
+            <br/>
+            <img class="logo-title"
+                 src="asset/image/InsuranceCard.png"
+                 alt="LogoTitle" />
+        </a>
+
         <form action="verify_email" method="POST">
             <div class="container">
                 <div>

@@ -5,169 +5,12 @@
     <head>
         <base href="${pageContext.servletContext.contextPath}/">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Information</title>
+        <title>Insurance Card</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
         <link href="asset/style/customer/customer_info_update.css" rel="stylesheet" type="text/css"/>
-        <!--        <style>
-                    body {
-                        background-color: #fff9ec !important;
-                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-                            Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-                    }
-        
-                    .main-form {
-                        margin-top: 10rem;
-                        margin-bottom: 5em;
-                        background-color: #fff;
-                        border-radius: 8px;
-                        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-                        padding: 30px 40px;
-                    }
-        
-                    .card__heading {
-                        font-weight: 700;
-                        margin: 10px 0 40px 20px;
-                        color: #5c2941;
-                        font-size: 30px;
-                    }
-        
-                    .section__heading {
-                        color: #5c2941;
-                        padding-bottom: 2px;
-                        border-bottom: 0.8px solid #5c294180;
-                        margin: 0 20px 25px 20px;
-                    }
-        
-                    .section__main {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: space-around;
-                    }
-        
-                    .section__item {
-                        margin: 0 5px 15px 5px;
-                        max-width: 360px;
-                        flex: 45%;
-                        background-color: #f7f7f7;
-                        border: solid 1px #e6e6e6;
-                        border-radius: 13px;
-                        padding: 5px 15px 8px 10px;
-                        cursor: pointer;
-                    }
-                    
-                    .section__item_disable {
-                        margin: 0 5px 15px 5px;
-                        max-width: 360px;
-                        flex: 45%;
-                        border: solid 1px #e6e6e6;
-                        border-radius: 13px;
-                        padding: 5px 15px 8px 10px;
-                        cursor: default;
-                    }
-        
-                    .section__item:focus-within {
-                        border-color: #fc6376;
-                        background-color: #fff;
-                    }
-        
-                    .section__label {
-                        font-size: 15px;
-                        font-weight: 600;
-                        margin-bottom: 15px;
-                        color: #393939;
-                    }
-        
-                    .section__item:focus-within .section__label {
-                        color: #fc6376;
-                        font-size: 18px;
-                    }
-        
-                    .section__input {
-                        padding: 10px 5px;
-                        border: none;
-                        background-color: inherit;
-                        border-radius: 3px;
-                        font-size: 18px;
-                        color: #555555;
-                        width: 100%;
-                    }
-        
-                    .section__input:focus {
-                        outline: none;
-                    }
-        
-                    .section__input option {
-                        font-size: 15px;
-                    }
-        
-                    .form-button {
-                        display: flex;
-                        justify-content: flex-end;
-                        margin: 25px 150px 30px 0;
-                    }
-        
-                    .button {
-                        border: none;
-                        padding: 12px;
-                        font-size: 18px;
-                        border-radius: 25px;
-                        min-width: 100px;
-                        text-align: center;
-                        box-sizing: content-box;
-                    }
-        
-                    .button--primary {
-                        margin-right: 30px;
-                        background-color: #941010;
-                        color: #fff;
-                        transition: all 0.2s;
-                    }
-        
-                    .button--primary:hover {
-                        background-color: #fc6376;
-                    }
-        
-                    .button--secondary {
-                        background-color: #806a6a;
-                        color: #fff;
-                        text-decoration: none;
-                        transition: all 0.2s;
-                    }
-        
-                    .button--secondary:hover {
-                        background-color: #e7e1e1;
-                        color: #000;
-                        text-decoration: none;
-                    }
-        
-                    .mess-box__icon {
-                        margin-left: 40px;
-                        margin-right: 20px;
-                    }
-        
-                    .mess-box {
-                        display: none;
-                        align-items: center;
-                        padding: 20px 15px;
-                        border-radius: 4px;
-                        margin: 0 60px 30px 60px;
-                    }
-        
-                    .mess-box--danger {
-                        background-color: #f2dede;
-                        border: 1px solid #ebccd1;
-                        color: #a94442;
-                    }
-        
-                    .mess-box--success {
-                        background-color: #dff0d8;
-                        border: 1px solid #d6e9c6;
-                        color: #3c763d;
-                    }
-                </style>-->
     </head>
     <body>
         <jsp:include page="../header_customer.jsp">
@@ -178,14 +21,9 @@
             <div class="container main-form">
                 <div class="row row1 justify-content-center">
                     <h1 class="col-lg-12 card__heading">UPDATE PERSONAL INFORMATION</h1>
-                    <div class="mess-box mess-box--danger" 
-                         <!--style="${requestScope.isExistEmail ? "display:flex;" : ""}">-->
-                         <img src="asset/image/customer/update_info/icon_close.png" alt="" class="mess-box__icon" />
-                        <p class="mess-box__mess">The email address is already taken!</p>
-                    </div>
 
                     <div class="mess-box mess-box--success" 
-                         <!--style="${requestScope.isSuccess ? "display:flex;" : ""}">-->
+                         style="${requestScope.isSuccess ? "display:flex;" : ""}">
                          <img src="asset/image/customer/update_info/icon_approve.png" class="mess-box__icon" />
                         <p class="mess-box__mess">Success! Your submission has been saved!</p>
                     </div>
@@ -239,7 +77,7 @@
                                 <input
                                     class="section__input"
                                     type="text"
-                                    name="fname"
+                                    name="lname"
                                     id="last_name"
                                     value="${requestScope.lname}"
                                     pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
@@ -353,7 +191,7 @@
 
                     <div class="form-button">
                         <input class="button button--primary" type="submit" value="Update" />
-                        <a href="#" class="button button--secondary">Cancel</a>
+                        <a href="customer/info?id=${sessionScope.account.id}" class="button button--secondary">Cancel</a>
                     </div>
                 </form>
 

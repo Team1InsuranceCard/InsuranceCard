@@ -20,28 +20,19 @@ import model.Moderator;
  */
 public class ModeratorLogin extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Cookie arr[] = request.getCookies();
-//        for (Cookie c : arr) {
-//            if (c.getName().equals("userC")) {
-//                request.setAttribute("user", c.getValue());
-//            }
-//            if (c.getName().equals("passC")) {
-//                request.setAttribute("pass", c.getValue());
-//                request.setAttribute("remember", "on");
-//            }
-//        }
+        Cookie arr[] = request.getCookies();
+        for (Cookie c : arr) {
+            if (c.getName().equals("userC")) {
+                request.setAttribute("user", c.getValue());
+            }
+            if (c.getName().equals("passC")) {
+                request.setAttribute("pass", c.getValue());
+                request.setAttribute("remember", "yes");
+            }
+        }
         request.getRequestDispatcher("../view/moderator/login.jsp").forward(request, response);
     }
 
@@ -68,32 +59,31 @@ public class ModeratorLogin extends HttpServlet {
         Moderator acc = mdb.getModAccount(user, pass);
 
         if (acc != null) {
-            request.getSession().setAttribute("account", acc);
-
-//            if (remember.equals("yes")) {
-//                Cookie u = new Cookie("userC", user);
-//                Cookie p = new Cookie("passC", pass);
-//                u.setMaxAge(43200);
-//                p.setMaxAge(43200);
-//                response.addCookie(u);
-//                response.addCookie(p);
-//            } else {
-//                Cookie arr[] = request.getCookies();
-//                for (Cookie c : arr) {
-//                    if (c.getName().equals("userC")) {
-//                        c.setMaxAge(0);
-//                        response.addCookie(c);
-//                    }
-//                    if (c.getName().equals("passC")) {
-//                        request.setAttribute("pass", c.getValue());
-//                        c.setMaxAge(0);
-//                        response.addCookie(c);
-//                    }
-//                }
-//            }
+            request.getSession().setAttribute("mod_account", acc);
+            if (remember.equals("on")) {
+                Cookie u = new Cookie("userC", user);
+                Cookie p = new Cookie("passC", pass);
+                u.setMaxAge(43200);
+                p.setMaxAge(43200);
+                response.addCookie(u);
+                response.addCookie(p);
+            } else {
+                Cookie arr[] = request.getCookies();
+                for (Cookie c : arr) {
+                    if (c.getName().equals("userC")) {
+                        c.setMaxAge(0);
+                        response.addCookie(c);
+                    }
+                    if (c.getName().equals("passC")) {
+                        request.setAttribute("pass", c.getValue());
+                        c.setMaxAge(0);
+                        response.addCookie(c);
+                    }
+                }
+            }
             response.sendRedirect("dashboard");
         } else {
-            request.getSession().setAttribute("account", null);
+            request.getSession().setAttribute("mod_account", null);
             request.setAttribute("user", user);
             request.setAttribute("pass", pass);
             request.setAttribute("msg", "Please check username or password!");

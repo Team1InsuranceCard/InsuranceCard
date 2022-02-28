@@ -14,7 +14,7 @@
     <head>
         <base href="${pageContext.servletContext.contextPath}/">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Insurance Card</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link href="asset/style/login.css" rel="stylesheet" type="text/css"/>
         <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
@@ -25,12 +25,14 @@
         <div class="limiter">
             <form action="login" method="POST">
                 <div class="logo-group">
-                    <div class="car">
-                        <img src="asset/image/icon_car.png" alt="LogoIcon"/>
-                    </div>
-                    <div class="insurance-card">
-                        <img src="asset/image/InsuranceCard.png" alt="LogoTitle"/>
-                    </div>
+                    <a href="homepage">
+                        <div class="car">
+                            <img src="asset/image/icon_car.png" alt="LogoIcon"/>
+                        </div>
+                        <div class="insurance-card">
+                            <img src="asset/image/InsuranceCard.png" alt="LogoTitle"/>
+                        </div>
+                    </a>
                 </div>
 
                 <c:if test="${requestScope.alert != null}">
@@ -123,7 +125,7 @@
                     <input type="submit" name="log" value="LOGIN">
                 </div>
                 <div class="forgot-sign">
-                    <div class="forgot"><a href="#">Forgot Password?</a></div>
+                    <div class="forgot"><a href="reset-pass">Forgot Password?</a></div>
                     <div class="sign"><a href="register">Sign Up</a></div>
                 </div>
                 <div class="quick-log">
