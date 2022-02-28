@@ -68,12 +68,22 @@
             }
 
             .header__btn {
-                margin: 1em 32%;
+                margin: 1em;
+            }
+            
+            @media only screen and (max-width: 992px) {
+                .header__btn {
+                    margin: 0 auto;
+                    width: 5em;
+                }
+                
+                .btn--primary {
+                    margin: 1em;
+                }
             }
 
             .btn {
                 border: none;
-                padding: 10px 8px;
                 font-size: 18px;
                 border-radius: 4px;
                 min-width: 90px;
@@ -82,7 +92,6 @@
             }
 
             .btn--primary {
-                margin-right: 30px;
                 background-color: #4FCD5C;
                 color: #fff;
                 transition: all 0.2s;
@@ -204,7 +213,7 @@
                   onSubmit="submit(this)">
                 
                 <div class="row header">
-                    <h1 class="header__heading">Compensation contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Compensation request contract ${requestScope.contract.id}</h1>
                 </div>
                 
 
@@ -232,7 +241,7 @@
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
                 <div class="row section">
-                    <h2 class="col section__heading">Contract Information</h2>
+                    <h2 class="col-lg-12 section__heading">Contract Information</h2>
 
                     <div class="row section__main">
                         <div class="row col-lg-6 section__item">
@@ -264,16 +273,13 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Payment method</div>
-                            <select name="payMethodID" class="col-lg-6 section__input" required>
-                                <option value="1">Tiền mặt</option>
-                                <option value="2">Chuyển khoản</option>
-                            </select>
+                            <div class="col-lg-6 section__text">Cash</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">New start date</div>
-                            <input class="col-lg-6 section__input" type="datetime-local" 
-                                   name="newStartDate" id="newStartDate" required>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
+                                                                       value = "${requestScope.contract.newStartDate}"/></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -295,14 +301,19 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">New end date</div>
-                            <input class="col-lg-6 section__input" type="datetime-local" 
-                                   name="newEndDate" id="newEndDate" readonly>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
+                                                                       value = "${requestScope.contract.newEndDate}"/></div>
+                        </div>
+                        
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Compensation amount</div>
+                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row section">
-                    <h2 class="col section__heading">Customer Information</h2>
+                    <h2 class="col-lg-12 section__heading">Customer Information</h2>
 
                     <div class="row section__main">
                         <div class="row col-lg-6 section__item">
@@ -339,7 +350,7 @@
                 </div>
 
                 <div class="row section">
-                    <h2 class="col section__heading">Vehicle Information</h2>
+                    <h2 class="col-lg-12 section__heading">Vehicle Information</h2>
 
                     <div class="row section__main">
                         <div class="row col-lg-7 section__left">
@@ -388,42 +399,42 @@
                     </div>
                 </div>
 
-<!--                <div class="section">
-                    <h2 class="section__heading">Product Information</h2>
+                <div class="row section">
+                    <h2 class="col-lg-12 section__heading">Product Information</h2>
 
-                    <div class="section__main">
-                        <div class="section__item">
-                            <div class="section__title">Product ID</div>
-                            <div class="section__text">${requestScope.contract.product.id}</div>
+                    <div class="row section__main">
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Product ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.product.id}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Product Title</div>
-                            <div class="section__text">${requestScope.contract.product.title}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Product Title</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.product.title}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Status</div>
-                            <div class="section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Status</div>
+                            <div class="col-lg-6 section__text" id="productStatus">${requestScope.contract.product.statusCode.statusName}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Content detail</div>
-                            <div class="section__text">${requestScope.contract.product.contentDetail}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Content detail</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
                         </div>
                     </div>
                 </div>
-                <div class="header__btn">
-                    <input class="btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
+                <div class="row header__btn justify-content-around">
+                    <input class="col-lg-2 btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
                                                      || requestScope.contract.statusCode.statusCode == 1)
                                                      && requestScope.contract.product.statusCode.statusCode == 1
                                                      && requestScope.check
                                                      ? '' : 'btn--disabled'}--%>" 
                            type="submit" value="Accept" />
 
-                    <a class="btn btn--secondary"
+                    <a class="col-lg-2 btn btn--secondary"
                        onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
-                </div>-->
+                </div>
             </form>
         </main>
 
