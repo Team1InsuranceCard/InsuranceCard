@@ -70,13 +70,13 @@
             .header__btn {
                 margin: 1em;
             }
-            
+
             @media only screen and (max-width: 992px) {
                 .header__btn {
                     margin: 0 auto;
                     width: 5em;
                 }
-                
+
                 .btn--primary {
                     margin: 1em;
                 }
@@ -211,11 +211,11 @@
             ${param.currentscreen}
             <form action="staff/compensation/resolve-compensation" method="POST"
                   onSubmit="submit(this)">
-                
+
                 <div class="row header">
                     <h1 class="header__heading">Compensation request contract ${requestScope.contract.id}</h1>
                 </div>
-                
+
 
                 <div class="row mess-box mess-box--success" 
                      style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
@@ -223,19 +223,19 @@
                         Action succeed!
                     </p>
                 </div>
-<!--
-                                <div class="mess-box mess-box--danger" 
-                                     style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
-                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
-                                    <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
-                                </div>
-                
-                                <div class="mess-box mess-box--danger" 
-                                     style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
-                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
-                                    <p class="mess-box__mess">Product is inactive!</p>
-                                </div>
--->
+                <!--
+                                                <div class="mess-box mess-box--danger" 
+                                                     style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                                                    <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
+                                                </div>
+                                
+                                                <div class="mess-box mess-box--danger" 
+                                                     style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
+                                                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
+                                                    <p class="mess-box__mess">Product is inactive!</p>
+                                                </div>
+                -->
 
 
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
@@ -257,13 +257,13 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Start Date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                       value = "${requestScope.contract.startDate}"/></div>
+                                                                                value = "${requestScope.contract.startDate}"/></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">End Date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                                                       value = "${requestScope.contract.endDate}" /></div>
+                                                                                value = "${requestScope.contract.endDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -279,7 +279,7 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">New start date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                       value = "${requestScope.contract.newStartDate}"/></div>
+                                                                                value = "${requestScope.contract.newStartDate}"/></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -302,9 +302,9 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">New end date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                       value = "${requestScope.contract.newEndDate}"/></div>
+                                                                                value = "${requestScope.contract.newEndDate}"/></div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Compensation amount</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
@@ -329,7 +329,7 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date of Birth</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                                                       value = "${requestScope.contract.customer.dob}" /></div>
+                                                                                value = "${requestScope.contract.customer.dob}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -352,8 +352,8 @@
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Vehicle Information</h2>
 
-                    <div class="row section__main">
-                        <div class="row col-lg-7 section__left">
+                    <div class="row col-lg-12 section__main">
+                        <div class="col-lg-5 section__left">
                             <div class="row col-lg-7 section__item">
                                 <div class="col-lg-6 section__title">Vehicle type</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
@@ -390,7 +390,7 @@
                             </div>
                         </div>
 
-                        <div class="row col-lg-5 section__right">
+                        <div class="col-lg-7 section__right">
                             <div class="row col-lg-6 section__item">
                                 <div class="col-lg-6 section__title">Cert Image</div>
                                 <img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"></img>
@@ -424,6 +424,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row section">
+                    <h2 class="col-lg-12 section__heading">Accident Information</h2>
+
+                    <div class="row section__main">
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Title</div>
+                            <div class="col-lg-6 section__text">title</div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Attachment</div>
+                            <div class="col-lg-6 section__text"><a href="#">Attach</a></div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Vehicle damage</div>
+                            <div class="col-lg-6 section__text">V-damage</div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Date</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row header__btn justify-content-around">
                     <input class="col-lg-2 btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
                                                      || requestScope.contract.statusCode.statusCode == 1)
@@ -433,7 +459,7 @@
                            type="submit" value="Accept" />
 
                     <a class="col-lg-2 btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
+                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Reject</a>
                 </div>
             </form>
         </main>
