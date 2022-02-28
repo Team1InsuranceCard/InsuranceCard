@@ -18,6 +18,12 @@
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+        
+        <style>
+            section .total {
+                margin-left: 6rem;
+            }
+        </style>
     </head>
 
     <body>
@@ -34,6 +40,8 @@
                     <input type="date" name="date"/>
                 </div>
             </div>
+            <h6 class="total">Total:</h6>
+            
             <table class="table table-hover">
                 <thead>
                     <tr>
