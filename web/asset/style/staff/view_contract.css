@@ -247,9 +247,11 @@ main {
   min-width: 45px;
   display: inline-block;
   text-align: center;
+  transition: all 0.2s;
 }
 
 .table-btn:hover {
+  text-decoration: none;
   background-color: #64334a;
   color: #fff;
 }

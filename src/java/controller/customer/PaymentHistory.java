@@ -5,40 +5,21 @@
  */
 package controller.customer;
 
-import dao.CustomerDBContext;
+import dao.PaymentDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.CustomerStaff;
+import model.Payment;
 
 /**
  *
- * @author DELL
+ * @author ASUS
  */
-public class ViewInfo extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Account acc = (Account) request.getSession().getAttribute("account");
-        
-        CustomerDBContext db = new CustomerDBContext();
-        CustomerStaff cusStaff = db.viewCustomer(acc.getId());
-                
-        request.setAttribute("cus", cusStaff.getCustomer());
-        request.getRequestDispatcher("../view/customer/view_info.jsp").forward(request, response);
-    }
+public class PaymentHistory extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -52,7 +33,25 @@ public class ViewInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
+        }
+
+        int page = Integer.parseInt(raw_page);
+        int pageSize = 7;
+
+        PaymentDBContext pdb = new PaymentDBContext();
+        ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page);
+
+        int count = pdb.countPaymentRecord();
+        int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
+
+        request.setAttribute("payments", payments);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", page);
+
+        request.getRequestDispatcher("../../view/customer/payment_history.jsp").forward(request, response);
     }
 
     /**
@@ -66,7 +65,7 @@ public class ViewInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
