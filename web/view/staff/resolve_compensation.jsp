@@ -12,20 +12,7 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
         <style>
-            select {
-                padding: 0.2rem 0.7rem;
-                background-color: #FFF9EC;
-                text-align: center;
-            }
-
-            select:hover, #startDate:hover {
-                cursor: pointer;
-                background-color: #FDC8C0;
-            }
-
-            #startDate {
-                background-color: #FFF9EC;
-            }
+            
         </style>
     </head>
     <body>
