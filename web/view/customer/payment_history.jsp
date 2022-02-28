@@ -18,22 +18,6 @@
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            section .total {
-                text-align: right;
-                margin-right: 4rem;
-            }
-
-            section table .sub-icon {
-                width: 0.75rem;
-                height: 0.75rem;
-            }
-            
-            section table .icon-green {
-                margin-left: 1rem;
-            }
-        </style>
     </head>
 
     <body>
@@ -76,7 +60,7 @@
                             <td class="stt">${i}</td>
                             <td class="proTitle">
                                 <c:set var="s" value="${p.contractID.statusCode.statusCode}"/>
-                                <a href="customer/contract/detail?id=${p.contractID.id}"
+                                <a class="contract-link" href="customer/contract/detail?id=${p.contractID.id}"
                                    style="${s==0?"color:#E02A2A;":""} 
                                    ${s==1?"color:#0DC858;":""}"> 
                                     ${p.contractID.product.title}
