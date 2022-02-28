@@ -12,7 +12,7 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/customer/contact.css" rel="stylesheet" type="text/css"/>
         <style>
-            .mess-box {
+/*            .mess-box {
                 display: none;
                 align-items: center;
                 padding: 10px 10px;
@@ -24,7 +24,7 @@
                 background-color: #dff0d8;
                 border: 1px solid #d6e9c6;
                 color: #3c763d;
-            }
+            }*/
         </style>
     </head>
     <body>
