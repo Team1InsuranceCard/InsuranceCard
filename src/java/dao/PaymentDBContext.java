@@ -114,7 +114,7 @@ public class PaymentDBContext extends DBContext {
         return num;
     }
 
-    public ArrayList<Payment> paymentHistory(int pagesize, int pageindex) {
+    public ArrayList<Payment> paymentHistory(int pagesize, int pageindex, int cusID) {
         ArrayList<Payment> payments = new ArrayList<>();
 
         try {
@@ -135,6 +135,7 @@ public class PaymentDBContext extends DBContext {
                     + "		  ON Contract.ID = Payment.ContractID\n"
                     + "		  INNER JOIN Product\n"
                     + "		  ON Product.ID = Contract.ProductID\n"
+                    + "           WHERE Contract.CustomerID = ?\n"
                     + "          ) \n"
                     + "SELECT PaidDate, Note, Amount,\n"
                     + "       StartDate, PaymentMethod,\n"
@@ -143,10 +144,11 @@ public class PaymentDBContext extends DBContext {
                     + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?";
 
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, pageindex);
-            stm.setInt(2, pagesize);
-            stm.setInt(3, pageindex);
-            stm.setInt(4, pagesize);
+            stm.setInt(1, cusID);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
