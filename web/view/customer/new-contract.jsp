@@ -66,6 +66,10 @@
                                     <option value="${brand.id}">${brand.brand}</option>
                                 </c:forEach>
                             </select><br/>
+                            <label for="txtColor" class="label-input">Color:</label>
+                            <input id="txtColor" class="inputdata" type="text"
+                                   name="color"
+                                   placeholder="Color (in vehicle registration)"/><br/>
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
                                    name="licensePlate"
@@ -80,6 +84,8 @@
                             <input id="txt10" class="inputdata" type="text" 
                                    name="engine"
                                    placeholder="Engine number (in vehicle registration)"/><br/>
+                            <label>Registration certificate:</label><br/>
+                            <jsp:include page="/uploadimage.html"></jsp:include>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
