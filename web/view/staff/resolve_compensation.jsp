@@ -206,10 +206,8 @@
             ${param.currentscreen}
             <form action="staff/compensation/resolve-compensation" method="POST"
                   onSubmit="submit(this)">
-                <div class="header">
+<!--                <div class="header">
                     <h1 class="header__heading">Compensation contract ${requestScope.contract.id}</h1>
-
-
                 </div>
 
                 <div class="mess-box mess-box--success" 
@@ -223,7 +221,7 @@
                     </p>
                 </div>
 
-                <!--                <div class="mess-box mess-box--danger" 
+                                <div class="mess-box mess-box--danger" 
                                      style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
                                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                                     <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
@@ -233,7 +231,7 @@
                                      style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
                                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                                     <p class="mess-box__mess">Product is inactive!</p>
-                                </div>-->
+                                </div>
 
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
@@ -429,7 +427,7 @@
 
                     <a class="btn btn--secondary"
                        onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
-                </div>
+                </div>-->
             </form>
         </main>
 
