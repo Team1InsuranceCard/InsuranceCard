@@ -48,6 +48,7 @@ public class PaymentHistory extends HttpServlet {
 
         PaymentDBContext pdb = new PaymentDBContext();
         ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page, acc.getId());
+        double total = pdb.getTotalPayment(acc.getId());
 
         int count = pdb.countPaymentRecord();
         int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
@@ -55,6 +56,7 @@ public class PaymentHistory extends HttpServlet {
         request.setAttribute("payments", payments);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", page);
+        request.setAttribute("total", total);
 
         request.getRequestDispatcher("../../view/customer/payment_history.jsp").forward(request, response);
     }
