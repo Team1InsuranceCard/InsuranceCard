@@ -136,6 +136,10 @@ body {
     color: #5C2941;
     margin: 10px;
 }
-a.active {
+a.dropdown-item.active {
+    background: none !important;
+}
+
+.history-dropdown .dropdown-item:active {
     background: none;
 }
