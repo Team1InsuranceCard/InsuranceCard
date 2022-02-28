@@ -30,6 +30,7 @@
 
     <main>
       <div class="container">
+        <form>
         <div class="row border rounded">
           <div class="title-card">
             <h4 class="title-card-text">1. Contract Information</h4>
@@ -84,6 +85,27 @@
               </tbody>
             </table>
           </div>
+          <div class="row border rounded">
+            <div class="title-card">
+              <h4 class="title-card-text">3. Compensation Information</h4>
+            </div>
+            <table class="content-card-table table table-borderless">
+              <tbody>
+                <tr>
+                  <th>Driver Name</th>
+                  <td>HD00001</td>
+                  <th>Attachment</th>
+                  <td>Active</td>
+                </tr>
+                <tr>
+                  <th>Description</th>
+                  <td>Bao hiem Bao Viet cho xe duoi 50cc</td>
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+        </form>
       </div>
     </main>
   </body>
