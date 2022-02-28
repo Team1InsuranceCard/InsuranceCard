@@ -42,7 +42,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" class="stt">STT</th>
+                        <th scope="col" class="stt">ID</th>
                         <th scope="col" class="proTitle">Product title (<span class="iconify sub-icon" data-icon="emojione:red-circle"></span> - inactive
                             <span class="iconify sub-icon icon-green" data-icon="twemoji:green-circle"></span> - active)</th>
                         <th scope="col" class="amount">Amount</th>
@@ -53,11 +53,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:set var="i" value="0"/>
+                    <%--<c:set var="i" value="0"/>--%>
                     <c:forEach items="${requestScope.payments}" var="p">
-                        <c:set var="i" value="${i+1}"/>
+                        <%--<c:set var="i" value="${i+1}"/>--%>
                         <tr>
-                            <td class="stt">${i}</td>
+                            <td class="stt">${p.id}</td>
                             <td class="proTitle">
                                 <c:set var="s" value="${p.contractID.statusCode.statusCode}"/>
                                 <a class="contract-link" href="customer/contract/detail?id=${p.contractID.id}"
