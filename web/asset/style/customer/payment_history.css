@@ -71,3 +71,22 @@ section .title {
     color: #000000;
     margin-left: 0.75rem;
 }
+
+section .total {
+    text-align: right;
+    margin-right: 4rem;
+}
+
+section table .sub-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+section table .icon-green {
+    margin-left: 1rem;
+}
+
+section table .contract-link:hover {
+    transition: 0.2s ease;
+    font-size: 16.5px;
+}
