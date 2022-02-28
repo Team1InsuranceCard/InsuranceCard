@@ -175,7 +175,7 @@
                                     <!--if status is processing, edit is allowed-->
                                     <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
                                         <input type="text" id="customerID" name="customerID"
-                                               onkeyup="checkCustomerID()"
+                                               onkeyup="checkCustomerID()" pattern="^[0-9]+$"
                                                value="${requestScope.contract.customer.account.id}"/>
                                     </c:if>
                                     <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
@@ -265,6 +265,7 @@
                                         <div class="section__title">License Plate</div>
                                         <div class="section__text">
                                             <input type="text" name="licensePlate"
+                                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{3}\.[0-9]{2}$"
                                                    value="${requestScope.contract.licensePlate}"/>
                                         </div>
                                     </div>
@@ -328,7 +329,7 @@
                                             <!--if status is processing, edit is allowed-->
                                             <c:if test="${requestScope.contract.statusCode.statusCode eq 2}">
                                                 <input type="text" id="productID" name="productID"
-                                                       onkeyup="changeProduct()"
+                                                       onkeyup="changeProduct()" pattern="^[0-9]+$"
                                                        value="${requestScope.contract.product.id}"/>
                                             </c:if>
                                             <c:if test="${requestScope.contract.statusCode.statusCode ne 2}">
