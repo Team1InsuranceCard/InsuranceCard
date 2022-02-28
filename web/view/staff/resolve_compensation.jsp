@@ -226,57 +226,59 @@
                                     <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                                     <p class="mess-box__mess">Product is inactive!</p>
                                 </div>
+-->
+
 
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
-                <div class="section">
-                    <h2 class="section__heading">Contract Information</h2>
+                <div class="row section">
+                    <h2 class="col section__heading">Contract Information</h2>
 
-                    <div class="section__main">
-                        <div class="section__item">
-                            <div class="section__title">Contract ID</div>
-                            <div class="section__text">${requestScope.contract.id}</div>
+                    <div class="row section__main">
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Contract ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.id}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Status</div>
-                            <div class="section__text" id="contractStatus">${requestScope.contract.statusCode.statusName}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Status</div>
+                            <div class="col-lg-6 section__text" id="contractStatus">${requestScope.contract.statusCode.statusName}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Start Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Start Date</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
                                                                        value = "${requestScope.contract.startDate}"/></div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">End Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">End Date</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
                                                                        value = "${requestScope.contract.endDate}" /></div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Contract term</div>
-                            <div class="section__text" id="contractStatus">${requestScope.contract.term}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Contract term</div>
+                            <div class="col-lg-6 section__text" id="contractStatus">${requestScope.contract.term}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Payment method</div>
-                            <select name="payMethodID" class="section__input" required>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Payment method</div>
+                            <select name="payMethodID" class="col-lg-6 section__input" required>
                                 <option value="1">Tiền mặt</option>
                                 <option value="2">Chuyển khoản</option>
                             </select>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">New start date</div>
-                            <input class="section__input" type="datetime-local" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">New start date</div>
+                            <input class="col-lg-6 section__input" type="datetime-local" 
                                    name="newStartDate" id="newStartDate" required>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Compensation package</div>
-                            <select name="payMethodID" class="section__input" required>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Compensation package</div>
+                            <select name="payMethodID" class="col-lg-6 section__input" required>
                                 <option value="1">0%</option>
                                 <option value="2">10%</option>
                                 <option value="3">20%</option>
@@ -291,102 +293,102 @@
                             </select>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">New end date</div>
-                            <input class="section__input" type="datetime-local" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">New end date</div>
+                            <input class="col-lg-6 section__input" type="datetime-local" 
                                    name="newEndDate" id="newEndDate" readonly>
                         </div>
                     </div>
                 </div>
 
-                <div class="section">
-                    <h2 class="section__heading">Customer Information</h2>
+                <div class="row section">
+                    <h2 class="col section__heading">Customer Information</h2>
 
-                    <div class="section__main">
-                        <div class="section__item">
-                            <div class="section__title">Name</div>
-                            <div class="section__text">${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}</div>
+                    <div class="row section__main">
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Name</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Email</div>
-                            <div class="section__text">${requestScope.contract.customer.account.email}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Email</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.customer.account.email}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Date of Birth</div>
-                            <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Date of Birth</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "date" dateStyle = "short" 
                                                                        value = "${requestScope.contract.customer.dob}" /></div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Personal ID</div>
-                            <div class="section__text">${requestScope.contract.customer.personalID}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Personal ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.customer.personalID}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Phone</div>
-                            <div class="section__text">${requestScope.contract.customer.phone}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Phone</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.customer.phone}</div>
                         </div>
 
-                        <div class="section__item">
-                            <div class="section__title">Address</div>
-                            <div class="section__text">${requestScope.contract.customer.address}</div>
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Address</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.customer.address}</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="section">
-                    <h2 class="section__heading">Vehicle Information</h2>
+                <div class="row section">
+                    <h2 class="col section__heading">Vehicle Information</h2>
 
-                    <div class="section__main">
-                        <div class="section__left">
-                            <div class="section__item">
-                                <div class="section__title">Vehicle type</div>
-                                <div class="section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
+                    <div class="row section__main">
+                        <div class="row col-lg-7 section__left">
+                            <div class="row col-lg-7 section__item">
+                                <div class="col-lg-6 section__title">Vehicle type</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">Engine</div>
-                                <div class="section__text">${requestScope.contract.engine}</div>
+                            <div class="row col-lg-5 section__item">
+                                <div class="col-lg-6 section__title">Engine</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.engine}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">License Plate</div>
-                                <div class="section__text">${requestScope.contract.licensePlate}</div>
+                            <div class="row col-lg-7 section__item">
+                                <div class="col-lg-6 section__title">License Plate</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.licensePlate}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">Color</div>
-                                <div class="section__text">${requestScope.contract.color}</div>
+                            <div class="row col-lg-5 section__item">
+                                <div class="col-lg-6 section__title">Color</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.color}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">Brand</div>
-                                <div class="section__text">${requestScope.contract.brand2.brand}</div>
+                            <div class="row col-lg-7 section__item">
+                                <div class="col-lg-6 section__title">Brand</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.brand2.brand}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">Owner</div>
-                                <div class="section__text">${requestScope.contract.owner}</div>
+                            <div class="row col-lg-5 section__item">
+                                <div class="col-lg-6 section__title">Owner</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.owner}</div>
                             </div>
 
-                            <div class="section__item">
-                                <div class="section__title">Chassis</div>
-                                <div class="section__text">${requestScope.contract.chassis}</div>
+                            <div class="row col-lg-7 section__item">
+                                <div class="col-lg-6 section__title">Chassis</div>
+                                <div class="col-lg-6 section__text">${requestScope.contract.chassis}</div>
                             </div>
                         </div>
 
-                        <div class="section__right">
-                            <div class="section__item">
-                                <div class="section__title">Cert Image</div>
-                                <img class="section__img" src="${requestScope.contract.certImage}"></img>
+                        <div class="row col-lg-5 section__right">
+                            <div class="row col-lg-6 section__item">
+                                <div class="col-lg-6 section__title">Cert Image</div>
+                                <img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"></img>
                             </div>
                         </div>          
                     </div>
                 </div>
 
-                <div class="section">
+<!--                <div class="section">
                     <h2 class="section__heading">Product Information</h2>
 
                     <div class="section__main">
