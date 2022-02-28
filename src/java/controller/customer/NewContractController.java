@@ -8,6 +8,7 @@ package controller.customer;
 import dao.BrandDBContext;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
+import dao.DeliveryDBContext;
 import dao.ProductDBContext;
 import dao.StaffDBContext;
 import dao.StatusCodeDBContext;
@@ -26,6 +27,7 @@ import model.Brand;
 import model.Contract;
 import model.ContractStatusCode;
 import model.Customer;
+import model.Delivery;
 import model.Product;
 import model.Staff;
 import model.VehicleType;
@@ -124,6 +126,7 @@ public class NewContractController extends HttpServlet {
         StatusCodeDBContext scdb = new StatusCodeDBContext();
         StaffDBContext sdb = new StaffDBContext();
         ContractDBContext ctdb = new ContractDBContext();
+        DeliveryDBContext ddb = new DeliveryDBContext();
 
         String ownerName = request.getParameter("ownerName");
         String vehicleTypeID = request.getParameter("vehicleTypeID");
@@ -183,13 +186,20 @@ public class NewContractController extends HttpServlet {
         //assign random staff who have least contract
         contract.setStartStaff(startStaff);
         
-        //save delivery info to delivery table (not yet)
-        
-        
         //insert to DB
-        ctdb.insertContract(contract);
+        contract.setId(ctdb.insertContract(contract));
         
-        
+        //save delivery info to delivery table (not yet)
+        Delivery delivery = new Delivery();
+        delivery.setFullName(deliveryName);
+        delivery.setPhone(deliveryPhone);
+        delivery.setEmail(deliveryEmail);
+        delivery.setAddress(deliveryAddress);
+        delivery.setProvince(deliveryProvince);
+        delivery.setDistrict(deliveryDistrict);
+        delivery.setContract(contract);
+        //insert to DB
+        ddb.insertDelivery(delivery);
         
         //redirect to checkout page
 
