@@ -119,7 +119,8 @@ public class PaymentDBContext extends DBContext {
 
         try {
             String sql = "WITH Pay AS (\n"
-                    + "          SELECT Payment.PaidDate\n"
+                    + "          SELECT Payment.ID as PayID\n"
+                    + "          ,PaidDate\n"
                     + "		  ,Note\n"
                     + "		  ,Amount\n"
                     + "          ,Payment.StartDate\n"
@@ -137,7 +138,7 @@ public class PaymentDBContext extends DBContext {
                     + "		  ON Product.ID = Contract.ProductID\n"
                     + "           WHERE Contract.CustomerID = ?\n"
                     + "          ) \n"
-                    + "SELECT PaidDate, Note, Amount,\n"
+                    + "SELECT PayID, PaidDate, Note, Amount,\n"
                     + "       StartDate, PaymentMethod,\n"
                     + "       Title, ContractID, Status\n"
                     + "FROM Pay\n"
@@ -167,6 +168,7 @@ public class PaymentDBContext extends DBContext {
                 contract.setStatusCode(csc);
 
                 Payment payment = new Payment();
+                payment.setId(rs.getInt("PayID"));
                 payment.setPaidDate(rs.getTimestamp("PaidDate"));
                 payment.setNote(rs.getString("Note"));
                 payment.setAmount(rs.getDouble("Amount"));
