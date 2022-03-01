@@ -33,10 +33,14 @@
                 <h3 class="col-md-5 title">Payment History</h3>
                 <div class="col-md-5 input-date">
                     <form id="searchForm" action="customer/history/payment" method="POST">
-                        <input id="input-search" type="date" name="date" required/>
+                        <input id="input-search" type="date" name="date"
+                               value="${requestScope.date}" required/>
                         <span class="iconify icon-search" onclick="search()"
                               data-icon="bx:search-alt">
                         </span>
+                        <a href="customer/history/payment"
+                           style="margin-left:0.5rem;text-decoration:underline;">
+                            All</a>
                     </form>
                 </div>
             </div>
@@ -45,6 +49,9 @@
                               value = "${requestScope.total}"/> VND
             </h6>
 
+            <h6 style="color:#E02A2A;margin-left: 2rem;">
+                ${requestScope.msg}
+            </h6>
             <table class="table table-hover">
                 <thead>
                     <tr>
