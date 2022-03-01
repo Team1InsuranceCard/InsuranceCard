@@ -59,3 +59,15 @@ section .title {
     text-align: center;
     word-break: break-all;
 }
+
+.pagging .page {
+    background: #FA7C7C;
+    color: #FFFFFF;
+    padding: 0.1rem 0.6rem;
+    border-radius: 30px;
+}
+
+.pagging a, span {
+    color: #000000;
+    margin-left: 0.75rem;
+}
