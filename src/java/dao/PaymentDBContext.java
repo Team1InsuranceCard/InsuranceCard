@@ -96,13 +96,17 @@ public class PaymentDBContext extends DBContext {
         return payments;
     }
 
-    public int countPaymentRecord() {
+    public int countPaymentRecord(int cusID) {
         int num = 0;
         try {
             String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
-                    + "       FROM Payment";
+                    + "        FROM Payment\n"
+                    + "		INNER JOIN Contract\n"
+                    + "		ON Contract.ID = Payment.ContractID\n"
+                    + "		WHERE Contract.CustomerID = ?";
 
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
@@ -192,12 +196,12 @@ public class PaymentDBContext extends DBContext {
                     + "  INNER JOIN Contract\n"
                     + "  ON Contract.ID = Payment.ContractID\n"
                     + "  WHERE CustomerID = ?";
-            
+
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cusID);
             ResultSet rs = stm.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 total = rs.getDouble("Total");
             }
         } catch (SQLException ex) {
@@ -205,4 +209,23 @@ public class PaymentDBContext extends DBContext {
         }
         return total;
     }
+
+//    public int countSearchPaymentRecord(String date) {
+//        int num = 0;
+//        try {
+//            String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
+//                    + "       FROM Payment"
+//                    + "       WHERE CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+//
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            ResultSet rs = stm.executeQuery();
+//
+//            if (rs.next()) {
+//                num = rs.getInt("NumberOfRecord");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return num;
+//    }
 }
