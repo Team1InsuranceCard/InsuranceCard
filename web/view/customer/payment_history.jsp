@@ -17,6 +17,7 @@
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
 
         <style>
@@ -39,6 +40,16 @@
             function search() {
                 if (document.getElementById("input-search").value != "") {
                     document.getElementById("searchForm").submit();
+                } else {
+                    Swal.fire({
+                        timer: 2000,
+                        position: 'center',
+                        text: 'Date field is empty!',
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#FF96A3',
+                        allowEnterKey: true
+                    })
                 }
             }
         </script>
