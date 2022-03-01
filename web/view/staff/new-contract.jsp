@@ -73,9 +73,16 @@
                                     </option>
                                 </c:forEach>
                             </select><br/>
+                            <label for="txtColor" class="label-input">Color:</label>
+                            <input id="txtColor" class="inputdata" type="text"
+                                   name="color"
+                                   placeholder="Color (in vehicle registration)"
+                                   value="${requestScope.colorSent ne null ?
+                                            requestScope.colorSent : ""}"/><br/>
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
                                    name="licensePlate" onchange="fillRightLicensePlate()"
+                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{3}\.[0-9]{2}$"
                                    placeholder="License plate (in vehicle registration)"
                                    value="${requestScope.licensePlateSent ne null ?
                                             requestScope.licensePlateSent : ""}"/><br/>
@@ -91,6 +98,8 @@
                                    placeholder="Engine number (in vehicle registration)"
                                    value="${requestScope.engineSent ne null ?
                                             requestScope.engineSent : ""}"/><br/>
+                            <label>Registration certificate:</label><br/>
+                            <jsp:include page="/uploadimage.html"></jsp:include>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
@@ -170,13 +179,13 @@
                                             requestScope.deliveryNameSent : ""}"/><br/>
                             <label for="txt6" class="label-input">Phone number (*):</label>
                             <input id="txt6" class="inputdata" type="text" required
-                                   name="deliveryPhone"
+                                   name="deliveryPhone" pattern="^0[0-9]{9}$"
                                    placeholder="Phone number"
                                    value="${requestScope.deliveryPhoneSent ne null ?
                                             requestScope.deliveryPhoneSent : ""}"/><br/>
                             <label for="txt7" class="label-input">Email (*):</label>
                             <input id="txt7" class="inputdata" type="text" required
-                                   name="deliveryEmail"
+                                   name="deliveryEmail" pattern="^[A-Za-z][A-Za-z0-9_]+@[A-Za-z]+(\.[A-Za-z]+){1,2}$"
                                    placeholder="Email"
                                    value="${requestScope.deliveryEmailSent ne null ?
                                             requestScope.deliveryEmailSent : ""}"/><br/>
