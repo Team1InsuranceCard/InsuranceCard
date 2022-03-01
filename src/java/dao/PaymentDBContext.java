@@ -211,7 +211,7 @@ public class PaymentDBContext extends DBContext {
         return total;
     }
 
-    public int countSearchPaymentRecord(int cusID, Date date) {
+    public int countSearchPaymentRecord(int cusID, String date) {
         int num = 0;
         try {
             String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
@@ -219,12 +219,12 @@ public class PaymentDBContext extends DBContext {
                     + "		INNER JOIN Contract\n"
                     + "		ON Contract.ID = Payment.ContractID\n"
                     + "		WHERE Contract.CustomerID = ?\n"
-                    + "        and CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+                    + "        and CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cusID);
-            stm.setDate(2, date);
-            stm.setDate(3, date);
+            stm.setString(2, date);
+            stm.setString(3, date);
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
@@ -236,7 +236,7 @@ public class PaymentDBContext extends DBContext {
         return num;
     }
     
-    public ArrayList<Payment> searchPaymentHistory(int pagesize, int pageindex, int cusID, Date date) {
+    public ArrayList<Payment> searchPaymentHistory(int pagesize, int pageindex, int cusID, String date) {
         ArrayList<Payment> payments = new ArrayList<>();
 
         try {
@@ -273,8 +273,8 @@ public class PaymentDBContext extends DBContext {
             stm.setInt(3, pagesize);
             stm.setInt(4, pageindex);
             stm.setInt(5, pagesize);
-            stm.setDate(6, date);
-            stm.setDate(7, date);
+            stm.setString(6, date);
+            stm.setString(7, date);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
