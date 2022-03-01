@@ -164,7 +164,9 @@
 
                     <div class="section__item">
                         <div class="section__title">Address</div>
-                        <div class="section__text">${requestScope.contract.customer.address}</div>
+                        <div class="section__text">${requestScope.contract.customer.address}
+                            , ${requestScope.contract.customer.district}
+                            , ${requestScope.contract.customer.province}</div>
                     </div>
                 </div>
             </div>
@@ -240,6 +242,32 @@
 
                     <div class="section__item">
                         <div class="section__title">Content detail</div>
+                        <div class="section__text">${requestScope.contract.product.contentDetail}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section__heading">Delivery Information</h2>
+
+                <div class="section__main">
+                    <div class="section__item">
+                        <div class="section__title">Full Name</div>
+                        <div class="section__text">${requestScope.contract.product.id}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Phone</div>
+                        <div class="section__text">${requestScope.contract.product.title}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Email</div>
+                        <div class="section__text">${requestScope.contract.product.statusCode.statusName}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Address</div>
                         <div class="section__text">${requestScope.contract.product.contentDetail}</div>
                     </div>
                 </div>
