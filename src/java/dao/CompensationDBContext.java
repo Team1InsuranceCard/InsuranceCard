@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Compensation;
 import model.CompensationStatusCode;
 
@@ -19,6 +20,10 @@ import model.CompensationStatusCode;
  * @author area1
  */
 public class CompensationDBContext extends DBContext {
+    
+//    public void setCompensation(Account account, Compensation compensation ){
+//        String sql_insert_
+//    }
 
     public int getCompensationQuantity(int customerID) {
         int compensationQuantity = 0;
