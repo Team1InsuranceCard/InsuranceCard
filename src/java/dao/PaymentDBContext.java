@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -210,22 +211,101 @@ public class PaymentDBContext extends DBContext {
         return total;
     }
 
-//    public int countSearchPaymentRecord(String date) {
-//        int num = 0;
-//        try {
-//            String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
-//                    + "       FROM Payment"
-//                    + "       WHERE CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
-//
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            ResultSet rs = stm.executeQuery();
-//
-//            if (rs.next()) {
-//                num = rs.getInt("NumberOfRecord");
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return num;
-//    }
+    public int countSearchPaymentRecord(int cusID, Date date) {
+        int num = 0;
+        try {
+            String sql = "SELECT COUNT(paidDate) as NumberOfRecord\n"
+                    + "        FROM Payment\n"
+                    + "		INNER JOIN Contract\n"
+                    + "		ON Contract.ID = Payment.ContractID\n"
+                    + "		WHERE Contract.CustomerID = ?\n"
+                    + "        and CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            stm.setDate(2, date);
+            stm.setDate(3, date);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                num = rs.getInt("NumberOfRecord");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return num;
+    }
+    
+    public ArrayList<Payment> searchPaymentHistory(int pagesize, int pageindex, int cusID, Date date) {
+        ArrayList<Payment> payments = new ArrayList<>();
+
+        try {
+            String sql = "WITH Pay AS (\n"
+                    + "          SELECT Payment.ID as PayID\n"
+                    + "          ,PaidDate\n"
+                    + "		  ,Note\n"
+                    + "		  ,Amount\n"
+                    + "          ,Payment.StartDate\n"
+                    + "		  ,PaymentMethod.PaymentMethod\n"
+                    + "          ,Product.Title\n"
+                    + "		  ,Contract.ID as ContractID\n"
+                    + "		  ,Contract.Status\n"
+                    + "          ,ROW_NUMBER() OVER (ORDER BY Payment.ID) AS 'RowNumber'\n"
+                    + "          FROM Payment\n"
+                    + "		  INNER JOIN PaymentMethod\n"
+                    + "		  ON PaymentMethod.ID = Payment.PaymentMethodID\n"
+                    + "		  INNER JOIN Contract\n"
+                    + "		  ON Contract.ID = Payment.ContractID\n"
+                    + "		  INNER JOIN Product\n"
+                    + "		  ON Product.ID = Contract.ProductID\n"
+                    + "           WHERE Contract.CustomerID = ?\n"
+                    + "          ) \n"
+                    + "SELECT PayID, PaidDate, Note, Amount,\n"
+                    + "       StartDate, PaymentMethod,\n"
+                    + "       Title, ContractID, Status\n"
+                    + "FROM Pay\n"
+                    + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?\n"
+                    + "     and CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cusID);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
+            stm.setDate(6, date);
+            stm.setDate(7, date);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                PaymentMethod pm = new PaymentMethod();
+                pm.setPaymentMethod(rs.getString("PaymentMethod"));
+
+                Product pro = new Product();
+                pro.setTitle(rs.getString("Title"));
+
+                ContractStatusCode csc = new ContractStatusCode();
+                csc.setStatusCode(rs.getShort("Status"));
+
+                Contract contract = new Contract();
+                contract.setId(rs.getInt("ContractID"));
+                contract.setProduct(pro);
+                contract.setStatusCode(csc);
+
+                Payment payment = new Payment();
+                payment.setId(rs.getInt("PayID"));
+                payment.setPaidDate(rs.getTimestamp("PaidDate"));
+                payment.setNote(rs.getString("Note"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setStartDate(rs.getTimestamp("StartDate"));
+                payment.setPaymentMethod2(pm);
+                payment.setContractID(contract);
+
+                payments.add(payment);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
+    }
 }
