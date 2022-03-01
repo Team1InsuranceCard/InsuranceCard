@@ -75,7 +75,7 @@ public class PaymentHistory extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String rs = request.getParameter("date");
+        Date date = Date.valueOf(request.getParameter("date"));
 
         Account acc = (Account) request.getSession().getAttribute("account");
 
@@ -88,10 +88,10 @@ public class PaymentHistory extends HttpServlet {
         int pageSize = 7;
 
         PaymentDBContext pdb = new PaymentDBContext();
-        ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page, acc.getId());
+        ArrayList<Payment> payments = pdb.searchPaymentHistory(pageSize, page, acc.getId(), date);
         double total = pdb.getTotalPayment(acc.getId());
 
-        int count = pdb.countPaymentRecord(acc.getId());
+        int count = pdb.countSearchPaymentRecord(acc.getId(), date);
         int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
 
         request.setAttribute("payments", payments);
