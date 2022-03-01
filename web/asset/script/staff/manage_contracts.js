@@ -78,6 +78,8 @@ function setOrder(domElement, ordertype, URL, orderby) {
 }
 contractInclude.addEventListener("click", () => {
   rootURL.searchParams.set("contract", toggleInclueContract(contractInclude));
+  rootURL.searchParams.delete("query");
+  rootURL.searchParams.delete("queryoption");
   window.location.href = rootURL;
 });
 
