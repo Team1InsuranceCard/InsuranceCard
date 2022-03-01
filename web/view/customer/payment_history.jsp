@@ -19,40 +19,6 @@
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            section .row .icon-search {
-                background-color: #FF96A3;
-                width: 1.75rem;
-                height: 1.75rem;
-            }
-
-            section .row input {
-                background-color: #FFF9EC;
-            }
-
-            section .row .icon-search:hover {
-                cursor: pointer;
-            }
-        </style>
-
-        <script>
-            function search() {
-                if (document.getElementById("input-search").value != "") {
-                    document.getElementById("searchForm").submit();
-                } else {
-                    Swal.fire({
-                        timer: 2000,
-                        position: 'center',
-                        text: 'Date field is empty!',
-                        icon: 'warning',
-                        showConfirmButton: true,
-                        confirmButtonColor: '#FF96A3',
-                        allowEnterKey: true
-                    })
-                }
-            }
-        </script>
     </head>
 
     <body>
