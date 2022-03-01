@@ -11,6 +11,7 @@ var customerFilter = document.querySelector("#customer-filter");
 var startDateFilter = document.querySelector("#start-date-filter");
 var endDateFilter = document.querySelector("#end-date-filter");
 var productFilter = document.querySelector("#product-filter");
+var idFilter = document.querySelector("#id-filter");
 
 var contractInclude = document.querySelector("#contract-include");
 
@@ -18,6 +19,7 @@ var nameOrder = customerFilter.title;
 var startOrder = startDateFilter.title;
 var endOrder = endDateFilter.title;
 var productOrder = productFilter.title;
+var idOrder = idFilter.title;
 var status = "";
 
 // function createForm() {
@@ -31,7 +33,10 @@ var status = "";
 //   customer.setAttribute("name", "nameorder");
 //   customer.setAttribute("value", );
 // }
-
+idFilter.addEventListener("click", () => {
+  setOrder(idFilter, idOrder, rootURL, "id");
+  window.location.href = rootURL;
+});
 customerFilter.addEventListener("click", () => {
   setOrder(customerFilter, nameOrder, rootURL, "name");
   window.location.href = rootURL;
@@ -73,6 +78,8 @@ function setOrder(domElement, ordertype, URL, orderby) {
 }
 contractInclude.addEventListener("click", () => {
   rootURL.searchParams.set("contract", toggleInclueContract(contractInclude));
+  rootURL.searchParams.delete("query");
+  rootURL.searchParams.delete("queryoption");
   window.location.href = rootURL;
 });
 
@@ -168,4 +175,15 @@ function createPager(domElementID, pageIndex, totalPage, rootURL) {
   //       pageIndex + 1
   //     }">&raquo;</a>`;
   //   }
+}
+
+function mySubmitQuerySearch(e) {
+  e.preventDefault();
+  var search = document.querySelector("#search-box").value;
+  var querySearchOption = document.querySelector("#query-option").value;
+  rootURL.searchParams.delete("page")
+  rootURL.searchParams.set("query", search);
+  rootURL.searchParams.set("queryoption", querySearchOption);
+  window.location.href = rootURL;
+  return false;
 }
