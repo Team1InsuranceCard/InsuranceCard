@@ -90,3 +90,20 @@ section table .contract-link:hover {
     transition: 0.2s ease;
     font-size: 16.5px;
 }
+
+section .row .icon-search {
+    background-color: #FF96A3;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+section .row input {
+    background-color: #FFF9EC;
+}
+
+section .row .icon-search:hover {
+    cursor: pointer;
+    transition: 0.1s ease;
+    height: 1.8rem;
+    width: 1.85rem;
+}
