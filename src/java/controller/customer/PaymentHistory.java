@@ -75,7 +75,7 @@ public class PaymentHistory extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        Date date = Date.valueOf(request.getParameter("date"));
+        String date = request.getParameter("date");
 
         Account acc = (Account) request.getSession().getAttribute("account");
 
@@ -98,6 +98,8 @@ public class PaymentHistory extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", page);
         request.setAttribute("total", total);
+        request.setAttribute("date", date);
+        request.setAttribute("msg", count==0?"No payment in this day!":"");
 
         request.getRequestDispatcher("../../view/customer/payment_history.jsp").forward(request, response);
     }
