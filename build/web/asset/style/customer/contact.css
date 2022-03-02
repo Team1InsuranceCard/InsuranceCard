@@ -62,3 +62,17 @@ h2 {
 .text textarea::placeholder {
     color: rgba(252, 99, 118, 1);
 }
+
+.mess-box {
+    display: none;
+    align-items: center;
+    padding: 10px 10px;
+    border-radius: 4px;
+    margin: 0 60px 30px 60px;
+}
+
+.mess-box--success {
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+}

@@ -17,6 +17,7 @@
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <link href="../../asset/style/customer/payment_history.css" rel="stylesheet" type="text/css"/>
         <script src="../../asset/script/customer/payment_history.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
 
@@ -31,14 +32,32 @@
             <div class="row">
                 <h3 class="col-md-5 title">Payment History</h3>
                 <div class="col-md-5 input-date">
-                    <input type="date" name="date"/>
+                    <form id="searchForm" action="customer/history/payment" method="POST">
+                        <input id="input-search" type="date" name="date"
+                               value="${requestScope.date}" required/>
+                        <span class="iconify icon-search" onclick="search()"
+                              data-icon="bx:search-alt">
+                        </span>
+                        <a href="customer/history/payment"
+                           style="margin-left:0.5rem;text-decoration:underline;">
+                            All</a>
+                    </form>
                 </div>
             </div>
+
+            <h6 class="total">Total: <fmt:formatNumber type = "number" 
+                              value = "${requestScope.total}"/> VND
+            </h6>
+
+            <h6 style="color:#E02A2A;margin-left: 2rem;">
+                ${requestScope.msg}
+            </h6>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" class="stt">STT</th>
-                        <th scope="col" class="proTitle">Product title</th>
+                        <th scope="col" class="stt">ID</th>
+                        <th scope="col" class="proTitle">Product title (<span class="iconify sub-icon" data-icon="emojione:red-circle"></span> - inactive
+                            <span class="iconify sub-icon icon-green" data-icon="twemoji:green-circle"></span> - active)</th>
                         <th scope="col" class="amount">Amount</th>
                         <th scope="col" class="date">Start date</th>
                         <th scope="col" class="date">Paid date</th>
@@ -47,14 +66,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:set var="i" value="0"/>
                     <c:forEach items="${requestScope.payments}" var="p">
-                        <c:set var="i" value="${i+1}"/>
                         <tr>
-                            <td class="stt">${i}</td>
+                            <td class="stt">${p.id}</td>
                             <td class="proTitle">
                                 <c:set var="s" value="${p.contractID.statusCode.statusCode}"/>
-                                <a href="customer/contract/detail?id=${p.contractID.id}"
+                                <a class="contract-link" href="customer/contract/detail?id=${p.contractID.id}"
                                    style="${s==0?"color:#E02A2A;":""} 
                                    ${s==1?"color:#0DC858;":""}"> 
                                     ${p.contractID.product.title}
@@ -78,10 +95,10 @@
                     </c:forEach>
                 </tbody>
             </table>
-                    
+
             <div class="pagging" id="pagging">
             </div>
-                    
+
             <script>
                 createPagger('customer/history/payment', 'pagging',
                 ${requestScope.pageIndex-1}, ${requestScope.pageIndex},

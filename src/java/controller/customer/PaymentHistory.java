@@ -8,11 +8,13 @@ package controller.customer;
 import dao.PaymentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Payment;
 
 /**
@@ -33,6 +35,10 @@ public class PaymentHistory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        Account acc = (Account) request.getSession().getAttribute("account");
+
         String raw_page = request.getParameter("page");
         if (raw_page == null || raw_page.length() == 0) {
             raw_page = "1";
@@ -42,14 +48,16 @@ public class PaymentHistory extends HttpServlet {
         int pageSize = 7;
 
         PaymentDBContext pdb = new PaymentDBContext();
-        ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page);
+        ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page, acc.getId());
+        double total = pdb.getTotalPayment(acc.getId());
 
-        int count = pdb.countPaymentRecord();
+        int count = pdb.countPaymentRecord(acc.getId());
         int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
 
         request.setAttribute("payments", payments);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", page);
+        request.setAttribute("total", total);
 
         request.getRequestDispatcher("../../view/customer/payment_history.jsp").forward(request, response);
     }
@@ -65,7 +73,35 @@ public class PaymentHistory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
+        String date = request.getParameter("date");
+
+        Account acc = (Account) request.getSession().getAttribute("account");
+
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
+        }
+
+        int page = Integer.parseInt(raw_page);
+        int pageSize = 7;
+
+        PaymentDBContext pdb = new PaymentDBContext();
+        ArrayList<Payment> payments = pdb.searchPaymentHistory(pageSize, page, acc.getId(), date);
+        double total = pdb.getTotalPayment(acc.getId());
+
+        int count = pdb.countSearchPaymentRecord(acc.getId(), date);
+        int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
+
+        request.setAttribute("payments", payments);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", page);
+        request.setAttribute("total", total);
+        request.setAttribute("date", date);
+        request.setAttribute("msg", count==0?"No payment in this day!":"");
+
+        request.getRequestDispatcher("../../view/customer/payment_history.jsp").forward(request, response);
     }
 
     /**

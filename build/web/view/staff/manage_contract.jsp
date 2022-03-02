@@ -38,16 +38,25 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </label>
                       </div> -->
                     <div class="col seach-bar">
-                        <form class="form-inline" action="staff/contract/view" method="GET">
-                            <input
-                                id="search-box"
-                                class="form-control mr-sm-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                                value="${query}"
+                        <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
+                            <select class="select-search-option" name="" id="query-option">
+                                <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
+                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
+
+                                    <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
+                                <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
+
+                                </select>
+                                <input
+                                    id="search-box"
+                                    class="form-control mr-sm-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    value="${query}"
                                 name="query"
                                 />
+
                             <button
                                 class="search-button btn-secondary btn  my-2 my-sm-0"
                                 type="submit"
@@ -57,7 +66,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </form>
                     </div>
                     <div class="col create-contract-button">
-                        <a href="">New Contract</a>
+                        <a href="staff/contract/new">New Contract</a>
                     </div>
                 </div>
             </div>
@@ -67,26 +76,30 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                 <div class="contract-list-content">
                     <table class="contract-list-table table table-striped">
                         <thead class="contract-list-header">
-                        <th scope="col">STT</th>
-                        <th scope="col">
-                            <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
-                                                                   >Customers: <c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
-                                >
+                        <th scope="col"><a <c:if test="${orderby ==  'id'}"> title="${ordertype}"</c:if>  id="id-filter" href="javascript:void()"
+                                                                             >ID
+                                <%--<c:if test="${orderby ==  'id'}">: ${ordertype}</c:if>--%>
+                            </a
+                                                                             ></th>
+                            <th scope="col">
+                                <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
+                                                                   >Customers<c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
+                                                                   >
                             </th>
                             <th scope="col">
                                 <a <c:if test="${orderby == 'product'}"> title="${ordertype}"</c:if>  id="product-filter" href="javascript:void();"
-                                                                         >Products<c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a
-                                >
+                                                                     >Products<c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a
+                                                                     >
                             </th>
                             <th scope="col">
                                 <a <c:if test="${orderby == 'start'}"> title="${ordertype}"</c:if> id="start-date-filter" href="javascript:void()"
-                                                                       >Start date<c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a
-                                >
+                                                                   >Start date<c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a
+                                                                   >
                             </th>
                             <th scope="col">
                                 <a <c:if test="${orderby == 'end'}"> title="${ordertype}"</c:if>  id="end-date-filter" href="javascript:void()"
-                                                                     >End date<c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a
-                                >
+                                                                 >End date<c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a
+                                                                 >
                             </th>
                             <th scope="col">
                                 <select class="status-select" name="" id="status-filter">
@@ -102,9 +115,10 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </thead>
                         <tbody>
                             <c:forEach var="contractMap" items="${contract_list}">
+                                <c:set var="contract" value="${contractMap.value}" />
                                 <tr>
-                                    <th scope="row">${contractMap.key}</th>
-                                        <c:set var="contract" value="${contractMap.value}" />
+                                    <th scope="row">${contract.id}</th>
+
                                     <td>
                                         ${contract.customer.firstName} ${contract.customer.lastName}
                                     </td>
@@ -120,29 +134,30 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                             var="statuscode"
                                             value="${contract.statusCode.statusCode}"
                                             />
-                                        <span >${contract.statusCode.statusName}</span>
-                                        <!--                               
                                         <c:choose>
                                             <c:when test="${statuscode == 0}">
-                                                <span style="color: #5c2941">Out of date</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 1}">
-                                                <span style="color: #0dc858">Active</span>
+                                                <span style="color: #0dc858">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 2}">
-                                                <span style="color: #ff7d42">Processing</span>
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 3}">
-                                                <span style="color: #ff7d42">Canceling</span>
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 4}">
-                                                <span style="color: #5c2941">Canceled</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 5}">
-                                                <span style="color: #5c2941">Rejected</span>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
                                             </c:when>
+                                            <c:otherwise>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:otherwise>
                                         </c:choose>
-                                        -->
+
                                     </td>
                                     <td>
                                         <a href="staff/contract/detail?id=${contract.id}">Detail</a>
@@ -175,7 +190,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="../footer_full.jsp" />
         <script src="asset/script/staff/manage_contracts.js"></script>
         <script>
-            createPager("page-list", ${page}, ${totalpage}, window.location.href);
+                            createPager("page-list", ${page}, ${totalpage}, window.location.href);
         </script>
     </body>
 </html>

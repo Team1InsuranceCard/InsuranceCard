@@ -27,7 +27,7 @@
         <div class="container">
             <h2 class="title">CUSTOMERS LIST</h2>
             <hr/>
-            <form method="POST" action="staff/customer/view">
+            <form method="GET" action="staff/customer/view">
                 <div class="row filter-container">
                     <div class="col col-lg-6 left">
                         <label for="inputCusID" class="label-input">Customer ID:</label>
