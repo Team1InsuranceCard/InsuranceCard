@@ -86,10 +86,10 @@
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script>
-            function validateConfirm(input) {
+            function validateConfirm(reenterValue) {
                 var error = document.getElementById("error");
                 var btnSubmit = document.getElementById("btn-submit");
-                if (input === document.getElementById("newPass").value) {
+                if (reenterValue === document.getElementById("newPass").value) {
                     error.innerHTML = "Valid";
                     error.style.color="green";
                     if(btnSubmit.classList.contains("button--disabled")){
