@@ -25,7 +25,7 @@
         <c:if test="${sessionScope.account.role eq false}">
             <jsp:include page="header_customer.jsp"></jsp:include>
         </c:if>
-        <c:if test="${sessionScope.account eq null}">
+        <c:if test="${sessionScope.account eq null and sessionScope.mod_account eq null}">
             <jsp:include page="header_common.jsp"></jsp:include>
         </c:if>
         <c:if test="${sessionScope.mod_account ne null}">
@@ -42,7 +42,7 @@
                             <c:if test="${sessionScope.mod_account ne null}">
                                 <td class="content__account-detail-data">Username: </td>
                                 <td class="content__account-detail-data">
-                                    <input type="text" name="username" disabled value="${sessionScope.mod_account.username}"/>
+                                    <input type="text" name="username" disabled value="${sessionScope.mod_account.userName}"/>
                                 </td>
                             </c:if>
                             <c:if test="${sessionScope.account ne null}">
