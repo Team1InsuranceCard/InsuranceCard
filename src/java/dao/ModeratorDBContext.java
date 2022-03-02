@@ -43,4 +43,7 @@ public class ModeratorDBContext extends DBContext {
         }
         return null;
     }
+
+    public void changePass(String newPassword, String username) {
+    }
 }

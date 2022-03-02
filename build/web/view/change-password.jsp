@@ -48,7 +48,7 @@
                             <c:if test="${sessionScope.account ne null}">
                                 <td class="content__account-detail-data">Email: </td>
                                 <td class="content__account-detail-data">
-                                    <input type="text" name="username" disabled value="${sessionScope.account.email}"/>
+                                    <input type="text" name="email" disabled value="${sessionScope.account.email}"/>
                                 </td>
                             </c:if>
                         </tr>
