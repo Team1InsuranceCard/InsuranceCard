@@ -1,4 +1,23 @@
 
+function fillEndDate() {
+    var start = document.getElementById("startDate").value;
+    var duration = document.getElementById("duration").value;
+    if (start != "" && duration != "") {
+        var arr = start.split("-");
+        var end = arr[2] + "-" + arr[1] + "-";
+
+        if (duration == 1) {
+            end += (Number(arr[0]) + 1);
+        } else if (duration == 2) {
+            end += (Number(arr[0]) + 2);
+        } else if (duration == 3) {
+            end += (Number(arr[0]) + 3);
+        }
+
+        document.getElementById("endDate").innerHTML = end;
+    }
+}
+
 function renew() {
     var startDate = document.getElementById("startDate").value;
     var duration = document.getElementById("duration").value;
