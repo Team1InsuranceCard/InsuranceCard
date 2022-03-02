@@ -103,7 +103,5 @@ section .row input {
 
 section .row .icon-search:hover {
     cursor: pointer;
-    transition: 0.1s ease;
-    height: 1.8rem;
-    width: 1.85rem;
+    background-color: #D37682;
 }
