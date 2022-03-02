@@ -39,8 +39,7 @@ public class ChangePasswordController extends HttpServlet {
         if (account != null || moderator != null) {
             request.getRequestDispatcher("view/change-password.jsp").forward(request, response);
         } else {
-            //response.sendRedirect("login");
-            request.getRequestDispatcher("view/change-password.jsp").forward(request, response);
+            response.sendRedirect("login");
         }
     }
 
