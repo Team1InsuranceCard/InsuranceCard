@@ -120,6 +120,7 @@ public class UpdateContractController extends HttpServlet {
         StaffDBContext sdb = new StaffDBContext();
         ContractDBContext ctdb = new ContractDBContext();
         AccountDBContext adb = new AccountDBContext();
+        DeliveryDBContext ddb = new DeliveryDBContext();
 
         String contractID = request.getParameter("contractID");
         String ownerName = request.getParameter("owner");
@@ -137,6 +138,13 @@ public class UpdateContractController extends HttpServlet {
         String cancelReason = request.getParameter("cancelReason");
         String cancelComment = request.getParameter("cancelComment");
         String staff = request.getParameter("startStaffID");
+        
+        String deliveryName = request.getParameter("deliveryName");
+        String deliveryPhone = request.getParameter("deliveryPhone");
+        String deliveryEmail = request.getParameter("deliveryEmail");
+        String deliveryAddress = request.getParameter("deliveryAddress");
+        String deliveryProvince = request.getParameter("deliveryProvince");
+        String deliveryDistrict = request.getParameter("deliveryDistrict");
 
         VehicleType type = vtdb.getVehicleTypeByID(Integer.parseInt(vehicleTypeID));
         Brand brand = bdb.getBrandByID(Integer.parseInt(brandID));
@@ -181,9 +189,20 @@ public class UpdateContractController extends HttpServlet {
         if (cancelComment != null) {
             contract.setCancelComment(cancelComment);
         }
+        
+        //get current Delivery
+        Delivery delivery = ddb.getDeliveryByContract(contract.getId());
+        //set new value
+        delivery.setFullName(deliveryName);
+        delivery.setPhone(deliveryPhone);
+        delivery.setEmail(deliveryEmail);
+        delivery.setAddress(deliveryAddress);
+        delivery.setProvince(deliveryProvince);
+        delivery.setDistrict(deliveryDistrict);
 
-        //insert to DB
+        //update to DB
         ctdb.updateContract(contract);
+        ddb.updateDelivery(delivery);
 
         //redirect to view contract detail page
         response.sendRedirect("../../staff/contract/detail?id=" + contract.getId());

@@ -407,7 +407,7 @@
                                                         <option hidden>--Choose the province--</option>
                                                     </select>
                                                     <input class="billing_address_1" 
-                                                           name="province" id="provinceSent"
+                                                           name="deliveryProvince" id="provinceSent"
                                                            type="hidden" value="${requestScope.delivery.province}"/>
                                                 </span>
                                                 <span class="district-container">
@@ -415,7 +415,7 @@
                                                         <option hidden>--Choose the district--</option>
                                                     </select>
                                                     <input class="billing_address_2" 
-                                                           name="district" id="districtSent"
+                                                           name="deliveryDistrict" id="districtSent"
                                                            type="hidden" value="${requestScope.delivery.district}"/>
                                                 </span>
                                             </div>
