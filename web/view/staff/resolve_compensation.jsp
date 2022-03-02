@@ -83,7 +83,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Contract term</div>
-                            <div class="col-lg-6 section__text" id="contractStatus">${requestScope.contract.term}</div>
+                            <div class="col-lg-6 section__text">${requestScope.contract.term}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -299,5 +299,34 @@
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
         </footer>
+        
+        <!--status-->
+        <script>
+            const contractStatus = document.getElementById("contractStatus");
+            const contractStatusID = ${requestScope.contract.statusCode.statusCode};
+
+            if (contractStatusID === 0) {
+                contractStatus.style.color = "#D62A25";
+            } else if (contractStatusID === 1) {
+                contractStatus.style.color = "#1AC36B";
+            } else if (contractStatusID === 2) {
+                contractStatus.style.color = "#4BBDDF";
+            } else if (contractStatusID === 3) {
+                contractStatus.style.color = "#FFC107";
+            } else if (contractStatusID === 4) {
+                contractStatus.style.color = "#FD671F";
+            } else {
+                contractStatus.style.color = "#7B0B0B";
+            }
+
+            const productStatus = document.getElementById("productStatus");
+            const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
+
+            if (productStatusID === 0) {
+                productStatus.style.color = "#D62A25";
+            } else {
+                productStatus.style.color = "#1AC36B";
+            }
+        </script>
     </body>
 </html>
