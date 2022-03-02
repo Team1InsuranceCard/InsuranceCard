@@ -374,24 +374,52 @@
                                 <div class="section__main">
                                     <div class="section__item">
                                         <div class="section__title">Full Name</div>
-                                        <div class="section__text">${requestScope.delivery.fullName}</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryName"
+                                                   value="${requestScope.delivery.fullName}"/>
+                                        </div>
                                     </div>
 
                                     <div class="section__item">
                                         <div class="section__title">Phone</div>
-                                        <div class="section__text">${requestScope.delivery.phone}</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryPhone"
+                                                   value="${requestScope.delivery.phone}"/>
+                                        </div>
                                     </div>
 
                                     <div class="section__item">
                                         <div class="section__title">Email</div>
-                                        <div class="section__text">${requestScope.delivery.email}</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryEmail"
+                                                   value="${requestScope.delivery.email}"/>
+                                        </div>
                                     </div>
 
                                     <div class="section__item">
                                         <div class="section__title">Address</div>
-                                        <div class="section__text">${requestScope.delivery.address}
-                                            , ${requestScope.delivery.district}
-                                            , ${requestScope.delivery.province}</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryAddress"
+                                                   value="${requestScope.delivery.address}"/><br/>
+                                            <div class="select-container">
+                                                <span class="province-container">
+                                                    <select id="province" name="calc_shipping_provinces" required>
+                                                        <option hidden>--Choose the province--</option>
+                                                    </select>
+                                                    <input class="billing_address_1" 
+                                                           name="province" id="provinceSent"
+                                                           type="hidden" value="${requestScope.delivery.province}"/>
+                                                </span>
+                                                <span class="district-container">
+                                                    <select id="district" name="calc_shipping_district" required>
+                                                        <option hidden>--Choose the district--</option>
+                                                    </select>
+                                                    <input class="billing_address_2" 
+                                                           name="district" id="districtSent"
+                                                           type="hidden" value="${requestScope.delivery.district}"/>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
