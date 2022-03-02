@@ -5,14 +5,21 @@
  */
 package controller.customer;
 
+import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Accident;
 import model.Account;
+import model.Compensation;
 import model.Contract;
 
 /**
@@ -67,8 +74,8 @@ public class RequestCompensation extends HttpServlet {
         }
         int contractID = Integer.parseInt(raw_contractId);
         ContractDBContext contractDBC = new ContractDBContext();
-        Contract contract = contractDBC.getContractDetailByCustomer(1, contractID);
-        
+        Contract contract = contractDBC.getContractDetailByCustomer(account.getId(), contractID);
+
         request.setAttribute("contract", contract);
         request.getRequestDispatcher("../../../view/customer/request_compensation.jsp").forward(request, response);
     }
@@ -85,7 +92,45 @@ public class RequestCompensation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        
+        String raw_contractID = request.getParameter("contractid");
+        String accidentTitle = request.getParameter("accident-title");
+        String raw_accidentDate = request.getParameter("accident-date");
+        String accidentAttachment = request.getParameter("accident-attachment");
+        String accidentHumanDamage = request.getParameter("accident-human-damage");
+        String accidentVehicleDamage = request.getParameter("accident-vehicle-damage");
+        String compensationDriverName = request.getParameter("compensation-driver-name");
+        String compensationAttachment = request.getParameter("compensation-attachment");
+        String compensationDescription = request.getParameter("compensation-description");
+
+        int contractID = Integer.parseInt(raw_contractID);
+        Accident accident = new Accident();
+        Contract contract = new Contract();
+        contract.setId(contractID);
+        accident.setContract(contract);
+        accident.setTitle(accidentTitle);
+
+        String[] date = raw_accidentDate.split("-");
+        LocalDateTime accidentDate = LocalDateTime.of(
+                Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]), 0, 0
+        );
+
+        accident.setAccidentDate(Timestamp.valueOf(accidentDate));
+
+        accident.setAttatchment(accidentAttachment);
+        accident.setHumanDamage(accidentHumanDamage);
+        accident.setVehicleDamage(accidentVehicleDamage);
+        accident.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+
+        Compensation compensation = new Compensation();
+        compensation.setDriverName(compensationDriverName);
+        compensation.setAttachment(compensationAttachment);
+        compensation.setDescription(compensationDescription);
+        compensation.setAccident(accident);
+        compensation.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
+        CompensationDBContext compensationDBC = new CompensationDBContext();
+        compensationDBC.setCompensation(compensation);
+
+        response.sendRedirect("../compensation");
     }
 
     /**
