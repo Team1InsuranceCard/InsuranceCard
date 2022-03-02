@@ -10,7 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>InsuranceCard</title>
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
+        <!-- CDN to reset CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+        <link href="../../asset/style/change_password.css" rel="stylesheet" type="text/css"/>
+        <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
         <c:if test="${sessionScope.account.role eq true}">
@@ -76,5 +82,7 @@
             </form>
         </div>
         <jsp:include page="footer_full.jsp"></jsp:include>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </body>
 </html>
