@@ -227,7 +227,10 @@
                             <div class="section__item">
                                 <div class="section__title">Address</div>
                                 <div class="section__text">
-                                    <span id="customerAddress">${requestScope.contract.customer.address}</span>
+                                    <span id="customerAddress">${requestScope.contract.customer.address}
+                                        , ${requestScope.contract.customer.district}
+                                        , ${requestScope.contract.customer.province}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -364,36 +367,36 @@
                                            value="${requestScope.contract.product.price}"/>
                                 </div>
                             </div>
-                                
+
                             <div class="section">
-                <h2 class="section__heading">Delivery Information</h2>
+                                <h2 class="section__heading">Delivery Information</h2>
 
-                <div class="section__main">
-                    <div class="section__item">
-                        <div class="section__title">Full Name</div>
-                        <div class="section__text">${requestScope.delivery.fullName}</div>
-                    </div>
+                                <div class="section__main">
+                                    <div class="section__item">
+                                        <div class="section__title">Full Name</div>
+                                        <div class="section__text">${requestScope.delivery.fullName}</div>
+                                    </div>
 
-                    <div class="section__item">
-                        <div class="section__title">Phone</div>
-                        <div class="section__text">${requestScope.delivery.phone}</div>
-                    </div>
+                                    <div class="section__item">
+                                        <div class="section__title">Phone</div>
+                                        <div class="section__text">${requestScope.delivery.phone}</div>
+                                    </div>
 
-                    <div class="section__item">
-                        <div class="section__title">Email</div>
-                        <div class="section__text">${requestScope.delivery.email}</div>
-                    </div>
+                                    <div class="section__item">
+                                        <div class="section__title">Email</div>
+                                        <div class="section__text">${requestScope.delivery.email}</div>
+                                    </div>
 
-                    <div class="section__item">
-                        <div class="section__title">Address</div>
-                        <div class="section__text">${requestScope.delivery.address}
-                            , ${requestScope.delivery.district}
-                            , ${requestScope.delivery.province}</div>
-                    </div>
-                </div>
-            </div>
-   
-                             
+                                    <div class="section__item">
+                                        <div class="section__title">Address</div>
+                                        <div class="section__text">${requestScope.delivery.address}
+                                            , ${requestScope.delivery.district}
+                                            , ${requestScope.delivery.province}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </form>
                     <jsp:include page="../footer_full.jsp"></jsp:include>

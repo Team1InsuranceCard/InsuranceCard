@@ -10,6 +10,7 @@ import dao.BrandDBContext;
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
+import dao.DeliveryDBContext;
 import dao.PaymentDBContext;
 import dao.ProductDBContext;
 import dao.StaffDBContext;
@@ -32,6 +33,7 @@ import model.Compensation;
 import model.Contract;
 import model.ContractStatusCode;
 import model.Customer;
+import model.Delivery;
 import model.Payment;
 import model.Product;
 import model.Staff;
@@ -70,6 +72,9 @@ public class UpdateContractController extends HttpServlet {
             StaffDBContext sdb = new StaffDBContext();
             ArrayList<Staff> staffs = sdb.getStaffs();
 
+            DeliveryDBContext delDB = new DeliveryDBContext();
+            Delivery delivery = delDB.getDeliveryByContract(id);
+
             int type = contract.getEndDate().getYear() - contract.getStartDate().getYear();
 
             VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
@@ -85,6 +90,7 @@ public class UpdateContractController extends HttpServlet {
             request.setAttribute("contractType", type);
             request.setAttribute("vehicleTypes", vehicleTypes);
             request.setAttribute("brands", brands);
+            request.setAttribute("delivery", delivery);
             request.getRequestDispatcher("../../view/staff/update-contract.jsp").forward(request, response);
         } else {
             response.sendRedirect("../dashboard");
