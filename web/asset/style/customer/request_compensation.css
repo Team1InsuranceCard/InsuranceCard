@@ -87,3 +87,7 @@ input.compensation-input {
 #button-submit.disabled {
   background: #c4c4c4;
 }
+
+.message-block {
+  margin: 1em;
+}
