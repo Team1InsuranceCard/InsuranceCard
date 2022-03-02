@@ -10,7 +10,7 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-        
+        <link href="asset/style/staff/resolve_compensation.css" rel="stylesheet" type="text/css"/>
 <!--
         <style>
         </style>-->
