@@ -375,7 +375,7 @@
                                     <div class="section__item">
                                         <div class="section__title">Full Name</div>
                                         <div class="section__text">
-                                            <input type="text" name="deliveryName"
+                                            <input type="text" name="deliveryName" required
                                                    value="${requestScope.delivery.fullName}"/>
                                         </div>
                                     </div>
@@ -383,7 +383,8 @@
                                     <div class="section__item">
                                         <div class="section__title">Phone</div>
                                         <div class="section__text">
-                                            <input type="text" name="deliveryPhone"
+                                            <input type="text" name="deliveryPhone" required
+                                                   pattern="^0[0-9]{9}$"
                                                    value="${requestScope.delivery.phone}"/>
                                         </div>
                                     </div>
@@ -391,7 +392,8 @@
                                     <div class="section__item">
                                         <div class="section__title">Email</div>
                                         <div class="section__text">
-                                            <input type="text" name="deliveryEmail"
+                                            <input type="text" name="deliveryEmail" required
+                                                   pattern="^[A-Za-z][A-Za-z0-9_]+@[A-Za-z]+(\.[A-Za-z]+){1,2}$"
                                                    value="${requestScope.delivery.email}"/>
                                         </div>
                                     </div>
@@ -399,7 +401,7 @@
                                     <div class="section__item">
                                         <div class="section__title">Address</div>
                                         <div class="section__text">
-                                            <input type="text" name="deliveryAddress"
+                                            <input type="text" name="deliveryAddress" required
                                                    value="${requestScope.delivery.address}"/><br/>
                                             <div class="select-container">
                                                 <span class="province-container">
