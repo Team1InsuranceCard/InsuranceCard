@@ -45,5 +45,16 @@ public class ModeratorDBContext extends DBContext {
     }
 
     public void changePass(String newPassword, String username) {
+        try {
+            String sql = "UPDATE [Moderator]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE username = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, newPassword);
+            stm.setString(2, username);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeratorDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
