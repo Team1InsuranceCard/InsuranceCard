@@ -1,3 +1,5 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,22 +43,51 @@
                             <tbody>
                                 <tr>
                                     <th>Contract ID</th>
-                                    <td>HD00001</td>
+                                    <td>${param.contractid}</td>
                                     <th>Status</th>
-                                    <td>Active</td>
+                                    <td><c:set
+                                            var="statuscode"
+                                            value="${contract.statusCode.statusCode}"
+                                            />
+                                        <c:choose>
+                                            <c:when test="${statuscode == 0}">
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 1}">
+                                                <span style="color: #0dc858">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 2}">
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 3}">
+                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 4}">
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:when test="${statuscode == 5}">
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                            </c:otherwise>
+                                        </c:choose></td>
                                 </tr>
                                 <tr>
                                     <th>Product</th>
-                                    <td>Bao hiem Bao Viet cho xe duoi 50cc</td>
+                                    <td>${contract.product.title}</td>
                                     <th>Contract Fee</th>
-                                    <td>530000</td>
+                                    <td>${contract.contractFee}</td>
                                 </tr>
                                 <tr>
                                     <th>Start Date</th>
-                                    <td>25/1/2021</td>
-                                    <th>End Date</th>
-                                    <td>25/1/2022</td>
-                                </tr>
+                                    <td><fmt:formatDate pattern = "yyyy-MM-dd" 
+                                                value = "${contract.startDate}" /></td>
+                            <th>End Date</th>
+                            <td><fmt:formatDate pattern = "yyyy-MM-dd" 
+                                                value = "${contract.endDate}" />
+                            </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -82,7 +113,7 @@
                                 <tr>
                                     <th>Attachment</th>
                                     <td><span id="accident-file-name" class="attachment-file-name">a;sdfjqifadsfjk</span>
-                                        <button type="button" onclick="uploadFile('accident-file-url','accident-file-name')" class="import-attachment-button">Import file</button>
+                                        <button type="button" onclick="uploadFile('accident-file-url', 'accident-file-name')" class="import-attachment-button">Import file</button>
                                         <input id="accident-file-url" type="hidden"></td>
                                     <th></th>
                                     <td></td>
@@ -145,13 +176,13 @@
                             </tbody>
                         </table>
                         <div class="commitment">
-                            <input type="checkbox" id="" /><span
+                            <input type="checkbox" id="promise" /><span
                                 >I commit that all information is real. If are wrong, I
                                 will face with law’s punishment.</span
                             >
                         </div>
                         <div class="compensation-submit">
-                            <button type="submit">Submit</button>
+                            <button class="disabled" id="button-submit" type="submit" disabled>Submit</button>
                         </div>
                     </div>
                 </form>
@@ -180,6 +211,16 @@
                 client.picker(options).open();
             }
         </script>
-
+        <script>
+            document.querySelector("#promise").addEventListener("change", function() {
+                if (this.checked) {
+                    document.querySelector("#button-submit").disabled = false;
+                    document.querySelector("#button-submit").className = "";
+                } else {
+                    document.querySelector("#button-submit").disabled = true;
+                    document.querySelector("#button-submit").className = "disabled";
+                }
+            });
+        </script>
     </body>
 </html>
