@@ -34,7 +34,7 @@
         <main>
             <div class="container">
                 <div class="compensation-header"><h2>New Compensation</h2></div>
-                <form>
+                <form method="POST">
                     <div class="row border rounded compensation-card">
                         <div class="title-card">
                             <h4 class="title-card-text">1. Contract Information</h4>
@@ -44,6 +44,7 @@
                                 <tr>
                                     <th>Contract ID</th>
                                     <td>${param.contractid}</td>
+                                    <input type="hidden" name="contractid" value="${param.contractid}" />
                                     <th>Status</th>
                                     <td><c:set
                                             var="statuscode"
@@ -82,112 +83,118 @@
                                 <tr>
                                     <th>Start Date</th>
                                     <td><fmt:formatDate pattern = "yyyy-MM-dd" 
-                                                value = "${contract.startDate}" /></td>
-                            <th>End Date</th>
-                            <td><fmt:formatDate pattern = "yyyy-MM-dd" 
-                                                value = "${contract.endDate}" />
-                            </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row border rounded compensation-card">
-                        <div class="title-card">
-                            <h4 class="title-card-text">2. Accident Information</h4>
-                        </div>
-                        <table class="content-card-table table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>Title</th>
-                                    <td><input class="compensation-input" type="text" /></td>
-                                    <th>Date</th>
-                                    <td>
-                                        <input
-                                            class="compensation-input"
-                                            type="date"
-                                            name=""
-                                            id=""
-                                            />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Attachment</th>
-                                    <td><span id="accident-file-name" class="attachment-file-name">a;sdfjqifadsfjk</span>
-                                        <button type="button" onclick="uploadFile('accident-file-url', 'accident-file-name')" class="import-attachment-button">Import file</button>
-                                        <input id="accident-file-url" type="hidden"></td>
-                                    <th></th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Human damage</th>
-                                    <td>
-                                        <textarea
-                                            class="compensation-input"
-                                            name=""
-                                            id=""
-                                            cols="30"
-                                            rows="10"
-                                            ></textarea>
-                                    </td>
-                                    <th>Vehicle damange</th>
-                                    <td>
-                                        <textarea
-                                            class="compensation-input"
-                                            name=""
-                                            id=""
-                                            cols="30"
-                                            rows="10"
-                                            ></textarea>
+                                                    value = "${contract.startDate}" /></td>
+                                    <th>End Date</th>
+                                    <td><fmt:formatDate pattern = "yyyy-MM-dd" 
+                                                    value = "${contract.endDate}" />
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="row border rounded compensation-card">
-                        <div class="title-card">
-                            <h4 class="title-card-text">3. Compensation Information</h4>
+                    <c:if test="${(statuscode == 1)}">
+                        <div class="row border rounded compensation-card">
+                            <div class="title-card">
+                                <h4 class="title-card-text">2. Accident Information</h4>
+                            </div>
+                            <table class="content-card-table table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Title*</th>
+                                        <td><input class="compensation-input" type="text" name="accident-title" required/></td>
+                                        <th>Date*</th>
+                                        <td>
+                                            <input
+                                                class="compensation-input"
+                                                type="date"
+                                                name="accident-date"
+                                                required/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Attachment</th>
+                                        <td><span id="accident-file-name" class="attachment-file-name"></span>
+                                            <button type="button" onclick="uploadFile('accident-file-url', 'accident-file-name')" class="import-attachment-button">Import file</button>
+                                            <input id="accident-file-url" name="accident-attachment" type="hidden"></td>
+                                        <th></th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Human damage</th>
+                                        <td>
+                                            <textarea
+                                                class="compensation-input"
+                                                name="accident-human-damage"
+                                                id=""
+                                                cols="30"
+                                                rows="10"
+                                                ></textarea>
+                                        </td>
+                                        <th>Vehicle damange</th>
+                                        <td>
+                                            <textarea
+                                                class="compensation-input"
+                                                name="accident-vehicle-damage"
+                                                id=""
+                                                cols="30"
+                                                rows="10"
+                                                ></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="content-card-table table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>Driver Name</th>
-                                    <td><input class="compensation-input" type="text" /></td>
-                                    <th>Attachment</th>
-                                    <td><span id="compensation-file-name" class="attachment-file-name">a;sdfjqifadsfjk</span>
-                                        <button type="button" onclick="uploadFile('compensation-file-url', 'compensation-file-name')" class="import-attachment-button">Import file</button>
-                                        <input id="compensation-file-url" type="hidden"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="content-card-table table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>Description</th>
-                                    <td>
-                                        <textarea
-                                            class="compensation-input"
-                                            name=""
-                                            id=""
-                                            cols="100"
-                                            rows="10"
-                                            ></textarea>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="commitment">
-                            <input type="checkbox" id="promise" /><span
-                                >I commit that all information is real. If are wrong, I
-                                will face with law’s punishment.</span
-                            >
+                        <div class="row border rounded compensation-card">
+                            <div class="title-card">
+                                <h4 class="title-card-text">3. Compensation Information</h4>
+                            </div>
+                            <table class="content-card-table table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Driver Name*</th>
+                                        <td><input class="compensation-input" type="text" name="compensation-driver-name" required/></td>
+                                        <th>Attachment</th>
+                                        <td><span id="compensation-file-name" class="attachment-file-name"></span>
+                                            <button type="button" onclick="uploadFile('compensation-file-url', 'compensation-file-name')" class="import-attachment-button">Import file</button>
+                                            <input id="compensation-file-url" name="compensation-attachment" type="hidden"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="content-card-table table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Description</th>
+                                        <td>
+                                            <textarea
+                                                class="compensation-input"
+                                                name="compensation-description"
+                                                id=""
+                                                cols="100"
+                                                rows="10"
+                                                ></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="commitment">
+                                <input type="checkbox" id="promise" /><span
+                                    >I commit that all information is real. If are wrong, I
+                                    will face with law’s punishment.</span
+                                >
+                            </div>
+                            <div class="compensation-submit">
+                                <button class="disabled" id="button-submit" type="submit" disabled>Submit</button>
+                            </div>
                         </div>
-                        <div class="compensation-submit">
-                            <button class="disabled" id="button-submit" type="submit" disabled>Submit</button>
+                    </c:if>
+                    <c:if test="${statuscode != 1}">
+                        <div class="row border rounded compensation-card">
+                            <h4 class="message-block">You need an active contract to create compensation!</h4>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </main>
+                    </c:if>
+                    </form>
+                </div>
+            </main>
         <jsp:include page="../footer_full.jsp"/>
         <script>
             function uploadFile(idDomURL, idDomFileName) {
@@ -212,7 +219,7 @@
             }
         </script>
         <script>
-            document.querySelector("#promise").addEventListener("change", function() {
+            document.querySelector("#promise").addEventListener("change", function () {
                 if (this.checked) {
                     document.querySelector("#button-submit").disabled = false;
                     document.querySelector("#button-submit").className = "";
