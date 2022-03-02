@@ -51,6 +51,7 @@
                             <label for="txt2" class="label-input">ID Number (*):</label>
                             <!--Do not save to DB-->
                             <input id="txt2" class="inputdata" type="text" required
+                                   pattern="^[0-9]{12}|[0-9]{9}$"
                                    placeholder="ID Card Number"/><br/>
                             <h3 class="group-title">2. VEHICLE'S INFORMATION</h3>
                             <label for="select1" class="label-input">Type (*):</label>
@@ -65,9 +66,14 @@
                                     <option value="${brand.id}">${brand.brand}</option>
                                 </c:forEach>
                             </select><br/>
+                            <label for="txtColor" class="label-input">Color:</label>
+                            <input id="txtColor" class="inputdata" type="text"
+                                   name="color"
+                                   placeholder="Color (in vehicle registration)"/><br/>
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
                                    name="licensePlate"
+                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{3}\.[0-9]{2}$"
                                    onchange="fillRightLicensePlate()"
                                    placeholder="License plate (in vehicle registration)"/><br/>
                             <label for="txt9" class="label-input">Chassis number:</label>
@@ -78,6 +84,8 @@
                             <input id="txt10" class="inputdata" type="text" 
                                    name="engine"
                                    placeholder="Engine number (in vehicle registration)"/><br/>
+                            <label>Registration certificate:</label><br/>
+                            <jsp:include page="/uploadimage.html"></jsp:include>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">
@@ -135,11 +143,11 @@
                                    placeholder="Full name of recipient"/><br/>
                             <label for="txt6" class="label-input">Phone number (*):</label>
                             <input id="txt6" class="inputdata" type="text" required
-                                   name="deliveryPhone"
+                                   name="deliveryPhone" pattern="^0[0-9]{9}$"
                                    placeholder="Phone number"/><br/>
                             <label for="txt7" class="label-input">Email (*):</label>
                             <input id="txt7" class="inputdata" type="text" required
-                                   name="deliveryEmail"
+                                   name="deliveryEmail" pattern="^[A-Za-z][A-Za-z0-9_]+@[A-Za-z]+(\.[A-Za-z]+){1,2}$"
                                    placeholder="Email"/><br/>
                             <label for="txt8" class="label-input">Address (*):</label>
                             <span class="address-container">

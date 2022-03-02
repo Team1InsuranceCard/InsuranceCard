@@ -27,17 +27,17 @@
         <div class="container">
             <h2 class="title">CUSTOMERS LIST</h2>
             <hr/>
-            <form method="POST" action="staff/customer/view">
+            <form method="GET" action="staff/customer/view">
                 <div class="row filter-container">
                     <div class="col col-lg-6 left">
                         <label for="inputCusID" class="label-input">Customer ID:</label>
-                        <input type="text" id="inputCusID" class="inputdata"
+                        <input type="text" id="inputCusID" class="inputdata" pattern="^[0-9]+$"
                                name="customerID" value="${requestScope.cusIDSent}"/><br/>
                         <label for="inputCusName" class="label-input">Customer Name:</label>
                         <input type="text" id="inputCusName" class="inputdata"
                                name="customerName" value="${requestScope.cusNameSent}"/><br/>
                         <label for="inputPhone" class="label-input">Phone:</label>
-                        <input type="text" id="inputPhone" class="inputdata"
+                        <input type="text" id="inputPhone" class="inputdata" pattern="^0[0-9]{9}$"
                                name="phone" value="${requestScope.phoneSent}"/><br/>
                     </div>
                     <div class="col col-lg-6 right">

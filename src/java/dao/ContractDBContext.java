@@ -72,8 +72,8 @@ public class ContractDBContext extends DBContext {
         }
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
-                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
-                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  FROM [Contract] \n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Contract.CustomerID\n"
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  WHERE CONTRACT.isDelete = 0"
@@ -156,6 +156,9 @@ public class ContractDBContext extends DBContext {
         }
         orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
+            case "id":
+                orderby = "Contract.ID";
+                break;
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
                 break;
@@ -169,7 +172,7 @@ public class ContractDBContext extends DBContext {
                 orderby = "Contract.EndDate";
                 break;
             default:
-                orderby = "(Customer.FirstName + Customer.LastName)";
+                orderby = "Contract.ID";
                 break;
         }
 
@@ -269,6 +272,9 @@ public class ContractDBContext extends DBContext {
         }
         orderby = (orderby == null) ? "" : orderby;
         switch (orderby) {
+            case "id":
+                orderby = "Contract.ID";
+                break;
             case "name":
                 orderby = "(Customer.FirstName + Customer.LastName)";
                 break;
@@ -282,7 +288,7 @@ public class ContractDBContext extends DBContext {
                 orderby = "Contract.EndDate";
                 break;
             default:
-                orderby = "(Customer.FirstName + Customer.LastName)";
+                orderby = "Contract.ID";
                 break;
         }
 
@@ -317,11 +323,11 @@ public class ContractDBContext extends DBContext {
                 + "      ,CONTRACT.[isDelete]\n"
                 + "	  ,Customer.FirstName, Customer.LastName\n"
                 + "	  ,Product.Title\n"
-                + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
-                + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                + "  FROM [Contract] \n"
+                + "  JOIN ACCOUNT ON ACCOUNT.ID = Contract.CustomerID\n"
                 + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
-                + "  JOIN Product ON Product.ID = Contract.ProductID"
-                + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
+                + "  JOIN Product ON Product.ID = Contract.ProductID  JOIN ContractStatusCode "
+                + "  ON Contract.Status=ContractStatusCode.StatusCode\n"
                 + "  WHERE CONTRACT.isDelete = 0"
                 + "   AND (" + querySearch + ")"
                 + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"

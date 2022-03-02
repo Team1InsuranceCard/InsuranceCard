@@ -69,8 +69,8 @@ public class ManageContract extends HttpServlet {
 
         HttpSession session = request.getSession();
         Account currentStaffAccount = (Account) session.getAttribute("account");
-//        int staffAccountID = currentStaffAccount.getId();
-        int staffAccountID = 2;
+        int staffAccountID = currentStaffAccount.getId();
+//        int staffAccountID = 2;
         String query = request.getParameter("query");
         String orderBy = request.getParameter("orderby");
         String orderType = request.getParameter("ordertype");
