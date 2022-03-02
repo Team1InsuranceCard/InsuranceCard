@@ -199,6 +199,7 @@ public class UpdateContractController extends HttpServlet {
         delivery.setAddress(deliveryAddress);
         delivery.setProvince(deliveryProvince);
         delivery.setDistrict(deliveryDistrict);
+        delivery.setContract(contract);
 
         //update to DB
         ctdb.updateContract(contract);
