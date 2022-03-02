@@ -20,10 +20,53 @@ import model.CompensationStatusCode;
  * @author area1
  */
 public class CompensationDBContext extends DBContext {
-    
-//    public void setCompensation(Account account, Compensation compensation ){
-//        String sql_insert_
-//    }
+
+    public void setCompensation(Compensation compensation) {
+        try {
+            connection.setAutoCommit(false);
+            AccidentDBContext accidentDBC = new AccidentDBContext();
+            accidentDBC.setAccident(compensation.getAccident());
+            String sql_select_accident_identity = "SELECT @@IDENTITY AS AccidentId";
+            PreparedStatement psm_select_accident_identity = connection.prepareStatement(sql_select_accident_identity);
+            ResultSet rs_select_accident_identity = psm_select_accident_identity.executeQuery();
+            if (rs_select_accident_identity.next()) {
+                compensation.getAccident().setId(rs_select_accident_identity.getInt("AccidentId"));
+            }
+            String sql_insert_compensation = "INSERT INTO [Compensation]\n"
+                    + "           ([DriverName]\n"
+                    + "           ,[CreatedDate]\n"
+                    + "           ,[Status]\n"
+                    + "           ,[Description]\n"
+                    + "           ,[Attachment]\n"
+                    + "           ,[AccidentID])\n"
+                    + "     VALUES\n"
+                    + "           (?, ?, 2, ?, ?, ?)";
+
+            PreparedStatement psm_insert_compensation = connection.prepareStatement(sql_insert_compensation);
+            int i = 0;
+            psm_insert_compensation.setString(++i, compensation.getDriverName());
+            psm_insert_compensation.setTimestamp(++i, compensation.getCreateDate());
+            psm_insert_compensation.setString(++i, compensation.getDescription());
+            psm_insert_compensation.setString(++i, compensation.getAttachment());
+            psm_insert_compensation.setInt(++i, compensation.getAccident().getId());
+            psm_insert_compensation.executeUpdate();
+            
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     public int getCompensationQuantity(int customerID) {
         int compensationQuantity = 0;
