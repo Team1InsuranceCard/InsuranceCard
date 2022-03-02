@@ -12,7 +12,7 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
         <style>
-            .mess-box {
+/*            .mess-box {
                 display: none;
                 align-items: center;
                 border-radius: 4px;
@@ -190,7 +190,7 @@
             .section__input option {
                 font-size: 17px;
                 padding: 10px;
-            }
+            }*/
         </style>
     </head>
     <body>
