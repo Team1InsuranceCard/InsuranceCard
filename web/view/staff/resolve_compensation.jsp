@@ -11,9 +11,9 @@
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/staff/resolve_compensation.css" rel="stylesheet" type="text/css"/>
-<!--
-        <style>
-        </style>-->
+        <!--
+                <style>
+                </style>-->
     </head>
     <body>
         <header>
@@ -91,39 +91,7 @@
                             <div class="col-lg-6 section__text">Cash</div>
                         </div>
 
-                        <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">New start date</div>
-                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                                value = "${requestScope.contract.newStartDate}"/></div>
-                        </div>
 
-                        <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Compensation package</div>
-                            <select name="compense_package" class="col-lg-6 section__input" required>
-                                <option value="1">0%</option>
-                                <option value="2">10%</option>
-                                <option value="3">20%</option>
-                                <option value="4">30%</option>
-                                <option value="5">40%</option>
-                                <option value="6">50%</option>
-                                <option value="7">60%</option>
-                                <option value="8">70%</option>
-                                <option value="9">80%</option>
-                                <option value="10">90%</option>
-                                <option value="11">100%</option>
-                            </select>
-                        </div>
-
-                        <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">New end date</div>
-                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                                value = "${requestScope.contract.newEndDate}"/></div>
-                        </div>
-
-                        <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Compensation amount</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
-                        </div>
                     </div>
                 </div>
 
@@ -272,9 +240,31 @@
                 </div>
 
                 <div class="row section">
-                    <h2 class="col-lg-12 section__heading">Staff Note</h2>
+                    <h2 class="col-lg-12 section__heading">Resolve Request Information</h2>
 
                     <div class="row col-lg-12 section__main">
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Compensation package</div>
+                            <select name="compense_package" class="col-lg-6 section__input" required>
+                                <option value="1">0%</option>
+                                <option value="2">10%</option>
+                                <option value="3">20%</option>
+                                <option value="4">30%</option>
+                                <option value="5">40%</option>
+                                <option value="6">50%</option>
+                                <option value="7">60%</option>
+                                <option value="8">70%</option>
+                                <option value="9">80%</option>
+                                <option value="10">90%</option>
+                                <option value="11">100%</option>
+                            </select>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Compensation amount</div>
+                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                        </div>
+
                         <div class="row col-lg-12 section__item">
                             <div class="col-lg-3 section__title">Resolve note</div>
                             <textarea class="col-lg-8 section__input" type="text" 
@@ -282,6 +272,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row header__btn justify-content-around">
                     <input class="col-lg-2 btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
                                                      || requestScope.contract.statusCode.statusCode == 1)
@@ -298,35 +289,35 @@
 
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
-        </footer>
-        
-        <!--status-->
-        <script>
-            const contractStatus = document.getElementById("contractStatus");
-            const contractStatusID = ${requestScope.contract.statusCode.statusCode};
+            </footer>
 
-            if (contractStatusID === 0) {
-                contractStatus.style.color = "#D62A25";
-            } else if (contractStatusID === 1) {
-                contractStatus.style.color = "#1AC36B";
-            } else if (contractStatusID === 2) {
-                contractStatus.style.color = "#4BBDDF";
-            } else if (contractStatusID === 3) {
-                contractStatus.style.color = "#FFC107";
-            } else if (contractStatusID === 4) {
-                contractStatus.style.color = "#FD671F";
-            } else {
-                contractStatus.style.color = "#7B0B0B";
-            }
+            <!--status-->
+            <script>
+                const contractStatus = document.getElementById("contractStatus");
+                const contractStatusID = ${requestScope.contract.statusCode.statusCode};
 
-            const productStatus = document.getElementById("productStatus");
-            const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
+                if (contractStatusID === 0) {
+                    contractStatus.style.color = "#D62A25";
+                } else if (contractStatusID === 1) {
+                    contractStatus.style.color = "#1AC36B";
+                } else if (contractStatusID === 2) {
+                    contractStatus.style.color = "#4BBDDF";
+                } else if (contractStatusID === 3) {
+                    contractStatus.style.color = "#FFC107";
+                } else if (contractStatusID === 4) {
+                    contractStatus.style.color = "#FD671F";
+                } else {
+                    contractStatus.style.color = "#7B0B0B";
+                }
 
-            if (productStatusID === 0) {
-                productStatus.style.color = "#D62A25";
-            } else {
-                productStatus.style.color = "#1AC36B";
-            }
+                const productStatus = document.getElementById("productStatus");
+                const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
+
+                if (productStatusID === 0) {
+                    productStatus.style.color = "#D62A25";
+                } else {
+                    productStatus.style.color = "#1AC36B";
+                }
         </script>
     </body>
 </html>
