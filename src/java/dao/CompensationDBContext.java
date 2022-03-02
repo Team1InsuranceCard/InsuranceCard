@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Accident;
 import model.Account;
 import model.Compensation;
 import model.CompensationStatusCode;
@@ -24,8 +25,31 @@ public class CompensationDBContext extends DBContext {
     public void setCompensation(Compensation compensation) {
         try {
             connection.setAutoCommit(false);
-            AccidentDBContext accidentDBC = new AccidentDBContext();
-            accidentDBC.setAccident(compensation.getAccident());
+//            AccidentDBContext accidentDBC = new AccidentDBContext();
+//            accidentDBC.setAccident(compensation.getAccident());
+            Accident accident = compensation.getAccident();
+            String sql_insert_accident = "INSERT INTO [Accident]\n"
+                    + "           ([AccidentDate]\n"
+                    + "           ,[Title]\n"
+                    + "           ,[CreatedDate]\n"
+                    + "           ,[Attachment]\n"
+                    + "           ,[HumanDamage]\n"
+                    + "           ,[VehicleDamage]\n"
+                    + "           ,[ContractID])\n"
+                    + "     VALUES\n"
+                    + "           (? ,? ,? ,? ,? ,?,?)";
+
+            PreparedStatement psm_insert_accident = connection.prepareStatement(sql_insert_accident);
+            int i = 0;
+            psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
+            psm_insert_accident.setString(++i, accident.getTitle());
+            psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
+            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getHumanDamage());
+            psm_insert_accident.setString(++i, accident.getVehicleDamage());
+            psm_insert_accident.setInt(++i, accident.getContract().getId());
+
+            psm_insert_accident.executeUpdate();
             String sql_select_accident_identity = "SELECT @@IDENTITY AS AccidentId";
             PreparedStatement psm_select_accident_identity = connection.prepareStatement(sql_select_accident_identity);
             ResultSet rs_select_accident_identity = psm_select_accident_identity.executeQuery();
@@ -43,14 +67,14 @@ public class CompensationDBContext extends DBContext {
                     + "           (?, ?, 2, ?, ?, ?)";
 
             PreparedStatement psm_insert_compensation = connection.prepareStatement(sql_insert_compensation);
-            int i = 0;
+            i = 0;
             psm_insert_compensation.setString(++i, compensation.getDriverName());
             psm_insert_compensation.setTimestamp(++i, compensation.getCreateDate());
             psm_insert_compensation.setString(++i, compensation.getDescription());
             psm_insert_compensation.setString(++i, compensation.getAttachment());
             psm_insert_compensation.setInt(++i, compensation.getAccident().getId());
             psm_insert_compensation.executeUpdate();
-            
+
             connection.commit();
         } catch (SQLException ex) {
             try {
