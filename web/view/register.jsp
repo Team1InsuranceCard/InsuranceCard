@@ -7,6 +7,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>InsuranceCard</title>
+        <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="asset/script/google_login.js" defer></script>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <Link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -30,7 +33,12 @@
 
             <div class="signUp">
                 <h1>Sign Up</h1>
-                <p id="mess">${requestScope.mess}</p>
+                <p class="mess" style="${requestScope.mess_pass==null?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                   >${requestScope.mess_pass}</p>
+                <p class="mess" Style="${requestScope.mess_pID==null?"":"padding: 1rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                   >${requestScope.mess_pID}</p>
+                <p class="mess" style="${requestScope.mess_email==null?"":"padding: 1rem 2rem;background-color: rgba(220, 123, 123, 0.51);"}"
+                   >${requestScope.mess_email}</p>
             </div>
 
             <form id="myForm" action="register" method="POST">
@@ -74,7 +82,7 @@
                                    pattern="[a-zA-Z0-9]+" 
                                    minlength="8" maxlength="32"
                                    placeholder="Confirm password *" 
-                                   value="${rs.pass}"
+                                   value="${rs.pass2}"
                                    required/>
                         </div>
                         <div class="col-md-6">
@@ -98,7 +106,6 @@
                                 <option hidden>Province</option>
                             </select>
                             <input class="billing_address_1" name="province" 
-
                                    type="hidden" value=""/>
                         </div>
                     </div>
@@ -112,7 +119,8 @@
                                    value="${rs.lastName}" required/>
                         </div>
                         <div class="col-md-6">
-                            <select name="calc_shipping_district" required>
+                            <select name="calc_shipping_district" 
+                                    required>
                                 <option hidden>District</option>
                             </select>
                             <input class="billing_address_2" name="district" 
@@ -131,10 +139,8 @@
                         <div class="col-md-6">
                             <div class="icon-login">
                                 <p style="color:#5C2941;font-size:15px;
-                                   font-weight:bold;">Or register by
-                                    <i class="fab fa-google-plus"
-                                       style="cursor:pointer;"></i></p>
-
+                                   font-weight:bold;">Or register by</p>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
                             </div>
                         </div>
                     </div>

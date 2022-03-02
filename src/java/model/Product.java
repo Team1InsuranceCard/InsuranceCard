@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 /**
  *
  * @author area1
@@ -18,6 +21,49 @@ public class Product {
     private String imageURL;
     private short status;
     private boolean isDelete;
+    private Timestamp startDate;
+    private Timestamp updateDate;
+    private String contentDetail;
+    private ArrayList<Timestamp> updateTime = new ArrayList<>();
+    private ProductStatusCode statusCode;
+
+    public ProductStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(ProductStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+    
+    
+
+    public ArrayList<Timestamp> getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(ArrayList<Timestamp> UpdateTime) {
+        this.updateTime = UpdateTime;
+    }
+    
+    
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
+    
+    
 
     public Product() {
     }
@@ -88,4 +134,12 @@ public class Product {
         this.isDelete = isDelete;
     }
 
+    public String getContentDetail() {
+        return contentDetail;
+    }
+
+    public void setContentDetail(String contentDetail) {
+        this.contentDetail = contentDetail;
+    }
+    
 }

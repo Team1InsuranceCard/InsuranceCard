@@ -13,6 +13,7 @@
         <link href="../../asset/style/staff/customer_detail.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
+    
     <body>
         <c:set var="c" value="${requestScope.viewCustomer.customer}"/>
         <c:set var="s" value="${requestScope.viewCustomer.staff}"/>
@@ -24,12 +25,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="asset/image/staff/icon member.png" alt="member icon"/>
+                    <p class="cusID">ID: ${requestScope.cusID}</p>
                     <h3 id="name">${c.firstName} ${c.lastName}</h3>
                     <p>Join date: <fmt:formatDate pattern = "yyyy-MM-dd HH:mm:ss" 
                                     value = "${c.joinDate}" /></p>
-                    <form action="customerEdit" method="POST">
+                    <a href="staff/customer/edit?id=${requestScope.cusID}">
                         <input type="submit" id="edit" value="Edit"/>
-                    </form>
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="acc info">
@@ -44,15 +46,15 @@
                                 <c:set var="status" value="${c.account.status}"/>
                                 <c:choose>
                                     <c:when test="${status==0}">
-                                        <p class="info-content" style="color:red;">
-                                            Deactive</p>
+                                        <p class="info-content" style="color:#E02A2A;">
+                                            Inactive</p>
                                         </c:when>
                                         <c:when test="${status==1}">
                                         <p class="info-content" style="color:#0DC858;">
                                             Active</p>
                                         </c:when>                                                 
                                         <c:when test="${status==2}">
-                                        <p class="info-content" style="color:#cab608;">
+                                        <p class="info-content" style="color:#FF7D42;">
                                             Pending</p>
                                         </c:when>
                                     </c:choose>
@@ -93,7 +95,8 @@
                             <div class="right">
                                 <p class="info-label">Toal contracts</p>
                                 <p class="info-content">${requestScope.totalContract}
-                                    <a href="#" style="margin-left:10px;
+                                    <a href="http://localhost:8080/insurancecard/staff/contract/view?queryoption=personalid&query=${c.personalID}" 
+                                       style="margin-left:10px;
                                        text-decoration: underline;">View</a>
                                 </p>
                             </div>

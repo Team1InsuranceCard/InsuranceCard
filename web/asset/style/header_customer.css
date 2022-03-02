@@ -56,6 +56,7 @@ body {
     padding-inline-start: 0px;
     margin: auto;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 
 /* Display list items side by side */
@@ -103,7 +104,7 @@ body {
 .header-element .dropdown-content {
     display: none;
     position: absolute;
-    background-color: var(--color4));
+    background-color: var(--color4);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -127,4 +128,18 @@ body {
 
 .header-element .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.logout-button {
+    font-size: 30px;
+    vertical-align: middle;
+    color: #5C2941;
+    margin: 10px;
+}
+a.dropdown-item.active {
+    background: none !important;
+}
+
+.history-dropdown .dropdown-item:active {
+    background: none;
 }

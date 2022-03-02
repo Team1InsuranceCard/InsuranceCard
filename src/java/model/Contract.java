@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -16,11 +15,10 @@ public class Contract {
 
     private int id;
     private Product product;
-    private Customer customerID;
+    private Customer customer;
     private Timestamp startDate;
     private Timestamp endDate;
     private boolean isDelete;
-    private double contractFee;
     private String cancelComment;
     private String cancelReason;
     private Timestamp cancelDate;
@@ -29,25 +27,27 @@ public class Contract {
     private String engine;
     private String licensePlate;
     private String color;
-    private String certImage; //Chua ro la nen dung Blob hay ImageBase64
+    private String certImage;
     private String brand;
     private String owner;
     private String chassis;
     private Timestamp requestDate;
     private Timestamp resolveDate;
     private short status;
+    private Staff startStaff;
+    private Staff cancelStaff;
+    private ContractStatusCode statusCode;
+    private double contractFee;
+    private VehicleType vehicleType2;
+    private Brand brand2;
 
-    public Contract() {
-    }
-
-    public Contract(int id, Product product, Customer customerID, Timestamp startDate, Timestamp endDate, boolean isDelete, double contractFee, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status) {
+    public Contract(int id, Product product, Customer customer, Timestamp startDate, Timestamp endDate, boolean isDelete, String cancelComment, String cancelReason, Timestamp cancelDate, Timestamp cancelRequestDate, String vehicleType, String engine, String licensePlate, String color, String certImage, String brand, String owner, String chassis, Timestamp requestDate, Timestamp resolveDate, short status, Staff startStaff, Staff cancelStaff, ContractStatusCode statusCode, double contractFee, VehicleType vehicleType2, Brand brand2) {
         this.id = id;
         this.product = product;
-        this.customerID = customerID;
+        this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isDelete = isDelete;
-        this.contractFee = contractFee;
         this.cancelComment = cancelComment;
         this.cancelReason = cancelReason;
         this.cancelDate = cancelDate;
@@ -63,6 +63,59 @@ public class Contract {
         this.requestDate = requestDate;
         this.resolveDate = resolveDate;
         this.status = status;
+        this.startStaff = startStaff;
+        this.cancelStaff = cancelStaff;
+        this.statusCode = statusCode;
+        this.contractFee = contractFee;
+        this.vehicleType2 = vehicleType2;
+        this.brand2 = brand2;
+    }
+
+
+
+    
+    public VehicleType getVehicleType2() {
+        return vehicleType2;
+    }
+
+    public void setVehicleType2(VehicleType vehicleType2) {
+        this.vehicleType2 = vehicleType2;
+    }
+
+    public Brand getBrand2() {
+        return brand2;
+    }
+
+    public void setBrand2(Brand brand2) {
+        this.brand2 = brand2;
+    }
+
+    
+    public ContractStatusCode getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(ContractStatusCode statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public Contract() {
+    }
+
+    public Staff getStartStaff() {
+        return startStaff;
+    }
+
+    public void setStartStaff(Staff startStaff) {
+        this.startStaff = startStaff;
+    }
+
+    public Staff getCancelStaff() {
+        return cancelStaff;
+    }
+
+    public void setCancelStaff(Staff cancelStaff) {
+        this.cancelStaff = cancelStaff;
     }
 
     public int getId() {
@@ -81,12 +134,12 @@ public class Contract {
         this.product = product;
     }
 
-    public Customer getCustomerID() {
-        return customerID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Timestamp getStartDate() {
@@ -111,14 +164,6 @@ public class Contract {
 
     public void setIsDelete(boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public double getContractFee() {
-        return contractFee;
-    }
-
-    public void setContractFee(double contractFee) {
-        this.contractFee = contractFee;
     }
 
     public String getCancelComment() {
@@ -240,5 +285,13 @@ public class Contract {
     public void setStatus(short status) {
         this.status = status;
     }
+
+    public double getContractFee() {
+        return contractFee;
+    }
+
+    public void setContractFee(double contractFee) {
+        this.contractFee = contractFee;
+    } 
 
 }

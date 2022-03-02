@@ -16,9 +16,19 @@
         <Link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/verify_email.css" rel="stylesheet" type="text/css"/>
         <c:set var="rs" value="${requestScope}"/>
-
     </head>
+    
     <body>
+        <a href="homepage">
+            <img class="logo-icon"
+                 src="asset/image/icon_car.png"
+                 alt="LogoIcon" />
+            <br/>
+            <img class="logo-title"
+                 src="asset/image/InsuranceCard.png"
+                 alt="LogoTitle" />
+        </a>
+
         <form action="verify_email" method="POST">
             <div class="container">
                 <div>
@@ -33,12 +43,15 @@
                     <p style="color:red;">${requestScope.mess}</p>
                     <input type="text" name="code" placeholder="verify code"
                            id="input-code" minlength="8" maxlength="8"
-                           required
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <br/>
-                    <p style="text-decoration:underline;cursor:pointer;" 
-                       onclick="">Resend code</p>
-                    <input id="btn-submit" type="submit" value="Submit"
+                    <input style="text-decoration:underline;cursor:pointer;
+                           border:none;background-color:#E0E0E0;color:#5C2941;
+                           font-size:14px;margin-bottom:8px;" 
+                           type="submit" name="btn-submit" value="Resend code"
+                           ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
+                    <br/>
+                    <input id="btn-submit" type="submit" value="Submit" name="btn-submit"
                            ${requestScope.mess == "Register succesfully!"?"hidden":""}/>
                     <a href="login" style="padding-bottom:10px;"
                        ${requestScope.mess != "Register succesfully!"?"hidden":""}

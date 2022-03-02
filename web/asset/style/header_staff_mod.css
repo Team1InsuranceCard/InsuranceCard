@@ -16,7 +16,7 @@ header {
   left: 0;
   right: 0;
   height: 73px;
-  z-index: 1;
+  z-index: 999;
   background-image: linear-gradient(to left, var(--color3), var(--color4) 80%);
   display: flex;
   align-items: center;
@@ -32,13 +32,13 @@ header {
 }
 
 .brand .brand-logo {
-  width: 35px;
+  width: 38px;
 }
 
 .brand .brand-title {
   margin: 0;
   color: var(--color2);
-  font-size: 30px;
+  font-size: 28px;
   font-weight: bolder;
 }
 
@@ -47,6 +47,10 @@ header {
 }
 
 .header-element .icon-header {
+  text-decoration: none;
+}
+
+.icon-header + .icon-header {
   margin-left: 14px;
 }
 
@@ -56,7 +60,6 @@ header {
   top: 73px;
   bottom: 0;
   width: 290px;
-  z-index: -1;
   background-image: linear-gradient(
     to bottom,
     var(--color4),
@@ -77,10 +80,10 @@ header {
 
 .sidebar-staff .sidebar-item {
   color: var(--color1);
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bolder;
   text-align: center;
-  padding: 12px 0;
+  padding: 14px 4px;
   text-decoration: none;
   display: block;
 }

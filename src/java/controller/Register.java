@@ -76,28 +76,30 @@ public class Register extends HttpServlet {
         String province = request.getParameter("province");
         String district = request.getParameter("district");
 
-        String mess = "";
+        String mess_pass = "";
         if (!pass2.equals(pass)) {
-            mess += "Two passwords are different!";
+            mess_pass += "Two passwords are different!";
         }
 
+        String mess_pID = "";
         CustomerDBContext cdb = new CustomerDBContext();
         ArrayList<Customer> customers = cdb.checkDupRegister();
         for (Customer c : customers) {
             if (c.getPersonalID().equals(personalID)) {
-                mess += " PersonalID does exist!";
+                mess_pID += " PersonalID does exist!";
                 break;
             }
         }
 
+        String mess_email = "";
         for (Customer c : customers) {
             if (c.getAccount().getEmail().equals(email)) {
-                mess += " Email does exist!";
+                mess_email += " Email does exist!";
                 break;
             }
         }
 
-        if (!mess.equals("")) {
+        if (!mess_pass.equals("") || !mess_pID.equals("") || !mess_email.equals("")) {
             LocalDate d = java.time.LocalDate.now();
             int day = d.getDayOfMonth();
             int month = d.getMonth().getValue();
@@ -116,7 +118,12 @@ public class Register extends HttpServlet {
             request.setAttribute("lastName", lastName);
             request.setAttribute("dob", dob);
             request.setAttribute("pass", pass);
-            request.setAttribute("mess", mess);
+            request.setAttribute("pass2", pass2);
+            request.setAttribute("province", province);
+            request.setAttribute("district", district);
+            request.setAttribute("mess_pass", mess_pass);
+            request.setAttribute("mess_pID", mess_pID);
+            request.setAttribute("mess_email", mess_email);
             request.getRequestDispatcher("view/register.jsp").forward(request, response);
         } else {
             int n = 8;
