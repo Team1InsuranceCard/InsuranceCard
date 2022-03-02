@@ -15,7 +15,6 @@
             .mess-box {
                 display: none;
                 align-items: center;
-                /*padding: 20px 15px;*/
                 border-radius: 4px;
                 margin: 0 4rem 2rem 4rem;
             }
@@ -35,12 +34,6 @@
                 border: 1px solid #d6e9c6;
                 color: #3c763d;
             }
-
-            /*            .mess-box--danger {
-                            background-color: #f2dede;
-                            border: 1px solid #ebccd1;
-                            color: #a94442;
-                        }*/
 
             body {
                 background-color: #f8f8f8;
