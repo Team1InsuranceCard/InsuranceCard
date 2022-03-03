@@ -11,8 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Accident;
 import model.Compensation;
 import model.CompensationStatusCode;
+import model.Contract;
 
 /**
  *
@@ -65,6 +67,52 @@ public class CompensationDBContext extends DBContext {
                 com.setResolveDate(rs.getTimestamp("ResolveDate"));
                 com.setStatus(comStatus);
                 compensations.add(com);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return compensations;
+    }
+
+    public ArrayList<Compensation> getCusCompensations(int cusID) {
+        ArrayList<Compensation> compensations = new ArrayList<>();
+        try {
+            String sql = "select cp.ID\n"
+                    + "	, DriverName\n"
+                    + "	, cp.CreatedDate\n"
+                    + "	, cp.ResolveDate\n"
+                    + "	, cp.Status\n"
+                    + "	, cpc.StatusName\n"
+                    + "	, ContractID\n"
+                    + "from Compensation cp inner join Accident a\n"
+                    + "on cp.AccidentID = a.ID\n"
+                    + "inner join Contract ct\n"
+                    + "on a.ContractID = ct.ID\n"
+                    + "inner join CompensationStatusCode cpc\n"
+                    + "on cp.Status = cpc.StatusCode\n"
+                    + "where CustomerID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, cusID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                CompensationStatusCode compenStatus = new CompensationStatusCode();
+                compenStatus.setStatusCode(rs.getInt("Status"));
+                compenStatus.setStatusName(rs.getString("StatusName"));
+                
+                Contract contract = new Contract();
+                contract.setId(rs.getInt("ContractID"));
+                
+                Accident accident = new Accident();
+                accident.setContract(contract);
+
+                Compensation compen = new Compensation();
+                compen.setId(rs.getInt("ID"));
+                compen.setDriverName(rs.getString("DriverName"));
+                compen.setCreateDate(rs.getTimestamp("CreatedDate"));
+                compen.setResolveDate(rs.getTimestamp("ResolveDate"));
+                compen.setStatus(compenStatus);
+                compen.setAccident(accident);
+                compensations.add(compen);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
