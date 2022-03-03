@@ -145,5 +145,19 @@ public class CompensationDBContext extends DBContext {
     }
 
     //Resolve Compensation
-//    public void 
+//    String sql = "select cont.ID as contId, cont.[Status] as contStatus, cont.StartDate, cont.EndDate, (cont.ContractFee/pro.Price) as term, payme.PaymentMethod,\n"
+//            + "	(cus.FirstName + ' ' + cus.LastName) as CusName, acc.Email, cus.Dob, cus.PersonalID, cus.Phone, cus.[Address],\n"
+//            + "	vt.VehicleType, cont.Engine, cont.LicensePlate, cont.Color, b.Brand, cont.[Owner], cont.Chassis,\n"
+//            + "	cont.ProductID, pro.Title, pro.[Status] as proStatus,\n"
+//            + "	acci.[Title] as acciTitle, acci.Attachment as acciAttach, acci.VehicleDamage, acci.AccidentDate, acci.HumanDamage,\n"
+//            + "	comp.ID as compId, comp.DriverName, comp.CreatedDate, comp.[Description], comp.[Status] as compStatus, comp.Attachment as compAttach, comp.ResolveNote\n"
+//            + "from [Contract] cont inner join Payment pay on cont.ID = pay.ContractID\n"
+//            + "								inner join PaymentMethod payme on pay.PaymentMethodID = payme.ID\n"
+//            + "					inner join Product pro on cont.ProductID = pro.ID\n"
+//            + "					inner join Customer cus on cont.CustomerID = cus.AccountID\n"
+//            + "								inner join Account acc on cus.AccountID = acc.ID\n"
+//            + "					inner join VehicleType vt on cont.VehicleTypeID = vt.ID\n"
+//            + "					inner join Brand b on cont.BrandID = b.ID\n"
+//            + "					inner join Accident acci on cont.ID = acci.ContractID\n"
+//            + "					inner join Compensation comp on acci.ID = comp.AccidentID";
 }
