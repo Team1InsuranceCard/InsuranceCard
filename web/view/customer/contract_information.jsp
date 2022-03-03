@@ -18,7 +18,6 @@
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
     </head>
 
     <body>

@@ -259,22 +259,22 @@ public class PaymentDBContext extends DBContext {
                     + "		  INNER JOIN Product\n"
                     + "		  ON Product.ID = Contract.ProductID\n"
                     + "           WHERE Contract.CustomerID = ?\n"
+                    + "                 and CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?\n"
                     + "          ) \n"
                     + "SELECT PayID, PaidDate, Note, Amount,\n"
                     + "       StartDate, PaymentMethod,\n"
                     + "       Title, ContractID, Status\n"
                     + "FROM Pay\n"
-                    + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?\n"
-                    + "     and CAST(StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+                    + "WHERE RowNumber >= (? - 1)*? + 1 AND RowNumber <= ? * ?";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cusID);
-            stm.setInt(2, pageindex);
-            stm.setInt(3, pagesize);
+            stm.setString(2, date);
+            stm.setString(3, date);
             stm.setInt(4, pageindex);
             stm.setInt(5, pagesize);
-            stm.setString(6, date);
-            stm.setString(7, date);
+            stm.setInt(6, pageindex);
+            stm.setInt(7, pagesize);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
