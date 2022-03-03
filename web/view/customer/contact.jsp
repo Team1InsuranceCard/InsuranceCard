@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,13 +12,23 @@
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link href="asset/style/customer/contact.css" rel="stylesheet" type="text/css"/>
-<!--        <style>
-        </style>-->
+        <!--        <style>
+                </style>-->
     </head>
     <body>
-        <jsp:include page="../header_customer.jsp">
-            <jsp:param name="currentscreen" value="" />
-        </jsp:include>
+        <header>
+            <c:if test="${sessionScope.account != null}">
+                <jsp:include page="../header_customer.jsp">
+                    <jsp:param name="currentscreen" value="contacts" />
+                </jsp:include>
+            </c:if>
+            <c:if test="${sessionScope.account == null}">
+                <jsp:include page="../header_common.jsp">
+                    <jsp:param name="currentscreen" value="contact" />
+                </jsp:include>
+            </c:if>
+        </header>
+
 
         <section>
             <div class="row container justify-content-between">
@@ -28,20 +39,20 @@
                     </div>
                 </div>
                 <div class="col-lg-5 main-form">
-                    <div class="mess-box mess-box--success" style="${requestScope.mess == ""? "display: none;" : "display: flex;"}">${requestScope.mess}</div>
+                    <div class="mess-box mess-box--success" style="${!requestScope.mess == "" ? "display: flex;" : "display: none;"}">${requestScope.mess}</div>
                     <form action="contact" method="POST" autocomplete="off">
                         <div class="text">
                             <input type="text" name="fullName" 
                                    placeholder="Full name*" 
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
-                                   value="${fullName}" required/>
+                                   required/>
                         </div>
                         <div class="text">
                             <input
                                 type="email"
                                 name="email"
                                 placeholder="Email*"
-                                value="${email}"
+                                value="${sessionScope.account.email}"
                                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                 required
                                 />
@@ -51,7 +62,6 @@
                                 type="text"
                                 name="message"
                                 placeholder="Message*"
-                                value="${message}"
                                 required
                                 ></textarea>
                         </div>
