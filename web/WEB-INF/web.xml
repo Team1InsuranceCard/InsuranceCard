@@ -155,6 +155,10 @@
         <servlet-class>controller.customer.RequestCompensation</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>controller.moderator.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ResolveCompensation</servlet-name>
         <servlet-class>controller.staff.ResolveCompensation</servlet-class>
     </servlet>
@@ -301,6 +305,10 @@
     <servlet-mapping>
         <servlet-name>RequestCompensation</servlet-name>
         <url-pattern>/customer/history/compensation/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/moderator/product/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResolveCompensation</servlet-name>

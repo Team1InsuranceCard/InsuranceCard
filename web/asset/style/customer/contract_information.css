@@ -9,6 +9,12 @@ section {
     margin: 3rem 6rem;
 }
 
+section .customer-info, .contract-info, .vehicle-info, .product-info {
+    border: 1px solid #000000;
+    margin-bottom: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .product-label {
     font-weight: bold;
     margin-top: 9rem;

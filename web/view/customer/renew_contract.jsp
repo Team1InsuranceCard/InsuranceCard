@@ -86,7 +86,7 @@
                             <p class="col-md-2">
                                 <select id="duration" name="duration" 
                                         onchange="fillEndDate()" required>
-                                    <option hidden>Select year</option>
+                                    <option value="0" hidden>Select year</option>
                                     <option value="1">1 year</option>
                                     <option value="2">2 year</option>
                                     <option value="3">3 year</option>
