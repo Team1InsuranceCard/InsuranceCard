@@ -3,28 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.staff;
+package controller.customer;
 
 import dao.CompensationDBContext;
-import dao.ContractDBContext;
-import dao.DeliveryDBContext;
-import dao.PaymentDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Compensation;
-import model.Contract;
-import model.Delivery;
-import model.Payment;
 
 /**
  *
  * @author DELL
  */
-public class ViewContract extends HttpServlet {
+public class CompensationHis extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,24 +33,26 @@ public class ViewContract extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        ContractDBContext contractDB = new ContractDBContext();
-        Contract contract = contractDB.staffGetContractDetail(id);
-
-        PaymentDBContext payDB = new PaymentDBContext();
-        ArrayList<Payment> payments = payDB.getContractPayments(id);
-
-        CompensationDBContext comDB = new CompensationDBContext();
-        ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
+        Account acc = (Account) request.getSession().getAttribute("account");
         
-        DeliveryDBContext delDB = new DeliveryDBContext();
-        Delivery delivery = delDB.getDeliveryByContract(id);
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
+        }
 
-        request.setAttribute("contract", contract);
-        request.setAttribute("payments", payments);
+        int page = Integer.parseInt(raw_page);
+        int pageSize = 7;
+        
+        CompensationDBContext db = new CompensationDBContext();
+        ArrayList<Compensation> compensations = db.searchCompensationHis(acc.getId(), pageSize, page);
+        
+        int count = db.getTotalCustomerCompensation(acc.getId());
+        int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
+        
         request.setAttribute("compensations", compensations);
-        request.setAttribute("delivery", delivery);
-        request.getRequestDispatcher("../../view/staff/view_contract.jsp").forward(request, response);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", page);
+        request.getRequestDispatcher("../../view/customer/compensation_his.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
