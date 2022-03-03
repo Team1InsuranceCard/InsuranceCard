@@ -64,9 +64,9 @@ public class Login extends HttpServlet {
         if (acc == null) {
             request.getRequestDispatcher("view/login.jsp").forward(request, response);
         } else if (!acc.isRole()) {
-            request.getRequestDispatcher("view/customer/customer_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/customer/dashboard").forward(request, response);
         } else {
-            request.getRequestDispatcher("view/staff/staff_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/staff/dashboard").forward(request, response);
         }
     }
 
