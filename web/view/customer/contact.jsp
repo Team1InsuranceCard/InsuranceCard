@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 main-form">
-                    <div class="mess-box mess-box--success" style="${requestScope.mess == ""? "display: none;" : "display: flex;"}">${requestScope.mess}</div>
+                    <div class="mess-box mess-box--success" style="${!requestScope.mess == "" ? "display: flex;" : "display: none;"}">${requestScope.mess}</div>
                     <form action="contact" method="POST" autocomplete="off">
                         <div class="text">
                             <input type="text" name="fullName" 
