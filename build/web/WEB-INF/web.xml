@@ -146,6 +146,10 @@
         <servlet-name>Contact</servlet-name>
         <servlet-class>controller.customer.Contact</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -281,6 +285,10 @@
     <servlet-mapping>
         <servlet-name>Contact</servlet-name>
         <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/change-password</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

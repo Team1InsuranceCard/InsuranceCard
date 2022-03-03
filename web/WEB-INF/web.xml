@@ -147,12 +147,20 @@
         <servlet-class>controller.customer.Contact</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>RequestCompensation</servlet-name>
         <servlet-class>controller.customer.RequestCompensation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>controller.moderator.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResolveCompensation</servlet-name>
+        <servlet-class>controller.staff.ResolveCompensation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -291,12 +299,20 @@
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/change-password</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RequestCompensation</servlet-name>
         <url-pattern>/customer/history/compensation/request</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
         <url-pattern>/moderator/product/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResolveCompensation</servlet-name>
+        <url-pattern>/staff/compensation/resolve-compensation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

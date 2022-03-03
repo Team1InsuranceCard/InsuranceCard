@@ -10,6 +10,7 @@ import dao.BrandDBContext;
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
+import dao.DeliveryDBContext;
 import dao.PaymentDBContext;
 import dao.ProductDBContext;
 import dao.StaffDBContext;
@@ -32,6 +33,7 @@ import model.Compensation;
 import model.Contract;
 import model.ContractStatusCode;
 import model.Customer;
+import model.Delivery;
 import model.Payment;
 import model.Product;
 import model.Staff;
@@ -70,6 +72,9 @@ public class UpdateContractController extends HttpServlet {
             StaffDBContext sdb = new StaffDBContext();
             ArrayList<Staff> staffs = sdb.getStaffs();
 
+            DeliveryDBContext delDB = new DeliveryDBContext();
+            Delivery delivery = delDB.getDeliveryByContract(id);
+
             int type = contract.getEndDate().getYear() - contract.getStartDate().getYear();
 
             VehicleTypeDBContext vtdb = new VehicleTypeDBContext();
@@ -85,6 +90,7 @@ public class UpdateContractController extends HttpServlet {
             request.setAttribute("contractType", type);
             request.setAttribute("vehicleTypes", vehicleTypes);
             request.setAttribute("brands", brands);
+            request.setAttribute("delivery", delivery);
             request.getRequestDispatcher("../../view/staff/update-contract.jsp").forward(request, response);
         } else {
             response.sendRedirect("../dashboard");
@@ -114,6 +120,7 @@ public class UpdateContractController extends HttpServlet {
         StaffDBContext sdb = new StaffDBContext();
         ContractDBContext ctdb = new ContractDBContext();
         AccountDBContext adb = new AccountDBContext();
+        DeliveryDBContext ddb = new DeliveryDBContext();
 
         String contractID = request.getParameter("contractID");
         String ownerName = request.getParameter("owner");
@@ -131,6 +138,13 @@ public class UpdateContractController extends HttpServlet {
         String cancelReason = request.getParameter("cancelReason");
         String cancelComment = request.getParameter("cancelComment");
         String staff = request.getParameter("startStaffID");
+        
+        String deliveryName = request.getParameter("deliveryName");
+        String deliveryPhone = request.getParameter("deliveryPhone");
+        String deliveryEmail = request.getParameter("deliveryEmail");
+        String deliveryAddress = request.getParameter("deliveryAddress");
+        String deliveryProvince = request.getParameter("deliveryProvince");
+        String deliveryDistrict = request.getParameter("deliveryDistrict");
 
         VehicleType type = vtdb.getVehicleTypeByID(Integer.parseInt(vehicleTypeID));
         Brand brand = bdb.getBrandByID(Integer.parseInt(brandID));
@@ -175,9 +189,21 @@ public class UpdateContractController extends HttpServlet {
         if (cancelComment != null) {
             contract.setCancelComment(cancelComment);
         }
+        
+        //get current Delivery
+        Delivery delivery = ddb.getDeliveryByContract(contract.getId());
+        //set new value
+        delivery.setFullName(deliveryName);
+        delivery.setPhone(deliveryPhone);
+        delivery.setEmail(deliveryEmail);
+        delivery.setAddress(deliveryAddress);
+        delivery.setProvince(deliveryProvince);
+        delivery.setDistrict(deliveryDistrict);
+        delivery.setContract(contract);
 
-        //insert to DB
+        //update to DB
         ctdb.updateContract(contract);
+        ddb.updateDelivery(delivery);
 
         //redirect to view contract detail page
         response.sendRedirect("../../staff/contract/detail?id=" + contract.getId());
