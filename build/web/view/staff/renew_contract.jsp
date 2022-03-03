@@ -21,9 +21,10 @@
         </jsp:include>
 
         <main>
-            <form action="staff/contract/renew" method="POST">
+            <form action="staff/contract/renew" method="POST"
+                  onSubmit="return submitForm(this);">
                 <div class="header">
-                    <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Renew contract ${requestScope.contract.id}</h1>
 
                     <div class="header__btn">
                         <input class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
@@ -31,9 +32,10 @@
                                                          && requestScope.contract.product.statusCode.statusCode == 1
                                                          && requestScope.check
                                                          ? '' : 'btn--disabled'}" 
-                               type="submit" value="Renew">
+                               type="submit" value="Renew" />
 
-                        <a class="btn btn--secondary" href="staff/contract/view">Cancel</a>
+                        <a class="btn btn--secondary"
+                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
                     </div>
                 </div>
 
@@ -41,18 +43,22 @@
                      style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
                     <img src="asset/image/staff/customer_create_edit/icon_approve.png" 
                          class="mess-box__icon" />
-                    <p class="mess-box__mess">Renew contract successful!</p>
+                    <p class="mess-box__mess">
+                        Renew contract successful! View renew contract at 
+                        <a href="staff/contract/detail?id=${requestScope.renewContractID}" 
+                           class="mess-box__link" >this</a>.
+                    </p>
                 </div>
 
                 <div class="mess-box mess-box--danger" 
                      style="${!requestScope.check && !requestScope.isSuccess ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                     <p class="mess-box__mess">The customer has a contract with a similar product that is active or the contract's status is processing!</p>
                 </div>
 
                 <div class="mess-box mess-box--danger" 
                      style="${requestScope.contract.product.statusCode.statusCode == 0 ? "display:flex;" : "display:none;"}">
-                    <img src="asset/image/staff/customer_create_edit/icon_close.png" alt="" class="mess-box__icon" />
+                    <img src="asset/image/staff/customer_create_edit/icon_close.png" class="mess-box__icon" />
                     <p class="mess-box__mess">Product is inactive!</p>
                 </div>
 
@@ -104,20 +110,93 @@
 
                         <div class="section__item">
                             <div class="section__title">New start date</div>
+
                             <input class="section__input" type="datetime-local" 
                                    name="newStartDate" id="newStartDate" required>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Renew contract fee</div>
+
                             <input class="section__input" type="text" 
                                    name="newFee" id="newFee" readonly>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">New end date</div>
+
                             <input class="section__input" type="datetime-local" 
                                    name="newEndDate" id="newEndDate" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section__heading">Delivery Information</h2>
+
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Full Name</div>
+
+                            <input class="section__input" type="text" name="fullName" 
+                                   value="${requestScope.delivery.fullName}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Province</div>
+
+                            <select class="section__input" 
+                                    name="calc_shipping_provinces" 
+                                    id="province" 
+                                    required
+                                    >
+                                <option value=""></option>
+                            </select>
+
+                            <input
+                                class="billing_address_1"
+                                name="province"
+                                type="hidden"
+                                value="${requestScope.delivery.province}"
+                                />
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Phone</div>
+
+                            <input class="section__input" type="text" name="phone" 
+                                   value="${requestScope.delivery.phone}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">District</div>
+
+                            <select class="section__input" 
+                                    name="calc_shipping_district" 
+                                    id="district" required>
+                                <option value=""></option>
+                            </select>
+
+                            <input
+                                class="billing_address_2"
+                                name="district"
+                                type="hidden"
+                                value="${requestScope.delivery.district}"
+                                />
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Email</div>
+
+                            <input class="section__input" type="text" name="email" 
+                                   value="${requestScope.delivery.email}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Address</div>
+
+                            <input class="section__input" type="text" name="address" 
+                                   value="${requestScope.delivery.address}" required>
                         </div>
                     </div>
                 </div>
@@ -272,21 +351,31 @@
 
         <!-- confirm box -->
         <script>
-            function confirmBox() {
-                confirm("Are you sure you want to do this?")
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+
+            function submitForm() {
+                return confirm('Do you really want to submit the form?');
             }
         </script>
 
-        <!-- set new contract fee -->
         <script>
+            // set new contract fee at beginning
             // contractStatus in script set status color
             var contractTerm = document.getElementById("contractTerm");
             var newFee = document.getElementById("newFee");
             newFee.value = contractTerm.value * ${requestScope.contract.product.price};
 
+            // set new contract fee & new end date 
+            // when change contract term
             contractTerm.onchange = function () {
+                // change new fee
                 newFee.value = contractTerm.value * ${requestScope.contract.product.price};
 
+                // change new end date
                 datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
                 month = datetime.getMonth() + 1;
                 day = datetime.getDate();
@@ -295,7 +384,7 @@
             };
         </script>
 
-        <!-- set new start date -->
+        <!-- set new start date at beginning -->
         <script>
             // contractStatus in script set status color
             var newStartDate = document.getElementById("newStartDate");
@@ -311,8 +400,8 @@
             newStartDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
         </script>
 
-        <!-- set new end date -->
         <script>
+            // set new end date at beginning
             // contractStatus in script set status color
             var newEndDate = document.getElementById("newEndDate");
             datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
@@ -321,6 +410,8 @@
             date = datetime.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
             newEndDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
 
+            // set new end date
+            // when new start date change
             newStartDate.onchange = function () {
                 datetime = new Date(newStartDate.valueAsNumber + contractTerm.value * 365 * 86400000); // 365day * day/milli
                 month = datetime.getMonth() + 1;
@@ -328,6 +419,89 @@
                 date = datetime.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
                 newEndDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
             };
+        </script>
+
+        <!-- province, district -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
+        <script>
+            $('select[name="calc_shipping_provinces"]').each(function () {
+                var $this = $(this),
+                        stc = "";
+                c.forEach(function (i, e) {
+                    e += +1;
+                    stc += "<option value=" + e + ">" + i + "</option>";
+                    $this.html('<option value="">Provinces</option>' + stc);
+                    $this.on("change", function (i) {
+                        i = $this.children("option:selected").index() - 1;
+                        var str = "",
+                                r = $this.val();
+                        arr[i].forEach(function (el) {
+                            str += '<option value="' + el + '">' + el + "</option>";
+                            $('select[name="calc_shipping_district"]').html(
+                                    '<option value="">Districts</option>' + str
+                                    );
+                        });
+                        var address_1 = $this.children("option:selected").text();
+                        var district = $('select[name="calc_shipping_district"]').html();
+                        $('select[name="calc_shipping_district"]').on(
+                                "change",
+                                function () {
+                                    var target = $(this).children("option:selected");
+                                    target.attr("selected", "");
+                                    $('select[name="calc_shipping_district"] option')
+                                            .not(target)
+                                            .removeAttr("selected");
+                                    var address_2 = target.text();
+                                    $("input.billing_address_2").attr("value", address_2);
+                                    district = $('select[name="calc_shipping_district"]').html();
+                                }
+                        );
+                        $("input.billing_address_1").attr("value", address_1);
+                    });
+                });
+            });
+
+            var district = $('select[name="calc_shipping_district"]').html();
+            $('select[name="calc_shipping_district"]').on(
+                    "change",
+                    function () {
+                        var target = $(this).children("option:selected");
+                        target.attr("selected", "");
+                        $('select[name="calc_shipping_district"] option')
+                                .not(target)
+                                .removeAttr("selected");
+                        var address_2 = target.text();
+                        $("input.billing_address_2").attr("value", address_2);
+                        district = $('select[name="calc_shipping_district"]').html();
+                    }
+            );
+        </script>
+
+        <!-- set value for province, district -->
+        <script>
+            var pro = document.getElementById("province").options;
+            var proVal = "${requestScope.delivery.province}";
+            for (var i = 0; i < province.length; i++) {
+                if (pro[i].text === proVal) {
+                    pro[i].selected = true;
+                    var str = "";
+                    arr[i - 1].forEach(function (el) {
+                        str += '<option value="' + el + '">' + el + "</option>";
+                        $('select[name="calc_shipping_district"]').html(
+                                '<option value="">Districts</option>' + str
+                                );
+                    });
+                }
+            }
+
+            var dis = document.getElementById("district").options;
+            var disVal = "${requestScope.delivery.district}";
+            for (var i = 0; i < dis.length; i++) {
+                if (dis[i].text === disVal) {
+                    dis[i].selected = true;
+                }
+            }
         </script>
     </body>
 </html>

@@ -26,7 +26,7 @@
 
                 <div class="header__btn">
                     <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}"
-                            onclick="confirmBox()">
+                            onclick="confirmBox('Are you sure you want to pay?', 'staff/contract/pay')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
                         <div class="btn__text">Payment</div>
                     </button>
@@ -34,13 +34,19 @@
                     <a class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
                                                  || requestScope.contract.statusCode.statusCode == 1) 
                                                  && requestScope.contract.product.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
-                       href="staff/contract/renew?id=${requestScope.contract.id}">
+                       onclick="confirmBox('Are you sure you want to renew this contract?', 'staff/contract/renew?id=${requestScope.contract.id}')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_reload.png"></img>
                         <div class="btn__text">Renew</div>
                     </a>
 
+                    <a class="btn btn--warning" 
+                       onclick="confirmBox('Are you sure you want to update this contract?', 'staff/contract/update?id=${requestScope.contract.id}')">
+                        <img class="btn__icon" src="asset/image/staff/view_contract/icon_edit_file.png"></img>
+                        <div class="btn__text">Update</div>
+                    </a>
+
                     <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
-                       href="staff/contract/cancel?id=${requestScope.contract.id}">
+                       onclick="confirmBox('Are you sure you want to cancel this contract?', 'staff/contract/cancel?id=${requestScope.contract.id}')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
                     </a>
@@ -158,7 +164,9 @@
 
                     <div class="section__item">
                         <div class="section__title">Address</div>
-                        <div class="section__text">${requestScope.contract.customer.address}</div>
+                        <div class="section__text">${requestScope.contract.customer.address}
+                            , ${requestScope.contract.customer.district}
+                            , ${requestScope.contract.customer.province}</div>
                     </div>
                 </div>
             </div>
@@ -240,6 +248,34 @@
             </div>
 
             <div class="section">
+                <h2 class="section__heading">Delivery Information</h2>
+
+                <div class="section__main">
+                    <div class="section__item">
+                        <div class="section__title">Full Name</div>
+                        <div class="section__text">${requestScope.delivery.fullName}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Phone</div>
+                        <div class="section__text">${requestScope.delivery.phone}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Email</div>
+                        <div class="section__text">${requestScope.delivery.email}</div>
+                    </div>
+
+                    <div class="section__item">
+                        <div class="section__title">Address</div>
+                        <div class="section__text">${requestScope.delivery.address}
+                            , ${requestScope.delivery.district}
+                            , ${requestScope.delivery.province}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
                 <h2 class="section__heading">Payment history</h2>
 
                 <div class="section__main">
@@ -308,6 +344,15 @@
             <jsp:param name="currentscreen" value="customer" />
         </jsp:include>
 
+        <!-- confirm box -->
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+        </script>
+
         <script>
             const contractStatus = document.getElementById("contractStatus");
             const contractStatusID = ${requestScope.contract.statusCode.statusCode};
@@ -333,15 +378,6 @@
                 productStatus.style.color = "#D62A25";
             } else {
                 productStatus.style.color = "#1AC36B";
-            }
-        </script>
-
-        <!-- confirm box -->
-        <script>
-            function confirmBox() {
-                if (confirm("Are you sure you want to do this?")) {
-                    window.location.href = "staff/contract/pay?id=${requestScope.contract.id}";
-                }
             }
         </script>
     </body>

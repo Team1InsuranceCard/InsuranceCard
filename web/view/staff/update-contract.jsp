@@ -227,7 +227,10 @@
                             <div class="section__item">
                                 <div class="section__title">Address</div>
                                 <div class="section__text">
-                                    <span id="customerAddress">${requestScope.contract.customer.address}</span>
+                                    <span id="customerAddress">${requestScope.contract.customer.address}
+                                        , ${requestScope.contract.customer.district}
+                                        , ${requestScope.contract.customer.province}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -364,6 +367,66 @@
                                            value="${requestScope.contract.product.price}"/>
                                 </div>
                             </div>
+
+                            <div class="section">
+                                <h2 class="section__heading">Delivery Information</h2>
+
+                                <div class="section__main">
+                                    <div class="section__item">
+                                        <div class="section__title">Full Name</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryName" required
+                                                   value="${requestScope.delivery.fullName}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__item">
+                                        <div class="section__title">Phone</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryPhone" required
+                                                   pattern="^0[0-9]{9}$"
+                                                   value="${requestScope.delivery.phone}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__item">
+                                        <div class="section__title">Email</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryEmail" required
+                                                   pattern="^[A-Za-z][A-Za-z0-9_]+@[A-Za-z]+(\.[A-Za-z]+){1,2}$"
+                                                   value="${requestScope.delivery.email}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="section__item">
+                                        <div class="section__title">Address</div>
+                                        <div class="section__text">
+                                            <input type="text" name="deliveryAddress" required
+                                                   value="${requestScope.delivery.address}"/><br/>
+                                            <div class="select-container">
+                                                <span class="province-container">
+                                                    <select id="province" name="calc_shipping_provinces" required>
+                                                        <option hidden>--Choose the province--</option>
+                                                    </select>
+                                                    <input class="billing_address_1" 
+                                                           name="deliveryProvince" id="provinceSent"
+                                                           type="hidden" value="${requestScope.delivery.province}"/>
+                                                </span>
+                                                <span class="district-container">
+                                                    <select id="district" name="calc_shipping_district" required>
+                                                        <option hidden>--Choose the district--</option>
+                                                    </select>
+                                                    <input class="billing_address_2" 
+                                                           name="deliveryDistrict" id="districtSent"
+                                                           type="hidden" value="${requestScope.delivery.district}"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </form>
                     <jsp:include page="../footer_full.jsp"></jsp:include>
