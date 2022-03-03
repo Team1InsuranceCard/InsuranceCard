@@ -4,6 +4,7 @@
     href="${pageContext.request.contextPath}/asset/style/header_common.css"
     />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <header>
     <nav class="navbar navbar-expand fixed-top navbar-custom-box"> 
@@ -23,10 +24,10 @@
         <ul class="navbar-nav mr-auto">
             <c:set var="current" value="${param.currentscreen}" />
             <li class="nav-item">
-                <a  class="nav-link nav-custom-link <c:if test="${current == 'product'}">active</c:if>" href="homepage/product">Product</a>
+                <a  class="nav-link nav-custom-link <c:if test="${current == 'product'}">active</c:if>" href="${root}/product">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-custom-link <c:if test="${current == 'contract'}">active</c:if>" href="">Contact</a>
+                    <a class="nav-link nav-custom-link <c:if test="${current == 'contract'}">active</c:if>" href="${root}/contact">Contact</a>
             </li>
         </ul>
 

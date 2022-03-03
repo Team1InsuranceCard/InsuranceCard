@@ -21,6 +21,21 @@ import model.ProductStatusCode;
  */
 public class ProductDBContext extends DBContext {
 
+    public void setIsDelete(boolean isDelete, int productID) {
+        String sql_update_status_product = "UPDATE [Product]\n"
+                + "   SET isDelete = ?\n"
+                + " WHERE Product.ID = ?";
+        try {
+            PreparedStatement psm_update_status_product = connection.prepareStatement(sql_update_status_product);
+            int i = 0;
+            psm_update_status_product.setBoolean(++i, isDelete);
+            psm_update_status_product.setInt(++i, productID);
+            psm_update_status_product.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Product> getTop3ProductsRankByContract() {
         ArrayList<Product> top10Product = new ArrayList<>();
         String sql_select_top10product = "SELECT TOP 3 COUNT(Contract.ID) AS NumberContracts,\n"
