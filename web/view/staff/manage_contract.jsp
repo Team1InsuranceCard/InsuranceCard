@@ -80,9 +80,9 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                                                              >ID
                                 <%--<c:if test="${orderby ==  'id'}">: ${ordertype}</c:if>--%>
                             </a
-                                                                             ></th>
-                            <th scope="col">
-                                <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
+                            ></th>
+                        <th scope="col">
+                            <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
                                                                    >Customers<c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
                                                                    >
                             </th>
@@ -124,10 +124,12 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     </td>
                                     <td>${contract.product.title}</td>
                                     <td>
-                                        ${contract.startDate}
+                                        <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                                        value = "${contract.startDate}" />
                                     </td>
                                     <td>
-                                        ${contract.endDate}
+                                        <fmt:formatDate pattern = "yyyy-MM-dd" 
+                                                        value = "${contract.endDate}" />
                                     </td>
                                     <td>
                                         <c:set
