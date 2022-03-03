@@ -77,3 +77,10 @@ main {
   font-weight: 600;
   margin: 1em;
 }
+
+.contract-list-title {
+    margin: 2em;
+}
+.contract-list-title a {
+    color: #5C2941;
+}
