@@ -133,7 +133,6 @@ function fillDeliveryInfo(firstName, lastName, phone, email, address, province, 
         for (var i = 1; i < provinces.length; i++) {
             if (provinces[i].innerText === province) {
                 $("#province").val(provinces[i].value);
-                console.log($("#province").val());
                 break;
             }
         }

@@ -14,6 +14,10 @@ section .title {
     margin-left: 5rem;
 }
 
+section .table {
+    height: 20rem;
+}
+
 .table td {
     border-bottom: 0.5px solid #000000;
 }
@@ -103,7 +107,5 @@ section .row input {
 
 section .row .icon-search:hover {
     cursor: pointer;
-    transition: 0.1s ease;
-    height: 1.8rem;
-    width: 1.85rem;
+    background-color: #D37682;
 }

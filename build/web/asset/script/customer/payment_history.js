@@ -1,4 +1,20 @@
 
+function search() {
+    if (document.getElementById("input-search").value != "") {
+        document.getElementById("searchForm").submit();
+    } else {
+        Swal.fire({
+            timer: 2000,
+            position: 'center',
+            text: 'Date field is empty!',
+            icon: 'warning',
+            showConfirmButton: true,
+            confirmButtonColor: '#FF96A3',
+            allowEnterKey: true
+        })
+    }
+}
+
 function createPagger(url, div, before, pageIndex, after, gap, totalPage) {
     var container = document.getElementById(div);
     if (totalPage > 1) {

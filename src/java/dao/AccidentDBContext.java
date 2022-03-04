@@ -5,10 +5,43 @@
  */
 package dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Accident;
+
 /**
  *
  * @author area1
  */
-public class AccidentDBContext {
-    
+public class AccidentDBContext extends DBContext {
+
+    public void setAccident(Accident accident) {
+        String sql_insert_accident = "INSERT INTO [Accident]\n"
+                + "           ([AccidentDate]\n"
+                + "           ,[Title]\n"
+                + "           ,[CreatedDate]\n"
+                + "           ,[Attachment]\n"
+                + "           ,[HumanDamage]\n"
+                + "           ,[VehicleDamage]\n"
+                + "           ,[ContractID])\n"
+                + "     VALUES\n"
+                + "           (? ,? ,? ,? ,? ,?,?)";
+        try {
+            PreparedStatement psm_insert_accident = connection.prepareStatement(sql_insert_accident);
+            int i=0;
+            psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
+            psm_insert_accident.setString(++i, accident.getTitle());
+            psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
+            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getHumanDamage());
+            psm_insert_accident.setString(++i, accident.getVehicleDamage());
+            psm_insert_accident.setInt(++i, accident.getContract().getId());
+            
+            psm_insert_accident.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

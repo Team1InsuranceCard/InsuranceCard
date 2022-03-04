@@ -19,8 +19,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
     </head>
+
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
         <header>
@@ -85,8 +85,8 @@
                             <p class="col-md-2 space bold">Duration:</p>
                             <p class="col-md-2">
                                 <select id="duration" name="duration" 
-                                        onchange="calDate()" required>
-                                    <option hidden>Select year</option>
+                                        onchange="fillEndDate()" required>
+                                    <option value="0" hidden>Select year</option>
                                     <option value="1">1 year</option>
                                     <option value="2">2 year</option>
                                     <option value="3">3 year</option>
@@ -104,7 +104,8 @@
                             <p class="col-md-3">
                                 <input type="date" id="startDate" name="startDate"
                                        min="${requestScope.minDate}" 
-                                       value="${requestScope.minDate}" required/></p>
+                                       value="${requestScope.minDate}"
+                                       onchange="fillEndDate()" required/></p>
                             <p class="col-md-2 space bold">End date:</p>
                             <p class="col-md-2 underline" id="endDate">
                             </p>

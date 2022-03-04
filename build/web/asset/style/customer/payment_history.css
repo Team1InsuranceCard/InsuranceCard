@@ -10,7 +10,7 @@ section {
 }
 
 section .title {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     margin-left: 5rem;
 }
 
@@ -70,4 +70,40 @@ section .title {
 .pagging a, span {
     color: #000000;
     margin-left: 0.75rem;
+}
+
+section .total {
+    text-align: right;
+    margin-right: 4rem;
+}
+
+section table .sub-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+section table .icon-green {
+    margin-left: 1rem;
+}
+
+section table .contract-link:hover {
+    transition: 0.2s ease;
+    font-size: 16.5px;
+}
+
+section .row .icon-search {
+    background-color: #FF96A3;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+section .row input {
+    background-color: #FFF9EC;
+}
+
+section .row .icon-search:hover {
+    cursor: pointer;
+    transition: 0.1s ease;
+    height: 1.8rem;
+    width: 1.85rem;
 }

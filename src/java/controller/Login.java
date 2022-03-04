@@ -6,6 +6,7 @@
 package controller;
 
 import dao.AccountDBContext;
+import dao.CustomerDBContext;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.CustomerStaff;
 
 /**
  *
@@ -62,9 +64,9 @@ public class Login extends HttpServlet {
         if (acc == null) {
             request.getRequestDispatcher("view/login.jsp").forward(request, response);
         } else if (!acc.isRole()) {
-            request.getRequestDispatcher("view/customer/customer_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/customer/dashboard").forward(request, response);
         } else {
-            request.getRequestDispatcher("view/staff/staff_dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/staff/dashboard").forward(request, response);
         }
     }
 
