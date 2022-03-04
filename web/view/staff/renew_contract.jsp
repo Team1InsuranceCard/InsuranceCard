@@ -3,6 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../header_staff.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
@@ -16,14 +20,9 @@
         <link rel="stylesheet" href="asset/style/staff/renew_contract.css" />
     </head>
     <body>
-        <jsp:include page="../header_staff.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <main>
-            ${param.currentscreen}
             <form action="staff/contract/renew" method="POST"
-                  onSubmit="submit(this)">
+                  onSubmit="return submitForm(this);">
                 <div class="header">
                     <h1 class="header__heading">Renew contract ${requestScope.contract.id}</h1>
 
@@ -81,14 +80,18 @@
 
                         <div class="section__item">
                             <div class="section__title">Start Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                            value = "${requestScope.contract.startDate}"/></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                                value = "${requestScope.contract.startDate}"/>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">End Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                            value = "${requestScope.contract.endDate}" /></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                value = "${requestScope.contract.endDate}" />
+                            </div>
                         </div>
 
                         <div class="section__item">
@@ -111,20 +114,93 @@
 
                         <div class="section__item">
                             <div class="section__title">New start date</div>
+
                             <input class="section__input" type="datetime-local" 
                                    name="newStartDate" id="newStartDate" required>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">Renew contract fee</div>
+
                             <input class="section__input" type="text" 
                                    name="newFee" id="newFee" readonly>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">New end date</div>
+
                             <input class="section__input" type="datetime-local" 
                                    name="newEndDate" id="newEndDate" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section__heading">Delivery Information</h2>
+
+                    <div class="section__main">
+                        <div class="section__item">
+                            <div class="section__title">Full Name</div>
+
+                            <input class="section__input" type="text" name="fullName" 
+                                   value="${requestScope.delivery.fullName}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Province</div>
+
+                            <select class="section__input" 
+                                    name="calc_shipping_provinces" 
+                                    id="province" 
+                                    required
+                                    >
+                                <option value=""></option>
+                            </select>
+
+                            <input
+                                class="billing_address_1"
+                                name="province"
+                                type="hidden"
+                                value="${requestScope.delivery.province}"
+                                />
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Phone</div>
+
+                            <input class="section__input" type="text" name="phone" 
+                                   value="${requestScope.delivery.phone}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">District</div>
+
+                            <select class="section__input" 
+                                    name="calc_shipping_district" 
+                                    id="district" required>
+                                <option value=""></option>
+                            </select>
+
+                            <input
+                                class="billing_address_2"
+                                name="district"
+                                type="hidden"
+                                value="${requestScope.delivery.district}"
+                                />
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Email</div>
+
+                            <input class="section__input" type="text" name="email" 
+                                   value="${requestScope.delivery.email}" required>
+                        </div>
+
+                        <div class="section__item">
+                            <div class="section__title">Address</div>
+
+                            <input class="section__input" type="text" name="address" 
+                                   value="${requestScope.delivery.address}" required>
                         </div>
                     </div>
                 </div>
@@ -145,8 +221,10 @@
 
                         <div class="section__item">
                             <div class="section__title">Date of Birth</div>
-                            <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                            value = "${requestScope.contract.customer.dob}" /></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                value = "${requestScope.contract.customer.dob}" />
+                            </div>
                         </div>
 
                         <div class="section__item">
@@ -244,10 +322,6 @@
             </form>
         </main>
 
-        <jsp:include page="../footer_full.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <!-- status color -->
         <script>
             const contractStatus = document.getElementById("contractStatus");
@@ -284,9 +358,9 @@
                     location.href = url;
                 }
             }
-            
-            function submit() {
-                return confirm('Do you want to submit?');                
+
+            function submitForm() {
+                return confirm('Do you really want to submit the form?');
             }
         </script>
 
@@ -348,5 +422,92 @@
                 newEndDate.value = date + "T" + datetime.toTimeString().substring(0, 5);
             };
         </script>
+
+        <!-- province, district -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
+        <script>
+            $('select[name="calc_shipping_provinces"]').each(function () {
+                var $this = $(this),
+                        stc = "";
+                c.forEach(function (i, e) {
+                    e += +1;
+                    stc += "<option value=" + e + ">" + i + "</option>";
+                    $this.html('<option value="">Provinces</option>' + stc);
+                    $this.on("change", function (i) {
+                        i = $this.children("option:selected").index() - 1;
+                        var str = "",
+                                r = $this.val();
+                        arr[i].forEach(function (el) {
+                            str += '<option value="' + el + '">' + el + "</option>";
+                            $('select[name="calc_shipping_district"]').html(
+                                    '<option value="">Districts</option>' + str
+                                    );
+                        });
+                        var address_1 = $this.children("option:selected").text();
+                        var district = $('select[name="calc_shipping_district"]').html();
+                        $('select[name="calc_shipping_district"]').on(
+                                "change",
+                                function () {
+                                    var target = $(this).children("option:selected");
+                                    target.attr("selected", "");
+                                    $('select[name="calc_shipping_district"] option')
+                                            .not(target)
+                                            .removeAttr("selected");
+                                    var address_2 = target.text();
+                                    $("input.billing_address_2").attr("value", address_2);
+                                    district = $('select[name="calc_shipping_district"]').html();
+                                }
+                        );
+                        $("input.billing_address_1").attr("value", address_1);
+                    });
+                });
+            });
+
+            var district = $('select[name="calc_shipping_district"]').html();
+            $('select[name="calc_shipping_district"]').on(
+                    "change",
+                    function () {
+                        var target = $(this).children("option:selected");
+                        target.attr("selected", "");
+                        $('select[name="calc_shipping_district"] option')
+                                .not(target)
+                                .removeAttr("selected");
+                        var address_2 = target.text();
+                        $("input.billing_address_2").attr("value", address_2);
+                        district = $('select[name="calc_shipping_district"]').html();
+                    }
+            );
+        </script>
+
+        <!-- set value for province, district -->
+        <script>
+            var pro = document.getElementById("province").options;
+            var proVal = "${requestScope.delivery.province}";
+            for (var i = 0; i < province.length; i++) {
+                if (pro[i].text === proVal) {
+                    pro[i].selected = true;
+                    var str = "";
+                    arr[i - 1].forEach(function (el) {
+                        str += '<option value="' + el + '">' + el + "</option>";
+                        $('select[name="calc_shipping_district"]').html(
+                                '<option value="">Districts</option>' + str
+                                );
+                    });
+                }
+            }
+
+            var dis = document.getElementById("district").options;
+            var disVal = "${requestScope.delivery.district}";
+            for (var i = 0; i < dis.length; i++) {
+                if (dis[i].text === disVal) {
+                    dis[i].selected = true;
+                }
+            }
+        </script>
     </body>
+
+    <jsp:include page="../footer_full.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
 </html>
