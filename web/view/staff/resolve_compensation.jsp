@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -244,24 +245,35 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Compensation package</div>
-                            <select name="compense_package" class="col-lg-6 section__input" required>
-                                <option value="1">0%</option>
-                                <option value="2">10%</option>
-                                <option value="3">20%</option>
-                                <option value="4">30%</option>
-                                <option value="5">40%</option>
-                                <option value="6">50%</option>
-                                <option value="7">60%</option>
-                                <option value="8">70%</option>
-                                <option value="9">80%</option>
-                                <option value="10">90%</option>
-                                <option value="11">100%</option>
-                            </select>
+                            <div class="col-lg-6 section__title">ID</div>
+                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
-
+                        
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Compensation amount</div>
+                            <div class="col-lg-6 section__title">Driver</div>
+                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                        </div>
+                        
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Created date</div>
+                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                        </div>
+                        
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Status</div>
+                            <div class="col-lg-6 section__text">Accepted</div>
+                        </div>
+                        
+                        <c:if test="${status == 1}">
+                            <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Resolved date</div>
+                            <div class="col-lg-6 section__text">04/04/2022</div>
+                        </div>
+                        </c:if>
+                        
+                        
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Description</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
 
