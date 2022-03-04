@@ -45,4 +45,32 @@ public class DeliveryDBContext extends DBContext {
         }
     }
 
+    public Delivery getDeliveryByContract(int contractID) {
+        Delivery delivery = new Delivery();
+        try {
+            String sql = "select FullName\n"
+                    + "	, Phone\n"
+                    + "	, Email\n"
+                    + "	, Address\n"
+                    + "	, Province\n"
+                    + "	, District\n"
+                    + "from Delivery\n"
+                    + "where ContractID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, contractID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {                
+                delivery.setFullName(rs.getString("FullName"));
+                delivery.setPhone(rs.getString("Phone"));
+                delivery.setEmail(rs.getString("Email"));
+                delivery.setAddress(rs.getString("Address"));
+                delivery.setProvince(rs.getString("Province"));
+                delivery.setDistrict(rs.getString("District"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeliveryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return delivery;
+    }
+
 }
