@@ -2,6 +2,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../header_staff.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
@@ -10,10 +14,6 @@
         <link rel="stylesheet" href="asset/style/staff/customer_create.css" />
     </head>
     <body>
-        <jsp:include page="../header_staff.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <main>
             <div class="card">
                 <h1 class="card__heading">NEW CUSTOMER</h1>
@@ -164,10 +164,6 @@
         </form>
     </main>
 
-    <jsp:include page="../footer_full.jsp">
-        <jsp:param name="currentscreen" value="customer" />
-    </jsp:include>
-
     <!-- auto joinDate = current date -->
     <script>
         if (${empty requestScope.joinDate}) {
@@ -270,4 +266,8 @@
         }
     </script>
 </body>
+
+<jsp:include page="../footer_full.jsp">
+    <jsp:param name="currentscreen" value="customer" />
+</jsp:include>
 </html>
