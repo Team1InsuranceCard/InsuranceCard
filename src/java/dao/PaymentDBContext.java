@@ -130,9 +130,9 @@ public class PaymentDBContext extends DBContext {
                     + "		ON Contract.ID = Payment.ContractID\n"
                     + "		WHERE Contract.CustomerID = ?\n";
 
-            PreparedStatement stm = null;
+            PreparedStatement stm;
             if (date != null) {
-                sql += "and CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?";
+                sql += "and (CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?)";
                 stm = connection.prepareStatement(sql);
                 stm.setString(2, date);
                 stm.setString(3, date);
@@ -176,7 +176,7 @@ public class PaymentDBContext extends DBContext {
                     + "           WHERE Contract.CustomerID = ?\n";
 
             if (date != null) {
-                sql += "and CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?\n";
+                sql += "and (CAST(Payment.StartDate AS date) = ? or CAST(PaidDate AS date) = ?)\n";
             } 
 
             sql += ")";
