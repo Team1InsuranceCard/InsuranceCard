@@ -96,6 +96,38 @@
                     </div>
                 </div>
 
+                <div class="delivery-info">
+                    <div class="delivery title">
+                        <p>Delivery information</p>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="row">
+                            <p class="col-md-2 bold">Fullname:</p>
+                            <p class="col-md-3 underline">${c.startStaff.firstName} 
+                                ${c.startStaff.lastName}</p>
+                            <p class="col-md-2 space bold">Phone:</p>
+                            <p class="col-md-3 underline"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Email:</p>
+                            <p class="col-md-3 underline">${c.cancelStaff.firstName} 
+                                ${c.cancelStaff.lastName}</p>
+                            <p class="col-md-2 space bold">Address:</p>
+                            <p class="col-md-3 underline">${requestScope.duration}</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Province:</p>
+                            <p class="col-md-3 underline">
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
+                                                value = "${c.requestDate}"/></p>
+                            <p class="col-md-2 space bold">District:</p>
+                            <p class="col-md-3 underline">
+                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
+                                                value = "${c.resolveDate}"/></p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="contract-info">
                     <div class="contract title">
                         <p>Contract information</p>
@@ -140,7 +172,7 @@
                             <p class="col-md-3 underline">${c.cancelStaff.firstName} 
                                 ${c.cancelStaff.lastName}</p>
                             <p class="col-md-2 space bold">Duration:</p>
-                            <p class="col-md-2 underline">${requestScope.duration} year</p>
+                            <p class="col-md-3 underline">${requestScope.duration} year</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
@@ -148,7 +180,7 @@
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.requestDate}"/></p>
                             <p class="col-md-2 space bold">Resolve date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.resolveDate}"/></p>
                         </div>
@@ -158,7 +190,7 @@
                                 <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.endDate}"/></p>
                         </div>
@@ -168,7 +200,7 @@
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelRequestDate}"/></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelDate}"/></p>
                         </div>
@@ -178,7 +210,7 @@
                                 <textarea class="text-area" disabled>${c.cancelReason}</textarea>
                             </div>
                             <div class="col-md-2 space bold">Cancel comment:</div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <textarea class="text-area" disabled>${c.cancelComment}</textarea>
                             </div>
                         </div>
