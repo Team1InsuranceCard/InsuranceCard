@@ -3,6 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../header_staff.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
@@ -16,10 +20,6 @@
         <link rel="stylesheet" href="asset/style/staff/renew_contract.css" />
     </head>
     <body>
-        <jsp:include page="../header_staff.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <main>
             <form action="staff/contract/renew" method="POST"
                   onSubmit="return submitForm(this);">
@@ -80,14 +80,18 @@
 
                         <div class="section__item">
                             <div class="section__title">Start Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                            value = "${requestScope.contract.startDate}"/></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                                value = "${requestScope.contract.startDate}"/>
+                            </div>
                         </div>
 
                         <div class="section__item">
                             <div class="section__title">End Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                            value = "${requestScope.contract.endDate}" /></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                value = "${requestScope.contract.endDate}" />
+                            </div>
                         </div>
 
                         <div class="section__item">
@@ -217,8 +221,10 @@
 
                         <div class="section__item">
                             <div class="section__title">Date of Birth</div>
-                            <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                            value = "${requestScope.contract.customer.dob}" /></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                value = "${requestScope.contract.customer.dob}" />
+                            </div>
                         </div>
 
                         <div class="section__item">
@@ -315,10 +321,6 @@
                 </div>
             </form>
         </main>
-
-        <jsp:include page="../footer_full.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
 
         <!-- status color -->
         <script>
@@ -504,4 +506,8 @@
             }
         </script>
     </body>
+
+    <jsp:include page="../footer_full.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
 </html>
