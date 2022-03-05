@@ -65,6 +65,7 @@ public class AccidentDBContext extends DBContext {
             Accident accident = null;
             while (rs.next()) {
                 if (accident == null) {
+                    accident = new Accident();
                     accident.setId(rs.getInt("ID"));
                     accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
                     accident.setTitle(rs.getString("Title"));
