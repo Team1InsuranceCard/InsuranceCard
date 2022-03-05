@@ -248,30 +248,28 @@
                             <div class="col-lg-6 section__title">ID</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Driver</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Created date</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Status</div>
                             <div class="col-lg-6 section__text">Accepted</div>
                         </div>
-                        
-                        <c:if test="${status == 1}">
-                            <div class="row col-lg-6 section__item">
+
+                        <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Resolved date</div>
                             <div class="col-lg-6 section__text">04/04/2022</div>
                         </div>
-                        </c:if>
-                        
-                        
+
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Description</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
