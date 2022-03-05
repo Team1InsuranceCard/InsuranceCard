@@ -160,6 +160,7 @@ public class CompensationDBContext extends DBContext {
             Compensation c = null;
             while (rs.next()) {
                 if (c == null) {
+                    c = new Compensation();
                     c.setId(rs.getInt("ID"));
                     AccidentDBContext dbA = new AccidentDBContext();
                     Accident accident = dbA.getLatestAccident(contractId);
