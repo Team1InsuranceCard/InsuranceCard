@@ -248,11 +248,11 @@
                 </div>
 
                 <div class="row section">
-                    <h2 class="col-lg-12 section__heading">Resolve Request Information</h2>
+                    <h2 class="col-lg-12 section__heading">Compensation Information</h2>
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Request ID</div>
+                            <div class="col-lg-6 section__title">Compensation ID</div>
                             <div class="col-lg-6 section__text">${requestScope.compensation.id}</div>
                         </div>
 
