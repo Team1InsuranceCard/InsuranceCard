@@ -265,7 +265,7 @@
                         </div>
 
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Resolved date</div>
+                            <div class="col-lg-6 section__title">Resolve date</div>
                             <div class="col-lg-6 section__text">04/04/2022</div>
                         </div>
 
