@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -84,12 +85,12 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Contract term</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.term}</div>
+                            <div class="col-lg-6 section__text"></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Payment method</div>
-                            <div class="col-lg-6 section__text">Cash</div>
+                            <div class="col-lg-6 section__text"></div>
                         </div>
 
 
@@ -138,49 +139,48 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="col-lg-5 section__left">
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Vehicle type</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Engine</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.engine}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">License Plate</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.licensePlate}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Color</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.color}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Brand</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.brand2.brand}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Owner</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.owner}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Chassis</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.chassis}</div>
                             </div>
                         </div>
 
                         <div class="col-lg-7 section__right">
-                            <div class="row col-lg-6 section__item">
-                                <div class="col-lg-6 section__title">Cert Image</div>
-                                <!--<img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"/>-->
-                                
+                            <div class="row col-lg-12 section__item">
+                                <div class="col-lg-12 section__title justify-content-center">Image</div>
+                                <img class="col-lg-12 section__img" src="${requestScope.contract.certImage}"/>
                             </div>
-                                <img class="col-lg-12 section__img" src="asset/image/customer/cutomer_dashboard/image4.jpg" alt=""/>
+                                
                         </div>          
                     </div>
                 </div>
@@ -206,7 +206,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Content detail</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                            <div class="col-lg-6 section__text"><a href="product/detail?productid=${requestScope.contract.product.id}">Detail</a></div>
                         </div>
                     </div>
                 </div>
@@ -217,32 +217,32 @@
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Accident ID</div>
-                            <div class="col-lg-6 section__text">ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.id}</div>
                         </div>
                         
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Title</div>
-                            <div class="col-lg-6 section__text">title</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.title}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Attachment</div>
-                            <div class="col-lg-6 section__text"><a href="#">Attach</a></div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.attachment}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Vehicle damage</div>
-                            <div class="col-lg-6 section__text">V-damage</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.vehicleDamage}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.accidentDate}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Human damage</div>
-                            <div class="col-lg-6 section__text">H-damage</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.humanDamage}</div>
                         </div>
                     </div>
                 </div>
@@ -253,38 +253,39 @@
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Request ID</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.id}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Driver</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.driverName}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Created date</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.createdDate}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Status</div>
-                            <div class="col-lg-6 section__text">Accepted</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.status.statusName}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Resolve date</div>
-                            <div class="col-lg-6 section__text">04/04/2022</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.resolveDate}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Description</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.description}</div>
                         </div>
 
                         <div class="row col-lg-12 section__item">
                             <div class="col-lg-3 section__title">Resolve note</div>
                             <textarea class="col-lg-8 section__input" type="text" 
-                                      name="resolve_note" style="resize: none; height: 5rem;"></textarea>
+                                      name="resolve_note" style="resize: none; height: 5rem;"
+                                      placeholder="Leave your note here"></textarea>
                         </div>
                     </div>
                 </div>
