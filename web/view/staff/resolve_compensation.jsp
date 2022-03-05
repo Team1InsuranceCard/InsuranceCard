@@ -177,8 +177,10 @@
                         <div class="col-lg-7 section__right">
                             <div class="row col-lg-6 section__item">
                                 <div class="col-lg-6 section__title">Cert Image</div>
-                                <img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"></img>
+                                <!--<img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"/>-->
+                                
                             </div>
+                                <img class="col-lg-12 section__img" src="asset/image/customer/cutomer_dashboard/image4.jpg" alt=""/>
                         </div>          
                     </div>
                 </div>
@@ -214,6 +216,11 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Accident ID</div>
+                            <div class="col-lg-6 section__text">ID</div>
+                        </div>
+                        
+                        <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Title</div>
                             <div class="col-lg-6 section__text">title</div>
                         </div>
@@ -245,7 +252,7 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">ID</div>
+                            <div class="col-lg-6 section__title">Request ID</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
                         </div>
 
