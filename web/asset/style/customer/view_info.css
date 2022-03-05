@@ -40,7 +40,8 @@ main {
   margin-right: 12.8px;
 }
 
-.menu__heading {
+.menu__heading, 
+.menu__heading:hover {
   text-decoration: none;
   color: #000;
 }
