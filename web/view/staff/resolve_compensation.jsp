@@ -85,7 +85,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Contract term</div>
-                            <div class="col-lg-6 section__text"></div>
+                            <div class="col-lg-6 section__text">${requestScope.term}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
