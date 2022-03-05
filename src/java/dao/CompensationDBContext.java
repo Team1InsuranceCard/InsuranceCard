@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Accident;
-import model.Account;
 import model.Compensation;
 import model.CompensationStatusCode;
 import model.Contract;
