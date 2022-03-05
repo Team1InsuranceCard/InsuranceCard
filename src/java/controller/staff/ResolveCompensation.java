@@ -55,6 +55,7 @@ public class ResolveCompensation extends HttpServlet {
         Contract contract = dbContract.staffGetContractDetail(id);
         CompensationDBContext dbCompensation = new CompensationDBContext();
         Compensation compensation = dbCompensation.getLatestCompensation(id);
+        //Contract info
         request.setAttribute("contract", contract);
         request.setAttribute("compensation", compensation);
         request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
