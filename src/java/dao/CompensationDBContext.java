@@ -28,6 +28,75 @@ import model.Product;
  */
 public class CompensationDBContext extends DBContext {
 
+    public Compensation getCompensationByCustomer(int compensationID, int customerID) {
+        String sql_select_compensation = "SELECT Contract.ID AS ContractID, Product.Title AS ProductTitle, Contract.Status AS ContractStatus,\n"
+                + "		ContractStatusCode.StatusName AS ContractStatusName,\n"
+                + "		Contract.StartDate, Contract.EndDate,\n"
+                + "		Accident.Title, Accident.AccidentDate, Accident.Attachment AS AccidentAttachment, \n"
+                + "		Accident.CreatedDate AS AccidentCreatedDate,\n"
+                + "		Accident.HumanDamage, Accident.VehicleDamage,\n"
+                + "		Compensation.ID, Compensation.Status, CompensationStatusCode.StatusName,\n"
+                + "		Compensation.CreatedDate, Compensation.ResolveDate, Compensation.DriverName,\n"
+                + "		Compensation.Attachment, Compensation.Description, Compensation.ResolveNote\n"
+                + "  FROM [Compensation] INNER JOIN Accident ON Compensation.AccidentID = Accident.ID\n"
+                + "		INNER JOIN CompensationStatusCode ON CompensationStatusCode.StatusCode=Compensation.Status\n"
+                + "		INNER JOIN Contract ON Accident.ContractID = Contract.ID\n"
+                + "		INNER JOIN Product ON Product.ID = Contract.ProductID\n"
+                + "		INNER JOIN ContractStatusCode ON ContractStatusCode.StatusCode=Contract.Status\n"
+                + "	WHERE Compensation.isDelete = 0 AND Compensation.ID = ?";
+        try {
+            PreparedStatement psm_select_compesation = connection.prepareStatement(sql_select_compensation);
+            int i=0;
+            psm_select_compesation.setInt(++i, compensationID);
+            ResultSet rs_select_compensation = psm_select_compesation.executeQuery();
+            if (rs_select_compensation.next()) {
+                Compensation compensation = new Compensation();
+                compensation.setId(rs_select_compensation.getInt(("ID")));
+                compensation.setAttachment(rs_select_compensation.getString("Attachment"));
+                compensation.setCreateDate(rs_select_compensation.getTimestamp("CreatedDate"));
+                compensation.setDescription(rs_select_compensation.getString("Description"));
+                compensation.setDriverName(rs_select_compensation.getString("DriverName"));
+                compensation.setResolveDate(rs_select_compensation.getTimestamp("ResolveDate"));
+                compensation.setResolveNote(rs_select_compensation.getString("ResolveNote"));
+
+                CompensationStatusCode compensationSatus = new CompensationStatusCode();
+                compensationSatus.setStatusCode(rs_select_compensation.getShort("Status"));
+                compensationSatus.setStatusName(rs_select_compensation.getString("StatusName"));
+                compensation.setStatus(compensationSatus);
+                Accident accident = new Accident();
+                accident.setAccidentDate(rs_select_compensation.getTimestamp("AccidentDate"));
+                accident.setAttachment(rs_select_compensation.getString("AccidentAttachment"));
+                accident.setCreatedDate(rs_select_compensation.getTimestamp("AccidentCreatedDate"));
+                accident.setHumanDamage(rs_select_compensation.getString("HumanDamage"));
+//                accident.setId(rs_select_compensation.getInt(""));
+                accident.setTitle(rs_select_compensation.getString("Title"));
+                accident.setVehicleDamage(rs_select_compensation.getString("VehicleDamage"));
+
+                Contract contract = new Contract();
+                contract.setId(rs_select_compensation.getInt("ContractID"));
+                contract.setStartDate(rs_select_compensation.getTimestamp("StartDate"));
+                contract.setEndDate(rs_select_compensation.getTimestamp("EndDate"));
+
+                ContractStatusCode contractStatus = new ContractStatusCode();
+                contractStatus.setStatusCode(rs_select_compensation.getShort("ContractStatus"));
+                contractStatus.setStatusName(rs_select_compensation.getString("ContractStatusName"));
+                contract.setStatusCode(contractStatus);
+                Product product = new Product();
+                product.setTitle(rs_select_compensation.getString("ProductTitle"));
+                contract.setProduct(product);
+                accident.setContract(contract);
+                compensation.setAccident(accident);
+                
+                return compensation;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public HashMap<Integer, Compensation> getCompensationsByStaff(int staffId, String query, String queryChoose,
             int pageIndex, String compensationStatus, String orderby, String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
@@ -91,7 +160,7 @@ public class CompensationDBContext extends DBContext {
                     + "		Compensation.CreatedDate,\n"
                     + "		Compensation.ResolveDate,\n"
                     + "		Compensation.Status,\n"
-                    +"                                  CompensationStatusCode.StatusName\n"
+                    + "                                  CompensationStatusCode.StatusName\n"
                     + "  FROM [Compensation] INNER JOIN Accident ON Compensation.AccidentID=Accident.ID\n"
                     + "		INNER JOIN CompensationStatusCode ON CompensationStatusCode.StatusCode=Compensation.Status\n"
                     + "		INNER JOIN Contract ON Contract.ID  = Accident.ContractID\n"
@@ -219,7 +288,7 @@ public class CompensationDBContext extends DBContext {
             psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
             psm_insert_accident.setString(++i, accident.getTitle());
             psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
-            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getAttachment());
             psm_insert_accident.setString(++i, accident.getHumanDamage());
             psm_insert_accident.setString(++i, accident.getVehicleDamage());
             psm_insert_accident.setInt(++i, accident.getContract().getId());
