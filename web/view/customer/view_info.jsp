@@ -83,7 +83,7 @@
                     <div class="section__item">
                         <div class="section__title">Date of Birth</div>
                         <div class="section__text">
-                            <fmt:formatDate type = "date" dateStyle = "short"
+                            <fmt:formatDate pattern = "dd-MM-yyyy"
                                             value = "${requestScope.cus.dob}" />
                         </div>
                     </div>
@@ -115,9 +115,9 @@
                 </div>
             </div>
         </main>
-
-        <jsp:include page="../footer_full.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
     </body>
+
+    <jsp:include page="../footer_full.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
 </html>
