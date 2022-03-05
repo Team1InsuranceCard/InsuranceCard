@@ -145,19 +145,41 @@ public class CompensationDBContext extends DBContext {
     }
 
     //Resolve Compensation
-//    String sql = "select cont.ID as contId, cont.[Status] as contStatus, cont.StartDate, cont.EndDate, (cont.ContractFee/pro.Price) as term, payme.PaymentMethod,\n"
-//            + "	(cus.FirstName + ' ' + cus.LastName) as CusName, acc.Email, cus.Dob, cus.PersonalID, cus.Phone, cus.[Address],\n"
-//            + "	vt.VehicleType, cont.Engine, cont.LicensePlate, cont.Color, b.Brand, cont.[Owner], cont.Chassis,\n"
-//            + "	cont.ProductID, pro.Title, pro.[Status] as proStatus,\n"
-//            + "	acci.[Title] as acciTitle, acci.Attachment as acciAttach, acci.VehicleDamage, acci.AccidentDate, acci.HumanDamage,\n"
-//            + "	comp.ID as compId, comp.DriverName, comp.CreatedDate, comp.[Description], comp.[Status] as compStatus, comp.Attachment as compAttach, comp.ResolveNote\n"
-//            + "from [Contract] cont inner join Payment pay on cont.ID = pay.ContractID\n"
-//            + "								inner join PaymentMethod payme on pay.PaymentMethodID = payme.ID\n"
-//            + "					inner join Product pro on cont.ProductID = pro.ID\n"
-//            + "					inner join Customer cus on cont.CustomerID = cus.AccountID\n"
-//            + "								inner join Account acc on cus.AccountID = acc.ID\n"
-//            + "					inner join VehicleType vt on cont.VehicleTypeID = vt.ID\n"
-//            + "					inner join Brand b on cont.BrandID = b.ID\n"
-//            + "					inner join Accident acci on cont.ID = acci.ContractID\n"
-//            + "					inner join Compensation comp on acci.ID = comp.AccidentID";
+
+    public Compensation getLatestCompensation(int contractId) {
+        try {
+            String sql = "select comp.ID, DriverName, comp.CreatedDate, comp.ResolveDate, "
+                    + "comp.ResolveNote, csc.StatusCode, csc.StatusName, comp.[Description], comp.Attachment, AccidentID\n"
+                    + "from Compensation comp inner join Accident a on comp.AccidentID = a.ID\n"
+                    + "						inner join CompensationStatusCode csc on comp.[Status] = csc.StatusCode\n"
+                    + "						left join [Contract] cont on a.ContractID = cont.ID\n"
+                    + "where cont.[ID] = ?";
+            PreparedStatement stm = connection.prepareCall(sql);
+            stm.setInt(1, contractId);
+            ResultSet rs = stm.executeQuery();
+            Compensation c = null;
+            while (rs.next()) {
+                if (c == null) {
+                    c.setId(rs.getInt("ID"));
+                    AccidentDBContext dbA = new AccidentDBContext();
+                    Accident accident = dbA.getLatestAccident(contractId);
+                    c.setAccident(accident);
+                    c.setDriverName(rs.getString("DriverName"));
+                    c.setCreateDate(rs.getTimestamp("CreatedDate"));
+                    c.setResolveDate(rs.getTimestamp("ResolveDate"));
+                    c.setResolveNote(rs.getString("ResolveNote"));
+                    CompensationStatusCode status = new CompensationStatusCode();
+                    status.setStatusCode(rs.getInt("StatusCode"));
+                    status.setStatusName(rs.getString("StatusName"));
+                    c.setStatus(status);
+                    c.setDescription(rs.getString("Description"));
+                    c.setAttachment(rs.getString("Attachment"));
+                }
+            }
+            return c;
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
