@@ -45,6 +45,7 @@ public class ResolveCompensation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
         
     }
 
