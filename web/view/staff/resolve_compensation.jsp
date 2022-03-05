@@ -269,7 +269,6 @@
                             <div class="col-lg-6 section__text">04/04/2022</div>
                         </div>
 
-
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Description</div>
                             <div class="col-lg-6 section__text">fee+(fee*package)</div>
