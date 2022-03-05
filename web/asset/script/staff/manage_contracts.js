@@ -145,36 +145,6 @@ function createPager(domElementID, pageIndex, totalPage, rootURL) {
                                 <a class="page-link" href="${URLObject}">Last</a>
                             </li>`;
     }
-    //   if (pageIndex > 1) {
-    //     container.innerHTML += `<a href="${requestPath}&page=${
-    //       pageIndex - 1
-    //     }">&laquo;</a>`;
-    //   }
-    //   if (pageIndex - GAP > 1) {
-    //     container.innerHTML += `<a href="${requestPath}&page=1">1</a>`;
-    //     container.innerHTML += `<a onclick="goToPage('${requestPath}')">...</a>`;
-    //   }
-    //   for (let i = pageIndex - GAP; i < pageIndex; i++) {
-    //     if (i > 0) {
-    //       container.innerHTML += `<a href="${requestPath}&page=${i}">${i}</a>`;
-    //     }
-    //   }
-    //   container.innerHTML += `<a  class="active">${pageIndex}</a>`;
-    //   for (let i = pageIndex + 1; i <= pageIndex + GAP; i++) {
-    //     if (i <= totalPage) {
-    //       container.innerHTML += `<a href="${requestPath}&page=${i}">${i}</a>`;
-    //     }
-    //   }
-    //   if (pageIndex + GAP < totalPage) {
-    //     container.innerHTML += `<a onclick="goToPage('${requestPath}')">...</a>`;
-    //     container.innerHTML += `<a href="${requestPath}&page=${totalPage}">${totalPage}</a>`;
-    //   }
-
-    //   if (pageIndex < totalPage) {
-    //     container.innerHTML += `<a href="${requestPath}&page=${
-    //       pageIndex + 1
-    //     }">&raquo;</a>`;
-    //   }
 }
 
 function mySubmitQuerySearch(e) {
