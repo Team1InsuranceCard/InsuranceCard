@@ -28,6 +28,24 @@ import model.Product;
  */
 public class CompensationDBContext extends DBContext {
 
+    public int deleteCompensation(int compensationID, int status, boolean isDelete) {
+        int rowAffects = 0;
+        String sql_update = "UPDATE [Compensation]\n"
+                + "   SET [isDelete] = ?\n"
+                + " WHERE Compensation.Status=? AND Compensation.ID=?";
+        try {
+            PreparedStatement psm_update = connection.prepareStatement(sql_update);
+            int i=0;
+            psm_update.setBoolean(++i, isDelete);
+            psm_update.setInt(++i, status);
+            psm_update.setInt(++i, compensationID);
+            rowAffects = psm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rowAffects;
+    }
+
     public Compensation getCompensationByCustomer(int compensationID, int customerID) {
         String sql_select_compensation = "SELECT Contract.ID AS ContractID, Product.Title AS ProductTitle, Contract.Status AS ContractStatus,\n"
                 + "		ContractStatusCode.StatusName AS ContractStatusName,\n"
@@ -46,7 +64,7 @@ public class CompensationDBContext extends DBContext {
                 + "	WHERE Compensation.isDelete = 0 AND Compensation.ID = ?";
         try {
             PreparedStatement psm_select_compesation = connection.prepareStatement(sql_select_compensation);
-            int i=0;
+            int i = 0;
             psm_select_compesation.setInt(++i, compensationID);
             ResultSet rs_select_compensation = psm_select_compesation.executeQuery();
             if (rs_select_compensation.next()) {
@@ -86,7 +104,7 @@ public class CompensationDBContext extends DBContext {
                 contract.setProduct(product);
                 accident.setContract(contract);
                 compensation.setAccident(accident);
-                
+
                 return compensation;
 
             }
