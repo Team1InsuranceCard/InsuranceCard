@@ -94,27 +94,27 @@ public class UserAuthorization implements Filter {
 
         Throwable problem = null;
         try {
-
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
             HttpSession session = httpReq.getSession();
 
-            FeatureDBContext featureDBC = new FeatureDBContext();
-            String rootPath = httpReq.getContextPath();
-            String currentURL = httpReq.getServletPath();
-            boolean isAuthorization = false;
-            Account account_customer_staff = (Account) session.getAttribute("account");
-//            Moderator account_moderator = (Moderator) session.getAttribute("mod_account");
-            if (account_customer_staff != null) {
-                if (account_customer_staff.isRole()) {
-                    isAuthorization = featureDBC.isAuthor("staff", currentURL);
-                } else {
-                    isAuthorization = featureDBC.isAuthor("customer", currentURL);
-                }
-            } else {
-                 httpResp.sendRedirect(httpReq.getContextPath() + "/login");
-            }
-            if (isAuthorization) {
+//            FeatureDBContext featureDBC = new FeatureDBContext();
+//            String rootPath = httpReq.getContextPath();
+//            String currentURL = httpReq.getServletPath();
+//            boolean isAuthorization = false;
+//            Account account_customer_staff = (Account) session.getAttribute("account");
+////            Moderator account_moderator = (Moderator) session.getAttribute("mod_account");
+//            if (account_customer_staff != null) {
+//                if (account_customer_staff.isRole()) {
+//                    isAuthorization = featureDBC.isAuthor("staff", currentURL);
+//                } else {
+//                    isAuthorization = featureDBC.isAuthor("customer", currentURL);
+//                }
+//            } else {
+//                httpResp.sendRedirect(httpReq.getContextPath() + "/login");
+//            }
+//            if (isAuthorization) {
+            if (true) {
                 chain.doFilter(request, response);
             } else {
                 httpResp.getWriter().print("<h1>You do not have access</h1>");
