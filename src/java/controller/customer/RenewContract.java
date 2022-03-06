@@ -58,6 +58,7 @@ public class RenewContract extends HttpServlet {
         
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
+        request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
 
