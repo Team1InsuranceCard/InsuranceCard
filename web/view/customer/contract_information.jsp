@@ -137,27 +137,27 @@
                             <c:set var="s" value="${requestScope.contract.statusCode.statusCode}"/>
                             <c:choose>
                                 <c:when test="${s==0}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==1}">
-                                    <p class="col-md-2 center" style="color:#0DC858;">
+                                    <p class="col-md-3 center" style="color:#0DC858;">
                                         ${status}</p>
                                     </c:when>                                                 
                                     <c:when test="${s==2}">
-                                    <p class="col-md-2 center" style="color:#FF7D42;">
+                                    <p class="col-md-3 center" style="color:#FF7D42;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==3}">
-                                    <p class="col-md-2 center" style="color:#FF7D42;">
+                                    <p class="col-md-3 center" style="color:#FF7D42;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==4}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==5}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                 </c:choose>
