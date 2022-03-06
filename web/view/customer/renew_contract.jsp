@@ -19,17 +19,17 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-        
+
         <style>
             section .delivery-content .row {
                 margin-bottom: 2rem;
             }
-            
+
             section .delivery-content input {
                 background-color: #FFF9EC;
                 border: 0.5px solid #000000;
             }
-            
+
             section .delivery-content input:hover {
                 background-color: #FDC8C0;
             }
@@ -140,51 +140,49 @@
                             <p class="col-md-2 bold">Staff:</p>
                             <p class="col-md-3 underline">${c.startStaff.firstName} 
                                 ${c.startStaff.lastName}</p>
-                            <p class="col-md-2 space bold">Status:</p>
+                            <p class="col-md-3 space bold">Status:</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel Staff:</p>
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Duration:</p>
-                            <p class="col-md-2">
-                                <select id="duration" name="duration" 
-                                        onchange="fillEndDate()" required>
-                                    <option value="0" hidden>Select year</option>
-                                    <option value="1">1 year</option>
-                                    <option value="2">2 year</option>
-                                    <option value="3">3 year</option>
-                                </select>
-                            </p>
+                            <select class="col-md-3" id="duration" name="duration" 
+                                    onchange="fillEndDate()" required>
+                                <option value="0" hidden>Select year</option>
+                                <option value="1">1 year</option>
+                                <option value="2">2 year</option>
+                                <option value="3">3 year</option>
+                            </select>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Resolve date:</p>
-                            <p class="col-md-2 underline"></p>
+                            <p class="col-md-3 underline"></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
-                            <p class="col-md-3">
-                                <input type="date" id="startDate" name="startDate"
-                                       min="${requestScope.minDate}" 
-                                       value="${requestScope.minDate}"
-                                       onchange="fillEndDate()" required/></p>
+                            <input class="col-md-3"
+                                   type="date" id="startDate" name="startDate"
+                                   min="${requestScope.minDate}" 
+                                   value="${requestScope.minDate}"
+                                   onchange="fillEndDate()" required/>
                             <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline" id="endDate">
+                            <p class="col-md-3 underline" id="endDate">
                             </p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel request date:</p>
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
-                            <p class="col-md-2 underline"></p>
+                            <p class="col-md-3 underline"></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel reason:</p>
                             <textarea class="col-md-3 text-area" disabled>
                             </textarea>
                             <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>
+                            <textarea class="col-md-3 text-area" disabled>
                             </textarea>
                         </div>
                     </div>
