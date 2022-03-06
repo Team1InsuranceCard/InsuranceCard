@@ -91,6 +91,7 @@ public class ContractInformation extends HttpServlet {
         request.setAttribute("duration", getDaysDiff);
         request.setAttribute("checkRenew", checkRenewRight == true
                 ? "" : "Can't renew because contract was renewed or is being processed!");
+        request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
