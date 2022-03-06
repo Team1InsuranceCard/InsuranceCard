@@ -6,6 +6,7 @@
 package controller.customer;
 
 import dao.ContractDBContext;
+import dao.DeliveryDBContext;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,6 +78,8 @@ public class ContractInformation extends HttpServlet {
 
         } catch (ParseException e) {
         }
+        
+        DeliveryDBContext ddb = new DeliveryDBContext();
 
         request.setAttribute("contract", contract);
         request.setAttribute("btn", btn);
