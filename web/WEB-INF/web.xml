@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
-        <filter-name>setEncode</filter-name>
-        <filter-class>filter.setEncode</filter-class>
+        <filter-name>UserAuthorization</filter-name>
+        <filter-class>filter.UserAuthorization</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SetEncodeUTF8</filter-name>
+        <filter-class>filter.SetEncodeUTF8</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>setEncode</filter-name>
+        <filter-name>SetEncodeUTF8</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserAuthorization</filter-name>
+        <url-pattern>/customer/*</url-pattern>
+        <url-pattern>/staff/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>ViewCustomer</servlet-name>
@@ -166,6 +175,18 @@
         <servlet-name>CusCompensationHis</servlet-name>
         <servlet-class>controller.customer.CompensationHis</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCompensation</servlet-name>
+        <servlet-class>controller.staff.ManageCompensation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompensationDetail</servlet-name>
+        <servlet-class>controller.customer.CompensationDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelRequestCompensation</servlet-name>
+        <servlet-class>controller.customer.CancelRequestCompensation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -321,6 +342,18 @@
     <servlet-mapping>
         <servlet-name>CusCompensationHis</servlet-name>
         <url-pattern>/customer/history/compensation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCompensation</servlet-name>
+        <url-pattern>/staff/compensation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompensationDetail</servlet-name>
+        <url-pattern>/customer/history/compensation/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelRequestCompensation</servlet-name>
+        <url-pattern>/customer/history/compensation/cancel</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
