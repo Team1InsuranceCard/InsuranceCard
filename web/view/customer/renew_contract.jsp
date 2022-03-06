@@ -23,6 +23,7 @@
 
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
+        <c:set var="d" value="${requestScope.delivery}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
