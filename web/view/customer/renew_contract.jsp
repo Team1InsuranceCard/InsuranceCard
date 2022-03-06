@@ -68,6 +68,32 @@
                     </div>
                 </div>
 
+                <div class="delivery-info">
+                    <div class="delivery title">
+                        <p>Delivery information</p>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="row">
+                            <p class="col-md-2 bold">Fullname:</p>
+                            <p class="col-md-3 underline">${d.fullName}</p>
+                            <p class="col-md-2 space bold">Phone:</p>
+                            <p class="col-md-3 underline">${d.phone}</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Email:</p>
+                            <p class="col-md-3 underline">${d.email}</p>
+                            <p class="col-md-2 space bold">Address:</p>
+                            <p class="col-md-3 underline">${d.address}</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Province:</p>
+                            <p class="col-md-3 underline">${d.province}</p>
+                            <p class="col-md-2 space bold">District:</p>
+                            <p class="col-md-3 underline">${d.district}</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="contract-info">
                     <div class="contract title">
                         <p>Contract information</p>
