@@ -99,7 +99,12 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
-                            <p class="col-md-3 underline">${d.province}</p>
+                            <select class="col-md-3"
+                                name="calc_shipping_provinces" required>
+                                <option hidden>Province</option>
+                            </select>
+                            <input class="billing_address_1" name="province" 
+                                   type="hidden" value=""/>
                             <p class="col-md-2 space bold">District:</p>
                             <p class="col-md-3 underline">${d.district}</p>
                         </div>
