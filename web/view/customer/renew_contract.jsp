@@ -19,6 +19,12 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+        
+        <style>
+            section .delivery-content .row {
+                margin-bottom: 2rem;
+            }
+        </style>
     </head>
 
     <body>
@@ -99,14 +105,14 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
-                            <select class="col-md-3"
+                            <select class="col-md-3 select"
                                     name="calc_shipping_provinces" required>
                                 <option hidden>Province</option>
                             </select>
                             <input class="billing_address_1" name="province" 
                                    type="hidden" value=""/>
                             <p class="col-md-2 space bold">District:</p>
-                            <select class="col-md-3"
+                            <select class="col-md-3 select"
                                     name="calc_shipping_district" required>
                                 <option hidden>District</option>
                             </select>
