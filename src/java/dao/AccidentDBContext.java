@@ -73,7 +73,7 @@ public class AccidentDBContext extends DBContext {
                 accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
                 accident.setHumanDamage(rs.getString("HumanDamage"));
                 accident.setVehicleDamage(rs.getString("VehicleDamage"));
-                accident.setAttatchment(rs.getString("Attachment"));
+                accident.setAttachment(rs.getString("Attachment"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccidentDBContext.class.getName()).log(Level.SEVERE, null, ex);
