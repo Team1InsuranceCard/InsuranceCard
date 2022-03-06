@@ -19,21 +19,6 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            section .delivery-content .row {
-                margin-bottom: 2rem;
-            }
-
-            section .delivery-content input {
-                background-color: #FFF9EC;
-                border: 0.5px solid #000000;
-            }
-
-            section .delivery-content input:hover {
-                background-color: #FDC8C0;
-            }
-        </style>
     </head>
 
     <body>
@@ -91,30 +76,30 @@
                     <div class="delivery-content">
                         <div class="row">
                             <p class="col-md-2 bold">Fullname:</p>
-                            <input type="text" name="name" 
+                            <input type="text" name="name" id="name"
                                    class="col-md-3 underline"
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
                                    value="${d.fullName}" required/>
                             <p class="col-md-2 space bold">Phone:</p>
                             <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"
                                    minlength="10" maxlength="10"
-                                   class="col-md-3 underline"
+                                   class="col-md-3 underline" id="phone"
                                    value="${d.phone}" required/>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Email:</p>
-                            <input type="email" name="email"
+                            <input type="email" name="email" id="email"
                                    class="col-md-3 underline" 
                                    value="${d.email}" required/>
                             <p class="col-md-2 space bold">Address:</p>
-                            <input type="text" name="address" 
+                            <input type="text" name="address" id="address"
                                    pattern="^[^-\s][\S\s]+$" 
                                    class="col-md-3 underline"
                                    value="${d.address}" required/>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
-                            <select class="col-md-3 select"
+                            <select class="col-md-3 select" value="${d.province}"
                                     name="calc_shipping_provinces" required>
                                 <option hidden>Province</option>
                             </select>
