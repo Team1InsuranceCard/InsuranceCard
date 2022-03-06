@@ -74,25 +74,25 @@ public class CreateStaff extends HttpServlet {
                 sb.append(AlphaNumericString.charAt(index));
             }
 
-//        String subject = "INSURANCE CARD SYSTEM";
-//        String message = "<!DOCTYPE html>\n"
-//                + "<html lang=\"en\">\n"
-//                + "\n"
-//                + "<head>\n"
-//                + "</head>\n"
-//                + "\n"
-//                + "<body>\n"
-//                + "    <div style=\"font-weight: bold;\">Wellcome to be a new staff!"
-//                + "</div>\n"
-//                + "    <div style=\"font-weight: bold;\">Your password: "
-//                + "</div>\n"
-//                + "    <div style=\"font-weight: bold;\">" + sb.toString()
-//                + "</div>\n"
-//                + "\n"
-//                + "</body>\n"
-//                + "\n"
-//                + "</html>";
-//        SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
+        String subject = "INSURANCE CARD SYSTEM";
+        String message = "<!DOCTYPE html>\n"
+                + "<html lang=\"en\">\n"
+                + "\n"
+                + "<head>\n"
+                + "</head>\n"
+                + "\n"
+                + "<body>\n"
+                + "    <div style=\"font-weight: bold;\">Wellcome to be a new staff!"
+                + "</div>\n"
+                + "    <div style=\"font-weight: bold;\">Your password: "
+                + "</div>\n"
+                + "    <div style=\"font-weight: bold;\">" + sb.toString()
+                + "</div>\n"
+                + "\n"
+                + "</body>\n"
+                + "\n"
+                + "</html>";
+        SendMail.send(email, subject, message, "insurancecard1517@gmail.com", "team1se1517");
             account.setPassword(sb.toString());
             staff.setAccount(account);
 
