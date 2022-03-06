@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Contract;
+import model.Delivery;
 
 /**
  *
@@ -80,6 +81,7 @@ public class ContractInformation extends HttpServlet {
         }
         
         DeliveryDBContext ddb = new DeliveryDBContext();
+        Delivery delivery = ddb.getDeliveryByContract(contractID);
 
         request.setAttribute("contract", contract);
         request.setAttribute("btn", btn);
