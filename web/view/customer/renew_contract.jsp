@@ -92,7 +92,10 @@
                                    class="col-md-3 underline" 
                                    value="${d.email}" required/>
                             <p class="col-md-2 space bold">Address:</p>
-                            <p class="col-md-3 underline">${d.address}</p>
+                            <input type="text" name="address" 
+                                   pattern="^[^-\s][\S\s]+$" 
+                                   class="col-md-3 underline"
+                                   value="${d.address}" required/>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
