@@ -116,9 +116,7 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
-                            <p class="col-md-3 underline">
-                                <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
-                                                value = "${c.requestDate}"/></p>
+                            <p class="col-md-3 underline">${d.province}</p>
                             <p class="col-md-2 space bold">District:</p>
                             <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
