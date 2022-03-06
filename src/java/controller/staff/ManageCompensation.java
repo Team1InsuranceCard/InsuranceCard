@@ -58,6 +58,7 @@ public class ManageCompensation extends HttpServlet {
         int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         ArrayList<CompensationStatusCode> statusCode = statusCodeDBC.getCompensationStatusCodes();
         
+        request.setAttribute("status", compensationStatus);
         request.setAttribute("page", pageIndex);
         request.setAttribute("total_page", totalPage);
         request.setAttribute("status_code", statusCode);
