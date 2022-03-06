@@ -112,7 +112,7 @@
                             <p class="col-md-2 bold">Email:</p>
                             <p class="col-md-3 underline">${d.email}</p>
                             <p class="col-md-2 space bold">Address:</p>
-                            <p class="col-md-3 underline">${requestScope.duration}</p>
+                            <p class="col-md-3 underline">${d.address}</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
