@@ -81,7 +81,10 @@
                                    pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
                                    value="${d.fullName}" required/>
                             <p class="col-md-2 space bold">Phone:</p>
-                            <p class="col-md-3 underline">${d.phone}</p>
+                            <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"
+                                   minlength="10" maxlength="10"
+                                   class="col-md-3 underline"
+                                   value="${d.phone}" required/>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Email:</p>
