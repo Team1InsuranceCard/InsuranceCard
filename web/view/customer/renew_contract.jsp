@@ -76,7 +76,10 @@
                     <div class="delivery-content">
                         <div class="row">
                             <p class="col-md-2 bold">Fullname:</p>
-                            <p class="col-md-3 underline">${d.fullName}</p>
+                            <input type="text" name="name" 
+                                   class="col-md-3 underline"
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   value="${d.fullName}" required/>
                             <p class="col-md-2 space bold">Phone:</p>
                             <p class="col-md-3 underline">${d.phone}</p>
                         </div>
