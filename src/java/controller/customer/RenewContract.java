@@ -22,6 +22,7 @@ import model.Account;
 import model.Brand;
 import model.Contract;
 import model.Customer;
+import model.Delivery;
 import model.Product;
 import model.Staff;
 import model.VehicleType;
@@ -53,6 +54,7 @@ public class RenewContract extends HttpServlet {
         Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
         DeliveryDBContext ddb = new DeliveryDBContext();
+        Delivery delivery = ddb.getDeliveryByContract(contractID);
         
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
