@@ -6,6 +6,7 @@
 package controller.customer;
 
 import dao.ContractDBContext;
+import dao.DeliveryDBContext;
 import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,6 +52,8 @@ public class RenewContract extends HttpServlet {
         ContractDBContext cdb = new ContractDBContext();
         Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
+        DeliveryDBContext ddb = new DeliveryDBContext();
+        
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
         request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
