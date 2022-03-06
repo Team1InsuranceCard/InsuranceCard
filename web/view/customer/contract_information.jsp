@@ -104,10 +104,9 @@
                     <div class="delivery-content">
                         <div class="row">
                             <p class="col-md-2 bold">Fullname:</p>
-                            <p class="col-md-3 underline">${d.fullName} 
-                                ${c.startStaff.lastName}</p>
+                            <p class="col-md-3 underline">${d.fullName}</p>
                             <p class="col-md-2 space bold">Phone:</p>
-                            <p class="col-md-3 underline"></p>
+                            <p class="col-md-3 underline">${d.phone}</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Email:</p>
