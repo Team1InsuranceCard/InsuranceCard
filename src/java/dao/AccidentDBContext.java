@@ -36,7 +36,7 @@ public class AccidentDBContext extends DBContext {
             psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
             psm_insert_accident.setString(++i, accident.getTitle());
             psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
-            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getAttachment());
             psm_insert_accident.setString(++i, accident.getHumanDamage());
             psm_insert_accident.setString(++i, accident.getVehicleDamage());
             psm_insert_accident.setInt(++i, accident.getContract().getId());
