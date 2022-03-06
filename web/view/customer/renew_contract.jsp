@@ -24,6 +24,15 @@
             section .delivery-content .row {
                 margin-bottom: 2rem;
             }
+            
+            section .delivery-content input {
+                background-color: #FFF9EC;
+                border: 0.5px solid #000000;
+            }
+            
+            section .delivery-content input:hover {
+                background-color: #FDC8C0;
+            }
         </style>
     </head>
 
