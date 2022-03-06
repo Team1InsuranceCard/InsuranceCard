@@ -88,7 +88,9 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Email:</p>
-                            <p class="col-md-3 underline">${d.email}</p>
+                            <input type="email" name="email"
+                                   class="col-md-3 underline" 
+                                   value="${d.email}" required/>
                             <p class="col-md-2 space bold">Address:</p>
                             <p class="col-md-3 underline">${d.address}</p>
                         </div>
