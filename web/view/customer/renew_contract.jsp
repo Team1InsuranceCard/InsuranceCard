@@ -50,21 +50,21 @@
                     <c:set var="cus" value="${requestScope.contract.customer}"/>
                     <div class="cus-content">
                         <div class="row">
-                            <p class="col-md-1 bold">Name:</p>
+                            <p class="col-md-2 bold">Name:</p>
                             <p class="col-md-3 underline">${cus.firstName} 
                                 ${cus.lastName}</p>
-                            <p class="col-md-1 space bold">DOB:</p>
-                            <p class="col-md-2 underline">${cus.dob}</p>
+                            <p class="col-md-2 space bold">DOB:</p>
+                            <p class="col-md-3 underline">${cus.dob}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Phone:</p>
+                            <p class="col-md-2 bold">Phone:</p>
                             <p class="col-md-3 underline">${cus.phone}</p>
-                            <p class="col-md-1 space bold">PersonalID:</p>
-                            <p class="col-md-2 underline">${cus.personalID}</p>
+                            <p class="col-md-2 space bold">PersonalID:</p>
+                            <p class="col-md-3 underline">${cus.personalID}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Address:</p>
-                            <p class="col-md-5 underline">${cus.address}</p>
+                            <p class="col-md-2 bold">Address:</p>
+                            <p class="col-md-3 underline">${cus.address}</p>
                         </div>
                     </div>
                 </div>
