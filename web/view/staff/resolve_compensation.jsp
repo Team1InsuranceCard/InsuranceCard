@@ -276,8 +276,17 @@
                         </div>
 
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Description</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.description}</div>
+                            <div class="col-lg-6 section__title">Decision</div>
+                            <select name="decision" class="col-lg-6 section__input" required>
+                                <option value="1">Accept</option>
+                                <option value="2">Reject</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row col-lg-12 section__item">
+                            <div class="col-lg-3 section__title">Description</div>
+                            <textarea class="col-lg-8 section__input" type="text" 
+                                      style="resize: none; height: 5rem;" readonly>${requestScope.compensation.description}</textarea>
                         </div>
 
                         <div class="row col-lg-12 section__item">
