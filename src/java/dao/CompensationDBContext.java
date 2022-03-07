@@ -407,17 +407,16 @@ public class CompensationDBContext extends DBContext {
     }
 
     //Resolve Compensation
-    public Compensation getCompensation(int contractId, int id) {
+    public Compensation getCompensation(int id) {
         try {
             String sql = "select comp.ID, DriverName, comp.CreatedDate, comp.ResolveDate, comp.ResolveNote,"
                     + " csc.StatusCode, csc.StatusName, comp.[Description], comp.Attachment, AccidentID\n"
                     + "from Compensation comp inner join Accident a on comp.AccidentID = a.ID\n"
                     + "						inner join CompensationStatusCode csc on comp.[Status] = csc.StatusCode\n"
                     + "						left join [Contract] cont on a.ContractID = cont.ID\n"
-                    + "where cont.[ID] = ? and comp.[ID] = ?";
+                    + "where comp.[ID] = ?";
             PreparedStatement stm = connection.prepareCall(sql);
-            stm.setInt(1, contractId);
-            stm.setInt(2, id);
+            stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             Compensation c = null;
             while (rs.next()) {
@@ -425,7 +424,7 @@ public class CompensationDBContext extends DBContext {
                     c = new Compensation();
                     c.setId(id);
                     AccidentDBContext dbA = new AccidentDBContext();
-                    Accident accident = dbA.getAccident(contractId, id);
+                    Accident accident = dbA.getAccident(id);
                     c.setAccident(accident);
                     c.setDriverName(rs.getString("DriverName"));
                     c.setCreateDate(rs.getTimestamp("CreatedDate"));
