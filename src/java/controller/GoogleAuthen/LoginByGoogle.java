@@ -6,6 +6,7 @@
 package controller.GoogleAuthen;
 
 import controller.SendMail;
+import dao.AccountDBContext;
 import dao.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,10 +86,10 @@ public class LoginByGoogle extends HttpServlet {
         String googleID = request.getParameter("id");
 
 
-        CustomerDBContext customerDBC = new CustomerDBContext();
-        Account customer = customerDBC.getCustomerByEmailNGoogleID(email, googleID);
-        if (customer != null) {
-            request.getSession().setAttribute("account", customer);
+        AccountDBContext accountDBC = new AccountDBContext();
+        Account account = accountDBC.getAccountByEmailNGoogleID(email, googleID);
+        if (account != null) {
+            request.getSession().setAttribute("account", account);
             response.sendRedirect("../customer/dashboard");
         } else {
             int n = 8;
