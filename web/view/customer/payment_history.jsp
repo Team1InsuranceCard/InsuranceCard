@@ -101,7 +101,7 @@
             </div>
 
             <script>
-                createPagger('customer/history/payment', 'pagging',
+                createPagger('customer/history/payment?${requestScope.date_page}', 'pagging',
                 ${requestScope.pageIndex-1}, ${requestScope.pageIndex},
                 ${requestScope.pageIndex+1}, 2, ${requestScope.totalPage});
             </script> 

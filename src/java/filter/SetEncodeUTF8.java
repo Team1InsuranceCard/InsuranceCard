@@ -15,12 +15,15 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author area1
  */
-public class setEncode implements Filter {
+public class SetEncodeUTF8 implements Filter {
 
     private static final boolean debug = true;
 
@@ -29,13 +32,13 @@ public class setEncode implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public setEncode() {
+    public SetEncodeUTF8() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("setEncode:DoBeforeProcessing");
+            log("SetEncodeUTF8:DoBeforeProcessing");
         }
 
         request.setCharacterEncoding("UTF-8");
@@ -65,7 +68,7 @@ public class setEncode implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("setEncode:DoAfterProcessing");
+            log("SetEncodeUTF8:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -101,7 +104,7 @@ public class setEncode implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("setEncode:doFilter()");
+            log("SetEncodeUTF8:doFilter()");
         }
 
         doBeforeProcessing(request, response);
@@ -161,7 +164,7 @@ public class setEncode implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("setEncode:Initializing filter");
+                log("SetEncodeUTF8:Initializing filter");
             }
         }
     }
@@ -172,9 +175,9 @@ public class setEncode implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("setEncode()");
+            return ("SetEncodeUTF8()");
         }
-        StringBuffer sb = new StringBuffer("setEncode(");
+        StringBuffer sb = new StringBuffer("SetEncodeUTF8(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

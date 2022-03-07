@@ -20,12 +20,12 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             type="image/png"
             sizes="16x16"
             />
-        <link rel="stylesheet" href="asset/style/staff/manage_contract.css" />
+        <link rel="stylesheet" href="asset/style/staff/manage_compensation.css" />
         <!-- <script src="asset/script/staff/manage_contracts.js" defer></script> -->
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
-            <jsp:param name="currentscreen" value="contract" />
+            <jsp:param name="currentscreen" value="compensation" />
         </jsp:include>
 
         <main>
@@ -40,11 +40,10 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="col seach-bar">
                         <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
                             <select class="select-search-option" name="" id="query-option">
-                                <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
-                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
-
-                                    <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
+                                <option <c:if test="${query_option == 'accidenttitle'}">selected</c:if> value="accidenttitle">Accident Title</option>
                                 <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
+                                <option <c:if test="${query_option == 'compensationid'}">selected</c:if> value="compensationid">Compensation ID</option>
+                                <option <c:if test="${query_option == 'accidentid'}">selected</c:if> value="accidentid">Accident ID</option>
 
                                 </select>
                                 <input
@@ -65,9 +64,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                             </button>
                         </form>
                     </div>
-                    <div class="col create-contract-button">
-                        <a href="staff/contract/new">New Contract</a>
-                    </div>
+
                 </div>
             </div>
 
@@ -76,35 +73,34 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                 <div class="contract-list-content">
                     <table class="contract-list-table table table-striped">
                         <thead class="contract-list-header">
-                        <th scope="col"><a <c:if test="${orderby ==  'id'}"> title="${ordertype}"</c:if>  id="id-filter" href="javascript:void()"
-                                                                             >ID
-                                <%--<c:if test="${orderby ==  'id'}">: ${ordertype}</c:if>--%>
-                            </a
-                            ></th>
-                        <th scope="col">
-                            <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
-                                                                   >Customers<c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
-                                                                   >
-                            </th>
+                        <th scope="col"><a <c:if test="${param.orderby ==  'id'}"> title="${param.ordertype}"</c:if>  id="id-filter" href="javascript:void()"
+                                                                             >ID<c:if test="${param.orderby ==  'id'}">: ${param.ordertype}</c:if>
+                                </a
+                                ></th>
+                            <th scope="col"><a <c:if test="${param.orderby ==  'contractid'}"> title="${param.ordertype}"</c:if>  id="contract-filter" href="javascript:void()"
+                                                                                         >Contract ID<c:if test="${param.orderby ==  'contractid'}">: ${param.ordertype}</c:if>
+                                </a
+                                ></th>
                             <th scope="col">
-                                <a <c:if test="${orderby == 'product'}"> title="${ordertype}"</c:if>  id="product-filter" href="javascript:void();"
-                                                                     >Products<c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a
+                                <a <c:if test="${param.orderby ==  'title'}"> title="${param.ordertype}"</c:if>  id="title-filter" href="javascript:void()"
+                                                                    >Title<c:if test="${param.orderby ==  'title'}">: ${param.ordertype}</c:if></a
+                                                                    >
+                            </th>
+
+                            <th scope="col">
+                                <a <c:if test="${param.orderby == 'created'}"> title="${param.ordertype}"</c:if> id="created-date-filter" href="javascript:void()"
+                                                                     >Created date<c:if test="${param.orderby ==  'created'}">: ${param.ordertype}</c:if></a
                                                                      >
                             </th>
                             <th scope="col">
-                                <a <c:if test="${orderby == 'start'}"> title="${ordertype}"</c:if> id="start-date-filter" href="javascript:void()"
-                                                                   >Start date<c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a
-                                                                   >
-                            </th>
-                            <th scope="col">
-                                <a <c:if test="${orderby == 'end'}"> title="${ordertype}"</c:if>  id="end-date-filter" href="javascript:void()"
-                                                                 >End date<c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a
-                                                                 >
+                                <a <c:if test="${param.orderby == 'resolve'}"> title="${param.ordertype}"</c:if>  id="resolve-date-filter" href="javascript:void()"
+                                                                     >Resolve date<c:if test="${param.orderby ==  'resolve'}">: ${param.ordertype}</c:if></a
+                                                                     >
                             </th>
                             <th scope="col">
                                 <select class="status-select" name="" id="status-filter">
                                     <option value="" >Status</option>
-                                <c:forEach var="statuscode" items="${status_codes}">
+                                <c:forEach var="statuscode" items="${status_code}">
                                     <option <c:if  test="${status == statuscode.statusCode}">selected</c:if> value="${statuscode.statusCode}">
                                         ${statuscode.statusName}
                                     </option>
@@ -114,55 +110,54 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         <th scope="col">Action</th>
                         </thead>
                         <tbody>
-                            <c:forEach var="contractMap" items="${contract_list}">
-                                <c:set var="contract" value="${contractMap.value}" />
+                            <c:forEach var="compensationMap" items="${compensations}">
+                                <c:set var="compensation" value="${compensationMap.value}" />
                                 <tr>
-                                    <th scope="row">${contract.id}</th>
-
+                                    <th scope="row">${compensation.id}</th>
                                     <td>
-                                        ${contract.customer.firstName} ${contract.customer.lastName}
+                                        ${compensation.accident.contract.id}
                                     </td>
-                                    <td>${contract.product.title}</td>
+                                    <td>${compensation.accident.title}</td>
                                     <td>
                                         <fmt:formatDate pattern = "yyyy-MM-dd" 
-                                                        value = "${contract.startDate}" />
+                                                        value = "${compensation.createDate}" />
                                     </td>
                                     <td>
                                         <fmt:formatDate pattern = "yyyy-MM-dd" 
-                                                        value = "${contract.endDate}" />
+                                                        value = "${compensation.resolveDate}" />
                                     </td>
                                     <td>
                                         <c:set
                                             var="statuscode"
-                                            value="${contract.statusCode.statusCode}"
+                                            value="${compensation.status.statusCode}"
                                             />
                                         <c:choose>
                                             <c:when test="${statuscode == 0}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 1}">
-                                                <span style="color: #0dc858">${contract.statusCode.statusName}</span>
+                                                <span style="color: #0dc858">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 2}">
-                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                                <span style="color: #ff7d42">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 3}">
-                                                <span style="color: #ff7d42">${contract.statusCode.statusName}</span>
+                                                <span style="color: #ff7d42">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 4}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:when test="${statuscode == 5}">
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">${compensation.status.statusName}</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span style="color: #5c2941">${contract.statusCode.statusName}</span>
+                                                <span style="color: #5c2941">${compensation.status.statusName}</span>
                                             </c:otherwise>
                                         </c:choose>
 
                                     </td>
                                     <td>
-                                        <a href="staff/contract/detail?id=${contract.id}">Detail</a>
+                                        <a href="staff/compensation/resolve-compensation?id=${compensation.id}">Detail</a>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -190,9 +185,9 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         </main>
 
         <jsp:include page="../footer_full.jsp" />
-        <script src="asset/script/staff/manage_contracts.js"></script>
+        <script src="asset/script/staff/manage_compensation.js"></script>
         <script>
-                            createPager("page-list", ${page}, ${totalpage}, window.location.href);
+                            createPager("page-list", ${page}, ${total_page}, window.location.href);
         </script>
     </body>
 </html>
