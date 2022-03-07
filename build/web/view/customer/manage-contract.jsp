@@ -41,22 +41,19 @@
                             <select class="select-search-option" name="" id="query-option">
                                 <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
                                 <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
-
-                                </select>
-                                <input
-                                    id="search-box"
-                                    class="form-control mr-sm-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    value="${query}"
-                                name="query"
-                                />
+                            </select>
+                            <input
+                                id="search-box"
+                                class="form-control mr-sm-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                value="${query}"
+                                name="query"/>
 
                             <button
                                 class="search-button btn-secondary btn  my-2 my-sm-0"
-                                type="submit"
-                                > 
+                                type="submit"> 
                                 Search
                             </button>
                         </form>

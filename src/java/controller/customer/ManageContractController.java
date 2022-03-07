@@ -5,19 +5,27 @@
  */
 package controller.customer;
 
+import controller.externalmodule.PaginationModule;
+import dao.ContractDBContext;
+import dao.StatusCodeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Contract;
+import model.ContractStatusCode;
 
 /**
  *
  * @author quynm
  */
 public class ManageContractController extends HttpServlet {
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -31,61 +39,55 @@ public class ManageContractController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
-        Account currentStaffAccount = (Account) session.getAttribute("account");
-        int staffAccountID = currentStaffAccount.getId();
-//        int staffAccountID = 2;
-        String query = request.getParameter("query");
-        String orderBy = request.getParameter("orderby");
-        String orderType = request.getParameter("ordertype");
-        String contractStatusCode = request.getParameter("status");
-        String rawpageIndex = request.getParameter("page");
-        String contractInclude = request.getParameter("contract");
-        String queryOption = request.getParameter("queryoption");
+        Account currentCustomerAccount = (Account) session.getAttribute("account");
+        if (currentCustomerAccount == null) {
+            response.sendRedirect("../../login");
+        } else {
+            int customerID = currentCustomerAccount.getId();
+//        int customerID = 2;
+            String query = request.getParameter("query");
+            String orderBy = request.getParameter("orderby");
+            String orderType = request.getParameter("ordertype");
+            String contractStatusCode = request.getParameter("status");
+            String rawpageIndex = request.getParameter("page");
+            String queryOption = request.getParameter("queryoption");
 
-        if (contractInclude == null || contractInclude.isEmpty()) {
-            contractInclude = "justme";
-        }
+            rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
+            int pageIndex = Integer.parseInt(rawpageIndex);
 
-        rawpageIndex = (rawpageIndex == null || rawpageIndex.isEmpty()) ? "1" : rawpageIndex;
-        int pageIndex = Integer.parseInt(rawpageIndex);
+            queryOption = (queryOption == null) ? "" : queryOption;
+            StatusCodeDBContext statusDBC = new StatusCodeDBContext();
+            ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
+            String stringAllStatus = "0";
+            for (ContractStatusCode statusCode : statusCodes) {
+                stringAllStatus += "," + statusCode.getStatusCode();
+            }
 
-        queryOption = (queryOption == null)? "": queryOption;
-        StatusCodeDBContext statusDBC = new StatusCodeDBContext();
-        ArrayList<ContractStatusCode> statusCodes = statusDBC.getContractStatusCodes();
-        String stringAllStatus = "0";
-        for (ContractStatusCode statusCode : statusCodes) {
-            stringAllStatus += "," + statusCode.getStatusCode();
-        }
+            contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? stringAllStatus : contractStatusCode;
+            ContractDBContext contractDBC = new ContractDBContext();
+            HashMap<Integer, Contract> contractList = null;
+            int totalRecord = 0;
+            contractList = contractDBC.getContractsByStaff(customerID, query, queryOption, pageIndex,
+                    contractStatusCode, orderBy, orderType);
+            totalRecord = contractDBC.totalContractsByStaff(customerID, query, queryOption, contractStatusCode);
 
-        contractStatusCode = (contractStatusCode == null || contractStatusCode.isEmpty()) ? stringAllStatus : contractStatusCode;
-        ContractDBContext contractDBC = new ContractDBContext();
-        HashMap<Integer, Contract> contractList = null;
-        int totalRecord = 0;
-        switch (contractInclude) {
-            case "justme":
-                contractList = contractDBC.getContractsByStaff(staffAccountID, query, queryOption , pageIndex,
-                        contractStatusCode, orderBy, orderType);
-                totalRecord = contractDBC.totalContractsByStaff(staffAccountID, query, queryOption, contractStatusCode);
-                break;
-            case "all":
-                contractList = contractDBC.getContracts(query,queryOption, pageIndex,
-                        contractStatusCode, orderBy, orderType);
-                totalRecord = contractDBC.totalContracts(query , queryOption,  contractStatusCode);
-        }
-        int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
-        request.setAttribute("query_option", queryOption);
-        request.setAttribute("contract_list", contractList);
-        request.setAttribute("status_codes", statusCodes);
-        request.setAttribute("query", query);
-        request.setAttribute("status", contractStatusCode);
-        request.setAttribute("ordertype", orderType);
-        request.setAttribute("orderby", orderBy);
-        request.setAttribute("totalpage", totalPage);
-        request.setAttribute("page", pageIndex);
-        request.setAttribute("contractinclude", contractInclude);
+            int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
+            request.setAttribute("query_option", queryOption);
+            request.setAttribute("contract_list", contractList);
+            request.setAttribute("status_codes", statusCodes);
+            request.setAttribute("query", query);
+            request.setAttribute("status", contractStatusCode);
+            request.setAttribute("ordertype", orderType);
+            request.setAttribute("orderby", orderBy);
+            request.setAttribute("totalpage", totalPage);
+            request.setAttribute("page", pageIndex);
 //        response.sendRedirect("../view/staff/manage_contract.jsp");
-        request.getRequestDispatcher("../../view/staff/manage_contract.jsp").forward(request, response);
+            request.getRequestDispatcher("../../view/customer/manage-contract.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -99,7 +101,7 @@ public class ManageContractController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
