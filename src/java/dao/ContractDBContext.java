@@ -418,6 +418,8 @@ public class ContractDBContext extends DBContext {
                     + "      ,Dob\n"
                     + "      ,Customer.Phone\n"
                     + "	  ,PersonalID\n"
+                    + "   ,Province\n"
+                    + "   ,District\n"
                     + "	  ,Contract.ProductID\n"
                     + "      ,Contract.[StartDate]\n"
                     + "      ,[EndDate]\n"
@@ -489,6 +491,8 @@ public class ContractDBContext extends DBContext {
                 customer.setDob(rs.getDate("Dob"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
+                customer.setProvince(rs.getString("Province"));
+                customer.setDistrict(rs.getString("District"));
 
                 Staff start_staff = new Staff();
                 start_staff.setFirstName(rs.getString("StartStaff_fname"));
