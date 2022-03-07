@@ -6,6 +6,7 @@
 package controller.customer;
 
 import dao.ContractDBContext;
+import dao.DeliveryDBContext;
 import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +22,7 @@ import model.Account;
 import model.Brand;
 import model.Contract;
 import model.Customer;
+import model.Delivery;
 import model.Product;
 import model.Staff;
 import model.VehicleType;
@@ -51,8 +53,30 @@ public class RenewContract extends HttpServlet {
         ContractDBContext cdb = new ContractDBContext();
         Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
+        DeliveryDBContext ddb = new DeliveryDBContext();
+        Delivery delivery = ddb.getDeliveryByContract(contractID);
+        int dayy = d.getDayOfMonth();
+        int monthh = d.getMonth().getValue();
+        int year = d.getYear();
+
+        String day = "";
+        if (dayy < 10) {
+            day = "0" + dayy;
+        } else {
+            day = String.valueOf(dayy);
+        }
+        
+        String month = "";
+        if (monthh < 10) {
+            month = "0" + monthh;
+        }
+
+        String date = day + "-" + month + "-" + year;
+
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
+        request.setAttribute("date", date);
+        request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
 
@@ -91,10 +115,10 @@ public class RenewContract extends HttpServlet {
 
         Staff staff = new Staff();
         staff.setAccount(acc_staff);
-        
+
         VehicleType vt = new VehicleType();
         vt.setId(c.getVehicleType2().getId());
-        
+
         Brand brand = new Brand();
         brand.setId(c.getBrand2().getId());
 
@@ -102,7 +126,7 @@ public class RenewContract extends HttpServlet {
         contract.setProduct(product);
         contract.setCustomer(customer);
         contract.setStartDate(Timestamp.valueOf(sDate));
-        contract.setEndDate(Timestamp.valueOf(sDate.plusYears(duration))); 
+        contract.setEndDate(Timestamp.valueOf(sDate.plusYears(duration)));
         contract.setStatus(Short.parseShort("2"));
         contract.setContractFee(duration * c.getProduct().getPrice());
         contract.setVehicleType2(vt);
@@ -117,7 +141,7 @@ public class RenewContract extends HttpServlet {
         contract.setStartStaff(staff);
 
         int id = cdb.renewContractByCustomer(contract);
-        
+
         response.sendRedirect("detail?id=" + id);
     }
 

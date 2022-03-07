@@ -6,6 +6,7 @@
 package controller.customer;
 
 import dao.ContractDBContext;
+import dao.DeliveryDBContext;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Contract;
+import model.Delivery;
 
 /**
  *
@@ -77,6 +79,9 @@ public class ContractInformation extends HttpServlet {
 
         } catch (ParseException e) {
         }
+        
+        DeliveryDBContext ddb = new DeliveryDBContext();
+        Delivery delivery = ddb.getDeliveryByContract(contractID);
 
         request.setAttribute("contract", contract);
         request.setAttribute("btn", btn);
@@ -86,6 +91,7 @@ public class ContractInformation extends HttpServlet {
         request.setAttribute("duration", getDaysDiff);
         request.setAttribute("checkRenew", checkRenewRight == true
                 ? "" : "Can't renew because contract was renewed or is being processed!");
+        request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 

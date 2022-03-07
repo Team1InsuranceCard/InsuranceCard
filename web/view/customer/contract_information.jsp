@@ -51,6 +51,7 @@
             }
         </script>
         <c:set var="c" value="${requestScope.contract}"/>
+        <c:set var="d" value="${requestScope.delivery}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
@@ -77,21 +78,47 @@
                     <c:set var="cus" value="${requestScope.contract.customer}"/>
                     <div class="cus-content">
                         <div class="row">
-                            <p class="col-md-1 bold">Name:</p>
+                            <p class="col-md-2 bold">Name:</p>
                             <p class="col-md-3 underline">${cus.firstName} 
                                 ${cus.lastName}</p>
-                            <p class="col-md-1 space bold">DOB:</p>
-                            <p class="col-md-2 underline">${cus.dob}</p>
+                            <p class="col-md-2 space bold">DOB:</p>
+                            <p class="col-md-3 underline">${cus.dob}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Phone:</p>
+                            <p class="col-md-2 bold">Phone:</p>
                             <p class="col-md-3 underline">${cus.phone}</p>
-                            <p class="col-md-1 space bold">PersonalID:</p>
-                            <p class="col-md-2 underline">${cus.personalID}</p>
+                            <p class="col-md-2 space bold">PersonalID:</p>
+                            <p class="col-md-3 underline">${cus.personalID}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Address:</p>
-                            <p class="col-md-5 underline">${cus.address}</p>
+                            <p class="col-md-2 bold">Address:</p>
+                            <p class="col-md-3 underline">${cus.address}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delivery-info">
+                    <div class="delivery title">
+                        <p>Delivery information</p>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="row">
+                            <p class="col-md-2 bold">Fullname:</p>
+                            <p class="col-md-3 underline">${d.fullName}</p>
+                            <p class="col-md-2 space bold">Phone:</p>
+                            <p class="col-md-3 underline">${d.phone}</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Email:</p>
+                            <p class="col-md-3 underline">${d.email}</p>
+                            <p class="col-md-2 space bold">Address:</p>
+                            <p class="col-md-3 underline">${d.address}</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Province:</p>
+                            <p class="col-md-3 underline">${d.province}</p>
+                            <p class="col-md-2 space bold">District:</p>
+                            <p class="col-md-3 underline">${d.district}</p>
                         </div>
                     </div>
                 </div>
@@ -110,27 +137,27 @@
                             <c:set var="s" value="${requestScope.contract.statusCode.statusCode}"/>
                             <c:choose>
                                 <c:when test="${s==0}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==1}">
-                                    <p class="col-md-2 center" style="color:#0DC858;">
+                                    <p class="col-md-3 center" style="color:#0DC858;">
                                         ${status}</p>
                                     </c:when>                                                 
                                     <c:when test="${s==2}">
-                                    <p class="col-md-2 center" style="color:#FF7D42;">
+                                    <p class="col-md-3 center" style="color:#FF7D42;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==3}">
-                                    <p class="col-md-2 center" style="color:#FF7D42;">
+                                    <p class="col-md-3 center" style="color:#FF7D42;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==4}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                     <c:when test="${s==5}">
-                                    <p class="col-md-2 center" style="color:#E02A2A;">
+                                    <p class="col-md-3 center" style="color:#E02A2A;">
                                         ${status}</p>
                                     </c:when>
                                 </c:choose>
@@ -140,7 +167,7 @@
                             <p class="col-md-3 underline">${c.cancelStaff.firstName} 
                                 ${c.cancelStaff.lastName}</p>
                             <p class="col-md-2 space bold">Duration:</p>
-                            <p class="col-md-2 underline">${requestScope.duration} year</p>
+                            <p class="col-md-3 underline">${requestScope.duration} year</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
@@ -148,7 +175,7 @@
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.requestDate}"/></p>
                             <p class="col-md-2 space bold">Resolve date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.resolveDate}"/></p>
                         </div>
@@ -158,7 +185,7 @@
                                 <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.startDate}"/></p>
                             <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "dd-MM-yyyy" 
                                                 value = "${c.endDate}"/></p>
                         </div>
@@ -168,7 +195,7 @@
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelRequestDate}"/></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
-                            <p class="col-md-2 underline">
+                            <p class="col-md-3 underline">
                                 <fmt:formatDate pattern = "HH:mm dd-MM-yyyy" 
                                                 value = "${c.cancelDate}"/></p>
                         </div>
@@ -178,7 +205,7 @@
                                 <textarea class="text-area" disabled>${c.cancelReason}</textarea>
                             </div>
                             <div class="col-md-2 space bold">Cancel comment:</div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <textarea class="text-area" disabled>${c.cancelComment}</textarea>
                             </div>
                         </div>
