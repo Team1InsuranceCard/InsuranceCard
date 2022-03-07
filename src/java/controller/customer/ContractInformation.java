@@ -114,7 +114,7 @@ public class ContractInformation extends HttpServlet {
             request.getSession().setAttribute("contractID", contractID);
             response.sendRedirect("renew");
         } else if (btn.equals("Cancel")) {
-            response.sendRedirect("cancel");
+            response.sendRedirect("http://localhost:8080/insurancecard/cancel-contract?id=" + contractID);
         } else if (btn.equals("Undo")) {
             ContractDBContext cdb = new ContractDBContext();
             cdb.undoCancelContractByCustomer(contractID);
