@@ -141,7 +141,7 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
-                            <p class="col-md-3 underline"></p>
+                            <p class="col-md-3 underline">${requestScope.minDate}</p>
                             <p class="col-md-2 space bold">Resolve date:</p>
                             <p class="col-md-3 underline"></p>
                         </div>
