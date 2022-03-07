@@ -59,8 +59,11 @@ public class RenewContract extends HttpServlet {
         int month = d.getMonth().getValue();
         int year = d.getYear();
         
+        String date = day + "-" + month + "-" + year;
+        
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
+        request.setAttribute("date", date);
         request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/customer/renew_contract.jsp").forward(request, response);
     }
