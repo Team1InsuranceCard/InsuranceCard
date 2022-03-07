@@ -92,7 +92,9 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Address:</p>
-                            <p class="col-md-3 underline">${cus.address}</p>
+                            <p class="col-md-3 underline">
+                                ${cus.address}, ${cus.district}, ${cus.province}
+                            </p>
                         </div>
                     </div>
                 </div>
