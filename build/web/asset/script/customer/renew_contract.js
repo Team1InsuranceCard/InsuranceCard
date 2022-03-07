@@ -2,18 +2,29 @@
 function fillEndDate() {
     var start = document.getElementById("startDate").value;
     var duration = document.getElementById("duration").value;
-    if (start != "" && duration != "") {
-        var arr = start.split("-");
-        var end = arr[2] + "-" + arr[1] + "-";
 
+    if (start != "" && duration != 0) {
+        var startDate = new Date(start.toString());
         if (duration == 1) {
-            end += (Number(arr[0]) + 1);
+            startDate.setDate(startDate.getDate() + (365 * 1));
         } else if (duration == 2) {
-            end += (Number(arr[0]) + 2);
+            startDate.setDate(startDate.getDate() + (365 * 2));
         } else if (duration == 3) {
-            end += (Number(arr[0]) + 3);
+            startDate.setDate(startDate.getDate() + (365 * 3));
         }
 
+        var date = startDate.getDate();
+        var month = startDate.getMonth() + 1;
+
+        if (date / 10 < 1) {
+            date = "0" + date.toString();
+        }
+
+        if (month / 10 < 1) {
+            month = "0" + month.toString();
+        }
+
+        var end = date + "/" + month + "/" + startDate.getFullYear();
         document.getElementById("endDate").innerHTML = end;
     }
 }
@@ -22,7 +33,7 @@ function renew() {
     var startDate = document.getElementById("startDate").value;
     var duration = document.getElementById("duration").value;
 
-    if (startDate == "" || duration == "Select year") {
+    if (startDate == "" || duration == 0) {
         Swal.fire({
             position: 'top',
             text: "Fill Duration and Start date!",

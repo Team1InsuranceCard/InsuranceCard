@@ -25,30 +25,23 @@
             type="image/png"
             sizes="16x16"
             />
-        <link rel="stylesheet" href="asset/style/staff/manage_contract.css" />
-        <!-- <script src="asset/script/staff/manage_contracts.js" defer></script> -->
+        <link rel="stylesheet" href="asset/style/customer/manage_contract.css" />
+        <script src="asset/script/customer/manage_contracts.js"></script> 
     </head>
     <body>
-        <jsp:include page="../header_staff.jsp">
+        <jsp:include page="../header_customer.jsp">
             <jsp:param name="currentscreen" value="contract" />
         </jsp:include>
 
         <main>
             <div class="container contract-action">
                 <div class="row">
-                    <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="all" id="contract-include">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          All contracts
-                        </label>
-                      </div> -->
                     <div class="col seach-bar">
                         <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
                             <select class="select-search-option" name="" id="query-option">
                                 <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
                                 <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
-
-                                    <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
+                                <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
                                 <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
 
                                 </select>
@@ -71,7 +64,7 @@
                         </form>
                     </div>
                     <div class="col create-contract-button">
-                        <a href="staff/contract/new">New Contract</a>
+                        <a href="customer/contract/create">New Contract</a>
                     </div>
                 </div>
             </div>
@@ -175,20 +168,6 @@
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul id="page-list" class="pagination justify-content-end">
-                        <!-- <li class="page-item disabled">
-                                      <a class="page-link" href="#" tabindex="-1">First</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#"><</a></li>
-                                    <li class="page-item">
-                                      <a class="page-link active" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">></a></li>
-                        
-                                    <li class="page-item item-last">
-                                      <a class="page-link" href="#">Last</a>
-                                    </li> -->
                     </ul>
                 </nav>
             </div>
