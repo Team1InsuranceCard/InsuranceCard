@@ -35,7 +35,7 @@ public class CompensationDBContext extends DBContext {
                 + " WHERE Compensation.Status=? AND Compensation.ID=?";
         try {
             PreparedStatement psm_update = connection.prepareStatement(sql_update);
-            int i=0;
+            int i = 0;
             psm_update.setBoolean(++i, isDelete);
             psm_update.setInt(++i, status);
             psm_update.setInt(++i, compensationID);
@@ -407,25 +407,25 @@ public class CompensationDBContext extends DBContext {
     }
 
     //Resolve Compensation
-
-    public Compensation getLatestCompensation(int contractId) {
+    public Compensation getCompensation(int contractId, int id) {
         try {
-            String sql = "select comp.ID, DriverName, comp.CreatedDate, comp.ResolveDate, "
-                    + "comp.ResolveNote, csc.StatusCode, csc.StatusName, comp.[Description], comp.Attachment, AccidentID\n"
+            String sql = "select comp.ID, DriverName, comp.CreatedDate, comp.ResolveDate, comp.ResolveNote,"
+                    + " csc.StatusCode, csc.StatusName, comp.[Description], comp.Attachment, AccidentID\n"
                     + "from Compensation comp inner join Accident a on comp.AccidentID = a.ID\n"
                     + "						inner join CompensationStatusCode csc on comp.[Status] = csc.StatusCode\n"
                     + "						left join [Contract] cont on a.ContractID = cont.ID\n"
-                    + "where cont.[ID] = ?";
+                    + "where cont.[ID] = ? and comp.[ID] = ?";
             PreparedStatement stm = connection.prepareCall(sql);
             stm.setInt(1, contractId);
+            stm.setInt(2, id);
             ResultSet rs = stm.executeQuery();
             Compensation c = null;
             while (rs.next()) {
                 if (c == null) {
                     c = new Compensation();
-                    c.setId(rs.getInt("ID"));
+                    c.setId(id);
                     AccidentDBContext dbA = new AccidentDBContext();
-                    Accident accident = dbA.getLatestAccident(contractId);
+                    Accident accident = dbA.getAccident(contractId, id);
                     c.setAccident(accident);
                     c.setDriverName(rs.getString("DriverName"));
                     c.setCreateDate(rs.getTimestamp("CreatedDate"));
