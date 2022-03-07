@@ -424,10 +424,10 @@ public class ContractDBContext extends DBContext {
         }
         switch (queryChoose) {
             case "producttitle":
-                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                querySearch = " Product.Title LIKE '%' + ? + '%' ";
                 break;
             case "contractid":
-                querySearch = "Contract.ID LIKE ? ";
+                querySearch = " Contract.ID LIKE ? ";
                 break;
             default:
                 break;
@@ -445,12 +445,12 @@ public class ContractDBContext extends DBContext {
                     + "      ,CONTRACT.[isDelete]\n"
                     + "	  ,Customer.FirstName, Customer.LastName\n"
                     + "	  ,Product.Title\n"
-                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
-                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  FROM [Contract]\n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = CONTRACT.CustomerID\n"
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
-                    + "  JOIN Product ON Product.ID = Contract.ProductID"
+                    + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
-                    + "  WHERE Customer_Staff.CustomerID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "  WHERE CONTRACT.CustomerID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
                     + "   AND (" + querySearch + ")"
                     + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                     + "WHERE MAIN.Row_count BETWEEN ? AND ?";
