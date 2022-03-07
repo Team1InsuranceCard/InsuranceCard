@@ -57,7 +57,7 @@ public class RenewContract extends HttpServlet {
         Delivery delivery = ddb.getDeliveryByContract(contractID);
         int day = d.getDayOfMonth();
         int month = d.getMonth().getValue();
-
+        int year = d.getYear();
         
         request.setAttribute("contract", contract);
         request.setAttribute("minDate", d);
