@@ -48,7 +48,6 @@ public class ManageContractController extends HttpServlet {
             response.sendRedirect("../../login");
         } else {
             int customerID = currentCustomerAccount.getId();
-//        int customerID = 2;
             String query = request.getParameter("query");
             String orderBy = request.getParameter("orderby");
             String orderType = request.getParameter("ordertype");
@@ -85,7 +84,6 @@ public class ManageContractController extends HttpServlet {
             request.setAttribute("orderby", orderBy);
             request.setAttribute("totalpage", totalPage);
             request.setAttribute("page", pageIndex);
-//        response.sendRedirect("../view/staff/manage_contract.jsp");
             request.getRequestDispatcher("../../view/customer/manage-contract.jsp").forward(request, response);
         }
     }
