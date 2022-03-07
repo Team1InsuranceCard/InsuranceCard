@@ -26,7 +26,7 @@
             sizes="16x16"
             />
         <link rel="stylesheet" href="asset/style/customer/manage_contract.css" />
-        <script src="asset/script/customer/manage_contracts.js"></script> 
+        <script src="asset/script/customer/manage_contract.js"></script> 
     </head>
     <body>
         <jsp:include page="../header_customer.jsp">
@@ -176,7 +176,7 @@
         </main>
 
         <jsp:include page="../footer_full.jsp" />
-        <script src="asset/script/staff/manage_contracts.js"></script>
+        <script src="asset/script/customer/manage_contract.js"></script>
         <script>
                             createPager("page-list", ${page}, ${totalpage}, window.location.href);
         </script>
