@@ -73,7 +73,7 @@ public class ManageContractController extends HttpServlet {
             int totalRecord = 0;
             contractList = contractDBC.getContractsByCustomer(customerID, query, queryOption, pageIndex,
                     contractStatusCode, orderBy, orderType);
-            totalRecord = contractDBC.totalContractsByStaff(customerID, query, queryOption, contractStatusCode);
+            totalRecord = contractDBC.totalContractsByCustomer(customerID, query, queryOption, contractStatusCode);
 
             int totalPage = PaginationModule.calcTotalPage(totalRecord, 10);
             request.setAttribute("query_option", queryOption);
