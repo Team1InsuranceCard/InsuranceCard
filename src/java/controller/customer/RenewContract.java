@@ -149,7 +149,16 @@ public class RenewContract extends HttpServlet {
         String province = request.getParameter("province");
         String district = request.getParameter("district");
         
+        Delivery del = new Delivery();
+        del.setFullName(name);
+        del.setPhone(phone);
+        del.setEmail(email);
+        del.setAddress(address);
+        del.setProvince(province);
+        del.setDistrict(district);
         
+        DeliveryDBContext ddb = new DeliveryDBContext();
+        ddb.insertDelivery(del);
 
         response.sendRedirect("detail?id=" + id);
     }
