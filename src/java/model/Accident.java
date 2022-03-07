@@ -20,7 +20,7 @@ public class Accident {
     private Timestamp createdDate;
     private String humanDamage;
     private String vehicleDamage;
-    private String attatchment;
+    private String attachment;
 
     public Accident() {
     }
@@ -33,7 +33,7 @@ public class Accident {
         this.createdDate = createdDate;
         this.humanDamage = humanDamage;
         this.vehicleDamage = vehicleDamage;
-        this.attatchment = attatchment;
+        this.attachment = attatchment;
     }
 
     public Contract getContract() {
@@ -95,12 +95,12 @@ public class Accident {
         this.vehicleDamage = vehicleDamage;
     }
 
-    public String getAttatchment() {
-        return attatchment;
+    public String getAttachment() {
+        return attachment;
     }
 
-    public void setAttatchment(String attatchment) {
-        this.attatchment = attatchment;
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
 }

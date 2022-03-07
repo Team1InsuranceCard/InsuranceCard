@@ -52,7 +52,9 @@ public class ContractDBContext extends DBContext {
         if (query == null) {
             query = "";
         }
-
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
         String querySearch = " 1 = 1";
         switch (queryChoose) {
             case "personalid":
@@ -100,7 +102,11 @@ public class ContractDBContext extends DBContext {
         if (query == null) {
             query = "";
         }
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
         String querySearch = " 1 = 1";
+
         switch (queryChoose) {
             case "personalid":
                 querySearch = " Customer.PersonalID LIKE ? ";
@@ -177,6 +183,9 @@ public class ContractDBContext extends DBContext {
         }
 
         String querySearch = " 1 = 1";
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
         switch (queryChoose) {
             case "personalid":
                 querySearch = " Customer.PersonalID LIKE ? ";
@@ -291,7 +300,9 @@ public class ContractDBContext extends DBContext {
                 orderby = "Contract.ID";
                 break;
         }
-
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
         String querySearch = " 1 = 1 ";
         switch (queryChoose) {
             case "personalid":

@@ -9,7 +9,7 @@ section {
     margin: 3rem 6rem;
 }
 
-section .customer-info, .contract-info, .vehicle-info, .product-info {
+section .customer-info, .contract-info, .vehicle-info, .product-info, .delivery-info {
     border: 1px solid #000000;
     margin-bottom: 2rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -17,7 +17,8 @@ section .customer-info, .contract-info, .vehicle-info, .product-info {
 
 .product-label {
     font-weight: bold;
-    margin-top: 9rem;
+    margin-top: 10rem;
+    margin-bottom: 1rem;
     color: #5C2941;
 }
 
@@ -44,42 +45,32 @@ section .customer-info, .contract-info, .vehicle-info, .product-info {
     font-weight: bold;
 }
 
-section .cus-content {
-    margin: 3rem 8rem;
-}
-
 section .bold {
     color: #5C2941;
     font-size: 18px;
     font-weight: 500;
 }
 
-section .cus-content .row .underline {
-    margin-left: 1.5rem;
-}
-
-section .cus-content .row .space {
-    margin-left: 22rem;
-}
-
-section .contract-content, section .vehicle-content, section .product-content{
+section .contract-content, section .vehicle-content, section .product-content,
+        section .delivery-content, .cus-content {
     margin: 3rem 4rem;
 }         
 
-section .contract-content .row .underline, section .vehicle-content .row .underline,
-section .cus-content .row .underline {
+section  .row .underline {
     border-bottom: 0.25px solid rgba(7, 7, 7, 0.8);
     text-align: center;
 }
 
-section .contract-content .row .center {
+section .contract-content .row .center, section .delivery-content .row .center,
+        section .cus-content .row .center{
     text-align: center;
     font-size: 18px;
     font-weight: bold;
 }
 
-section .contract-content .row .space {
-    margin-left: 16rem;
+section .contract-content .row .space, section .delivery-content .row .space,
+       section .cus-content .row .space {
+    margin-left: 11rem;
 
 }
 

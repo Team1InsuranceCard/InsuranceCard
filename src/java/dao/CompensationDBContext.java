@@ -5,22 +5,284 @@
  */
 package dao;
 
+import controller.externalmodule.PaginationModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Accident;
+import model.Account;
 import model.Compensation;
 import model.CompensationStatusCode;
 import model.Contract;
+import model.ContractStatusCode;
+import model.Customer;
+import model.Product;
 
 /**
  *
  * @author area1
  */
 public class CompensationDBContext extends DBContext {
+
+    public int deleteCompensation(int compensationID, int status, boolean isDelete) {
+        int rowAffects = 0;
+        String sql_update = "UPDATE [Compensation]\n"
+                + "   SET [isDelete] = ?\n"
+                + " WHERE Compensation.Status=? AND Compensation.ID=?";
+        try {
+            PreparedStatement psm_update = connection.prepareStatement(sql_update);
+            int i=0;
+            psm_update.setBoolean(++i, isDelete);
+            psm_update.setInt(++i, status);
+            psm_update.setInt(++i, compensationID);
+            rowAffects = psm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rowAffects;
+    }
+
+    public Compensation getCompensationByCustomer(int compensationID, int customerID) {
+        String sql_select_compensation = "SELECT Contract.ID AS ContractID, Product.Title AS ProductTitle, Contract.Status AS ContractStatus,\n"
+                + "		ContractStatusCode.StatusName AS ContractStatusName,\n"
+                + "		Contract.StartDate, Contract.EndDate,\n"
+                + "		Accident.Title, Accident.AccidentDate, Accident.Attachment AS AccidentAttachment, \n"
+                + "		Accident.CreatedDate AS AccidentCreatedDate,\n"
+                + "		Accident.HumanDamage, Accident.VehicleDamage,\n"
+                + "		Compensation.ID, Compensation.Status, CompensationStatusCode.StatusName,\n"
+                + "		Compensation.CreatedDate, Compensation.ResolveDate, Compensation.DriverName,\n"
+                + "		Compensation.Attachment, Compensation.Description, Compensation.ResolveNote\n"
+                + "  FROM [Compensation] INNER JOIN Accident ON Compensation.AccidentID = Accident.ID\n"
+                + "		INNER JOIN CompensationStatusCode ON CompensationStatusCode.StatusCode=Compensation.Status\n"
+                + "		INNER JOIN Contract ON Accident.ContractID = Contract.ID\n"
+                + "		INNER JOIN Product ON Product.ID = Contract.ProductID\n"
+                + "		INNER JOIN ContractStatusCode ON ContractStatusCode.StatusCode=Contract.Status\n"
+                + "	WHERE Compensation.isDelete = 0 AND Compensation.ID = ?";
+        try {
+            PreparedStatement psm_select_compesation = connection.prepareStatement(sql_select_compensation);
+            int i = 0;
+            psm_select_compesation.setInt(++i, compensationID);
+            ResultSet rs_select_compensation = psm_select_compesation.executeQuery();
+            if (rs_select_compensation.next()) {
+                Compensation compensation = new Compensation();
+                compensation.setId(rs_select_compensation.getInt(("ID")));
+                compensation.setAttachment(rs_select_compensation.getString("Attachment"));
+                compensation.setCreateDate(rs_select_compensation.getTimestamp("CreatedDate"));
+                compensation.setDescription(rs_select_compensation.getString("Description"));
+                compensation.setDriverName(rs_select_compensation.getString("DriverName"));
+                compensation.setResolveDate(rs_select_compensation.getTimestamp("ResolveDate"));
+                compensation.setResolveNote(rs_select_compensation.getString("ResolveNote"));
+
+                CompensationStatusCode compensationSatus = new CompensationStatusCode();
+                compensationSatus.setStatusCode(rs_select_compensation.getShort("Status"));
+                compensationSatus.setStatusName(rs_select_compensation.getString("StatusName"));
+                compensation.setStatus(compensationSatus);
+                Accident accident = new Accident();
+                accident.setAccidentDate(rs_select_compensation.getTimestamp("AccidentDate"));
+                accident.setAttachment(rs_select_compensation.getString("AccidentAttachment"));
+                accident.setCreatedDate(rs_select_compensation.getTimestamp("AccidentCreatedDate"));
+                accident.setHumanDamage(rs_select_compensation.getString("HumanDamage"));
+//                accident.setId(rs_select_compensation.getInt(""));
+                accident.setTitle(rs_select_compensation.getString("Title"));
+                accident.setVehicleDamage(rs_select_compensation.getString("VehicleDamage"));
+
+                Contract contract = new Contract();
+                contract.setId(rs_select_compensation.getInt("ContractID"));
+                contract.setStartDate(rs_select_compensation.getTimestamp("StartDate"));
+                contract.setEndDate(rs_select_compensation.getTimestamp("EndDate"));
+
+                ContractStatusCode contractStatus = new ContractStatusCode();
+                contractStatus.setStatusCode(rs_select_compensation.getShort("ContractStatus"));
+                contractStatus.setStatusName(rs_select_compensation.getString("ContractStatusName"));
+                contract.setStatusCode(contractStatus);
+                Product product = new Product();
+                product.setTitle(rs_select_compensation.getString("ProductTitle"));
+                contract.setProduct(product);
+                accident.setContract(contract);
+                compensation.setAccident(accident);
+
+                return compensation;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public HashMap<Integer, Compensation> getCompensationsByStaff(int staffId, String query, String queryChoose,
+            int pageIndex, String compensationStatus, String orderby, String ordertype) {
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 20);
+        HashMap<Integer, Compensation> compensations = new HashMap<>();
+        if (query == null) {
+            query = "";
+        }
+        if (ordertype == null || ordertype.isEmpty()) {
+            ordertype = "ASC";
+        }
+        if (compensationStatus == null || compensationStatus.isEmpty()) {
+            compensationStatus = "0, 1, 2";
+        }
+        orderby = (orderby == null) ? "" : orderby;
+        switch (orderby) {
+            case "compensationid":
+                orderby = "Compensation.ID";
+                break;
+            case "contractid":
+                orderby = "Accident.ContractID";
+                break;
+            case "title":
+                orderby = "Accident.Title";
+                break;
+            case "created":
+                orderby = "Compensation.CreatedDate";
+                break;
+            case "resole":
+                orderby = "Compensation.ResolveDate";
+                break;
+            default:
+                orderby = "Compensation.ID";
+                break;
+        }
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
+        String querySearch = "1 = 1";
+        switch (queryChoose) {
+            case "accidenttitle":
+                querySearch = "Accident.Title LIKE '%' + ? + '%' ";
+                break;
+            case "accidentid":
+                querySearch = "Accident.ID LIKE ?";
+                break;
+            case "compensationid":
+                querySearch = "Compensation.ID = ?";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+        try {
+            String sql_select_compensation = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype + ") AS Row_count,\n"
+                    + "		Compensation.ID,\n"
+                    + "		Accident.ContractID,\n"
+                    + "		Accident.Title,\n"
+                    + "		Compensation.CreatedDate,\n"
+                    + "		Compensation.ResolveDate,\n"
+                    + "		Compensation.Status,\n"
+                    + "                                  CompensationStatusCode.StatusName\n"
+                    + "  FROM [Compensation] INNER JOIN Accident ON Compensation.AccidentID=Accident.ID\n"
+                    + "		INNER JOIN CompensationStatusCode ON CompensationStatusCode.StatusCode=Compensation.Status\n"
+                    + "		INNER JOIN Contract ON Contract.ID  = Accident.ContractID\n"
+                    + "		JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "		JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "		JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  WHERE Customer_Staff.StaffID=? AND Customer_Staff.EndDate IS NULL AND Compensation.isDelete = 0\n"
+                    + "  AND (" + querySearch + ") AND Compensation.Status IN (" + compensationStatus + ")) AS Main\n"
+                    + "  WHERE Main.Row_count BETWEEN ? AND ?";
+
+            PreparedStatement stm_select_compensation = connection.prepareStatement(sql_select_compensation);
+
+            int i = 0;
+            stm_select_compensation.setInt(++i, staffId);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_select_compensation.setString(++i, query);
+            }
+
+            stm_select_compensation.setInt(++i, recordFromTo[0]);
+            stm_select_compensation.setInt(++i, recordFromTo[1]);
+            ResultSet rs_select_compensation = stm_select_compensation.executeQuery();
+            while (rs_select_compensation.next()) {
+                Compensation compensation = new Compensation();
+                compensation.setId(rs_select_compensation.getInt("ID"));
+                compensation.setCreateDate(rs_select_compensation.getTimestamp("CreatedDate"));
+                compensation.setResolveDate(rs_select_compensation.getTimestamp("ResolveDate"));
+
+                Accident accident = new Accident();
+//                accident.setId(rs_select_contract.getInt(""));
+                accident.setTitle(rs_select_compensation.getString("Title"));
+
+                Contract contract = new Contract();
+                contract.setId(rs_select_compensation.getInt("ContractID"));
+                accident.setContract(contract);
+                compensation.setAccident(accident);
+
+                CompensationStatusCode status = new CompensationStatusCode();
+                status.setStatusCode(rs_select_compensation.getInt("Status"));
+                status.setStatusName(rs_select_compensation.getString("StatusName"));
+                compensation.setStatus(status);
+                compensations.put(rs_select_compensation.getInt("Row_count"), compensation);
+            }
+            return compensations;
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public int totalCompensationsByStaff(int staffId, String query, String queryChoose, String compensationStatus) {
+        int totalContract = 0;
+        if (query == null) {
+            query = "";
+        }
+        if (compensationStatus == null || compensationStatus.isEmpty()) {
+            compensationStatus = "0, 1, 2";
+        }
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
+        String querySearch = "1 = 1";
+        switch (queryChoose) {
+            case "accidenttitle":
+                querySearch = "Accident.Title LIKE '%' + ? + '%' ";
+                break;
+            case "accidentid":
+                querySearch = "Accident.ID LIKE ?";
+                break;
+            case "compensationid":
+                querySearch = "Compensation.ID = ?";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+
+        try {
+            String sql_total = "SELECT COUNT(Compensation.ID) AS TotalCompensation\n"
+                    + "  FROM [Compensation] INNER JOIN Accident ON Compensation.AccidentID=Accident.ID\n"
+                    + "		INNER JOIN CompensationStatusCode ON CompensationStatusCode.StatusCode=Compensation.Status\n"
+                    + "		INNER JOIN Contract ON Contract.ID  = Accident.ContractID\n"
+                    + "		JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "		JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "		JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  WHERE Customer_Staff.StaffID=? AND Customer_Staff.EndDate IS NULL AND Compensation.isDelete = 0\n"
+                    + "  AND (" + querySearch + ") AND Compensation.Status IN (" + compensationStatus + ")";
+            PreparedStatement stm_total = connection.prepareStatement(sql_total);
+            int i = 0;
+            stm_total.setInt(++i, staffId);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_total.setString(++i, query);
+            }
+
+            ResultSet rs_total = stm_total.executeQuery();
+            if (rs_total.next()) {
+                totalContract = rs_total.getInt("TotalCompensation");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalContract;
+    }
 
     public void setCompensation(Compensation compensation) {
         try {
@@ -44,7 +306,7 @@ public class CompensationDBContext extends DBContext {
             psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
             psm_insert_accident.setString(++i, accident.getTitle());
             psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
-            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getAttachment());
             psm_insert_accident.setString(++i, accident.getHumanDamage());
             psm_insert_accident.setString(++i, accident.getVehicleDamage());
             psm_insert_accident.setInt(++i, accident.getContract().getId());
@@ -184,6 +446,21 @@ public class CompensationDBContext extends DBContext {
         return null;
     }
 
+//    String sql = "select cont.ID as contId, cont.[Status] as contStatus, cont.StartDate, cont.EndDate, (cont.ContractFee/pro.Price) as term, payme.PaymentMethod,\n"
+//            + "	(cus.FirstName + ' ' + cus.LastName) as CusName, acc.Email, cus.Dob, cus.PersonalID, cus.Phone, cus.[Address],\n"
+//            + "	vt.VehicleType, cont.Engine, cont.LicensePlate, cont.Color, b.Brand, cont.[Owner], cont.Chassis,\n"
+//            + "	cont.ProductID, pro.Title, pro.[Status] as proStatus,\n"
+//            + "	acci.[Title] as acciTitle, acci.Attachment as acciAttach, acci.VehicleDamage, acci.AccidentDate, acci.HumanDamage,\n"
+//            + "	comp.ID as compId, comp.DriverName, comp.CreatedDate, comp.[Description], comp.[Status] as compStatus, comp.Attachment as compAttach, comp.ResolveNote\n"
+//            + "from [Contract] cont inner join Payment pay on cont.ID = pay.ContractID\n"
+//            + "								inner join PaymentMethod payme on pay.PaymentMethodID = payme.ID\n"
+//            + "					inner join Product pro on cont.ProductID = pro.ID\n"
+//            + "					inner join Customer cus on cont.CustomerID = cus.AccountID\n"
+//            + "								inner join Account acc on cus.AccountID = acc.ID\n"
+//            + "					inner join VehicleType vt on cont.VehicleTypeID = vt.ID\n"
+//            + "					inner join Brand b on cont.BrandID = b.ID\n"
+//            + "					inner join Accident acci on cont.ID = acci.ContractID\n"
+//            + "					inner join Compensation comp on acci.ID = comp.AccidentID";
     public ArrayList<Compensation> searchCompensationHis(int cusID, int pageSize, int pageIndex, String search, String from, String to, int statusID) {
         ArrayList<Compensation> compensations = new ArrayList<>();
         try {
@@ -298,7 +575,7 @@ public class CompensationDBContext extends DBContext {
             if (to != null) {
                 sql += "\nand CONVERT(date, cp.CreatedDate) <= CONVERT(date, ?)"
                         + "\nand CONVERT(date, cp.ResolveDate) <= CONVERT(date, ?)";
-            }            
+            }
             if (statusID != -1) {
                 sql += "\nand cp.Status = ?";
             }

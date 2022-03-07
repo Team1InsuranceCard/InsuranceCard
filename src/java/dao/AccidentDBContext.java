@@ -36,7 +36,7 @@ public class AccidentDBContext extends DBContext {
             psm_insert_accident.setTimestamp(++i, accident.getAccidentDate());
             psm_insert_accident.setString(++i, accident.getTitle());
             psm_insert_accident.setTimestamp(++i, accident.getCreatedDate());
-            psm_insert_accident.setString(++i, accident.getAttatchment());
+            psm_insert_accident.setString(++i, accident.getAttachment());
             psm_insert_accident.setString(++i, accident.getHumanDamage());
             psm_insert_accident.setString(++i, accident.getVehicleDamage());
             psm_insert_accident.setInt(++i, accident.getContract().getId());
@@ -70,7 +70,7 @@ public class AccidentDBContext extends DBContext {
                     accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
                     accident.setTitle(rs.getString("Title"));
                     accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
-                    accident.setAttatchment(rs.getString("Attachment"));
+                    accident.setAttachment(rs.getString("Attachment"));
                     accident.setHumanDamage(rs.getString("HumanDamage"));
                     accident.setVehicleDamage(rs.getString("VehicleDamage"));
                     ContractDBContext db = new ContractDBContext();
@@ -84,4 +84,39 @@ public class AccidentDBContext extends DBContext {
         }
         return null;
     }
+
+    public Accident getAccident(int id) {
+        Accident accident = new Accident();
+        try {
+            String sql = "select Title\n"
+                    + "	, ContractID\n"
+                    + "	, CreatedDate\n"
+                    + "	, AccidentDate\n"
+                    + "	, HumanDamage\n"
+                    + "	, VehicleDamage\n"
+                    + "	, Attachment\n"
+                    + "from Accident\n"
+                    + "where ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Contract contract = new Contract();
+                contract.setId(rs.getInt("ContractID"));
+                
+                accident.setId(id);
+                accident.setTitle(rs.getString("Title"));
+                accident.setContract(contract);
+                accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
+                accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
+                accident.setHumanDamage(rs.getString("HumanDamage"));
+                accident.setVehicleDamage(rs.getString("VehicleDamage"));
+                accident.setAttachment(rs.getString("Attachment"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccidentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accident;
+    }
+
 }

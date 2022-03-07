@@ -116,7 +116,7 @@ public class RequestCompensation extends HttpServlet {
 
         accident.setAccidentDate(Timestamp.valueOf(accidentDate));
 
-        accident.setAttatchment(accidentAttachment);
+        accident.setAttachment(accidentAttachment);
         accident.setHumanDamage(accidentHumanDamage);
         accident.setVehicleDamage(accidentVehicleDamage);
         accident.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
