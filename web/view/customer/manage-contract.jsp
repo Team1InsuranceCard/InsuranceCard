@@ -39,10 +39,8 @@
                     <div class="col seach-bar">
                         <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
                             <select class="select-search-option" name="" id="query-option">
-                                <option <c:if test="${query_option == 'customername'}">selected</c:if> value="customername">Customer Name</option>
-                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
-                                <option <c:if test="${query_option == 'personalid'}">selected</c:if> value="personalid">Customer Personal ID</option>
                                 <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
+                                <option <c:if test="${query_option == 'producttitle'}">selected</c:if> value="producttitle">Product Title</option>
 
                                 </select>
                                 <input
