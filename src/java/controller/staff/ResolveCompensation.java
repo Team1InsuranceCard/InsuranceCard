@@ -50,16 +50,17 @@ public class ResolveCompensation extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         int id = Integer.parseInt(request.getParameter("id"));
-        int contractid = 2;
-        ContractDBContext dbContract = new ContractDBContext();
-        Contract contract = dbContract.staffGetContractDetail(contractid);
-        int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
         CompensationDBContext dbCompensation = new CompensationDBContext();
-        Compensation compensation = dbCompensation.getCompensation(contractid, id);
+        Compensation compensation = dbCompensation.getCompensation(id);
+        ContractDBContext dbContract = new ContractDBContext();
+        Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
+        int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
+        
         //Contract info
+        request.setAttribute("compensation", compensation);
         request.setAttribute("contract", contract);
         request.setAttribute("term", term);
-        request.setAttribute("compensation", compensation);
+        
         request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
     }
 
