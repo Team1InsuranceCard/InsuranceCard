@@ -49,13 +49,13 @@ public class ResolveCompensation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-//        int id = Integer.parseInt(request.getParameter("id"));
-        int id = 2;
+        int id = Integer.parseInt(request.getParameter("id"));
+        int contractid = 2;
         ContractDBContext dbContract = new ContractDBContext();
-        Contract contract = dbContract.staffGetContractDetail(id);
+        Contract contract = dbContract.staffGetContractDetail(contractid);
         int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
         CompensationDBContext dbCompensation = new CompensationDBContext();
-        Compensation compensation = dbCompensation.getLatestCompensation(id);
+        Compensation compensation = dbCompensation.getCompensation(contractid, id);
         //Contract info
         request.setAttribute("contract", contract);
         request.setAttribute("term", term);
