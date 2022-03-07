@@ -47,7 +47,7 @@ public class AccidentDBContext extends DBContext {
         }
     }
 
-    public Accident getLatestAccident(int contractId) {
+    public Accident getAccident(int contractId, int id) {
         try {
             String sql = "SELECT [ID]\n"
                     + "      ,[AccidentDate]\n"
@@ -58,7 +58,7 @@ public class AccidentDBContext extends DBContext {
                     + "      ,[VehicleDamage]\n"
                     + "      ,[ContractID]\n"
                     + "  FROM [Accident]\n"
-                    + "  where ContractID = ?";
+                    + "  where ContractID = ? and [ID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, contractId);
             ResultSet rs = stm.executeQuery();
@@ -66,7 +66,7 @@ public class AccidentDBContext extends DBContext {
             while (rs.next()) {
                 if (accident == null) {
                     accident = new Accident();
-                    accident.setId(rs.getInt("ID"));
+                    accident.setId(id);
                     accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
                     accident.setTitle(rs.getString("Title"));
                     accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
