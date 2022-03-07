@@ -19,6 +19,71 @@ import model.AccountStatusCode;
  */
 public class AccountDBContext extends DBContext {
 
+    public Account getAccountByEmailNGoogleID(String email, String googleID) {
+        try {
+            // Customer customer = new Customer();
+            connection.setAutoCommit(false);
+            String sql_select_account = "SELECT [ID]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[Password]\n"
+                    + "      ,[Role]\n"
+                    + "      ,[Status]\n"
+                    + "      ,[GoogleID]\n"
+                    + "  FROM [Account]\n"
+                    + "  WHERE (Email=? OR GoogleID=?) AND Status=1 AND isDelete=0";
+            PreparedStatement psm_select_account = connection.prepareStatement(sql_select_account);
+            psm_select_account.setNString(1, email);
+            psm_select_account.setNString(2, googleID);
+            ResultSet rs_select_account = psm_select_account.executeQuery();
+            Account account = null;
+            // Boolean isAccountExist = false;
+            if (rs_select_account.next()) {
+                account = new Account();
+                account.setId(rs_select_account.getInt("ID"));
+                account.setEmail(rs_select_account.getString("Email"));
+                account.setPassword(rs_select_account.getString("Password"));
+                account.setRole(rs_select_account.getBoolean("Role"));
+                account.setStatus(rs_select_account.getShort("Status"));
+                String gettingGoogleID = rs_select_account.getString("GoogleID");
+                if (gettingGoogleID == null) {
+                    gettingGoogleID = "";
+                }
+                account.setGoogleID(gettingGoogleID);
+                // isAccountExist = true;
+            }
+            if (account != null && (account.getGoogleID().isEmpty() || account.getGoogleID() == null)) {
+                String sql_update_googleID = "UPDATE [Account]\n"
+                        + "   SET[GoogleID] = ?\n"
+                        + " WHERE ID=?";
+                PreparedStatement psm_update_googleID = connection.prepareStatement(sql_update_googleID);
+                psm_update_googleID.setString(1, googleID);
+                psm_update_googleID.setInt(2, account.getId());
+                psm_update_googleID.executeUpdate();
+                account.setGoogleID(googleID);
+                // customer.setAccount(account);;
+                // query get Info Customer from AccountID
+                ////
+            }
+            connection.commit();
+            return account;
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+
     public Account getAccount(String user, String pass) {
         try {
             String sql = "select ID, Email, [Password], [Role], [asc].StatusCode, [asc].StatusName\n"
