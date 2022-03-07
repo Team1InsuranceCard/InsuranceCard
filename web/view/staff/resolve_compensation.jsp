@@ -55,7 +55,7 @@
                 -->
 
 
-                <input type="hidden" name="id" value="${requestScope.contract.id}" />
+                <input type="hidden" name="contractid" value="${requestScope.contract.id}" />
 
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Contract Information</h2>
