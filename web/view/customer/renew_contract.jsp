@@ -99,14 +99,14 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Province:</p>
-                            <select class="col-md-3 select" value="${d.province}"
+                            <select class="col-md-3 select" id="province"
                                     name="calc_shipping_provinces" required>
                                 <option hidden>Province</option>
                             </select>
                             <input class="billing_address_1" name="province" 
                                    type="hidden" value=""/>
                             <p class="col-md-2 space bold">District:</p>
-                            <select class="col-md-3 select"
+                            <select class="col-md-3 select" id="district"
                                     name="calc_shipping_district" required>
                                 <option hidden>District</option>
                             </select>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
-                            <p class="col-md-3 underline">${requestScope.minDate}</p>
+                            <p class="col-md-3 underline">${requestScope.date}</p>
                             <p class="col-md-2 space bold">Resolve date:</p>
                             <p class="col-md-3 underline"></p>
                         </div>
@@ -238,54 +238,79 @@
 
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
-        </footer>
+            </footer>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
-        <script>
-                        $('select[name="calc_shipping_provinces"]').each(function () {
-                            var $this = $(this),
-                                    stc = "";
-                            c.forEach(function (i, e) {
-                                e += +1;
-                                stc += "<option value=" + e + ">" + i + "</option>";
-                                $this.html('<option value="">Provinces</option>' + stc);
-                                $this.on("change", function (i) {
-                                    i = $this.children("option:selected").index() - 1;
-                                    var str = "",
-                                            r = $this.val();
-                                    if (r != "") {
-                                        arr[i].forEach(function (el) {
-                                            str += '<option value="' + el + '">' + el + "</option>";
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+            <script>
+                            $('select[name="calc_shipping_provinces"]').each(function () {
+                                var $this = $(this),
+                                        stc = "";
+                                c.forEach(function (i, e) {
+                                    e += +1;
+                                    stc += "<option value=" + e + ">" + i + "</option>";
+                                    $this.html('<option value="">Provinces</option>' + stc);
+                                    $this.on("change", function (i) {
+                                        i = $this.children("option:selected").index() - 1;
+                                        var str = "",
+                                                r = $this.val();
+                                        if (r != "") {
+                                            arr[i].forEach(function (el) {
+                                                str += '<option value="' + el + '">' + el + "</option>";
+                                                $('select[name="calc_shipping_district"]').html(
+                                                        '<option value="">Districts</option>' + str
+                                                        );
+                                            });
+                                            var address_1 = $this.children("option:selected").text();
+                                            var district = $('select[name="calc_shipping_district"]').html();
+                                            $('select[name="calc_shipping_district"]').on(
+                                                    "change",
+                                                    function () {
+                                                        var target = $(this).children("option:selected");
+                                                        target.attr("selected", "");
+                                                        $('select[name="calc_shipping_district"] option')
+                                                                .not(target)
+                                                                .removeAttr("selected");
+                                                        var address_2 = target.text();
+                                                        $("input.billing_address_2").attr("value", address_2);
+                                                        district = $('select[name="calc_shipping_district"]').html();
+                                                    }
+                                            );
+                                            $("input.billing_address_1").attr("value", address_1)
+                                        } else {
                                             $('select[name="calc_shipping_district"]').html(
-                                                    '<option value="">Districts</option>' + str
+                                                    '<option value="">Districts</option>'
                                                     );
-                                        });
-                                        var address_1 = $this.children("option:selected").text();
-                                        var district = $('select[name="calc_shipping_district"]').html();
-                                        $('select[name="calc_shipping_district"]').on(
-                                                "change",
-                                                function () {
-                                                    var target = $(this).children("option:selected");
-                                                    target.attr("selected", "");
-                                                    $('select[name="calc_shipping_district"] option')
-                                                            .not(target)
-                                                            .removeAttr("selected");
-                                                    var address_2 = target.text();
-                                                    $("input.billing_address_2").attr("value", address_2);
-                                                    district = $('select[name="calc_shipping_district"]').html();
-                                                }
-                                        );
-                                        $("input.billing_address_1").attr("value", address_1)
-                                    } else {
-                                        $('select[name="calc_shipping_district"]').html(
-                                                '<option value="">Districts</option>'
-                                                );
-                                        district = $('select[name="calc_shipping_district"]').html();
-                                    }
+                                            district = $('select[name="calc_shipping_district"]').html();
+                                        }
+                                    });
                                 });
                             });
+            </script>
+
+            <script>
+                var pro = document.getElementById("province").options;
+                var proVal = "${d.province}";
+                for (var i = 0; i < province.length; i++) {
+                    if (pro[i].text === proVal) {
+                        pro[i].selected = true;
+                        var str = "";
+                        arr[i - 1].forEach(function (el) {
+                            str += '<option value="' + el + '">' + el + "</option>";
+                            $('select[name="calc_shipping_district"]').html(
+                                    '<option value="">Districts</option>' + str
+                                    );
                         });
+                    }
+                }
+
+                var dis = document.getElementById("district").options;
+                var disVal = "${d.district}";
+                for (var i = 0; i < dis.length; i++) {
+                    if (dis[i].text === disVal) {
+                        dis[i].selected = true;
+                    }
+                }
         </script>
     </body>
 </html>
