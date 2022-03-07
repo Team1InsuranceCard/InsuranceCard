@@ -498,6 +498,8 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
+    
+    
 
     public int totalContractsByCustomer(int customerId) {
         int totalContract = 0;

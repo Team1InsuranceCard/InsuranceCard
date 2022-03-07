@@ -71,11 +71,11 @@ public class ManageContractController extends HttpServlet {
             ContractDBContext contractDBC = new ContractDBContext();
             HashMap<Integer, Contract> contractList = null;
             int totalRecord = 0;
-            contractList = contractDBC.getContractsByStaff(customerID, query, queryOption, pageIndex,
+            contractList = contractDBC.getContractsByCustomer(customerID, query, queryOption, pageIndex,
                     contractStatusCode, orderBy, orderType);
             totalRecord = contractDBC.totalContractsByStaff(customerID, query, queryOption, contractStatusCode);
 
-            int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
+            int totalPage = PaginationModule.calcTotalPage(totalRecord, 10);
             request.setAttribute("query_option", queryOption);
             request.setAttribute("contract_list", contractList);
             request.setAttribute("status_codes", statusCodes);
