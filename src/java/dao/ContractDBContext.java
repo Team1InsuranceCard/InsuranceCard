@@ -450,7 +450,7 @@ public class ContractDBContext extends DBContext {
                     + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
                     + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
-                    + "  WHERE CONTRACT.CustomerID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "  WHERE CONTRACT.CustomerID = ? AND CONTRACT.isDelete = 0"
                     + "   AND (" + querySearch + ")"
                     + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
                     + "WHERE MAIN.Row_count BETWEEN ? AND ?";
