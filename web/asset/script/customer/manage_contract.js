@@ -23,17 +23,6 @@ var productOrder = productFilter.title;
 var idOrder = idFilter.title;
 var status = "";
 
-// function createForm() {
-//   var filterForm = document.createElement("form");
-//   filterForm.setAttribute("id", "filter-form");
-//   filterForm.setAttribute("method", "get");
-//   filterForm.setAttribute("action", rootURL);
-
-//   var customer = document.createElement("input");
-//   customer.setAttribute("type", "hidden");
-//   customer.setAttribute("name", "nameorder");
-//   customer.setAttribute("value", );
-// }
 idFilter.addEventListener("click", () => {
     setOrder(idFilter, idOrder, rootURL, "id");
     window.location.href = rootURL;
@@ -83,23 +72,6 @@ contractInclude.addEventListener("click", () => {
     rootURL.searchParams.delete("queryoption");
     window.location.href = rootURL;
 });
-
-if (contractInclude.ariaLabel === "all") {
-    contractInclude.innerHTML = "Contract By All";
-    contractInclude.title = "Click to toggle to Contract By Me";
-} else {
-    contractInclude.innerHTML = "Contract By Me";
-    contractInclude.title = "Click to toggle to Contract By All";
-}
-function toggleInclueContract(contractInclude) {
-    var param = "all";
-    if (contractInclude.ariaLabel === "all") {
-        param = "justme";
-    } else {
-        param = "all";
-    }
-    return param;
-}
 
 function createPager(domElementID, pageIndex, totalPage, rootURL) {
     const GAP = 1;
