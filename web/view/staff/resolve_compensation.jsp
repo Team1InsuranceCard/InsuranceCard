@@ -54,7 +54,6 @@
                                                 </div>
                 -->
 
-
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
                 <div class="row section">
