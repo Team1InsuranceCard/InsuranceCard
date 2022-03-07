@@ -300,17 +300,6 @@
                     <a class="col-lg-2 btn btn--secondary"
                        onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
                 </div>
-                <div class="header__btn">
-                    <input class="btn btn--primary ${(requestScope.contract.statusCode.statusCode == 0 
-                                                     || requestScope.contract.statusCode.statusCode == 1)
-                                                     && requestScope.contract.product.statusCode.statusCode == 1
-                                                     && requestScope.check
-                                                     ? '' : 'btn--disabled'}" 
-                           type="submit" value="Renew" />
-
-                    <a class="btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
-                </div>
             </form>
         </main>
 
