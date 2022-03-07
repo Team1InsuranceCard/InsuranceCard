@@ -14,8 +14,6 @@ var endDateFilter = document.querySelector("#end-date-filter");
 var productFilter = document.querySelector("#product-filter");
 var idFilter = document.querySelector("#id-filter");
 
-var contractInclude = document.querySelector("#contract-include");
-
 var nameOrder = customerFilter.title;
 var startOrder = startDateFilter.title;
 var endOrder = endDateFilter.title;
@@ -66,12 +64,6 @@ function setOrder(domElement, ordertype, URL, orderby) {
     URL.searchParams.set("orderby", orderby);
     URL.searchParams.set("ordertype", ordertype);
 }
-contractInclude.addEventListener("click", () => {
-    rootURL.searchParams.set("contract", toggleInclueContract(contractInclude));
-    rootURL.searchParams.delete("query");
-    rootURL.searchParams.delete("queryoption");
-    window.location.href = rootURL;
-});
 
 function createPager(domElementID, pageIndex, totalPage, rootURL) {
     const GAP = 1;
