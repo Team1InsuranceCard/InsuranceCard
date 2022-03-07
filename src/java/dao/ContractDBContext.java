@@ -385,6 +385,119 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
+    
+    public HashMap<Integer, Contract> getContractsByCustomer(int cusID, String query, String queryChoose, 
+            int pageIndex, String contractStatus, String orderby,String ordertype) {
+        int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 10);
+        HashMap<Integer, Contract> contracts = new HashMap<>();
+        if (query == null) {
+            query = "";
+        }
+        if (ordertype == null || ordertype.isEmpty()) {
+            ordertype = "ASC";
+        }
+        orderby = (orderby == null) ? "" : orderby;
+        switch (orderby) {
+            case "id":
+                orderby = "Contract.ID";
+                break;
+            case "name":
+                orderby = "(Customer.FirstName + Customer.LastName)";
+                break;
+            case "product":
+                orderby = "Product.Title";
+                break;
+            case "start":
+                orderby = "Contract.StartDate";
+                break;
+            case "end":
+                orderby = "Contract.EndDate";
+                break;
+            default:
+                orderby = "Contract.ID";
+                break;
+        }
+
+        String querySearch = " 1 = 1";
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
+        switch (queryChoose) {
+            case "producttitle":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+        try {
+            String sql_select_contract = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY " + orderby + " " + ordertype + ") AS Row_count\n"
+                    + "		,CONTRACT.[ID]\n"
+                    + "      ,CONTRACT.[ProductID]\n"
+                    + "      ,CONTRACT.[CustomerID]\n"
+                    + "      ,CONTRACT.[StartDate]\n"
+                    + "      ,CONTRACT.[EndDate]\n"
+                    + "      ,CONTRACT.[Status]"
+                    + "      ,ContractStatusCode.StatusName\n"
+                    + "      ,CONTRACT.[isDelete]\n"
+                    + "	  ,Customer.FirstName, Customer.LastName\n"
+                    + "	  ,Product.Title\n"
+                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  JOIN Product ON Product.ID = Contract.ProductID"
+                    + "  JOIN ContractStatusCode ON Contract.Status=ContractStatusCode.StatusCode\n"
+                    + "  WHERE Customer_Staff.CustomerID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "   AND (" + querySearch + ")"
+                    + "  AND Contract.Status IN (" + contractStatus + ")) AS Main\n"
+                    + "WHERE MAIN.Row_count BETWEEN ? AND ?";
+
+            PreparedStatement stm_select_contract = connection.prepareStatement(sql_select_contract);
+
+            int i = 0;
+            stm_select_contract.setInt(++i, cusID);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_select_contract.setString(++i, query);
+            }
+
+            stm_select_contract.setInt(++i, recordFromTo[0]);
+            stm_select_contract.setInt(++i, recordFromTo[1]);
+            ResultSet rs_select_contract = stm_select_contract.executeQuery();
+            while (rs_select_contract.next()) {
+                Contract contract = new Contract();
+                contract.setId(rs_select_contract.getInt("ID"));
+
+                Customer customer = new Customer();
+                Account account = new Account();
+                account.setId(rs_select_contract.getInt("CustomerID"));
+                customer.setAccount(account);
+                customer.setFirstName(rs_select_contract.getString("FirstName"));
+                customer.setLastName(rs_select_contract.getString("LastName"));
+                contract.setCustomer(customer);
+
+                Product product = new Product();
+                product.setId(rs_select_contract.getInt("ProductID"));
+                product.setTitle(rs_select_contract.getString("Title"));
+                contract.setProduct(product);
+
+                contract.setStartDate(rs_select_contract.getTimestamp("StartDate"));
+                contract.setEndDate(rs_select_contract.getTimestamp("EndDate"));
+
+                ContractStatusCode statuscode = new ContractStatusCode();
+                statuscode.setStatusCode(rs_select_contract.getShort("Status"));
+                statuscode.setStatusName(rs_select_contract.getString("StatusName"));
+                contract.setStatusCode(statuscode);
+                contracts.put(rs_select_contract.getInt("Row_count"), contract);
+            }
+            return contracts;
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public int totalContractsByCustomer(int customerId) {
         int totalContract = 0;
