@@ -499,7 +499,52 @@ public class ContractDBContext extends DBContext {
         return null;
     }
     
-    
+    public int totalContractsByCustomer(int cusId, String query, String queryChoose, String contractStatus) {
+        int totalContract = 0;
+        if (query == null) {
+            query = "";
+        }
+        if (queryChoose == null) {
+            queryChoose = "";
+        }
+        String querySearch = " 1 = 1";
+
+        switch (queryChoose) {
+            case "productname":
+                querySearch = "Product.Title LIKE '%' + ? + '%'";
+                break;
+            case "contractid":
+                querySearch = "Contract.ID LIKE ? ";
+                break;
+            default:
+                break;
+        }
+
+        try {
+            String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
+                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
+                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
+                    + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  JOIN Product ON Product.ID = Contract.ProductID\n"
+                    + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "   AND (" + querySearch + ")"
+                    + "  AND Contract.Status IN  (" + contractStatus + ")";
+            PreparedStatement stm_total = connection.prepareStatement(sql_total);
+            int i = 0;
+            stm_total.setInt(++i, cusId);
+            if (!(queryChoose == null || queryChoose.isEmpty())) {
+                stm_total.setString(++i, query);
+            }
+
+            ResultSet rs_total = stm_total.executeQuery();
+            if (rs_total.next()) {
+                totalContract = rs_total.getInt("TotalContract");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalContract;
+    }
 
     public int totalContractsByCustomer(int customerId) {
         int totalContract = 0;
