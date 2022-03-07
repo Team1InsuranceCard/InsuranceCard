@@ -85,19 +85,22 @@ public class LoginByGoogle extends HttpServlet {
         String given_name = request.getParameter("given_name");
         String googleID = request.getParameter("id");
 
-
         AccountDBContext accountDBC = new AccountDBContext();
         Account account = accountDBC.getAccountByEmailNGoogleID(email, googleID);
         if (account != null) {
             request.getSession().setAttribute("account", account);
-            response.sendRedirect("../customer/dashboard");
+            if (!account.isRole()) {
+                response.sendRedirect("../customer/dashboard");
+            } else {
+                response.sendRedirect("../staff/dashboard");
+            }
         } else {
             int n = 8;
             String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     + "0123456789"
                     + "abcdefghijklmnopqrstuvxyz";
             StringBuilder sb = new StringBuilder(n);
-            
+
             for (int i = 0; i < n; i++) {
                 int index = (int) (AlphaNumericString.length() * Math.random());
                 sb.append(AlphaNumericString.charAt(index));
@@ -125,7 +128,7 @@ public class LoginByGoogle extends HttpServlet {
             request.getSession().setAttribute("lastName", given_name);
             request.getSession().setAttribute("google_id", googleID);
             request.getSession().setAttribute("authCode", sb.toString());
-            request.getRequestDispatcher("../view/verify_email.jsp").forward(request, response);          
+            request.getRequestDispatcher("../view/verify_email.jsp").forward(request, response);
         }
     }
 
