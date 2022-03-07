@@ -227,7 +227,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Attachment</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.attatchment}</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.attachment}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
