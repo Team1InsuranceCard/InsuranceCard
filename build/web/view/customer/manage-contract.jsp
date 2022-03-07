@@ -70,40 +70,47 @@
             </div>
 
             <div class="contract-list">
-                <div class=" contract-list-title"><h2 ><a href="javascript:void()" id="contract-include" aria-label="${contractinclude}" title="Click to toggle to Contract By Me"></a></h2></div>                      
+                <div class=" contract-list-title">
+                    <h2>My contracts</h2>
+                </div>                      
                 <div class="contract-list-content">
                     <table class="contract-list-table table table-striped">
                         <thead class="contract-list-header">
-                        <th scope="col"><a <c:if test="${orderby ==  'id'}"> title="${ordertype}"</c:if>  id="id-filter" href="javascript:void()"
-                                                                             >ID
-                                <%--<c:if test="${orderby ==  'id'}">: ${ordertype}</c:if>--%>
-                            </a
-                            ></th>
                         <th scope="col">
-                            <a <c:if test="${orderby ==  'name'}"> title="${ordertype}"</c:if>  id="customer-filter" href="javascript:void()"
-                                                                   >Customers<c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a
-                                                                   >
+                            <a <c:if test="${orderby ==  'id'}"> 
+                                    title="${ordertype}"</c:if>  id="id-filter" 
+                                    href="javascript:void()">ID</a>
                             </th>
                             <th scope="col">
-                                <a <c:if test="${orderby == 'product'}"> title="${ordertype}"</c:if>  id="product-filter" href="javascript:void();"
-                                                                     >Products<c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a
-                                                                     >
+                                <a <c:if test="${orderby ==  'name'}"> 
+                                    title="${ordertype}"</c:if>  id="customer-filter" 
+                                    href="javascript:void()">Customers
+                                <c:if test="${orderby ==  'name'}">: ${ordertype}</c:if></a>
                             </th>
                             <th scope="col">
-                                <a <c:if test="${orderby == 'start'}"> title="${ordertype}"</c:if> id="start-date-filter" href="javascript:void()"
-                                                                   >Start date<c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a
-                                                                   >
+                                <a <c:if test="${orderby == 'product'}"> 
+                                    title="${ordertype}"</c:if>  id="product-filter" 
+                                    href="javascript:void();">Products
+                                <c:if test="${orderby ==  'product'}">: ${ordertype}</c:if></a>
                             </th>
                             <th scope="col">
-                                <a <c:if test="${orderby == 'end'}"> title="${ordertype}"</c:if>  id="end-date-filter" href="javascript:void()"
-                                                                 >End date<c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a
-                                                                 >
+                                <a <c:if test="${orderby == 'start'}"> 
+                                    title="${ordertype}"</c:if> id="start-date-filter" 
+                                    href="javascript:void()">Start date
+                                <c:if test="${orderby ==  'start'}">: ${ordertype}</c:if></a>
+                            </th>
+                            <th scope="col">
+                                <a <c:if test="${orderby == 'end'}"> 
+                                    title="${ordertype}"</c:if>  id="end-date-filter" 
+                                    href="javascript:void()">End date
+                                <c:if test="${orderby ==  'end'}">: ${ordertype}</c:if></a>
                             </th>
                             <th scope="col">
                                 <select class="status-select" name="" id="status-filter">
                                     <option value="" >Status</option>
                                 <c:forEach var="statuscode" items="${status_codes}">
-                                    <option <c:if  test="${status == statuscode.statusCode}">selected</c:if> value="${statuscode.statusCode}">
+                                    <option <c:if test="${status == statuscode.statusCode}">selected</c:if> 
+                                            value="${statuscode.statusCode}">
                                         ${statuscode.statusName}
                                     </option>
                                 </c:forEach>
@@ -160,7 +167,7 @@
 
                                     </td>
                                     <td>
-                                        <a href="staff/contract/detail?id=${contract.id}">Detail</a>
+                                        <a href="customer/contract/detail?id=${contract.id}">Detail</a>
                                 </tr>
                             </c:forEach>
                         </tbody>
