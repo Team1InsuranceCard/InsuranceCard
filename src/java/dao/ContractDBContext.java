@@ -522,11 +522,9 @@ public class ContractDBContext extends DBContext {
 
         try {
             String sql_total = "SELECT COUNT(CONTRACT.[ID]) AS TotalContract\n"
-                    + "  FROM [Contract] JOIN Customer_Staff ON Contract.CustomerID = Customer_Staff.CustomerID\n"
-                    + "  JOIN ACCOUNT ON ACCOUNT.ID = Customer_Staff.CustomerID\n"
-                    + "  JOIN Customer ON Customer.AccountID = Contract.CustomerID\n"
+                    + "  FROM [Contract]\n"
                     + "  JOIN Product ON Product.ID = Contract.ProductID\n"
-                    + "  WHERE Customer_Staff.StaffID = ? AND Customer_Staff.EndDate IS NULL AND CONTRACT.isDelete = 0"
+                    + "  WHERE Contract.CustomerID = ? AND CONTRACT.isDelete = 0"
                     + "   AND (" + querySearch + ")"
                     + "  AND Contract.Status IN  (" + contractStatus + ")";
             PreparedStatement stm_total = connection.prepareStatement(sql_total);
