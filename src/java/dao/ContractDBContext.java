@@ -9,6 +9,7 @@ import controller.externalmodule.PaginationModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -673,10 +674,18 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "UPDATE [Contract]\n"
                     + "   SET [Status] = ?\n"
+                    + "   ,[CancelStaff] = ?\n"
+                    + "   ,[CancelRequestDate] = ?\n"
+                    + "   ,[CancelReason] = ?\n"
+                    + "   ,[CancelComment] = ?\n"
                     + " WHERE Contract.ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setShort(1, Short.valueOf("1"));
-            stm.setInt(2, contractID);
+            stm.setNull(2, Types.NULL);
+            stm.setNull(3, Types.NULL);
+            stm.setString(4, "");
+            stm.setString(5, "");
+            stm.setInt(6, contractID);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
