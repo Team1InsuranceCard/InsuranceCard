@@ -15,6 +15,14 @@
         <base href="${pageContext.servletContext.contextPath}/">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <header>
+            <jsp:include page="../header_moderator.jsp">
+                <jsp:param name="currentscreen" value="staff"/>
+            </jsp:include>
+        </header>
+
+        <footer>
+            <jsp:include page="../footer_full.jsp"></jsp:include>
+        </footer>
     </body>
 </html>
