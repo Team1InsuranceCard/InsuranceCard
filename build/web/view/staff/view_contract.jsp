@@ -3,6 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../header_staff.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
@@ -16,10 +20,6 @@
         <link rel="stylesheet" href="asset/style/staff/view_contract.css" />
     </head>
     <body>
-        <jsp:include page="../header_staff.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
-
         <main>
             <div class="header">
                 <h1 class="header__heading">Contract ${requestScope.contract.id}</h1>
@@ -80,7 +80,9 @@
 
                     <div class="section__item">
                         <div class="section__title">Contract fee</div>
-                        <div class="section__text">${requestScope.contract.contractFee}</div>
+                        <div class="section__text">
+                            <fmt:formatNumber type = "number" value = "${requestScope.contract.contractFee}" />
+                        </div>
                     </div>                        
 
                     <div class="section__item">
@@ -90,33 +92,43 @@
 
                     <div class="section__item">
                         <div class="section__title">Start Date</div>
-                        <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                        value = "${requestScope.contract.startDate}" /></div>
+                        <div class="section__text">
+                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                            value = "${requestScope.contract.startDate}"/>
+                        </div>
                     </div>
 
                     <div class="section__item">
                         <div class="section__title">Request Date</div>
-                        <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                        value = "${requestScope.contract.requestDate}" /></div>
+                        <div class="section__text">
+                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                            value = "${requestScope.contract.requestDate}"/>
+                        </div>
                     </div>
 
                     <div class="section__item">
                         <div class="section__title">End Date</div>
-                        <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                        value = "${requestScope.contract.endDate}" /></div>
+                        <div class="section__text">
+                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy" 
+                                            value = "${requestScope.contract.endDate}" />
+                        </div>
                     </div>
 
                     <div class="section__item">
                         <div class="section__title">Resolve Date</div>
-                        <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                        value = "${requestScope.contract.resolveDate}" /></div>
+                        <div class="section__text">
+                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                            value = "${requestScope.contract.resolveDate}" />
+                        </div>
                     </div>
 
                     <c:if test="${requestScope.contract.statusCode.statusCode >= 3 && requestScope.contract.statusCode.statusCode <= 4}">
                         <div class="section__item">
                             <div class="section__title">Cancel Date</div>
-                            <div class="section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                            value = "${requestScope.contract.cancelDate}" /></div>
+                            <div class="section__text">
+                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                value = "${requestScope.contract.cancelDate}" />
+                            </div>
                         </div>
 
                         <div class="section__item">
@@ -148,8 +160,10 @@
 
                     <div class="section__item">
                         <div class="section__title">Date of Birth</div>
-                        <div class="section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                        value = "${requestScope.contract.customer.dob}" /></div>
+                        <div class="section__text">
+                            <fmt:formatDate pattern = "dd-MM-yyyy"  
+                                            value = "${requestScope.contract.customer.dob}" />
+                        </div>
                     </div>
 
                     <div class="section__item">
@@ -294,10 +308,14 @@
                             <c:forEach items="${requestScope.payments}" var="pay">
                                 <tr>
                                     <td>${pay.id}</td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${pay.startDate}" /></td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${pay.paidDate}" /></td>
+                                    <td>
+                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                        value = "${pay.startDate}" />
+                                    </td>
+                                    <td>
+                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                        value = "${pay.paidDate}" />
+                                    </td>
                                     <td>${pay.paymentMethod2.paymentMethod}</td>
                                     <td>${pay.amount}</td>
                                     <td>${pay.note}</td>
@@ -326,10 +344,14 @@
                             <c:forEach items="${requestScope.compensations}" var="com">
                                 <tr>
                                     <td>${com.id}</td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${com.createDate}" /></td>
-                                    <td><fmt:formatDate type = "both" dateStyle = "short" 
-                                                    value = "${com.resolveDate}" /></td>
+                                    <td>
+                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                        value = "${com.createDate}" />
+                                    </td>
+                                    <td>
+                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                        value = "${com.resolveDate}" />
+                                    </td>
                                     <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
                                         ${com.status.statusName}</td>
                                     <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
@@ -339,10 +361,6 @@
                 </div>
             </div>
         </main>
-
-        <jsp:include page="../footer_full.jsp">
-            <jsp:param name="currentscreen" value="customer" />
-        </jsp:include>
 
         <!-- confirm box -->
         <script>
@@ -381,4 +399,8 @@
             }
         </script>
     </body>
+
+    <jsp:include page="../footer_full.jsp">
+        <jsp:param name="currentscreen" value="customer" />
+    </jsp:include>
 </html>
