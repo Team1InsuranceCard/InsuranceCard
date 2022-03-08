@@ -683,8 +683,8 @@ public class ContractDBContext extends DBContext {
             stm.setShort(1, Short.valueOf("1"));
             stm.setNull(2, Types.NULL);
             stm.setNull(3, Types.NULL);
-            stm.setString(4, "");
-            stm.setString(5, "");
+            stm.setNull(4, Types.NULL);
+            stm.setNull(5, Types.NULL);
             stm.setInt(6, contractID);
             stm.executeUpdate();
         } catch (SQLException ex) {
