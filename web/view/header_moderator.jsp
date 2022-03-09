@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${root}/asset/style/header_staff_mod.css" />
 <header>
     <div class="header-staff">
-        <a href="${root}/homepage" class="brand">
+        <a href="${root}/moderator/dashboard" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="sidebar-staff">
+    <div class="sidebar-staff" id="sidebarStaff">
         <ul>
             <li>
                 <a class="sidebar-item" 
