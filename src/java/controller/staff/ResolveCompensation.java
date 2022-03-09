@@ -7,6 +7,7 @@ package controller.staff;
 
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
+import dao.PaymentMethodDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Compensation;
 import model.Contract;
+import model.PaymentMethod;
 
 /**
  *
@@ -55,12 +57,15 @@ public class ResolveCompensation extends HttpServlet {
         ContractDBContext dbContract = new ContractDBContext();
         Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
         int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
+        PaymentMethodDBContext dbPayMethod = new PaymentMethodDBContext();
+        PaymentMethod paymentMethod = dbPayMethod.getPaymentMethod(contract.getId());
+        
         
         //Contract info
         request.setAttribute("compensation", compensation);
         request.setAttribute("contract", contract);
         request.setAttribute("term", term);
-        
+        request.setAttribute("paymentMethod", paymentMethod);
         request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
     }
 
