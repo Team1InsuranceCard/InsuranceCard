@@ -5,7 +5,7 @@
 
 <header>
     <div class="header-staff">
-        <a href="${root}/homepage" class="brand">
+        <a href="${root}/staff/dashboard" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
@@ -40,7 +40,7 @@
             </li>
             <li>
                 <a class="sidebar-item" 
-                   href="${root}/staff/compensation/resolve-request">Compensation</a>    
+                   href="${root}/staff/compensation">Compensation</a>    
             </li>
         </ul>
     </div>
