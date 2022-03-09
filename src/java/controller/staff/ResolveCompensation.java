@@ -5,12 +5,16 @@
  */
 package controller.staff;
 
+import dao.CompensationDBContext;
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Compensation;
+import model.Contract;
 
 /**
  *
@@ -45,7 +49,19 @@ public class ResolveCompensation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        CompensationDBContext dbCompensation = new CompensationDBContext();
+        Compensation compensation = dbCompensation.getCompensation(id);
+        ContractDBContext dbContract = new ContractDBContext();
+        Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
+        int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
         
+        //Contract info
+        request.setAttribute("compensation", compensation);
+        request.setAttribute("contract", contract);
+        request.setAttribute("term", term);
+        
+        request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
     }
 
     /**

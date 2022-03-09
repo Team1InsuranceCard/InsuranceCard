@@ -48,37 +48,75 @@ public class AccidentDBContext extends DBContext {
     }
 
     public Accident getAccident(int id) {
-        Accident accident = new Accident();
         try {
-            String sql = "select Title\n"
-                    + "	, ContractID\n"
-                    + "	, CreatedDate\n"
-                    + "	, AccidentDate\n"
-                    + "	, HumanDamage\n"
-                    + "	, VehicleDamage\n"
-                    + "	, Attachment\n"
-                    + "from Accident\n"
-                    + "where ID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Contract contract = new Contract();
-                contract.setId(rs.getInt("ContractID"));
-                
-                accident.setId(id);
-                accident.setTitle(rs.getString("Title"));
-                accident.setContract(contract);
-                accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
-                accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
-                accident.setHumanDamage(rs.getString("HumanDamage"));
-                accident.setVehicleDamage(rs.getString("VehicleDamage"));
-                accident.setAttachment(rs.getString("Attachment"));
+            String sql = "SELECT [ID]\n"
+                    + "      ,[AccidentDate]\n"
+                    + "      ,[Title]\n"
+                    + "      ,[CreatedDate]\n"
+                    + "      ,[Attachment]\n"
+                    + "      ,[HumanDamage]\n"
+                    + "      ,[VehicleDamage]\n"
+                    + "      ,[ContractID]\n"
+                    + "  FROM [Accident]\n"
+                    + "  where [ID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            Accident accident = null;
+            while (rs.next()) {
+                if (accident == null) {
+                    accident = new Accident();
+                    accident.setId(id);
+                    accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
+                    accident.setTitle(rs.getString("Title"));
+                    accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
+                    accident.setAttachment(rs.getString("Attachment"));
+                    accident.setHumanDamage(rs.getString("HumanDamage"));
+                    accident.setVehicleDamage(rs.getString("VehicleDamage"));
+                    ContractDBContext db = new ContractDBContext();
+                    Contract contract = db.staffGetContractDetail(rs.getInt("ContractID"));
+                    accident.setContract(contract);
+                }
             }
+            return accident;
         } catch (SQLException ex) {
             Logger.getLogger(AccidentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return accident;
+        return null;
     }
+
+//    public Accident getAccident(int id) {
+//        Accident accident = new Accident();
+//        try {
+//            String sql = "select Title\n"
+//                    + "	, ContractID\n"
+//                    + "	, CreatedDate\n"
+//                    + "	, AccidentDate\n"
+//                    + "	, HumanDamage\n"
+//                    + "	, VehicleDamage\n"
+//                    + "	, Attachment\n"
+//                    + "from Accident\n"
+//                    + "where ID = ?";
+//            PreparedStatement ps = connection.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                Contract contract = new Contract();
+//                contract.setId(rs.getInt("ContractID"));
+//                
+//                accident.setId(id);
+//                accident.setTitle(rs.getString("Title"));
+//                accident.setContract(contract);
+//                accident.setCreatedDate(rs.getTimestamp("CreatedDate"));
+//                accident.setAccidentDate(rs.getTimestamp("AccidentDate"));
+//                accident.setHumanDamage(rs.getString("HumanDamage"));
+//                accident.setVehicleDamage(rs.getString("VehicleDamage"));
+//                accident.setAttachment(rs.getString("Attachment"));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(AccidentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return accident;
+//    }
 
 }

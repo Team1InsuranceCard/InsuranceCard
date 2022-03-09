@@ -6,10 +6,11 @@
     href="${pageContext.request.contextPath}/asset/style/header_customer.css"
     />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta name="google-signin-client_id" content="80615342986-dff0u5ao63gt3ghum6kk9oo3j3a2pj72.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="${root}/asset/script/google_login.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
         <div class="container header-element">
@@ -62,44 +63,9 @@
                     <a href="${root}/customer/info"
                        ><img src="${root}/asset/image/icon_user.png" alt="user"
                           /></a>
-                    <a class="logout-button" onclick="signOut();" href="${root}/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a onclick="signOut();" href="${root}/logout"><img src="${root}/asset/image/icon_logout.png" /></a>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-<script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"
-></script>
-<script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"
-></script>
-<!--<script>
-    $(document).ready(function () {
-        var a = $(window).scrollTop(),
-                i = $("nav").offset().top,
-                t = !0;
-        $(window).scroll(function () {
-            var o = $(this).scrollTop();
-            if (a < o) {
-                if (t) {
-                    var n = (i -= 150);
-                    $("nav").animate({top: n}, 400), (t = !1);
-                }
-            } else if (!t) {
-                n = i += 150;
-                $("nav").animate({top: n}, 400), (t = !0);
-            }
-            a = o;
-        });
-    });
-</script>-->

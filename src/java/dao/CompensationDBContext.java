@@ -35,7 +35,7 @@ public class CompensationDBContext extends DBContext {
                 + " WHERE Compensation.Status=? AND Compensation.ID=?";
         try {
             PreparedStatement psm_update = connection.prepareStatement(sql_update);
-            int i=0;
+            int i = 0;
             psm_update.setBoolean(++i, isDelete);
             psm_update.setInt(++i, status);
             psm_update.setInt(++i, compensationID);
@@ -407,6 +407,44 @@ public class CompensationDBContext extends DBContext {
     }
 
     //Resolve Compensation
+    public Compensation getCompensation(int id) {
+        try {
+            String sql = "select comp.ID, DriverName, comp.CreatedDate, comp.ResolveDate, comp.ResolveNote,"
+                    + " csc.StatusCode, csc.StatusName, comp.[Description], comp.Attachment, AccidentID\n"
+                    + "from Compensation comp inner join Accident a on comp.AccidentID = a.ID\n"
+                    + "						inner join CompensationStatusCode csc on comp.[Status] = csc.StatusCode\n"
+                    + "						left join [Contract] cont on a.ContractID = cont.ID\n"
+                    + "where comp.[ID] = ?";
+            PreparedStatement stm = connection.prepareCall(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            Compensation c = null;
+            while (rs.next()) {
+                if (c == null) {
+                    c = new Compensation();
+                    c.setId(id);
+                    AccidentDBContext dbA = new AccidentDBContext();
+                    Accident accident = dbA.getAccident(id);
+                    c.setAccident(accident);
+                    c.setDriverName(rs.getString("DriverName"));
+                    c.setCreateDate(rs.getTimestamp("CreatedDate"));
+                    c.setResolveDate(rs.getTimestamp("ResolveDate"));
+                    c.setResolveNote(rs.getString("ResolveNote"));
+                    CompensationStatusCode status = new CompensationStatusCode();
+                    status.setStatusCode(rs.getInt("StatusCode"));
+                    status.setStatusName(rs.getString("StatusName"));
+                    c.setStatus(status);
+                    c.setDescription(rs.getString("Description"));
+                    c.setAttachment(rs.getString("Attachment"));
+                }
+            }
+            return c;
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 //    String sql = "select cont.ID as contId, cont.[Status] as contStatus, cont.StartDate, cont.EndDate, (cont.ContractFee/pro.Price) as term, payme.PaymentMethod,\n"
 //            + "	(cus.FirstName + ' ' + cus.LastName) as CusName, acc.Email, cus.Dob, cus.PersonalID, cus.Phone, cus.[Address],\n"
 //            + "	vt.VehicleType, cont.Engine, cont.LicensePlate, cont.Color, b.Brand, cont.[Owner], cont.Chassis,\n"
