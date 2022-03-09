@@ -286,7 +286,7 @@
                         <div class="row col-lg-12 section__item">
                             <div class="col-lg-3 section__title">Description</div>
                             <textarea class="col-lg-8 section__input" type="text" 
-                                      style="resize: none; height: 5rem;" readonly>${requestScope.compensation.description}</textarea>
+                                      style="resize: none; height: 5rem;" disabled>${requestScope.compensation.description}</textarea>
                         </div>
 
                         <div class="row col-lg-12 section__item">
