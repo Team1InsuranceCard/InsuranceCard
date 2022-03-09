@@ -89,7 +89,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Payment method</div>
-                            <div class="col-lg-6 section__text"></div>
+                            <div class="col-lg-6 section__text">${requestScope.paymentMethod.paymentMethod}</div>
                         </div>
 
 
@@ -278,6 +278,7 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Decision</div>
                             <select name="decision" class="col-lg-6 section__input" required>
+                                <option value="0">N/A</option>
                                 <option value="1">Accept</option>
                                 <option value="2">Reject</option>
                             </select>
