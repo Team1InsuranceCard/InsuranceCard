@@ -236,7 +236,8 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.accidentDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.accident.accidentDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -262,25 +263,27 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Created date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.createDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.createDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Status</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.status.statusName}</div>
+                            <div class="col-lg-6 section__text" id="compenseStatus">${requestScope.compensation.status.statusName}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Resolve date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.resolveDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.resolveDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Decision</div>
                             <select id="decision" name="decision" class="col-lg-6 section__input" required>
-                                <option value="0">N/A</option>
+                                <option value="2">Pending</option>
                                 <option value="1">Accept</option>
-                                <option value="2">Reject</option>
+                                <option value="0">Reject</option>
                             </select>
                         </div>
 
@@ -294,7 +297,7 @@
                             <div class="col-lg-6 section__title">Resolve note</div>
                             <textarea class="col-lg-6 section__input" type="text" 
                                       name="resolve_note" style="resize: none; height: 5rem;"
-                                      placeholder="Leave your note here"></textarea>
+                                      placeholder="Leave your note here">${requestScope.compensation.resolveNote}</textarea>
                         </div>
                     </div>
                 </div>
@@ -343,6 +346,16 @@
                     productStatus.style.color = "#D62A25";
                 } else {
                     productStatus.style.color = "#1AC36B";
+                }
+                
+                const compenseStatus = document.getElementById("compenseStatus");
+                const compenseStatusID = ${requestScope.compensation.status.statusCode};
+                if (contractStatusID === 0) {
+                    contractStatus.style.color = "#D62A25";
+                } else if (contractStatusID === 1) {
+                    contractStatus.style.color = "#1AC36B";
+                } else {
+                    contractStatus.style.color = "#FFC107";
                 }
         </script>
 
