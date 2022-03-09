@@ -411,7 +411,10 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "SELECT Product.ID as ProID\n"
                     + "   ,Product.Title\n"
+                    + "   ,Product.Description\n"
                     + "	  ,Price\n"
+                    + "   ,ProductStatusCode.StatusCode as proStaCode\n"
+                    + "   ,ProductStatusCode.StatusName as proStaName\n"
                     + "	  ,ContentDetail\n"
                     + "	  ,Customer.FirstName as Cus_fname\n"
                     + "	  ,Customer.LastName as Cus_lname\n"
@@ -458,6 +461,8 @@ public class ContractDBContext extends DBContext {
                     + "  FROM [Contract]\n"
                     + "  INNER JOIN Product\n"
                     + "  ON Product.ID = Contract.ProductID\n"
+                    + "  INNER JOIN ProductStatusCode\n"
+                    + "  ON ProductStatusCode.StatusCode = Product.Status\n"
                     + "  INNER JOIN Customer\n"
                     + "  On Customer.AccountID = Contract.CustomerID\n"
                     + "  INNER JOIN ContractStatusCode\n"
@@ -479,10 +484,16 @@ public class ContractDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
+                ProductStatusCode psc = new ProductStatusCode();
+                psc.setStatusCode(rs.getShort("proStaCode"));
+                psc.setStatusName(rs.getString("proStaName"));
+                
                 Product product = new Product();
                 product.setId(rs.getInt("ProID"));
                 product.setTitle(rs.getString("Title"));
+                product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));
+                product.setStatusCode(psc);
                 product.setContentDetail(rs.getString("ContentDetail"));
 
                 Customer customer = new Customer();

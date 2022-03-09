@@ -141,6 +141,7 @@ public class RenewContract extends HttpServlet {
         contract.setStartStaff(staff);
 
         int id = cdb.renewContractByCustomer(contract);
+        contract.setId(id);
         
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
@@ -156,6 +157,7 @@ public class RenewContract extends HttpServlet {
         del.setAddress(address);
         del.setProvince(province);
         del.setDistrict(district);
+        del.setContract(contract);
         
         DeliveryDBContext ddb = new DeliveryDBContext();
         ddb.insertDelivery(del);
