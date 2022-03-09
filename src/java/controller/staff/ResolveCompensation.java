@@ -8,13 +8,18 @@ package controller.staff;
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.PaymentMethodDBContext;
+import dao.StatusCodeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Compensation;
+import model.CompensationStatusCode;
 import model.Contract;
 import model.PaymentMethod;
 
@@ -81,13 +86,32 @@ public class ResolveCompensation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        int id = (int) request.getAttribute("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         int decision = Integer.parseInt(request.getParameter("decision"));
         String resolveNote = request.getParameter("resolve_note");
         
         CompensationDBContext dbC = new CompensationDBContext();
         Compensation compensation = dbC.getCompensation(id);
+        StatusCodeDBContext dbSC = new StatusCodeDBContext();
+        CompensationStatusCode status = dbSC.getCompensationStatusCode(decision);
         compensation.setStatus(status);
+        compensation.setResolveNote(resolveNote);
+        compensation.setResolveDate(Timestamp.valueOf(LocalDateTime.now()));
+        dbC.updateStatusCompensation(compensation);
+        
+        ContractDBContext dbContract = new ContractDBContext();
+        Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
+        int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
+        PaymentMethodDBContext dbPayMethod = new PaymentMethodDBContext();
+        PaymentMethod paymentMethod = dbPayMethod.getPaymentMethod(contract.getId());
+        
+        
+        //Contract info
+        request.setAttribute("contract", contract);
+        request.setAttribute("term", term);
+        request.setAttribute("paymentMethod", paymentMethod);
+        request.setAttribute("compensation", compensation);
+        request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
     }
 
     /**
