@@ -47,52 +47,54 @@ public class ContractInformation extends HttpServlet {
         ContractDBContext cdb = new ContractDBContext();
         Contract contract = cdb.getContractDetailByCustomer(acc.getId(), contractID); //change to acc.id
 
-        ProductDBContext pdb = new ProductDBContext();
-        short proID = pdb.checkStatus(contract.getProduct().getId());
+        if (contract != null) {
+            ProductDBContext pdb = new ProductDBContext();
+            short proID = pdb.checkStatus(contract.getProduct().getId());
 
-        boolean checkRenewRight = cdb.checkRenewRight(acc.getId(), contract.getProduct().getId(), contractID); //change to acc.id
+            boolean checkRenewRight = cdb.checkRenewRight(acc.getId(), contract.getProduct().getId(), contractID); //change to acc.id
 
-        String btn = "";
-        if (contract.getStatus() == 3) {
-            btn += "Undo";
-        } else if (contract.getStatus() == 2) {
-            btn += "Cancel";
-        } else if (contract.getStatus() == 0 || contract.getStatus() == 4) { //status = 0,4
-            btn += "Renew";
+            String btn = "";
+            if (contract.getStatus() == 3) {
+                btn += "Undo";
+            } else if (contract.getStatus() == 2) {
+                btn += "Cancel";
+            } else if (contract.getStatus() == 0 || contract.getStatus() == 4) { //status = 0,4
+                btn += "Renew";
+            }
+
+            Date date1 = null;
+            Date date2 = null;
+            long getDaysDiff = 0;
+
+            try {
+                DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String startDate = simpleDateFormat.format(contract.getStartDate());
+                String endDate = simpleDateFormat.format(contract.getEndDate());
+
+                date1 = (Date) simpleDateFormat.parse(startDate);
+                date2 = (Date) simpleDateFormat.parse(endDate);
+
+                long getDiff = date2.getTime() - date1.getTime();
+
+                getDaysDiff = getDiff / (24 * 60 * 60 * 1000) / 365;
+
+            } catch (ParseException e) {
+            }
+
+            DeliveryDBContext ddb = new DeliveryDBContext();
+            Delivery delivery = ddb.getDeliveryByContract(contractID);
+
+            request.setAttribute("contract", contract);
+            request.setAttribute("btn", btn);
+            request.setAttribute("pro", proID);
+            request.setAttribute("contractID", contractID);
+            request.setAttribute("duration", getDaysDiff);
+            request.setAttribute("checkRenew", checkRenewRight);
+            request.setAttribute("delivery", delivery);
+            request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("view");
         }
-
-        Date date1 = null;
-        Date date2 = null;
-        long getDaysDiff = 0;
-
-        try {
-            DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            String startDate = simpleDateFormat.format(contract.getStartDate());
-            String endDate = simpleDateFormat.format(contract.getEndDate());
-
-            date1 = (Date) simpleDateFormat.parse(startDate);
-            date2 = (Date) simpleDateFormat.parse(endDate);
-
-            long getDiff = date2.getTime() - date1.getTime();
-
-            getDaysDiff = getDiff / (24 * 60 * 60 * 1000) / 365;
-
-        } catch (ParseException e) {
-        }
-        
-        DeliveryDBContext ddb = new DeliveryDBContext();
-        Delivery delivery = ddb.getDeliveryByContract(contractID);
-
-        request.setAttribute("contract", contract);
-        request.setAttribute("btn", btn);
-        request.setAttribute("pro", proID);
-        request.setAttribute("mess", proID == 0 ? "Product is inactive!" : "");
-        request.setAttribute("contractID", contractID);
-        request.setAttribute("duration", getDaysDiff);
-        request.setAttribute("checkRenew", checkRenewRight == true
-                ? "" : "Can't renew because contract was renewed or is being processed!");
-        request.setAttribute("delivery", delivery);
-        request.getRequestDispatcher("../../view/customer/contract_information.jsp").forward(request, response);
     }
 
     /**
@@ -113,12 +115,9 @@ public class ContractInformation extends HttpServlet {
         if (btn.equals("Renew")) {
             request.getSession().setAttribute("contractID", contractID);
             response.sendRedirect("renew");
-        } else if (btn.equals("Cancel")) {
-            response.sendRedirect("cancel");
         } else if (btn.equals("Undo")) {
             ContractDBContext cdb = new ContractDBContext();
             cdb.undoCancelContractByCustomer(contractID);
-            request.getSession().setAttribute("undo", "Undo successfully!");
             response.sendRedirect("detail?id=" + contractID);
         }
     }
