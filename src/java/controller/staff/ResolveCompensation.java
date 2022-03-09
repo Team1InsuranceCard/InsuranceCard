@@ -81,6 +81,10 @@ public class ResolveCompensation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        int id = (int) request.getAttribute("id");
+        int decision = Integer.parseInt(request.getParameter("decision"));
+        String resolveNote = request.getParameter("resolve_note");
+        
     }
 
     /**
