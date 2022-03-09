@@ -17,7 +17,12 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
+        <style>
+
+        </style>
     </head>
 
     <body>
@@ -50,6 +55,7 @@
                 sessionStorage.removeItem("undo");
             }
         </script>
+
         <c:set var="c" value="${requestScope.contract}"/>
         <c:set var="d" value="${requestScope.delivery}"/>
         <header>
@@ -63,10 +69,27 @@
                 <input type="hidden" name="id" value="${requestScope.contractID}"/>
                 <div class="product-label">
                     <div class="row">
-                        <p class="col-md-8 label-title">${c.product.title}</p>
-                        <p class="col-md-4 label-fee">Fee: 
-                            <fmt:formatNumber type = "number" 
-                                              value = "${c.contractFee}"/> VND</p>
+                        <p class="col-md-7 label-title">${c.product.title}</p>
+                        <div class="submit col-md-5">
+                            <a onclick="renew()" class="btn-renew">
+                                <span class="iconify icon" 
+                                      data-icon="ic:baseline-autorenew">
+                                </span>
+                                Renew
+                            </a>
+                            <a onclick="cancel()" class="btn-cancel">
+                                <span class="iconify icon" 
+                                      data-icon="ic:outline-cancel">
+                                </span>
+                                Cancel
+                            </a>
+                            <a onclick="undo()" class="btn-undo">
+                                <span class="iconify icon" 
+                                      data-icon="ci:undo">
+                                </span>
+                                Undo   
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -271,11 +294,27 @@
                         <p>${c.product.contentDetail}</p>
                     </div>
                 </div>
+                    
                 <input type="hidden" name="btn" value="${requestScope.btn}"/>
-                <div class="submit">
-                    <input type="button" value="Renew" onclick="renew()"/>
-                    <input type="button" value="Cancel" onclick="cancel()"/>
-                    <input type="button" value="Undo" onclick="undo()"/>
+                <div class="submit under">
+                    <a onclick="renew()" class="btn-renew">
+                        <span class="iconify icon" 
+                              data-icon="ic:baseline-autorenew">
+                        </span>
+                        Renew
+                    </a>
+                    <a onclick="cancel()" class="btn-cancel">
+                        <span class="iconify icon" 
+                              data-icon="ic:outline-cancel">
+                        </span>
+                        Cancel
+                    </a>
+                    <a onclick="undo()" class="btn-undo">
+                        <span class="iconify icon" 
+                              data-icon="ci:undo">
+                        </span>
+                        Undo   
+                    </a>
                 </div>
             </form>
         </section>
