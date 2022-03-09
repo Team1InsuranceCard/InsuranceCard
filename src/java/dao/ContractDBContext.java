@@ -676,6 +676,7 @@ public class ContractDBContext extends DBContext {
                     + "   SET [Status] = ?\n"
                     + "   ,[CancelStaff] = ?\n"
                     + "   ,[CancelRequestDate] = ?\n"
+                    + "   ,[CancelDate]\n"
                     + "   ,[CancelReason] = ?\n"
                     + "   ,[CancelComment] = ?\n"
                     + " WHERE Contract.ID = ?";
@@ -685,7 +686,8 @@ public class ContractDBContext extends DBContext {
             stm.setNull(3, Types.NULL);
             stm.setNull(4, Types.NULL);
             stm.setNull(5, Types.NULL);
-            stm.setInt(6, contractID);
+            stm.setNull(6, Types.NULL);
+            stm.setInt(7, contractID);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
