@@ -30,7 +30,7 @@
                   onSubmit="submitForm(this);">
 
                 <div class="row header">
-                    <h1 class="header__heading">Compensation request contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Compensation ${requestScope.compensation.id} (Request for Contract ${requestScope.contract.id})</h1>
                 </div>
 
 
@@ -54,7 +54,7 @@
                                                 </div>
                 -->
 
-                <input type="hidden" name="id" value="${requestScope.contract.id}" />
+                <input type="hidden" name="id" value="${requestScope.compensation.id}" />
 
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Contract Information</h2>
