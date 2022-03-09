@@ -30,7 +30,7 @@
                     <p class="mess-box__mess">Success! Your submission has been saved!</p>
                 </div>
 
-                <form action="staff/customer/edit" method="POST" autocomplete="off">                 
+                <form action="staff/customer/edit" method="POST">                 
                     <input type="hidden" name="aid" value="${requestScope.aid}">
 
                     <div class="section">
