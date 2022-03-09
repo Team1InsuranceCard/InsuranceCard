@@ -44,25 +44,24 @@ section .bold {
     font-weight: 500;
 }
 
-section .contract-content, section .vehicle-content, section .product-content,
-section .delivery-content, .cus-content {
+.contract-content, .vehicle-content, .product-content, .delivery-content, .cus-content {
     margin: 3rem 4rem;
 }         
 
-section  .row .underline {
+section .row .underline {
     border-bottom: 0.25px solid rgba(7, 7, 7, 0.8);
     text-align: center;
 }
 
 section .contract-content .row .center, section .delivery-content .row .center,
-section .cus-content .row .center{
+section .cus-content .row .center, section .product-content .row .center{
     text-align: center;
     font-size: 18px;
     font-weight: bold;
 }
 
 section .contract-content .row .space, section .delivery-content .row .space,
-section .cus-content .row .space {
+section .cus-content .row .space, section .product-content .row .space {
     margin-left: 11rem;
 
 }
