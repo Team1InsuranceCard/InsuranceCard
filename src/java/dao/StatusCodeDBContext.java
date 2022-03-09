@@ -46,6 +46,27 @@ public class StatusCodeDBContext extends DBContext {
         return null;
     }
 
+    public CompensationStatusCode getCompensationStatusCode(int code) {
+        try {
+            String sql = "SELECT [StatusCode]\n"
+                    + "      ,[StatusName]\n"
+                    + "  FROM [CompensationStatusCode]\n"
+                    + "  WHERE [StatusCode] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, code);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                CompensationStatusCode csc = new CompensationStatusCode();
+                csc.setStatusCode(code);
+                csc.setStatusName(rs.getString("StatusName"));
+                return csc;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusCodeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public ArrayList<ContractStatusCode> getContractStatusCodes() {
         ArrayList<ContractStatusCode> statusCodes = new ArrayList<>();
         String sql_select_statuscode = "SELECT [StatusCode]\n"
