@@ -449,7 +449,25 @@ public class CompensationDBContext extends DBContext {
         return null;
     }
 
-    
+    public void updateStatusCompensation(Compensation compensation) {
+        try {
+            String sql = "UPDATE [Compensation]\n"
+                    + "   SET [ResolveDate] = ?\n"
+                    + "      ,[ResolveNote] = ?\n"
+                    + "      ,[Status] = ?\n"
+                    + "      \n"
+                    + " WHERE [ID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setTimestamp(1, compensation.getResolveDate());
+            stm.setString(2, compensation.getResolveNote());
+            stm.setInt(3, compensation.getStatus().getStatusCode());
+            stm.setInt(4, compensation.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Compensation> searchCompensationHis(int cusID, int pageSize, int pageIndex, String search, String from, String to, int statusID) {
         ArrayList<Compensation> compensations = new ArrayList<>();
         try {
