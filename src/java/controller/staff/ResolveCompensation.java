@@ -85,6 +85,9 @@ public class ResolveCompensation extends HttpServlet {
         int decision = Integer.parseInt(request.getParameter("decision"));
         String resolveNote = request.getParameter("resolve_note");
         
+        CompensationDBContext dbC = new CompensationDBContext();
+        Compensation compensation = dbC.getCompensation(id);
+        compensation.setStatus(status);
     }
 
     /**
