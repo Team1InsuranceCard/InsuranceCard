@@ -24,6 +24,7 @@
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
         <c:set var="d" value="${requestScope.delivery}"/>
+        <c:set var="p" value="${requestScope.contract.product}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
@@ -36,9 +37,9 @@
                 <div class="product-label">
                     <div class="row">
                         <p class="col-md-8 label-title">${c.product.title}</p>
-                        <p class="col-md-4 label-fee" id="fee">Fee: 
-                            <fmt:formatNumber type = "number" 
-                                              value = "${c.product.price}"/> VND</p>
+                        <div class="submit-renew col-md-4" style="text-align: center;">
+                            <input type="button" value="Submit" onclick="renew()"/>
+                        </div>
                     </div>
                 </div>
 
@@ -229,10 +230,36 @@
                     </div>
 
                     <div class="product-content">
-                        <p>${c.product.contentDetail}</p>
+                        <div class="row">
+                            <p class="col-md-2 bold">ID:</p>
+                            <p class="col-md-3 underline">${p.id}</p>
+                            <p class="col-md-2 space bold">Status:</p>
+                            <c:choose>
+                                <c:when test="${p.statusCode.statusCode==1}">
+                                    <p class="col-md-3 center"  style="color:#0DC858;">
+                                        ${p.statusCode.statusName}</p>
+                                    </c:when>
+                                    <c:when test="${p.statusCode.statusName==0}">
+                                    <p class="col-md-3 center"  style="color:#E02A2A;">
+                                        ${p.statusCode.statusName}</p>
+                                    </c:when>
+                                </c:choose>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Price:</p>
+                            <p class="col-md-3 underline">
+                                <fmt:formatNumber type = "number" 
+                                                  value = "${p.price}"/> VND</p>
+                        </div>
+                        <div>
+                            <p class="bold">Description:</p>
+                            <p>${p.description}</p>
+                            <p class="bold">Content detail:</p>
+                            <p>${p.contentDetail}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="submit">
+                <div class="submit-renew" style="text-align: center;">
                     <input type="button" value="Submit" onclick="renew()"/>
                 </div>
             </form>
