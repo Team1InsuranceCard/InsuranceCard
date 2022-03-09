@@ -9,6 +9,7 @@ import controller.externalmodule.PaginationModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -568,7 +569,10 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "SELECT Product.ID as ProID\n"
                     + "   ,Product.Title\n"
+                    + "   ,Product.Description\n"
                     + "	  ,Price\n"
+                    + "   ,ProductStatusCode.StatusCode as proStaCode\n"
+                    + "   ,ProductStatusCode.StatusName as proStaName\n"
                     + "	  ,ContentDetail\n"
                     + "	  ,Customer.FirstName as Cus_fname\n"
                     + "	  ,Customer.LastName as Cus_lname\n"
@@ -576,6 +580,8 @@ public class ContractDBContext extends DBContext {
                     + "      ,Dob\n"
                     + "      ,Customer.Phone\n"
                     + "	  ,PersonalID\n"
+                    + "   ,Province\n"
+                    + "   ,District\n"
                     + "	  ,Contract.ProductID\n"
                     + "      ,Contract.[StartDate]\n"
                     + "      ,[EndDate]\n"
@@ -613,6 +619,8 @@ public class ContractDBContext extends DBContext {
                     + "  FROM [Contract]\n"
                     + "  INNER JOIN Product\n"
                     + "  ON Product.ID = Contract.ProductID\n"
+                    + "  INNER JOIN ProductStatusCode\n"
+                    + "  ON ProductStatusCode.StatusCode = Product.Status\n"
                     + "  INNER JOIN Customer\n"
                     + "  On Customer.AccountID = Contract.CustomerID\n"
                     + "  INNER JOIN ContractStatusCode\n"
@@ -634,10 +642,16 @@ public class ContractDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
+                ProductStatusCode psc = new ProductStatusCode();
+                psc.setStatusCode(rs.getShort("proStaCode"));
+                psc.setStatusName(rs.getString("proStaName"));
+                
                 Product product = new Product();
                 product.setId(rs.getInt("ProID"));
                 product.setTitle(rs.getString("Title"));
+                product.setDescription(rs.getString("Description"));
                 product.setPrice(rs.getDouble("Price"));
+                product.setStatusCode(psc);
                 product.setContentDetail(rs.getString("ContentDetail"));
 
                 Customer customer = new Customer();
@@ -647,6 +661,8 @@ public class ContractDBContext extends DBContext {
                 customer.setDob(rs.getDate("Dob"));
                 customer.setPhone(rs.getString("Phone"));
                 customer.setPersonalID(rs.getString("PersonalID"));
+                customer.setProvince(rs.getString("Province"));
+                customer.setDistrict(rs.getString("District"));
 
                 Staff start_staff = new Staff();
                 start_staff.setFirstName(rs.getString("StartStaff_fname"));
@@ -827,10 +843,20 @@ public class ContractDBContext extends DBContext {
         try {
             String sql = "UPDATE [Contract]\n"
                     + "   SET [Status] = ?\n"
+                    + "   ,[CancelStaff] = ?\n"
+                    + "   ,[CancelRequestDate] = ?\n"
+                    + "   ,[CancelDate]\n"
+                    + "   ,[CancelReason] = ?\n"
+                    + "   ,[CancelComment] = ?\n"
                     + " WHERE Contract.ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setShort(1, Short.valueOf("1"));
-            stm.setInt(2, contractID);
+            stm.setNull(2, Types.NULL);
+            stm.setNull(3, Types.NULL);
+            stm.setNull(4, Types.NULL);
+            stm.setNull(5, Types.NULL);
+            stm.setNull(6, Types.NULL);
+            stm.setInt(7, contractID);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
