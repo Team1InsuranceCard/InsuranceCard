@@ -350,12 +350,12 @@
                 
                 const compenseStatus = document.getElementById("compenseStatus");
                 const compenseStatusID = ${requestScope.compensation.status.statusCode};
-                if (contractStatusID === 0) {
-                    contractStatus.style.color = "#D62A25";
-                } else if (contractStatusID === 1) {
-                    contractStatus.style.color = "#1AC36B";
+                if (compenseStatusID === 0) {
+                    compenseStatus.style.color = "#D62A25";
+                } else if (compenseStatusID === 1) {
+                    compenseStatus.style.color = "#1AC36B";
                 } else {
-                    contractStatus.style.color = "#FFC107";
+                    compenseStatus.style.color = "#ff7d42";
                 }
         </script>
 
