@@ -53,11 +53,13 @@ public class ManageCompensation extends HttpServlet {
         int pageIndex = Integer.parseInt(raw_pageIndex);
         HashMap<Integer, Compensation> compensations = compensationDBC
                 .getCompensationsByStaff(18, query, queryChoose, pageIndex, compensationStatus, orderby, ordertype);
-        int totalRecord = compensationDBC.totalCompensationsByStaff(18, query, queryChoose, compensationStatus);
+        int totalRecord = compensationDBC.totalCompensationsByStaff(account.getId(), query, queryChoose, compensationStatus);
         
         int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         ArrayList<CompensationStatusCode> statusCode = statusCodeDBC.getCompensationStatusCodes();
         
+        request.setAttribute("query", query);
+        request.setAttribute("status", compensationStatus);
         request.setAttribute("page", pageIndex);
         request.setAttribute("total_page", totalPage);
         request.setAttribute("status_code", statusCode);

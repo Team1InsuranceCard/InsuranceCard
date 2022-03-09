@@ -357,14 +357,18 @@ public class CompensationDBContext extends DBContext {
     public int getCompensationQuantity(int customerID) {
         int compensationQuantity = 0;
         try {
-            String sql_count_compensation = "SELECT COUNT(Compensation.ID) AS CompensationQuantity\n"
-                    + "  FROM [Compensation] INNER JOIN Contract ON Compensation.ContractID=Contract.ID\n"
-                    + "  WHERE Compensation.ResolveDate IS NULL AND Contract.CustomerID = ?";
+            String sql_count_compensation = "SELECT COUNT(COMPENSATION.ID) AS PendingRequestCompensation\n"
+                    + "  FROM [Compensation] INNER JOIN Accident\n"
+                    + "	ON Compensation.AccidentID = Accident.ID\n"
+                    + "	INNER JOIN [Contract] ON Contract.ID = Accident.ContractID\n"
+                    + "  WHERE (Contract.isDelete = 0 AND AccidenT.isDelete = 0\n"
+                    + "		AND Compensation.isDelete=0) AND Compensation.Status IN (2) \n"
+                    + "		AND (Contract.CustomerID = ?)";
             PreparedStatement psm_count_compenstion = connection.prepareStatement(sql_count_compensation);
             psm_count_compenstion.setInt(1, customerID);
             ResultSet rs_counResultSet = psm_count_compenstion.executeQuery();
             if (rs_counResultSet.next()) {
-                compensationQuantity = rs_counResultSet.getInt("CompensationQuantity");
+                compensationQuantity = rs_counResultSet.getInt("PendingRequestCompensation");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompensationDBContext.class.getName()).log(Level.SEVERE, null, ex);
