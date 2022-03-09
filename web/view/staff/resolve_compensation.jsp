@@ -277,13 +277,13 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Decision</div>
-                            <select name="decision" class="col-lg-6 section__input" required>
+                            <select id="decision" name="decision" class="col-lg-6 section__input" required>
                                 <option value="0">N/A</option>
                                 <option value="1">Accept</option>
                                 <option value="2">Reject</option>
                             </select>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Description</div>
                             <textarea class="col-lg-6 section__input" type="text" 
@@ -345,7 +345,7 @@
                     productStatus.style.color = "#1AC36B";
                 }
         </script>
-        
+
         <!-- confirm box -->
         <script>
             function confirmBox(mess, url) {
