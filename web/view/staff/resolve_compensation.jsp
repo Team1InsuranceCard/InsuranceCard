@@ -27,7 +27,7 @@
         <main>
             ${param.currentscreen}
             <form action="staff/compensation/resolve-compensation" method="POST"
-                  onSubmit="submit(this)">
+                  onSubmit="submitForm(this);">
 
                 <div class="row header">
                     <h1 class="header__heading">Compensation request contract ${requestScope.contract.id}</h1>
@@ -283,15 +283,15 @@
                             </select>
                         </div>
                         
-                        <div class="row col-lg-12 section__item">
-                            <div class="col-lg-3 section__title">Description</div>
-                            <textarea class="col-lg-8 section__input" type="text" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Description</div>
+                            <textarea class="col-lg-6 section__input" type="text" 
                                       style="resize: none; height: 5rem;" disabled>${requestScope.compensation.description}</textarea>
                         </div>
 
-                        <div class="row col-lg-12 section__item">
-                            <div class="col-lg-3 section__title">Resolve note</div>
-                            <textarea class="col-lg-8 section__input" type="text" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Resolve note</div>
+                            <textarea class="col-lg-6 section__input" type="text" 
                                       name="resolve_note" style="resize: none; height: 5rem;"
                                       placeholder="Leave your note here"></textarea>
                         </div>
@@ -307,7 +307,7 @@
                            type="submit" value="Submit" />
 
                     <a class="col-lg-2 btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
+                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/compensation/resolve-compensation?id=${requestScope.compensation.id}')">Cancel</a>
                 </div>
             </form>
         </main>
@@ -343,6 +343,19 @@
                 } else {
                     productStatus.style.color = "#1AC36B";
                 }
+        </script>
+        
+        <!-- confirm box -->
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+
+            function submitForm() {
+                return confirm('Do you really want to submit the form?');
+            }
         </script>
     </body>
 </html>
