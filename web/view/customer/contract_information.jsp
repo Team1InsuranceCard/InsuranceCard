@@ -21,7 +21,6 @@
     </head>
 
     <body>
-        <input type="hidden" id="undo" value="${sessionScope.undo}"/>
         <script>
             var renew = sessionStorage.getItem("renew");
             if (renew == "renew") {
@@ -37,17 +36,18 @@
                 sessionStorage.removeItem("renew");
             }
 
-            var undo = document.getElementById("undo"); //fix
-            if (undo == "") {
+            var undo = sessionStorage.getItem("undo");
+            if (undo == "undo") {
                 Swal.fire({
                     timer: 2000,
                     position: 'top',
-                    title: undo,
+                    title: 'Undo successfully!',
                     icon: 'success',
                     showConfirmButton: true,
                     allowOutsideClick: false,
                     allowEnterKey: true
                 })
+                sessionStorage.removeItem("undo");
             }
         </script>
         <c:set var="c" value="${requestScope.contract}"/>
@@ -59,7 +59,7 @@
         </header>
 
         <section>
-            <form action="customer/contract/detail" method="POST">
+            <form id="myForm" action="customer/contract/detail" method="POST">
                 <input type="hidden" name="id" value="${requestScope.contractID}"/>
                 <div class="product-label">
                     <div class="row">
@@ -271,20 +271,110 @@
                         <p>${c.product.contentDetail}</p>
                     </div>
                 </div>
+                <input type="hidden" name="btn" value="${requestScope.btn}"/>
                 <div class="submit">
-                    <c:set var="check" value="${requestScope.checkRenew}"/>
-                    <input type="${requestScope.pro==0||c.status==5||c.status==1||check!=""?"hidden":"submit"}" 
-                           name="btn" value="${requestScope.btn}"/>
-                    <h4 ${requestScope.pro!=0?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
-                        ${requestScope.mess}</h4>
-                    <h6 ${check==""?"":"style=\"color:#FFFFFF;background-color:#E5333A;display:inline;padding: 0.5rem 1rem;\""}>
-                        ${check}</h6>
+                    <input type="button" value="Renew" onclick="renew()"/>
+                    <input type="button" value="Cancel" onclick="cancel()"/>
+                    <input type="button" value="Undo" onclick="undo()"/>
                 </div>
             </form>
         </section>
 
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
-        </footer>
+            </footer>
+
+            <script>
+                function renew() {
+                    var check = ${requestScope.checkRenew};
+                    var proStatus = ${requestScope.pro};
+                    var conStatus = ${c.status};
+
+                    if (check == false) {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            text: "Can't renew because contract was renewed or is being processed!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    } else if (proStatus == 0) {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            title: "Product is inactive!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    } else if (conStatus == 0 || conStatus == 4) {
+                        document.getElementById("myForm").submit();
+                    } else {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            text: "You only can renew when contract is out of date or canceled!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    }
+                }
+
+                function cancel() {
+                    if (${c.status} === 2) {
+                        window.location.href = 'http://localhost:8080/insurancecard/cancel-contract?id=' + ${requestScope.contractID};
+                    } else {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            text: "You only can cancel when contract is processing!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    }
+                }
+
+                function undo() {
+                    if (${c.status} === 3) {
+                        Swal.fire({
+                            position: 'top',
+                            title: 'Are you sure?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var undo = "undo";
+                                sessionStorage.setItem("undo", undo);
+                                document.getElementById("myForm").submit();
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            text: "You only can undo when contract is canceling!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    }
+                }
+        </script>
     </body>
 </html>
