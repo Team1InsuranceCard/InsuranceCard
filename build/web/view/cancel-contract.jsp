@@ -35,5 +35,13 @@
         <c:if test="${sessionScope.mod_account ne null}">
             <jsp:include page="header_moderator.jsp"></jsp:include>
         </c:if>
+        
+        <div class="content__containter">
+         
+        </div>
+        
+        <jsp:include page="footer_full.jsp"></jsp:include>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </body>
 </html>
