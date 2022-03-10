@@ -64,7 +64,8 @@
                             <td class="content__detail-data">Comment: </td>
                             <td class="content__detail-data">
                                 <textarea cols="70" rows="4" name="comment"
-                                    placeholder="Do you have any feedback for us? Your comment will help us improve our services!">${requestScope.contract.cancelComment}</textarea>
+                                    placeholder="Do you have any feedback for us? Your comment will help us improve our services!">${requestScope.contract.cancelComment ne null ?
+                                    requestScope.contract.cancelComment : ""}</textarea>
                             </td>
                         </tr>
                         <tr class="content__detail-row">
