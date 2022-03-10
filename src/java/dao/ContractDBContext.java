@@ -668,6 +668,7 @@ public class ContractDBContext extends DBContext {
                 brand.setId(rs.getInt("BrandID"));
                 brand.setBrand(rs.getString("Brand"));
 
+                contract.setId(contractID);
                 contract.setProduct(product);
                 contract.setCustomer(customer);
                 contract.setStartStaff(start_staff);
