@@ -45,7 +45,8 @@
                         <div class="btn__text">Update</div>
                     </a>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 
+                                                || requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}" 
                        onclick="confirmBox('Are you sure you want to cancel this contract?', 'staff/contract/cancel?id=${requestScope.contract.id}')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
