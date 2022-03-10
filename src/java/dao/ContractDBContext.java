@@ -1393,7 +1393,7 @@ public class ContractDBContext extends DBContext {
             //update payment table
             String sql_insert_payment = "UPDATE [Payment]\n"
                     + "     SET [isDelete] = 1\n"
-                    + "        ,[Note] = 'Cancel contract'\n"
+                    + "        ,[Note] = 'Cancel '\n"
                     + "  WHERE [ContractID] = ?";
             PreparedStatement stm_insert_payment = connection.prepareStatement(sql_insert_payment);
             stm_insert_payment.setInt(1, contract.getId());
