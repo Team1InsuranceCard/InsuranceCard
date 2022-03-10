@@ -27,10 +27,10 @@
         <main>
             ${param.currentscreen}
             <form action="staff/compensation/resolve-compensation" method="POST"
-                  onSubmit="submit(this)">
+                  onSubmit="submitForm(this);">
 
                 <div class="row header">
-                    <h1 class="header__heading">Compensation request contract ${requestScope.contract.id}</h1>
+                    <h1 class="header__heading">Compensation ${requestScope.compensation.id} (Request for Contract ${requestScope.contract.id})</h1>
                 </div>
 
 
@@ -54,7 +54,7 @@
                                                 </div>
                 -->
 
-                <input type="hidden" name="id" value="${requestScope.contract.id}" />
+                <input type="hidden" name="id" value="${requestScope.compensation.id}" />
 
                 <div class="row section">
                     <h2 class="col-lg-12 section__heading">Contract Information</h2>
@@ -89,7 +89,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Payment method</div>
-                            <div class="col-lg-6 section__text"></div>
+                            <div class="col-lg-6 section__text">${requestScope.paymentMethod.paymentMethod}</div>
                         </div>
 
 
@@ -236,7 +236,8 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.accidentDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.accident.accidentDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -262,38 +263,41 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Created date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.createDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.createDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Status</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.status.statusName}</div>
+                            <div class="col-lg-6 section__text" id="compenseStatus">${requestScope.compensation.status.statusName}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Resolve date</div>
-                            <div class="col-lg-6 section__text">${requestScope.compensation.resolveDate}</div>
+                            <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
+                                            value = "${requestScope.compensation.resolveDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Decision</div>
-                            <select name="decision" class="col-lg-6 section__input" required>
+                            <select id="decision" name="decision" class="col-lg-6 section__input" required>
+                                <option value="2">Pending</option>
                                 <option value="1">Accept</option>
-                                <option value="2">Reject</option>
+                                <option value="0">Reject</option>
                             </select>
                         </div>
-                        
-                        <div class="row col-lg-12 section__item">
-                            <div class="col-lg-3 section__title">Description</div>
-                            <textarea class="col-lg-8 section__input" type="text" 
-                                      style="resize: none; height: 5rem;" readonly>${requestScope.compensation.description}</textarea>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Description</div>
+                            <textarea class="col-lg-6 section__input" type="text" 
+                                      style="resize: none; height: 5rem;" disabled>${requestScope.compensation.description}</textarea>
                         </div>
 
-                        <div class="row col-lg-12 section__item">
-                            <div class="col-lg-3 section__title">Resolve note</div>
-                            <textarea class="col-lg-8 section__input" type="text" 
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Resolve note</div>
+                            <textarea class="col-lg-6 section__input" type="text" 
                                       name="resolve_note" style="resize: none; height: 5rem;"
-                                      placeholder="Leave your note here"></textarea>
+                                      placeholder="Leave your note here">${requestScope.compensation.resolveNote}</textarea>
                         </div>
                     </div>
                 </div>
@@ -307,7 +311,7 @@
                            type="submit" value="Submit" />
 
                     <a class="col-lg-2 btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
+                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/compensation/resolve-compensation?id=${requestScope.compensation.id}')">Cancel</a>
                 </div>
             </form>
         </main>
@@ -343,6 +347,29 @@
                 } else {
                     productStatus.style.color = "#1AC36B";
                 }
+                
+                const compenseStatus = document.getElementById("compenseStatus");
+                const compenseStatusID = ${requestScope.compensation.status.statusCode};
+                if (compenseStatusID === 0) {
+                    compenseStatus.style.color = "#D62A25";
+                } else if (compenseStatusID === 1) {
+                    compenseStatus.style.color = "#1AC36B";
+                } else {
+                    compenseStatus.style.color = "#ff7d42";
+                }
+        </script>
+
+        <!-- confirm box -->
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+
+            function submitForm() {
+                return confirm('Do you really want to submit the form?');
+            }
         </script>
     </body>
 </html>
