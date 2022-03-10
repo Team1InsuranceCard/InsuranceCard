@@ -69,6 +69,7 @@ public class CancelContractController extends HttpServlet {
             request.setAttribute("contract", contract);
             request.getRequestDispatcher("view/cancel-contract.jsp").forward(request, response);
         } else {
+            //redirect to the appropriate dashboard base on role
             if (account.isRole()) {
                 response.sendRedirect("staff/dashboard");
             } else {
@@ -118,6 +119,14 @@ public class CancelContractController extends HttpServlet {
                     +contract.getStatusCode().getStatusName());
             request.setAttribute("contract", contract);
             request.getRequestDispatcher("view/cancel-contract.jsp").forward(request, response);
+        } else{
+            contractDB.cancelContract(contract);
+            //redirect to the appropriate contract list base on role
+            if (account.isRole()) {
+                response.sendRedirect("staff/contract/view");
+            } else {
+                response.sendRedirect("customer/contract/view");
+            }
         }
     }
 
