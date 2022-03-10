@@ -1350,9 +1350,11 @@ public class ContractDBContext extends DBContext {
     public void cancelContract(Contract contract) {
         try {
             connection.setAutoCommit(false);
+            //status = 4: Canceled
             String sql_contract = "UPDATE [Contract]\n"
                     + "   SET [CancelComment] = ?\n"
                     + "      ,[CancelReason] = ?\n"
+                    + "      ,[Status] = 4\n" 
                     + "      ,[CancelDate] = GETDATE()\n"
                     + "      ,[CancelRequestDate] = GETDATE()\n"
                     + " WHERE [ID] = ? ";
