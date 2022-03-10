@@ -141,6 +141,26 @@ public class RenewContract extends HttpServlet {
         contract.setStartStaff(staff);
 
         int id = cdb.renewContractByCustomer(contract);
+        contract.setId(id);
+        
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String province = request.getParameter("province");
+        String district = request.getParameter("district");
+        
+        Delivery del = new Delivery();
+        del.setFullName(name);
+        del.setPhone(phone);
+        del.setEmail(email);
+        del.setAddress(address);
+        del.setProvince(province);
+        del.setDistrict(district);
+        del.setContract(contract);
+        
+        DeliveryDBContext ddb = new DeliveryDBContext();
+        ddb.insertDelivery(del);
 
         response.sendRedirect("detail?id=" + id);
     }
