@@ -5,6 +5,7 @@
  */
 package controller.moderator;
 
+import dao.StaffDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,6 +22,10 @@ public class ManageStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        StaffDBContext sdb = new StaffDBContext();
+        int num = sdb.countStaffRecord(2, "Loan", "0172172172", "1", "loandphe150131@fpt.edu.vn");
+        
+        request.setAttribute("num", num);
         request.getRequestDispatcher("../../view/moderator/staff_manage.jsp").forward(request, response);
     }
 
