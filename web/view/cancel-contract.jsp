@@ -68,8 +68,15 @@
                         <tr class="content__detail-row">
                             <td colspan="2">
                                 <input class="button button--gray" type="submit" value="Cancel contract"/>
-                                <a class="button button--primary" 
-                                   href="detail?id=${requestScope.contract.id}">Back</a>
+                                <c:if test="${sessionScope.account.role eq true}">
+                                    <a class="button button--primary" 
+                                   href="staff/contract/detail?id=${requestScope.contract.id}">Back</a>
+                                </c:if>
+                                <c:if test="${sessionScope.account.role eq false}">
+                                    <a class="button button--primary" 
+                                   href="customer/contract/detail?id=${requestScope.contract.id}">Back</a>
+                                </c:if>
+                                
                             </td>
                         </tr>
                     </table>
