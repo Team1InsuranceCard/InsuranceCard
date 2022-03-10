@@ -71,7 +71,7 @@ main {
   background-color: #f7f7f7;
   border: solid 1px #e6e6e6;
   border-radius: 13px;
-  padding: 5px 15px 8px 10px;
+  padding: 8px 15px 8px 10px;
   cursor: pointer;
 }
 
@@ -83,8 +83,10 @@ main {
 .card__label {
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
   color: #393939;
+  min-height: 30px;
+  display: block;
 }
 
 .card__item:focus-within .card__label {
