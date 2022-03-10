@@ -19,10 +19,11 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="../../asset/script/customer/renew_contract.js" type="text/javascript"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
     </head>
+
     <body>
         <c:set var="c" value="${requestScope.contract}"/>
+        <c:set var="d" value="${requestScope.delivery}"/>
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
@@ -49,21 +50,68 @@
                     <c:set var="cus" value="${requestScope.contract.customer}"/>
                     <div class="cus-content">
                         <div class="row">
-                            <p class="col-md-1 bold">Name:</p>
+                            <p class="col-md-2 bold">Name:</p>
                             <p class="col-md-3 underline">${cus.firstName} 
                                 ${cus.lastName}</p>
-                            <p class="col-md-1 space bold">DOB:</p>
-                            <p class="col-md-2 underline">${cus.dob}</p>
+                            <p class="col-md-2 space bold">DOB:</p>
+                            <p class="col-md-3 underline">${cus.dob}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Phone:</p>
+                            <p class="col-md-2 bold">Phone:</p>
                             <p class="col-md-3 underline">${cus.phone}</p>
-                            <p class="col-md-1 space bold">PersonalID:</p>
-                            <p class="col-md-2 underline">${cus.personalID}</p>
+                            <p class="col-md-2 space bold">PersonalID:</p>
+                            <p class="col-md-3 underline">${cus.personalID}</p>
                         </div>
                         <div class="row">
-                            <p class="col-md-1 bold">Address:</p>
-                            <p class="col-md-5 underline">${cus.address}</p>
+                            <p class="col-md-2 bold">Address:</p>
+                            <p class="col-md-3 underline">${cus.address}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delivery-info">
+                    <div class="delivery title">
+                        <p>Delivery information</p>
+                    </div>
+                    <div class="delivery-content">
+                        <div class="row">
+                            <p class="col-md-2 bold">Fullname:</p>
+                            <input type="text" name="name" id="name"
+                                   class="col-md-3 underline"
+                                   pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+                                   value="${d.fullName}" required/>
+                            <p class="col-md-2 space bold">Phone:</p>
+                            <input type="tel" name="phone" pattern="[0]{1}[0-9]{9}"
+                                   minlength="10" maxlength="10"
+                                   class="col-md-3 underline" id="phone"
+                                   value="${d.phone}" required/>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Email:</p>
+                            <input type="email" name="email" id="email"
+                                   class="col-md-3 underline" 
+                                   value="${d.email}" required/>
+                            <p class="col-md-2 space bold">Address:</p>
+                            <input type="text" name="address" id="address"
+                                   pattern="^[^-\s][\S\s]+$" 
+                                   class="col-md-3 underline"
+                                   value="${d.address}" required/>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-2 bold">Province:</p>
+                            <select class="col-md-3 select" value="${d.province}"
+                                    name="calc_shipping_provinces" required>
+                                <option hidden>Province</option>
+                            </select>
+                            <input class="billing_address_1" name="province" 
+                                   type="hidden" value=""/>
+                            <p class="col-md-2 space bold">District:</p>
+                            <select class="col-md-3 select"
+                                    name="calc_shipping_district" required>
+                                <option hidden>District</option>
+                            </select>
+                            <input class="billing_address_2" name="district" 
+                                   type="hidden" value=""/>
                         </div>
                     </div>
                 </div>
@@ -77,50 +125,49 @@
                             <p class="col-md-2 bold">Staff:</p>
                             <p class="col-md-3 underline">${c.startStaff.firstName} 
                                 ${c.startStaff.lastName}</p>
-                            <p class="col-md-2 space bold">Status:</p>
+                            <p class="col-md-3 space bold">Status:</p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel Staff:</p>
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Duration:</p>
-                            <p class="col-md-2">
-                                <select id="duration" name="duration" 
-                                        onchange="calDate()" required>
-                                    <option hidden>Select year</option>
-                                    <option value="1">1 year</option>
-                                    <option value="2">2 year</option>
-                                    <option value="3">3 year</option>
-                                </select>
-                            </p>
+                            <select class="col-md-3" id="duration" name="duration" 
+                                    onchange="fillEndDate()" required>
+                                <option value="0" hidden>Select year</option>
+                                <option value="1">1 year</option>
+                                <option value="2">2 year</option>
+                                <option value="3">3 year</option>
+                            </select>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Request date:</p>
-                            <p class="col-md-3 underline"></p>
+                            <p class="col-md-3 underline">${requestScope.minDate}</p>
                             <p class="col-md-2 space bold">Resolve date:</p>
-                            <p class="col-md-2 underline"></p>
+                            <p class="col-md-3 underline"></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Start date:</p>
-                            <p class="col-md-3">
-                                <input type="date" id="startDate" name="startDate"
-                                       min="${requestScope.minDate}" 
-                                       value="${requestScope.minDate}" required/></p>
+                            <input class="col-md-3"
+                                   type="date" id="startDate" name="startDate"
+                                   min="${requestScope.minDate}" 
+                                   value="${requestScope.minDate}"
+                                   onchange="fillEndDate()" required/>
                             <p class="col-md-2 space bold">End date:</p>
-                            <p class="col-md-2 underline" id="endDate">
+                            <p class="col-md-3 underline" id="endDate">
                             </p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel request date:</p>
                             <p class="col-md-3 underline"></p>
                             <p class="col-md-2 space bold">Cancel date:</p>
-                            <p class="col-md-2 underline"></p>
+                            <p class="col-md-3 underline"></p>
                         </div>
                         <div class="row">
                             <p class="col-md-2 bold">Cancel reason:</p>
                             <textarea class="col-md-3 text-area" disabled>
                             </textarea>
                             <p class="col-md-2 space bold">Cancel comment:</p>
-                            <textarea class="col-md-2 text-area" disabled>
+                            <textarea class="col-md-3 text-area" disabled>
                             </textarea>
                         </div>
                     </div>
@@ -192,5 +239,53 @@
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
         </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+        <script>
+                        $('select[name="calc_shipping_provinces"]').each(function () {
+                            var $this = $(this),
+                                    stc = "";
+                            c.forEach(function (i, e) {
+                                e += +1;
+                                stc += "<option value=" + e + ">" + i + "</option>";
+                                $this.html('<option value="">Provinces</option>' + stc);
+                                $this.on("change", function (i) {
+                                    i = $this.children("option:selected").index() - 1;
+                                    var str = "",
+                                            r = $this.val();
+                                    if (r != "") {
+                                        arr[i].forEach(function (el) {
+                                            str += '<option value="' + el + '">' + el + "</option>";
+                                            $('select[name="calc_shipping_district"]').html(
+                                                    '<option value="">Districts</option>' + str
+                                                    );
+                                        });
+                                        var address_1 = $this.children("option:selected").text();
+                                        var district = $('select[name="calc_shipping_district"]').html();
+                                        $('select[name="calc_shipping_district"]').on(
+                                                "change",
+                                                function () {
+                                                    var target = $(this).children("option:selected");
+                                                    target.attr("selected", "");
+                                                    $('select[name="calc_shipping_district"] option')
+                                                            .not(target)
+                                                            .removeAttr("selected");
+                                                    var address_2 = target.text();
+                                                    $("input.billing_address_2").attr("value", address_2);
+                                                    district = $('select[name="calc_shipping_district"]').html();
+                                                }
+                                        );
+                                        $("input.billing_address_1").attr("value", address_1)
+                                    } else {
+                                        $('select[name="calc_shipping_district"]').html(
+                                                '<option value="">Districts</option>'
+                                                );
+                                        district = $('select[name="calc_shipping_district"]').html();
+                                    }
+                                });
+                            });
+                        });
+        </script>
     </body>
 </html>

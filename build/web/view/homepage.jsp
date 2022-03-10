@@ -3,7 +3,6 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>InsuranceCard</title>
         <link
@@ -14,9 +13,8 @@
             />
         <base href="${pageContext.servletContext.contextPath}/" />
         <link rel="stylesheet" href="asset/style/homepage.css" />
-        <!--Font Awesome-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
-        <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"  crossorigin="anonymous">
+
     </head>
     <body>
         <jsp:include page="header_common.jsp" />
@@ -33,22 +31,17 @@
                     <p>
                         We live in an unpredictable world these days. Thus, there are many
                         legitimate reasons to prepare yourself for those unannounced
-                        curveballs.
+                        curve balls.
                     </p>
                 </div>
             </div>
 
             <div class="container short-intro">
                 <h2 class="short-intro-title">
-                    Earn Money from Trading, Bitcoins and Mining
+                    Satisfaction in enjoying life’s pleasures with Insurance offers
                 </h2>
                 <p class="short-intro-text">
-                    Bitcoin cloud mining can be a tricky thing to determine if itâs
-                    completely safe in the Bitcoin world, and if it is, will it be cost
-                    effective? The return on your investment can be longer than other
-                    alternatives such as buying and selling Bitcoin. This can be due to
-                    the fees involved, the time it takes to mine, the upfront costs and
-                    the value of Bitcoin during that time.
+                    Car Insurance is an auto insurance plan that offers you the best service, together with many attractive benefits and competitive premium rates
                 </p>
                 <div class="card-deck">
                     <div class="card">
@@ -87,10 +80,7 @@
                     </div>
                     <div class="intro-project-text">
                         <p>
-                            Bitcoin Calculator tool allows you to convert any amount to and
-                            from bitcoin (up to six decimal places) and your preferred world
-                            currencies, with conversion rates based on the live Bitcoin Price
-                            Index.
+                            Provide more convenience to users through a completely online insurance program
                         </p>
                     </div>
                 </div>
@@ -158,10 +148,7 @@
                     </div>
                     <div class="achivement-text">
                         <p>
-                            Bitcoin Calculator tool allows you to convert any amount to and
-                            from bitcoin (up to six decimal places) and your preferred world
-                            currencies, with conversion rates based on the live Bitcoin Price
-                            Index.
+                            After a period of operation, here are the results we have achieved
                         </p>
                     </div>
                     <div class="card-deck">

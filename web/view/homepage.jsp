@@ -31,7 +31,7 @@
                     <p>
                         We live in an unpredictable world these days. Thus, there are many
                         legitimate reasons to prepare yourself for those unannounced
-                        curveballs.
+                        curve balls.
                     </p>
                 </div>
             </div>

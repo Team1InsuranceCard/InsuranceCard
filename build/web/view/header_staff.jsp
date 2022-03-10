@@ -40,7 +40,7 @@
             </li>
             <li>
                 <a class="sidebar-item" 
-                   href="${root}/staff/compensation/resolve-request">Compensation</a>    
+                   href="${root}/staff/compensation">Compensation</a>    
             </li>
         </ul>
     </div>

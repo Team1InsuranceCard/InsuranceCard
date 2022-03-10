@@ -9,7 +9,7 @@ section {
     margin: 3rem 6rem;
 }
 
-section .customer-info, .contract-info, .vehicle-info, .product-info {
+section .customer-info, .contract-info, .vehicle-info, .product-info, .delivery-info {
     border: 1px solid #000000;
     margin-bottom: 2rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -17,20 +17,14 @@ section .customer-info, .contract-info, .vehicle-info, .product-info {
 
 .product-label {
     font-weight: bold;
-    margin-top: 9rem;
+    margin-top: 10rem;
+    margin-bottom: 1rem;
     color: #5C2941;
 }
 
 .product-label .label-title {
     font-size: 25px;
     padding-left: 5rem;
-}
-
-.product-label .label-fee {
-    font-size: 17px;
-    padding-top: 8px;
-    text-align: right;
-    padding-right: 7rem;
 }
 
 .title {
@@ -44,42 +38,31 @@ section .customer-info, .contract-info, .vehicle-info, .product-info {
     font-weight: bold;
 }
 
-section .cus-content {
-    margin: 3rem 8rem;
-}
-
 section .bold {
     color: #5C2941;
     font-size: 18px;
     font-weight: 500;
 }
 
-section .cus-content .row .underline {
-    margin-left: 1.5rem;
-}
-
-section .cus-content .row .space {
-    margin-left: 22rem;
-}
-
-section .contract-content, section .vehicle-content, section .product-content{
+.contract-content, .vehicle-content, .product-content, .delivery-content, .cus-content {
     margin: 3rem 4rem;
 }         
 
-section .contract-content .row .underline, section .vehicle-content .row .underline,
-section .cus-content .row .underline {
+section .row .underline {
     border-bottom: 0.25px solid rgba(7, 7, 7, 0.8);
     text-align: center;
 }
 
-section .contract-content .row .center {
+section .contract-content .row .center, section .delivery-content .row .center,
+section .cus-content .row .center, section .product-content .row .center{
     text-align: center;
     font-size: 18px;
     font-weight: bold;
 }
 
-section .contract-content .row .space {
-    margin-left: 16rem;
+section .contract-content .row .space, section .delivery-content .row .space,
+section .cus-content .row .space, section .product-content .row .space {
+    margin-left: 11rem;
 
 }
 
@@ -101,23 +84,53 @@ section .product-content {
     text-align: justify;
 }
 
-section .submit {
-    text-align: center;
+section .under {
+    margin-left: 26.5rem;
 }
 
-section .submit input {
-    background: #588EB1;
+section .submit a {
     border: 2px solid black;
-    border-radius: 20px;
-    width: 12rem;
-    height: 4rem;
-    color: #FFF9EC;
+    border-radius: 10px;
     font-weight: bold;
     font-size: 18px;
+    padding: 0.15rem 1.5rem;
+    margin-left: 1rem;
 }
 
-section .submit input:hover {
+section .submit .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+section .submit .btn-renew {
+    background: #40a071;
+    color: #FFF9EC;
+}
+
+section .submit .btn-cancel {
+    background: #e37b73;
+    color: #FFF9EC;
+}
+
+section .submit .btn-undo {
+    background: #bdb3b3;
+    color: #FFF9EC;
+}
+
+section .submit .btn-renew:hover {
     cursor: pointer;
-    background-color: #FD8291;
+    background-color: #086135;
+    color: #ffffff;
+}
+
+section .submit .btn-cancel:hover {
+    cursor: pointer;
+    background-color: #9e3e37;
+    color: #ffffff;
+}
+
+section .submit .btn-undo:hover {
+    cursor: pointer;
+    background-color: #837a7a;
     color: #ffffff;
 }

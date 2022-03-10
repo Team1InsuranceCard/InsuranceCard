@@ -47,27 +47,19 @@ public class PaymentHistory extends HttpServlet {
         int pageSize = 7;
 
         String raw_date = request.getParameter("date");
+        
         PaymentDBContext pdb = new PaymentDBContext();
         double total = pdb.getTotalPayment(acc.getId());
-        ArrayList<Payment> payments = null;
-        int totalPage = 0;
+        int count = pdb.countPaymentRecord(acc.getId(), raw_date);
+        int totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
 
-        if (raw_date == null || raw_date.length() == 0) {
-            payments = pdb.paymentHistory(pageSize, page, acc.getId());
+        ArrayList<Payment> payments = pdb.paymentHistory(pageSize, page, acc.getId(), raw_date);
 
-            int count = pdb.countPaymentRecord(acc.getId());
-            totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
-
-        } else {
-            payments = pdb.searchPaymentHistory(pageSize, page, acc.getId(), raw_date);
-
-            int count = pdb.countSearchPaymentRecord(acc.getId(), raw_date);
-            totalPage = (count % pageSize == 0) ? count / pageSize : (count / pageSize) + 1;
-
-            request.setAttribute("date", raw_date);
+        if (raw_date != null) {
             request.setAttribute("date_page", "date=" + raw_date + "&");
         }
-
+        
+        request.setAttribute("date", raw_date);
         request.setAttribute("payments", payments);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", page);
@@ -92,7 +84,7 @@ public class PaymentHistory extends HttpServlet {
         Account acc = (Account) request.getSession().getAttribute("account");
 
         PaymentDBContext pdb = new PaymentDBContext();
-        int count = pdb.countSearchPaymentRecord(acc.getId(), date);
+        int count = pdb.countPaymentRecord(acc.getId(), date);
 
         if (count == 0) {
             request.setAttribute("date", date);

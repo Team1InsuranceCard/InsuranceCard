@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,7 +54,6 @@
                                                 </div>
                 -->
 
-
                 <input type="hidden" name="id" value="${requestScope.contract.id}" />
 
                 <div class="row section">
@@ -73,23 +73,23 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Start Date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short"
-                                                                                value = "${requestScope.contract.startDate}"/></div>
+                                            value = "${requestScope.contract.startDate}"/></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">End Date</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "both" dateStyle = "short" 
-                                                                                value = "${requestScope.contract.endDate}" /></div>
+                                            value = "${requestScope.contract.endDate}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Contract term</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.term}</div>
+                            <div class="col-lg-6 section__text">${requestScope.term}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Payment method</div>
-                            <div class="col-lg-6 section__text">Cash</div>
+                            <div class="col-lg-6 section__text"></div>
                         </div>
 
 
@@ -113,7 +113,7 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date of Birth</div>
                             <div class="col-lg-6 section__text"><fmt:formatDate type = "date" dateStyle = "short" 
-                                                                                value = "${requestScope.contract.customer.dob}" /></div>
+                                            value = "${requestScope.contract.customer.dob}" /></div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
@@ -138,47 +138,48 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="col-lg-5 section__left">
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Vehicle type</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.vehicleType2.vehicleType}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Engine</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.engine}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">License Plate</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.licensePlate}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Color</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.color}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Brand</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.brand2.brand}</div>
                             </div>
 
-                            <div class="row col-lg-5 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Owner</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.owner}</div>
                             </div>
 
-                            <div class="row col-lg-7 section__item">
+                            <div class="row col-lg-12 section__item">
                                 <div class="col-lg-6 section__title">Chassis</div>
                                 <div class="col-lg-6 section__text">${requestScope.contract.chassis}</div>
                             </div>
                         </div>
 
                         <div class="col-lg-7 section__right">
-                            <div class="row col-lg-6 section__item">
-                                <div class="col-lg-6 section__title">Cert Image</div>
-                                <img class="col-lg-6 section__img" src="${requestScope.contract.certImage}"></img>
+                            <div class="row col-lg-12 section__item">
+                                <div class="col-lg-12 section__title justify-content-center">Image</div>
+                                <img class="col-lg-12 section__img" src="${requestScope.contract.certImage}"/>
                             </div>
+
                         </div>          
                     </div>
                 </div>
@@ -204,7 +205,7 @@
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Content detail</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                            <div class="col-lg-6 section__text"><a href="product/detail?productid=${requestScope.contract.product.id}">Detail</a></div>
                         </div>
                     </div>
                 </div>
@@ -214,73 +215,85 @@
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Accident ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.id}</div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Title</div>
-                            <div class="col-lg-6 section__text">title</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.title}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Attachment</div>
-                            <div class="col-lg-6 section__text"><a href="#">Attach</a></div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.attachment}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Vehicle damage</div>
-                            <div class="col-lg-6 section__text">V-damage</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.vehicleDamage}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Date</div>
-                            <div class="col-lg-6 section__text">${requestScope.contract.product.contentDetail}</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.accidentDate}</div>
                         </div>
 
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Human damage</div>
-                            <div class="col-lg-6 section__text">H-damage</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.accident.humanDamage}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row section">
-                    <h2 class="col-lg-12 section__heading">Resolve Request Information</h2>
+                    <h2 class="col-lg-12 section__heading">Compensation Information</h2>
 
                     <div class="row col-lg-12 section__main">
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">ID</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__title">Compensation ID</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.id}</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Driver</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.driverName}</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Created date</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.createDate}</div>
                         </div>
-                        
+
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Status</div>
-                            <div class="col-lg-6 section__text">Accepted</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.status.statusName}</div>
                         </div>
-                        
-                        <c:if test="${status == 1}">
-                            <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Resolved date</div>
-                            <div class="col-lg-6 section__text">04/04/2022</div>
-                        </div>
-                        </c:if>
-                        
-                        
+
                         <div class="row col-lg-6 section__item">
-                            <div class="col-lg-6 section__title">Description</div>
-                            <div class="col-lg-6 section__text">fee+(fee*package)</div>
+                            <div class="col-lg-6 section__title">Resolve date</div>
+                            <div class="col-lg-6 section__text">${requestScope.compensation.resolveDate}</div>
+                        </div>
+
+                        <div class="row col-lg-6 section__item">
+                            <div class="col-lg-6 section__title">Decision</div>
+                            <select name="decision" class="col-lg-6 section__input" required>
+                                <option value="1">Accept</option>
+                                <option value="2">Reject</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row col-lg-12 section__item">
+                            <div class="col-lg-3 section__title">Description</div>
+                            <textarea class="col-lg-8 section__input" type="text" 
+                                      style="resize: none; height: 5rem;" readonly>${requestScope.compensation.description}</textarea>
                         </div>
 
                         <div class="row col-lg-12 section__item">
                             <div class="col-lg-3 section__title">Resolve note</div>
                             <textarea class="col-lg-8 section__input" type="text" 
-                                      name="resolve_note" style="resize: none; height: 5rem;"></textarea>
+                                      name="resolve_note" style="resize: none; height: 5rem;"
+                                      placeholder="Leave your note here"></textarea>
                         </div>
                     </div>
                 </div>
@@ -291,10 +304,10 @@
                                                      && requestScope.contract.product.statusCode.statusCode == 1
                                                      && requestScope.check
                                                      ? '' : 'btn--disabled'}--%>" 
-                           type="submit" value="Accept" />
+                           type="submit" value="Submit" />
 
                     <a class="col-lg-2 btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Reject</a>
+                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
                 </div>
             </form>
         </main>

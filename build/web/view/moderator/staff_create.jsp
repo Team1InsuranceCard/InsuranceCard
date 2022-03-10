@@ -90,7 +90,7 @@
 
                     <div class="btn-input">
                         <input type="submit" class="create btn" value="Create"/>
-                        <a href="moderator/staff">
+                        <a href="moderator/staff/view">
                             <input type="button" class="cancel btn" value="Cancel"/>
                         </a>
                     </div>
