@@ -50,12 +50,16 @@ public class CancelContractController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         Account account = (Account) request.getSession().getAttribute("account");
+        if(account == null){
+            response.sendRedirect("login");
+            return;
+        }
 
         int id = Integer.parseInt(request.getParameter("id") != null
                 ? request.getParameter("id") : "0");
         ContractDBContext contractDB = new ContractDBContext();
         Contract contract=null;
-        //if staff is logged in
+        //get contract by role (true = staff, false = customer)
         if (account.isRole()) {
             contract = contractDB.staffGetContractDetail(id);
         } else{
@@ -71,7 +75,6 @@ public class CancelContractController extends HttpServlet {
                 response.sendRedirect("customer/dashboard");
             }
         }
-
     }
 
     /**
@@ -85,6 +88,37 @@ public class CancelContractController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        Account account = (Account) request.getSession().getAttribute("account");
+        if(account == null){
+            response.sendRedirect("login");
+            return;
+        }
+        
+        String reason = request.getParameter("reason");
+        String comment = request.getParameter("comment");
+
+        int id = Integer.parseInt(request.getParameter("contractID") != null
+                ? request.getParameter("contractID") : "0");
+        ContractDBContext contractDB = new ContractDBContext();
+        Contract contract=null;
+        //get contract by role (true = staff, false = customer)
+        if (account.isRole()) {
+            contract = contractDB.staffGetContractDetail(id);
+        } else{
+            contract = contractDB.getContractDetailByCustomer(account.getId(), id);
+        }
+        contract.setCancelReason(reason);
+        contract.setCancelComment(comment);
+        //only contract with status is processing can be canceled
+        if (contract.getStatus() != 2){
+            request.setAttribute("errorMsg", "Cannot cancel this contract. Current status is: "
+                    +contract.getStatusCode().getStatusName());
+            request.setAttribute("contract", contract);
+            request.getRequestDispatcher("view/cancel-contract.jsp").forward(request, response);
+        }
     }
 
     /**

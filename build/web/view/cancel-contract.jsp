@@ -40,14 +40,16 @@
                         <tr class="content__detail-row">
                             <td class="content__detail-data">Contract ID: </td>
                             <td class="content__detail-data">
-                                <input type="text" name="email" disabled 
+                                <input type="text" disabled 
+                                       value="${requestScope.contract.id}"/>
+                                <input type="hidden" name="contractID" 
                                        value="${requestScope.contract.id}"/>
                             </td>
                         </tr>
                         <tr class="content__detail-row">
                             <td class="content__detail-data">Customer name: </td>
                             <td class="content__detail-data">
-                                <input type="text" name="email" disabled 
+                                <input type="text" disabled 
                                        value="${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}"/>
                             </td>
                         </tr>
@@ -55,14 +57,14 @@
                             <td class="content__detail-data">Cancel reason: </td>
                             <td class="content__detail-data">
                                 <textarea cols="70" rows="4" name="reason" required
-                                          placeholder="Please tell us the reason why you want to cancel this contract"></textarea>
+                                          placeholder="Please tell us the reason why you want to cancel this contract">${requestScope.contract.cancelReason}</textarea>
                             </td>
                         </tr>
                         <tr class="content__detail-row">
                             <td class="content__detail-data">Comment: </td>
                             <td class="content__detail-data">
                                 <textarea cols="70" rows="4" name="comment"
-                                          placeholder="Do you have any feedback for us? Your comment will help us improve our services!"></textarea>
+                                    placeholder="Do you have any feedback for us? Your comment will help us improve our services!">${requestScope.contract.cancelComment}</textarea>
                             </td>
                         </tr>
                         <tr class="content__detail-row">
@@ -70,13 +72,13 @@
                                 <input class="button button--gray" type="submit" value="Cancel contract"/>
                                 <c:if test="${sessionScope.account.role eq true}">
                                     <a class="button button--primary" 
-                                   href="staff/contract/detail?id=${requestScope.contract.id}">Back</a>
+                                       href="staff/contract/detail?id=${requestScope.contract.id}">Back</a>
                                 </c:if>
                                 <c:if test="${sessionScope.account.role eq false}">
                                     <a class="button button--primary" 
-                                   href="customer/contract/detail?id=${requestScope.contract.id}">Back</a>
+                                       href="customer/contract/detail?id=${requestScope.contract.id}">Back</a>
                                 </c:if>
-                                
+
                             </td>
                         </tr>
                     </table>
