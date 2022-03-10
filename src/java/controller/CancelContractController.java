@@ -99,7 +99,7 @@ public class CancelContractController extends HttpServlet {
         }
         
         String reason = request.getParameter("reason");
-        String comment = request.getParameter("comment");
+        String comment = request.getParameter("comment").isEmpty() ? null : request.getParameter("comment");
 
         int id = Integer.parseInt(request.getParameter("contractID") != null
                 ? request.getParameter("contractID") : "0");
