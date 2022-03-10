@@ -131,7 +131,7 @@
     </servlet>
     <servlet>
         <description>
-</description>
+        </description>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
