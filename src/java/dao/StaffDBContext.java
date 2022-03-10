@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 import model.Product;
 import model.ProductStatusCode;
 import model.Staff;
@@ -172,6 +173,9 @@ public class StaffDBContext extends DBContext {
             while (rs.next()) {
                 if (s == null) {
                     s = new Staff();
+                    AccountStatusCode statusCode = new AccountStatusCode();
+                    statusCode.setStatusCode(rs.getShort("Status"));
+                    
                     Account a = new Account();
                     a.setId(accountId);
                     a.setEmail(rs.getString("Email"));
@@ -179,6 +183,8 @@ public class StaffDBContext extends DBContext {
                     a.setRole(rs.getBoolean("Role"));
                     a.setStatus(rs.getByte("Status"));
                     a.setGoogleID(rs.getString("GoogleID"));
+                    a.setStatusCode(statusCode);
+                    
                     s.setAccount(a);
                     s.setFirstName(rs.getString("FirstName"));
                     s.setLastName(rs.getString("LastName"));
@@ -495,5 +501,9 @@ public class StaffDBContext extends DBContext {
             }
         }
 
+    }
+    
+    public void modUpdateStaff(int id) {
+        String sql = "";
     }
 }
