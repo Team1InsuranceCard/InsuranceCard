@@ -5,45 +5,33 @@
  */
 package controller;
 
+import dao.BrandDBContext;
+import dao.CompensationDBContext;
+import dao.ContractDBContext;
+import dao.DeliveryDBContext;
+import dao.PaymentDBContext;
+import dao.StaffDBContext;
+import dao.VehicleTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Brand;
+import model.Compensation;
+import model.Contract;
+import model.Delivery;
+import model.Payment;
+import model.Staff;
+import model.VehicleType;
 
 /**
  *
  * @author quynm
  */
 public class CancelContractController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CancelContractController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CancelContractController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -56,7 +44,20 @@ public class CancelContractController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
+        int id = Integer.parseInt(request.getParameter("id") != null
+                ? request.getParameter("id") : "0");
+        ContractDBContext contractDB = new ContractDBContext();
+        Contract contract = contractDB.staffGetContractDetail(id);
+        if (contract != null) {
+            request.setAttribute("contract", contract);
+            request.getRequestDispatcher("view/cancel-contract.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("../dashboard");
+        }
+
     }
 
     /**
@@ -70,7 +71,6 @@ public class CancelContractController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

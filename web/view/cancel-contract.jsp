@@ -54,8 +54,7 @@
                             <td class="content__detail-data">Customer name: </td>
                             <td class="content__detail-data">
                                 <input type="text" name="email" disabled 
-                                       value="${requestScope.contract.customer.firstName} 
-                                       ${requestScope.contract.customer.lastName}"/>
+                                       value="${requestScope.contract.customer.firstName} ${requestScope.contract.customer.lastName}"/>
                             </td>
                         </tr>
                         <tr class="content__detail-row">
