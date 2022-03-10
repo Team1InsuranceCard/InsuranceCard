@@ -66,7 +66,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         </form>
                     </div>
                     <div class="col create-contract-button">
-                        <a href="staff/contract/new">New Contract</a>
+                        <a href="staff/contract/create">New Contract</a>
                     </div>
                 </div>
             </div>
@@ -104,8 +104,9 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                             <th scope="col">
                                 <select class="status-select" name="" id="status-filter">
                                     <option value="" >Status</option>
-                                <c:forEach var="statuscode" items="${status_codes}">
-                                    <option <c:if  test="${status == statuscode.statusCode}">selected</c:if> value="${statuscode.statusCode}">
+                                <c:forEach var="statuscode" items="${status_code}">
+                                    <option <c:if  test="${status == statuscode.statusCode}">selected</c:if>
+                                                                                                   value="${statuscode.statusCode}">
                                         ${statuscode.statusName}
                                     </option>
                                 </c:forEach>
