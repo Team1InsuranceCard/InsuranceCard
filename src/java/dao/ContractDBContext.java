@@ -1346,4 +1346,46 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
+    
+    public void cancelContract(Contract contract) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_contract = "UPDATE [Contract]\n"
+                    + "   SET [CancelComment] = ?\n"
+                    + "      ,[CancelReason] = ?\n"
+                    + "      ,[CancelDate] = GETDATE()\n"
+                    + "      ,[CancelRequestDate] = GETDATE()\n"
+                    + " WHERE [ID] = ? ";
+            PreparedStatement stm_contract = connection.prepareStatement(sql_contract);
+            stm_contract.setString(1, contract.getCancelComment());
+            stm_contract.setString(2, contract.getCancelReason());
+            stm_contract.setInt(3, contract.getId());
+            stm_contract.executeUpdate();
+
+            //update payment table
+            String sql_insert_payment = "UPDATE [Payment]\n"
+                    + "     SET [isDelete] = 1\n"
+                    + "        ,[Note] = 'Cancel contract'\n"
+                    + "  WHERE [ContractID] = ?";
+            PreparedStatement stm_insert_payment = connection.prepareStatement(sql_insert_payment);
+            stm_insert_payment.setInt(1, contract.getId());
+            stm_insert_payment.executeUpdate();
+
+            connection.commit();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
