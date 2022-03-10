@@ -39,7 +39,8 @@
                     <div class="col">
                         <c:if test="${compensation.status.statusCode == 2}">
                             <button type="button" class="btn btn-danger float-right"
-                                    onclick="if(window.confirm('Do you want to cancel this Compensation?')) window.location.href='customer/history/compensation/cancel?compensationid=${compensation.id}'">
+                                    onclick="if (window.confirm('Do you want to cancel this Compensation?'))
+                                                window.location.href = 'customer/history/compensation/cancel?compensationid=${compensation.id}'">
                                 Cancel request
                             </button>
                         </c:if>
@@ -316,5 +317,6 @@
                 </div>
             </div>
         </main>
+        <jsp:include page="../footer_full.jsp"/>
     </body>
 </html>
