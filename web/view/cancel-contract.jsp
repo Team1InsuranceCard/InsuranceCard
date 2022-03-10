@@ -19,9 +19,6 @@
         <link href="asset/style/cancel_contract.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <c:if test="${sessionScope.account eq null and sessionScope.mod_account eq null}">
-            <jsp:include page="header_common.jsp"></jsp:include>
-        </c:if>
         <c:if test="${sessionScope.account.role eq true}">
             <jsp:include page="header_staff.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
@@ -31,9 +28,6 @@
             <jsp:include page="header_customer.jsp">
                 <jsp:param name="currentscreen" value="contract"/>
             </jsp:include>
-        </c:if>
-        <c:if test="${sessionScope.mod_account ne null}">
-            <jsp:include page="header_moderator.jsp"></jsp:include>
         </c:if>
 
         <div class="content__container">

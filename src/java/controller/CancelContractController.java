@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Brand;
 import model.Compensation;
 import model.Contract;
@@ -32,6 +33,7 @@ import model.VehicleType;
  * @author quynm
  */
 public class CancelContractController extends HttpServlet {
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,16 +48,28 @@ public class CancelContractController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
+        Account account = (Account) request.getSession().getAttribute("account");
+
         int id = Integer.parseInt(request.getParameter("id") != null
                 ? request.getParameter("id") : "0");
         ContractDBContext contractDB = new ContractDBContext();
-        Contract contract = contractDB.staffGetContractDetail(id);
+        Contract contract=null;
+        //if staff is logged in
+        if (account.isRole()) {
+            contract = contractDB.staffGetContractDetail(id);
+        } else{
+            contract = contractDB.getContractDetailByCustomer(account.getId(), id);
+        }
         if (contract != null) {
             request.setAttribute("contract", contract);
             request.getRequestDispatcher("view/cancel-contract.jsp").forward(request, response);
         } else {
-            response.sendRedirect("../dashboard");
+            if (account.isRole()) {
+                response.sendRedirect("staff/dashboard");
+            } else {
+                response.sendRedirect("customer/dashboard");
+            }
         }
 
     }
