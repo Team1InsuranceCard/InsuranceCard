@@ -53,10 +53,10 @@ public final class cancel_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       out.write("        <!-- CDN to reset CSS -->\n");
       out.write("        <!--<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css\" />-->\n");
       out.write("        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\"/>\n");
-      out.write("        <link href=\"asset/style/change_password.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("        <base href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.servletContext.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/\">\n");
+      out.write("        <link href=\"asset/style/change_password.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        <c:if test=\"");
