@@ -506,13 +506,9 @@ public class StaffDBContext extends DBContext {
             String table_rowNum = "With s as(\n"
                     + "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, AccountID\n"
                     + "	      ,FirstName, LastName, Phone, Email, [Status] \n"
-                    + "       FROM [Staff] ";
-
-            if (!status.isEmpty() || !email.isEmpty()) {
-                table_rowNum += " INNER JOIN Account ON Account.ID = Staff.AccountID ";
-            }
-
-            table_rowNum += "WHERE Staff.isDelete = 0 ";
+                    + "       FROM [Staff]\n"
+                    + "       INNER JOIN Account ON Account.ID = Staff.AccountID\n"
+                    + "       WHERE Staff.isDelete = 0";
 
             HashMap<Integer, String[]> params = new HashMap<>();
             int countParam = 0;
@@ -593,15 +589,11 @@ public class StaffDBContext extends DBContext {
         try {
             String table_rowNum = "With s as (\n"
                     + "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, AccountID\n"
-                    + "			 ,FirstName, LastName, Phone, Email, [Status] \n"
-                    + "         FROM [Staff] ";
-
-            if (!status.isEmpty() || !email.isEmpty()) {
-                table_rowNum += " INNER JOIN Account ON Account.ID = Staff.AccountID\n"
-                        + "       INNER JOIN AccountStatusCode ON AccountStatusCode.StatusCode = Account.Status\n";
-            }
-
-            table_rowNum += " WHERE isDelete = 0 ";
+                    + "			 ,FirstName, LastName, Phone, Email, [StatusCode], [StatusName] \n"
+                    + "         FROM [Staff]\n"
+                    + "         INNER JOIN Account ON Account.ID = Staff.AccountID\n"
+                    + "         INNER JOIN AccountStatusCode ON AccountStatusCode.StatusCode = Account.Status\n"
+                    + "         WHERE Staff.isDelete = 0 ";
 
             HashMap<Integer, String[]> params = new HashMap<>();
             int countParam = 0;
@@ -635,7 +627,7 @@ public class StaffDBContext extends DBContext {
                 params.put(countParam, param);
             }
             if (!status.isEmpty()) {
-                table_rowNum += " AND [Province] = ? ";
+                table_rowNum += " AND [Status] = ? ";
                 countParam++;
                 String[] param = new String[2];
                 param[0] = "String";
@@ -656,7 +648,8 @@ public class StaffDBContext extends DBContext {
                     + "      ,[LastName]\n"
                     + "      ,[Phone]\n"
                     + "      ,[Email]\n"
-                    + "      ,[Status]\n"
+                    + "      ,[StatusCode]\n"
+                    + "      ,[StatusName]\n"
                     + "  FROM s\n"
                     + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
 
