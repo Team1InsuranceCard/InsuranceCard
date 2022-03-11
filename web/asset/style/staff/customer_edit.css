@@ -72,13 +72,13 @@ main {
 }
 
 .section__item {
-    margin: 0 5px 15px 5px;
+    margin: 0 5px 20px 5px;
     max-width: 360px;
     flex: 45%;
     background-color: #f7f7f7;
     border: solid 1px #e6e6e6;
     border-radius: 13px;
-    padding: 5px 15px 8px 10px;
+    padding: 8px 15px 8px 10px;
     cursor: pointer;
 }
 
@@ -90,8 +90,10 @@ main {
 .section__label {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
     color: #393939;
+    min-height: 30px;
+    display: block;
 }
 
 .section__item:focus-within .section__label {
