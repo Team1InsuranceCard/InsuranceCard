@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Mar 2, 2022, 11:53:01 PM
+    Created on : Mar 10, 2022, 10:28:08 AM
     Author     : quynm
 */
 
@@ -31,20 +31,21 @@ and open the template in the editor.
     color: #5c2941;
 }
 
-.content__account-detail{
+.content__detail{
     display: flex;
 }
-.content__account-detail-table{
-    max-width: 70%
+.content__detail-table{
+    max-width: 100%
 }
-.content__account-detail-table tbody{
+.content__detail-table tbody{
     display: block;
 }
-.content__account-detail-data{
+.content__detail-data{
     padding: 5px 40px 5px 0;
     font-weight: bold;
 }
-.content__account-detail-data input{
+.content__detail-data input,
+.content__detail-data textarea{
     min-width: 250px;
     background: none;
     border: none;
@@ -52,9 +53,12 @@ and open the template in the editor.
     padding: 8px 5px;
     resize: none;
     margin-right: 10px;
+    color: black;
+    resize: none;
 }
 
-.content__account-detail-data input:focus{
+.content__detail-data input:focus,
+.content__detail-data textarea:focus{
     border-bottom: 1px solid #fc6376;
     outline: none;
 }
@@ -71,6 +75,10 @@ and open the template in the editor.
     margin: 5px 10px;
     text-align: center;
     cursor: pointer;
+}
+
+.button:hover{
+    text-decoration: none;
 }
 
 .button--primary{

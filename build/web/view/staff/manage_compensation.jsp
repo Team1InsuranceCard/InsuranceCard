@@ -157,7 +157,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
                                     </td>
                                     <td>
-                                        <a href="staff/compensation/resolve-compensation?id=${compensation.id}">Detail</a>
+                                        <a href="staff/compensation/resolve-compensation?id=${compensation.id}">Resolve</a>
                                 </tr>
                             </c:forEach>
                         </tbody>
