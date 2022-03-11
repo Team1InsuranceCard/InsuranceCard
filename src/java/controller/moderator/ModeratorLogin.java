@@ -33,13 +33,7 @@ public class ModeratorLogin extends HttpServlet {
                 request.setAttribute("remember", "yes");
             }
         }
-        
-        Moderator acc = (Moderator) request.getSession().getAttribute("mod_account");
-        if (acc == null) {
-            request.getRequestDispatcher("/moderator/login").forward(request, response);
-        } else {
-            request.getRequestDispatcher("/moderator/dashboard").forward(request, response);
-        }
+
         request.getRequestDispatcher("../view/moderator/login.jsp").forward(request, response);
     }
 
