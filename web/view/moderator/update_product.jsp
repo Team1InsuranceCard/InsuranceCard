@@ -91,10 +91,15 @@
                 height: 11rem;
                 resize: none;
             }
-            
+
             .text p {
                 margin-top: 1.5em;
                 float: right;
+            }
+
+            .img input {
+                height: 2em;
+                margin-top: 13em;
             }
         </style>
     </head>
@@ -109,17 +114,13 @@
             <form action="/moderator/product/update" method="POST">
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-6 top-right">
-                        <div class="row col-lg-12 justify-content-between btn">
-                            <div class="col-lg-3 btn--primary">
-                                Submit
-                            </div>
-                            <div class="col-lg-3 btn--secondary">
-                                Cancel
-                            </div>
+                        <div class="row col-lg-12 btn">
+                            <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
+                            <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
                         </div>
                         <div class="row col-lg-12 justify-content-between img">
-                            <img class="col-lg-8" src="asset/image/moderator/image show.png" alt=""/>
-                            <input class="col-lg-3" value="Upload image"/>
+                            <img class="col-lg-10" src="asset/image/moderator/image show.png" alt=""/>
+                            <input class="col-lg-2" type="button" value="Upload"/>
                         </div>
                     </div>
                     <div class="row col-lg-6 top-left">
