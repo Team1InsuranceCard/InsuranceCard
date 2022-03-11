@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 import model.Product;
 import model.ProductStatusCode;
 import model.Staff;
@@ -172,6 +173,9 @@ public class StaffDBContext extends DBContext {
             while (rs.next()) {
                 if (s == null) {
                     s = new Staff();
+                    AccountStatusCode statusCode = new AccountStatusCode();
+                    statusCode.setStatusCode(rs.getShort("Status"));
+
                     Account a = new Account();
                     a.setId(accountId);
                     a.setEmail(rs.getString("Email"));
@@ -179,6 +183,8 @@ public class StaffDBContext extends DBContext {
                     a.setRole(rs.getBoolean("Role"));
                     a.setStatus(rs.getByte("Status"));
                     a.setGoogleID(rs.getString("GoogleID"));
+                    a.setStatusCode(statusCode);
+
                     s.setAccount(a);
                     s.setFirstName(rs.getString("FirstName"));
                     s.setLastName(rs.getString("LastName"));
@@ -495,5 +501,49 @@ public class StaffDBContext extends DBContext {
             }
         }
 
+    }
+
+    public void modUpdateStaff(Staff staff) {
+        try {
+            connection.setAutoCommit(false);
+
+            // update acc info
+            String sql_upd_acc = "update Account\n"
+                    + "set Email = ?\n"
+                    + "	, Status = ?\n"
+                    + "where ID = ?";
+            PreparedStatement ps_upd_acc = connection.prepareStatement(sql_upd_acc);
+            ps_upd_acc.setString(1, staff.getAccount().getEmail());
+            ps_upd_acc.setShort(2, staff.getAccount().getStatusCode().getStatusCode());
+            ps_upd_acc.setInt(3, staff.getAccount().getId());
+            ps_upd_acc.executeUpdate();
+
+            // update staff info
+            String sql_upd_staff = "update Staff\n"
+                    + "set FirstName = ?\n"
+                    + "	, LastName = ?\n"
+                    + "	, Phone = ?\n"
+                    + "where AccountID = ?";
+            PreparedStatement ps_upd_staff = connection.prepareStatement(sql_upd_staff);
+            ps_upd_staff.setString(1, staff.getFirstName());
+            ps_upd_staff.setString(2, staff.getLastName());
+            ps_upd_staff.setString(3, staff.getPhone());
+            ps_upd_staff.setInt(4, staff.getAccount().getId());
+            ps_upd_staff.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
