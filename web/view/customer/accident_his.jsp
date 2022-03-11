@@ -68,7 +68,7 @@
                         <div class="card__item">
                             <div class="card__title">Attachment</div>
                             <a class="card__btn" 
-                               href="${requestScope.accident.attatchment}"
+                               href="${requestScope.accident.attachment}"
                                target="_blank"
                                rel="noopener noreferrer">View</a>
                         </div>

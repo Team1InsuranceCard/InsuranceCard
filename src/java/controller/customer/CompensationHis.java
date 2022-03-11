@@ -7,7 +7,6 @@ package controller.customer;
 
 import dao.CompensationDBContext;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
