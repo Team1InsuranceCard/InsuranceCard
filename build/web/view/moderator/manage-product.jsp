@@ -54,9 +54,13 @@
                                                 ${product.description}
                                             </p>
                                         </div>
-                                        <a href="product/detail?productid=${product.id}" 
+                                        <a href="moderator/product/update?productid=${product.id}" 
                                            class="btn btn-primary go-to-button">
                                             Update
+                                        </a>
+                                        <a href="moderator/product/delete?productid=${product.id}" 
+                                           class="btn btn-primary go-to-button">
+                                            Delete
                                         </a>
                                     </div>
                                 </div>
