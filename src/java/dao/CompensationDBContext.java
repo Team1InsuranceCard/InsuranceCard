@@ -49,7 +49,7 @@ public class CompensationDBContext extends DBContext {
     public Compensation getCompensationByCustomer(int compensationID, int customerID) {
         String sql_select_compensation = "SELECT Contract.ID AS ContractID, Product.Title AS ProductTitle, Contract.Status AS ContractStatus,\n"
                 + "		ContractStatusCode.StatusName AS ContractStatusName,\n"
-                + "		Contract.StartDate, Contract.EndDate,\n"
+                + "		Contract.StartDate, Contract.EndDate, Compensation.AccidentID,\n"
                 + "		Accident.Title, Accident.AccidentDate, Accident.Attachment AS AccidentAttachment, \n"
                 + "		Accident.CreatedDate AS AccidentCreatedDate,\n"
                 + "		Accident.HumanDamage, Accident.VehicleDamage,\n"
@@ -82,6 +82,7 @@ public class CompensationDBContext extends DBContext {
                 compensationSatus.setStatusName(rs_select_compensation.getString("StatusName"));
                 compensation.setStatus(compensationSatus);
                 Accident accident = new Accident();
+                accident.setId(rs_select_compensation.getInt("AccidentID"));
                 accident.setAccidentDate(rs_select_compensation.getTimestamp("AccidentDate"));
                 accident.setAttachment(rs_select_compensation.getString("AccidentAttachment"));
                 accident.setCreatedDate(rs_select_compensation.getTimestamp("AccidentCreatedDate"));

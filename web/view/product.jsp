@@ -39,9 +39,11 @@
     </head>
     <body>
         <c:choose>
+<!--            
             <c:when test="${!empty mod_account.userName}">
                 <jsp:include page="header_moderator.jsp" />
             </c:when>
+            -->
             <c:when test="${empty role}">
                 <jsp:include page="header_common.jsp" >
                     <jsp:param name="currentscreen" value="product"/>

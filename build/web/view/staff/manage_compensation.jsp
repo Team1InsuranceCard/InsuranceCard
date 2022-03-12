@@ -40,10 +40,10 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="col seach-bar">
                         <form class="form-inline" onsubmit="return mySubmitQuerySearch(event)">
                             <select class="select-search-option" name="" id="query-option">
-                                <option <c:if test="${query_option == 'accidenttitle'}">selected</c:if> value="accidenttitle">Accident Title</option>
-                                <option <c:if test="${query_option == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
-                                <option <c:if test="${query_option == 'compensationid'}">selected</c:if> value="compensationid">Compensation ID</option>
-                                <option <c:if test="${query_option == 'accidentid'}">selected</c:if> value="accidentid">Accident ID</option>
+                                <option <c:if test="${param.queryoption == 'accidenttitle'}">selected</c:if> value="accidenttitle">Accident Title</option>
+                                <option <c:if test="${param.queryoption == 'contractid'}">selected</c:if> value="contractid">Contract ID</option>
+                                <option <c:if test="${param.queryoption == 'compensationid'}">selected</c:if> value="compensationid">Compensation ID</option>
+                                <option <c:if test="${param.queryoption == 'accidentid'}">selected</c:if> value="accidentid">Accident ID</option>
 
                                 </select>
                                 <input
@@ -52,7 +52,7 @@ area1 --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                     type="search"
                                     placeholder="Search"
                                     aria-label="Search"
-                                    value="${query}"
+                                    value="${param.query}"
                                 name="query"
                                 />
 
