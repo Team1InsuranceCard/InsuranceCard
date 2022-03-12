@@ -66,5 +66,13 @@ public class PaymentServices {
         return payer;
     }
 
+    private RedirectUrls getRedirectURLs() {
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setCancelUrl("http://localhost:8080/Paypal/cancel.html");
+        redirectUrls.setReturnUrl("http://localhost:8080/Paypal/review_payment");
+
+        return redirectUrls;
+    }
+
     
 }
