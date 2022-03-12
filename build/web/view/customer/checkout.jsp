@@ -26,17 +26,36 @@
                 <div class="row">
                     <div class="col-lg-8 left">
                         <div class="method-row">
-                            <input type="radio" value="Paypal"/>
+                            <span class="method-title">
+                                <input type="radio" id="paypal" value="Paypal"/>
+                                <label for="paypal">Paypal</label>
+                            </span>
                             <img src="/asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row">
-                            <input type="radio" value="Cash"/>
+                            <span class="method-desc">By clicking on “Pay” button below, 
+                                you will redirect to the Paypal login page to 
+                                finish the payment process</span>
+                        </div>
+                        <hr/>
+                        <div class="method-row">
+                            <span class="method-title">
+                                <input type="radio" id="cash" value="Cash"/>
+                                <label for="cash">Cash</label>
+                            </span>
                             <img src="/asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
+                        <div class="method-row">
+                            <span class="method-desc">By clicking on “Save” button below, 
+                                you will need to directly go to our branch’s 
+                                counter to finish the payment process and active 
+                                the contract.</span>
+                        </div>
                     </div>
                     <div class="col-lg-4 right">
+                        <img src="/asset/image/Full_Logo.png"/>
                         <div class="content">
                             <p>
                                 <b>Supplier: </b> <span>Team 1 SE1517 - InsuranceCard</span>
@@ -54,9 +73,11 @@
                             </p>
                         </div>
                     </div>
+                    <input type="submit" id="btnCancel" 
+                           class="btnCancel" value="CANCEL"/>
                     <input type="submit" id="btnCheckout" 
                            class="btnCheckout btnDisable"
-                           value="CHECK OUT" disabled/>
+                           value="PAY" disabled/>
                 </div>
             </div>
         </div>
