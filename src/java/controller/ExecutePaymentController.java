@@ -61,7 +61,7 @@ public class ExecutePaymentController extends HttpServlet {
             request.setAttribute("payer", payerInfo);
             request.setAttribute("transaction", transaction);          
  
-            request.getRequestDispatcher("receipt.jsp").forward(request, response);
+            request.getRequestDispatcher("view/customer/paypal-success.jsp").forward(request, response);
              
         } catch (PayPalRESTException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
