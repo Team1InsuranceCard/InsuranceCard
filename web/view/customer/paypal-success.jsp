@@ -28,8 +28,9 @@
                         <p class="sub-title">Thank you for purchasing our products</p>
                     </div>
                     <div class="col col-lg-4">
-                        <h2>Receipt Details:</h2>
+                        <h3>Receipt Details:</h3>
                         <div class="receipt-detail">
+                            <img class="logo-icon" src="asset/image/Full_Logo.png"/>
                             <table>
                                 <tr>
                                     <td><b>Merchant:</b></td>
@@ -48,6 +49,7 @@
                                     <td>${transaction.amount.total} USD</td>
                                 </tr>                    
                             </table>
+                            <a class="btn-home" href="customer/dashboard">Back to Dashboard</a>
                         </div>
                     </div>
                 </div>
