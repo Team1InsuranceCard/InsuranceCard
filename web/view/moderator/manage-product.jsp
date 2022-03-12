@@ -55,7 +55,7 @@
                                             </p>
                                         </div>
                                         <a href="moderator/product/update?productid=${product.id}" 
-                                           class="btn btn-primary go-to-button">
+                                           class="btn btn-primary update-button">
                                             Update
                                         </a>
                                         <a onclick="confirmBox('Are you sure you want to delete this product?', 'moderator/product/delete?productid=${product.id}')"
