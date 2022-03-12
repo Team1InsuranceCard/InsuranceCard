@@ -42,10 +42,11 @@ public class CheckoutController extends HttpServlet {
         }
         Account account = (Account) request.getSession().getAttribute("account");
 
+//        if (true) {
         if (account != null) {
             ContractDBContext cdb = new ContractDBContext();
             Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
-            //Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
+//            Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
 
             if (contract != null) {
                 request.setAttribute("contract", contract);

@@ -112,3 +112,7 @@ and open the template in the editor.
     opacity: 50%;
     cursor: default;
 }
+
+.btnInvisible{
+    display: none;
+}
