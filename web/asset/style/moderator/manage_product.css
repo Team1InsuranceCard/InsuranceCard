@@ -18,6 +18,9 @@ main{
     border-radius: 20px;
     margin-bottom: 2em;
 }
+.dashboard-service-card {
+  padding: 2em;
+}
 .service-title{
     /* margin-right: 1em; */
     padding-right:30px ;
