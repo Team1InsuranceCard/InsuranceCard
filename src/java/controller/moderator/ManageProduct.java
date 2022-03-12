@@ -35,7 +35,7 @@ public class ManageProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDBContext productDBC = new ProductDBContext();
-        ArrayList<Product> products = productDBC.getProducts();
+        ArrayList<Product> products = productDBC.getProductsByMod();
 
         request.setAttribute("products", products);
         request.getRequestDispatcher("view/moderator/manage-product.jsp").forward(request, response);
