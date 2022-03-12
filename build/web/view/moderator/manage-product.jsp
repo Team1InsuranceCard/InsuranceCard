@@ -55,7 +55,8 @@
                                             </p>
                                         </div>
                                         <a href="product/detail?productid=${product.id}" 
-                                           class="btn btn-primary go-to-button">More
+                                           class="btn btn-primary go-to-button">
+                                            Update
                                         </a>
                                     </div>
                                 </div>
