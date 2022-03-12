@@ -25,7 +25,8 @@ and open the template in the editor.
     margin-top: 20px;
     padding: 10px;
 }
-.left{
+.left,
+.right{
     display: block;
     border-radius: 2px;
     box-shadow: 0 1px 2px #bbb;
@@ -38,11 +39,29 @@ and open the template in the editor.
     font-weight: bold;
 }
 
-.left .label-input{
-    display: inline-block;
-    width: 20%;
+.left .img-method{
+    height: 40px;
 }
 
+.left .method-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left .method-row .method-desc{
+    padding-left: 40px;
+    padding-bottom: 20px;
+}
+
+.left label{
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.right{
+    margin-left: 30px;
+}
 .right .content{
     padding: 15px;
 }

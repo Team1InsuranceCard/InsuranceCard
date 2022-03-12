@@ -31,7 +31,8 @@
                                 <input type="radio" id="paypal" value="Paypal"/>
                                 <label for="paypal">Paypal</label>
                             </span>
-                            <img src="asset/image/customer/checkout/paypal_logo.png"/>
+                            <img class="img-method"
+                                src="asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row">
@@ -45,7 +46,8 @@
                                 <input type="radio" id="cash" value="Cash"/>
                                 <label for="cash">Cash</label>
                             </span>
-                            <img src="asset/image/customer/checkout/cash_logo.png"/>
+                            <img class="img-method"
+                                src="asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row">
@@ -55,7 +57,7 @@
                                 the contract.</span>
                         </div>
                     </div>
-                    <div class="col-lg-4 right">
+                    <div class="col-lg-3 right">
                         <h3 class="group-title">Payment detail</h3>
                         <img src="asset/image/Full_Logo.png"/>
                         <div class="content">
