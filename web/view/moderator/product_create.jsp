@@ -12,16 +12,14 @@
         <title>InsuranceCard</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- include libraries(jQuery, bootstrap) -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"  crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-        <script src="asset/script/summernote.js"></script>
-        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+        <script src="../../asset/script/summernote.js"></script>
+
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <base href="${pageContext.servletContext.contextPath}/">
@@ -34,7 +32,7 @@
             }
 
             section {
-                margin: 6rem 5rem 0 22rem;
+                margin: 6rem 5rem 3rem 22rem;
             }
 
             .title {
@@ -82,6 +80,30 @@
                 text-align: center;
                 color: #E92649;
             }
+
+            .note-editable {
+                background-color: #FFE8E5;
+            }
+
+            .submit {
+                margin-top: 3rem;
+                text-align: center;
+            }
+
+            .submit input {
+                width: 7rem;
+                height: 3rem;
+                border: 2px solid #000000;
+                border-radius: 10px;
+                background-color: #59cc96;
+                color: #FFFFFF;
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            .submit input:hover {
+                background-color: #377c5c;
+            }
         </style>
     </head>
     <body>
@@ -91,7 +113,15 @@
             </jsp:include>
         </header>
         <section>
-            <h2 class="title">New Product</h2>
+            <div class="row">
+                <div class=" col-md-4">
+                    <h2 class="title">New Product</h2>
+                </div>
+                <div class="submit col-md-5">
+                    <input type="submit" value="Create"/>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-5 up-img">
                     <img src="https://via.placeholder.com/400x300?text=Waiting+until+image+change" 
@@ -129,11 +159,15 @@
                 </div>
             </div>
 
-            <div>Summer note</div>
-            <textarea class="summernote" name="..."></textarea>
+            <p style="font-weight:500;font-size:18px;">Content detail: </p>
+            <textarea class="summernote" name="contentdetail"></textarea>
             <script>
                 $('#[textarea]').summernote('code', "String data from database");
             </script>
+
+            <div class="submit">
+                <input type="submit" value="Create"/>
+            </div>
         </section>
 
         <footer>
