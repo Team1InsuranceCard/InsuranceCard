@@ -131,7 +131,7 @@
     </servlet>
     <servlet>
         <description>
-</description>
+        </description>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
@@ -198,6 +198,22 @@
     <servlet>
         <servlet-name>CancelContractController</servlet-name>
         <servlet-class>controller.CancelContractController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageStaff</servlet-name>
+        <servlet-class>controller.moderator.ManageStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProduct</servlet-name>
+        <servlet-class>controller.moderator.CreateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <servlet-class>controller.moderator.UpdateStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageProduct</servlet-name>
+        <servlet-class>controller.moderator.ManageProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -378,6 +394,22 @@
     <servlet-mapping>
         <servlet-name>CancelContractController</servlet-name>
         <url-pattern>/cancel-contract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageStaff</servlet-name>
+        <url-pattern>/moderator/staff/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProduct</servlet-name>
+        <url-pattern>/moderator/product/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <url-pattern>/moderator/staff/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProduct</servlet-name>
+        <url-pattern>/moderator/product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

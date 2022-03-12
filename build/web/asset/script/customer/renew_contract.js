@@ -32,11 +32,29 @@ function fillEndDate() {
 function renew() {
     var startDate = document.getElementById("startDate").value;
     var duration = document.getElementById("duration").value;
+    var name = document.getElementById("name").value;
+    var phone = document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var address = document.getElementById("address").value;
+    var province = document.getElementById("province").value;
+    var district = document.getElementById("district").value;
 
     if (startDate == "" || duration == 0) {
         Swal.fire({
             position: 'top',
-            text: "Fill Duration and Start date!",
+            text: "Fill start date and duration!",
+            icon: 'error',
+            showCancelButton: true,
+            cancelButtonColor: '#1F74B6',
+            cancelButtonText: 'OK',
+            showConfirmButton: false
+        })
+    } else if (name.length == 0 || phone.length == 0
+            || email.length == 0 || address.length == 0
+            || district == 0 || province == 0) {
+        Swal.fire({
+            position: 'top',
+            text: "Fill all delivery information!",
             icon: 'error',
             showCancelButton: true,
             cancelButtonColor: '#1F74B6',
