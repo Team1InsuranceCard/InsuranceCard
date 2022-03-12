@@ -29,15 +29,6 @@
             href="asset/style/moderator/manage_product.css"
             />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"crossorigin="anonymous">
-
-        <style>
-            main{
-                margin-left: 20em;
-                margin-top: 10em;
-                margin-bottom:  10em;
-            }
-
-        </style>
     </head>
     <body>
         <jsp:include page="../header_moderator.jsp" />
