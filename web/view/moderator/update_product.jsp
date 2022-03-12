@@ -70,7 +70,7 @@
                 padding: 15px 25px;
                 border: solid #000;
                 background: rgba(253, 177, 166, 0.7);
-                color: rgba(252, 99, 118, 1);
+                color: #000;
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
@@ -84,12 +84,26 @@
                 padding: 15px 25px;
                 border: solid #000;
                 background: rgba(253, 177, 166, 0.7);
-                color: rgba(252, 99, 118, 1);
+                color: #000;
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
                 height: 11rem;
                 resize: none;
+            }
+            
+            .text select {
+                margin-top: 0.7em;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                padding: 15px 25px;
+                border: solid #000;
+                background: rgba(253, 177, 166, 0.7);
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+                width: 100%;
+                height: 3.5rem;
             }
 
             .text p {
@@ -98,8 +112,14 @@
             }
 
             .img input {
-                height: 2em;
-                margin-top: 13em;
+                /*height: 2em;*/
+                border-radius: 8px;
+                padding: 5px;
+                border: none;
+                background: rgba(253, 177, 166, 0.7);
+                font-weight: bold;
+                font-size: 18px;
+                color: rgba(252, 99, 118, 1);
             }
         </style>
     </head>
@@ -113,14 +133,14 @@
         <main>
             <form action="/moderator/product/update" method="POST">
                 <div class="row col-lg-12 product-top">
-                    <div class="row col-lg-6 top-right">
-                        <div class="row col-lg-12 btn">
+                    <div class="row col-lg-6 justify-content-between top-right">
+                        <div class="row col-lg-10 btn">
                             <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
                             <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
                         </div>
-                        <div class="row col-lg-12 justify-content-between img">
+                        <div class="row col-lg-12 align-items-center img">
                             <img class="col-lg-10" src="asset/image/moderator/image show.png" alt=""/>
-                            <input class="col-lg-2" type="button" value="Upload"/>
+                            <input class="col-lg-2 align-self-center" type="button" value="Upload"/>
                         </div>
                     </div>
                     <div class="row col-lg-6 top-left">
@@ -149,6 +169,15 @@
                                 class="col-lg-8"
                                 required
                                 />
+                        </div>
+                        <div class="row col-lg-12 justify-content-between text">
+                            <label for="sel_status" class="col-lg-3">
+                                <p>Decision</p>
+                            </label>
+                            <select id="sel_status" name="status" class="col-lg-8" required>
+                                <option value="0">Inactive</option>
+                                <option value="1">Active</option>
+                            </select>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
                             <label for="txt_desc" class="col-lg-3">
