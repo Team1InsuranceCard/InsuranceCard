@@ -21,6 +21,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Contract;
+import model.Customer;
 
 /**
  *
@@ -34,8 +35,8 @@ public class PaymentServices {
     public String authorizePayment(Contract contract)        
             throws PayPalRESTException {       
  
-        Payer payer = getPayerInformation();
-        RedirectUrls redirectUrls = getRedirectURLs();
+        Payer payer = getPayerInformation(contract.getCustomer());
+        RedirectUrls redirectUrls = getRedirectURLs(contract);
         List<Transaction> listTransaction = getTransactionInformation(contract);
          
         Payment requestPayment = new Payment();
@@ -51,23 +52,23 @@ public class PaymentServices {
         return getApprovalLink(approvedPayment);
  
     }
-    private Payer getPayerInformation() {
+    private Payer getPayerInformation(Customer customer) {
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
 
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("William")
-                .setLastName("Peterson")
-                .setEmail("william.peterson@company.com");
+        payerInfo.setFirstName(customer.getFirstName())
+                .setLastName(customer.getLastName())
+                .setEmail(customer.getAccount().getEmail());
 
         payer.setPayerInfo(payerInfo);
 
         return payer;
     }
 
-    private RedirectUrls getRedirectURLs() {
+    private RedirectUrls getRedirectURLs(Contract contract) {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/insurancecard/homepage");
+        redirectUrls.setCancelUrl("http://localhost:8080/insurancecard/customer/contract/detail?id="+contract.getId());
         redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/review_payment");
 
         return redirectUrls;
