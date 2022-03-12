@@ -28,28 +28,30 @@
                         <h3 class="group-title">Payment methods</h3>
                         <div class="method-row">
                             <span class="method-title">
-                                <input type="radio" id="paypal" value="Paypal" name="method"/>
+                                <input type="radio" id="paypal" value="Paypal" 
+                                       name="method" onclick="paypalClick()"/>
                                 <label for="paypal">Paypal</label>
                             </span>
                             <img class="img-method"
                                 src="asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
-                        <div class="method-row invisible-row">
+                        <div class="method-row invisible-row" id="paypal-desc">
                             <span class="method-desc">By clicking on “Pay” button below, 
                                 you will redirect to the Paypal login page to 
                                 finish the payment process</span>
                         </div>
                         <div class="method-row">
                             <span class="method-title">
-                                <input type="radio" id="cash" value="Cash" name="method"/>
+                                <input type="radio" id="cash" value="Cash" 
+                                       name="method" onclick="cashClick()"/>
                                 <label for="cash">Cash</label>
                             </span>
                             <img class="img-method"
                                 src="asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
-                        <div class="method-row invisible-row">
+                        <div class="method-row invisible-row" id="cash-desc">
                             <span class="method-desc">By clicking on “Save” button below, 
                                 you will need to directly go to our branch’s 
                                 counter to finish the payment process and active 
