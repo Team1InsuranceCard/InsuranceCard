@@ -8,15 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Payment Receipt</title>
-        <style type="text/css">
-            table { border: 0; }
-            table td { padding: 5px; }
-        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <base href="${pageContext.servletContext.contextPath}/">
+        <title>InsuranceCard</title>
+        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+        <link href="asset/style/paypal_success.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div align="center">
+        <jsp:include page="../header_customer.jsp">
+            <jsp:param name="currentscreen" value="contract" />
+        </jsp:include>
+        <div class="container">
             <h1>Payment Done. Thank you for purchasing our products</h1>
             <br/>
             <h2>Receipt Details:</h2>
@@ -51,5 +54,6 @@
                 </tr>                    
             </table>
         </div>
+        <jsp:include page="../footer_full.jsp"></jsp:include>
     </body>
 </html>
