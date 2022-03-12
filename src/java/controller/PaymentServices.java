@@ -1,0 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.RedirectUrls;
+import com.paypal.api.payments.Transaction;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import java.util.List;
+import model.Contract;
+
+/**
+ *
+ * @author quynm
+ */
+public class PaymentServices {
+    private static final String CLIENT_ID = "AbZO9q8O7I5RPDVawBkofhFkP6xW80rrjeDqoDXct5V8TErb5ZQJpZthsGqDS-36ZxcsC9O4GkV2_WGJ";
+    private static final String CLIENT_SECRET = "EFJbuxnBcCTVMQ_wu8AJ7ZyV73sE6QURypM3g-Vz9jumGChz6-5jS2QrVh8AoO4aE4na0Im5X8YJq2OD";
+    private static final String MODE = "sandbox";
+ 
+    public String authorizePayment(Contract contract)        
+            throws PayPalRESTException {       
+ 
+//        Payer payer = getPayerInformation();
+//        RedirectUrls redirectUrls = getRedirectURLs();
+//        List<Transaction> listTransaction = getTransactionInformation(contract);
+         
+        Payment requestPayment = new Payment();
+//        requestPayment.setTransactions(listTransaction);
+//        requestPayment.setRedirectUrls(redirectUrls);
+//        requestPayment.setPayer(payer);
+        requestPayment.setIntent("authorize");
+ 
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+ 
+        Payment approvedPayment = requestPayment.create(apiContext);
+ 
+//        return getApprovalLink(approvedPayment);
+        return null;
+ 
+    }
+}
