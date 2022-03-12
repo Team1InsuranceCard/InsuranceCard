@@ -5,12 +5,15 @@
  */
 package controller.customer;
 
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Contract;
 
 /**
  *
@@ -56,7 +59,20 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        String contractID = request.getParameter("contractid").trim();
+        if(contractID == null || contractID.isEmpty())
+            contractID = "0";
+        Account account = (Account) request.getSession().getAttribute("account");
+        
+        ContractDBContext cdb = new ContractDBContext();
+//        Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
+        Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
+        
+        request.setAttribute("contract", contract);
+        request.getRequestDispatcher("../view/customer/checkout.jsp").forward(request, response);
     }
 
     /**
