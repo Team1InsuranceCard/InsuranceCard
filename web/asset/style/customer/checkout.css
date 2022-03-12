@@ -53,6 +53,10 @@ and open the template in the editor.
     padding-bottom: 20px;
 }
 
+.left .invisible-row{
+    display: none;
+}
+
 .left label{
     font-size: 20px;
     font-weight: 600;

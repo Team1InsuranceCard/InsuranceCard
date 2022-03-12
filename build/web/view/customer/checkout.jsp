@@ -28,29 +28,28 @@
                         <h3 class="group-title">Payment methods</h3>
                         <div class="method-row">
                             <span class="method-title">
-                                <input type="radio" id="paypal" value="Paypal"/>
+                                <input type="radio" id="paypal" value="Paypal" name="method"/>
                                 <label for="paypal">Paypal</label>
                             </span>
                             <img class="img-method"
                                 src="asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
-                        <div class="method-row">
+                        <div class="method-row invisible-row">
                             <span class="method-desc">By clicking on “Pay” button below, 
                                 you will redirect to the Paypal login page to 
                                 finish the payment process</span>
                         </div>
-                        <hr/>
                         <div class="method-row">
                             <span class="method-title">
-                                <input type="radio" id="cash" value="Cash"/>
+                                <input type="radio" id="cash" value="Cash" name="method"/>
                                 <label for="cash">Cash</label>
                             </span>
                             <img class="img-method"
                                 src="asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
-                        <div class="method-row">
+                        <div class="method-row invisible-row">
                             <span class="method-desc">By clicking on “Save” button below, 
                                 you will need to directly go to our branch’s 
                                 counter to finish the payment process and active 
