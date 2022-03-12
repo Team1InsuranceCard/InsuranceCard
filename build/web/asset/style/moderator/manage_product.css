@@ -8,5 +8,46 @@ and open the template in the editor.
     Author     : quynm
 */
 
+main{
+    margin-left: 20em;
+    margin-top: 10em;
+    margin-bottom:  10em;
+}
+.dashboard-card {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 20px;
+    margin-bottom: 2em;
+}
+.service-title{
+    /* margin-right: 1em; */
+    padding-right:30px ;
+}
+.product-image-cover {
+    height: 15rem;
+    object-fit: cover;
+}
+.service-sub-card {
+    background-color: #fff1f1;
+    margin-bottom: 1.5em;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.service-sub-card .go-to-button {
+    background-color: #5c2941;
+    border-color: #5c2941;
+}
+
+.service-sub-card .card-title {
+    min-height: 72px;
+}
+.wrapper-desciption-service {
+    height: 6em;
+    margin-bottom: 1em;
+}
+.desciption-service-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
 
 
