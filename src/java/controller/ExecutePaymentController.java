@@ -9,6 +9,7 @@ import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,10 +37,14 @@ public class ExecutePaymentController extends HttpServlet {
             throws ServletException, IOException {
         String paymentId = request.getParameter("paymentId");
         String payerId = request.getParameter("PayerID");
+        String contractId = request.getParameter("contractid");
  
         try {
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.executePayment(paymentId, payerId);
+            
+            ContractDBContext cdb = new ContractDBContext();
+            cdb.customerContractPaymentPaypal(Integer.parseInt(contractId));
              
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
@@ -69,11 +74,15 @@ public class ExecutePaymentController extends HttpServlet {
             throws ServletException, IOException {
         String paymentId = request.getParameter("paymentId");
         String payerId = request.getParameter("PayerID");
+        String contractId = request.getParameter("contractid");
  
         try {
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.executePayment(paymentId, payerId);
              
+            ContractDBContext cdb = new ContractDBContext();
+            cdb.customerContractPaymentPaypal(Integer.parseInt(contractId));
+            
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
              

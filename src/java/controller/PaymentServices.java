@@ -69,7 +69,7 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs(Contract contract) {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("http://localhost:8080/insurancecard/customer/contract/detail?id="+contract.getId());
-        redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/execute_payment");
+        redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/execute_payment?contractid="+contract.getId());
 
         return redirectUrls;
     }

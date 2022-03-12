@@ -1059,12 +1059,13 @@ public class ContractDBContext extends DBContext {
             // update payment
             String sql_payment = "update Payment\n"
                     + "set PaidDate = GETDATE()\n"
-                    + "	, PaymentMethodID = 3\n"
+                    + "	, PaymentMethodID = 2\n"
                     + "	, Note = Null\n"
                     + "where ContractID = ?";
             PreparedStatement ps_payment = connection.prepareStatement(sql_payment);
             ps_payment.setInt(1, contractID);
             ps_payment.executeUpdate();
+            
             // update contract status
             String sql_contract = "update Contract\n"
                     + " set Status = 1\n"

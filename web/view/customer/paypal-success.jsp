@@ -49,8 +49,8 @@
                                     <td>${transaction.amount.total} USD</td>
                                 </tr>                    
                             </table>
-                            <a class="btn-home" href="customer/dashboard">Back to Dashboard</a>
                         </div>
+                        <a class="btn-home" href="customer/dashboard">Back to Dashboard</a>
                     </div>
                 </div>
             </div>
