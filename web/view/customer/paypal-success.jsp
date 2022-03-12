@@ -20,39 +20,38 @@
             <jsp:param name="currentscreen" value="contract" />
         </jsp:include>
         <div class="container">
-            <h1>Payment Done. Thank you for purchasing our products</h1>
-            <br/>
-            <h2>Receipt Details:</h2>
-            <table>
-                <tr>
-                    <td><b>Merchant:</b></td>
-                    <td>Company ABC Ltd.</td>
-                </tr>
-                <tr>
-                    <td><b>Payer:</b></td>
-                    <td>${payer.firstName} ${payer.lastName}</td>      
-                </tr>
-                <tr>
-                    <td><b>Description:</b></td>
-                    <td>${transaction.description}</td>
-                </tr>
-                <tr>
-                    <td><b>Subtotal:</b></td>
-                    <td>${transaction.amount.details.subtotal} USD</td>
-                </tr>
-                <tr>
-                    <td><b>Shipping:</b></td>
-                    <td>${transaction.amount.details.shipping} USD</td>
-                </tr>
-                <tr>
-                    <td><b>Tax:</b></td>
-                    <td>${transaction.amount.details.tax} USD</td>
-                </tr>
-                <tr>
-                    <td><b>Total:</b></td>
-                    <td>${transaction.amount.total} USD</td>
-                </tr>                    
-            </table>
+            <div class="content_container">
+                <div class="row">
+                    <div class="col col-lg-8 title-container">
+                        <img class="success-icon" src="asset/image/payment_success.png"/>
+                        <h1 class="title">Your payment was successful</h1>
+                        <p class="sub-title">Thank you for purchasing our products</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <h2>Receipt Details:</h2>
+                        <div class="receipt-detail">
+                            <table>
+                                <tr>
+                                    <td><b>Merchant:</b></td>
+                                    <td>Team1 SE1517, Insurance Card Inc.</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Payer:</b></td>
+                                    <td>${payer.firstName} ${payer.lastName}</td>      
+                                </tr>
+                                <tr>
+                                    <td><b>Description:</b></td>
+                                    <td>${transaction.description}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total:</b></td>
+                                    <td>${transaction.amount.total} USD</td>
+                                </tr>                    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <jsp:include page="../footer_full.jsp"></jsp:include>
     </body>

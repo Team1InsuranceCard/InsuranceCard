@@ -8,3 +8,33 @@ and open the template in the editor.
     Author     : quynm
 */
 
+.content_container{
+    margin-top: 180px;
+    margin-bottom: 40px;
+    min-height: 60vh;
+}
+
+.title-container{
+    text-align: center;
+}
+
+.success-icon{
+    width: 300px;
+}
+
+.title{
+    color: #fc6376;
+}
+
+.sub-title{
+    font-size: 20px;
+}
+.receipt-detail{
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #bbb;
+}
+table{
+    display: block;
+    padding: 10px;
+}
