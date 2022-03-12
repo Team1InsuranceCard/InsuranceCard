@@ -95,7 +95,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       out.write("            sizes=\"16x16\"\n");
       out.write("            />\n");
       out.write("        <link rel=\"stylesheet\" href=\"asset/style/customer/manage_contract.css\" />\n");
-      out.write("        <script src=\"asset/script/customer/manage_contracts.js\"></script> \n");
+      out.write("        <script src=\"asset/script/customer/manage_contract.js\"></script> \n");
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        ");
@@ -111,37 +111,26 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       out.write("                                <option ");
       if (_jspx_meth_c_if_0(_jspx_page_context))
         return;
-      out.write(" value=\"customername\">Customer Name</option>\n");
+      out.write(" value=\"contractid\">Contract ID</option>\n");
       out.write("                                <option ");
       if (_jspx_meth_c_if_1(_jspx_page_context))
         return;
       out.write(" value=\"producttitle\">Product Title</option>\n");
-      out.write("                                <option ");
-      if (_jspx_meth_c_if_2(_jspx_page_context))
-        return;
-      out.write(" value=\"personalid\">Customer Personal ID</option>\n");
-      out.write("                                <option ");
-      if (_jspx_meth_c_if_3(_jspx_page_context))
-        return;
-      out.write(" value=\"contractid\">Contract ID</option>\n");
-      out.write("\n");
-      out.write("                                </select>\n");
-      out.write("                                <input\n");
-      out.write("                                    id=\"search-box\"\n");
-      out.write("                                    class=\"form-control mr-sm-2\"\n");
-      out.write("                                    type=\"search\"\n");
-      out.write("                                    placeholder=\"Search\"\n");
-      out.write("                                    aria-label=\"Search\"\n");
-      out.write("                                    value=\"");
+      out.write("                            </select>\n");
+      out.write("                            <input\n");
+      out.write("                                id=\"search-box\"\n");
+      out.write("                                class=\"form-control mr-sm-2\"\n");
+      out.write("                                type=\"search\"\n");
+      out.write("                                placeholder=\"Search\"\n");
+      out.write("                                aria-label=\"Search\"\n");
+      out.write("                                value=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${query}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\"\n");
-      out.write("                                name=\"query\"\n");
-      out.write("                                />\n");
+      out.write("                                name=\"query\"/>\n");
       out.write("\n");
       out.write("                            <button\n");
       out.write("                                class=\"search-button btn-secondary btn  my-2 my-sm-0\"\n");
-      out.write("                                type=\"submit\"\n");
-      out.write("                                > \n");
+      out.write("                                type=\"submit\"> \n");
       out.write("                                Search\n");
       out.write("                            </button>\n");
       out.write("                        </form>\n");
@@ -153,64 +142,62 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       out.write("            </div>\n");
       out.write("\n");
       out.write("            <div class=\"contract-list\">\n");
-      out.write("                <div class=\" contract-list-title\"><h2 ><a href=\"javascript:void()\" id=\"contract-include\" aria-label=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contractinclude}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" title=\"Click to toggle to Contract By Me\"></a></h2></div>                      \n");
+      out.write("                <div class=\" contract-list-title\">\n");
+      out.write("                    <h2>My contracts</h2>\n");
+      out.write("                </div>                      \n");
       out.write("                <div class=\"contract-list-content\">\n");
       out.write("                    <table class=\"contract-list-table table table-striped\">\n");
       out.write("                        <thead class=\"contract-list-header\">\n");
-      out.write("                        <th scope=\"col\"><a ");
-      if (_jspx_meth_c_if_4(_jspx_page_context))
-        return;
-      out.write("  id=\"id-filter\" href=\"javascript:void()\"\n");
-      out.write("                                                                             >ID\n");
-      out.write("                                ");
-      out.write("\n");
-      out.write("                            </a\n");
-      out.write("                            ></th>\n");
       out.write("                        <th scope=\"col\">\n");
       out.write("                            <a ");
+      if (_jspx_meth_c_if_2(_jspx_page_context))
+        return;
+      out.write("  id=\"id-filter\" \n");
+      out.write("                                    href=\"javascript:void()\">ID</a>\n");
+      out.write("                            </th>\n");
+      out.write("                            <th scope=\"col\">\n");
+      out.write("                                <a ");
+      if (_jspx_meth_c_if_3(_jspx_page_context))
+        return;
+      out.write("  id=\"customer-filter\" \n");
+      out.write("                                    href=\"javascript:void()\">Customers\n");
+      out.write("                                ");
+      if (_jspx_meth_c_if_4(_jspx_page_context))
+        return;
+      out.write("</a>\n");
+      out.write("                            </th>\n");
+      out.write("                            <th scope=\"col\">\n");
+      out.write("                                <a ");
       if (_jspx_meth_c_if_5(_jspx_page_context))
         return;
-      out.write("  id=\"customer-filter\" href=\"javascript:void()\"\n");
-      out.write("                                                                   >Customers");
+      out.write("  id=\"product-filter\" \n");
+      out.write("                                    href=\"javascript:void();\">Products\n");
+      out.write("                                ");
       if (_jspx_meth_c_if_6(_jspx_page_context))
         return;
-      out.write("</a\n");
-      out.write("                                                                   >\n");
+      out.write("</a>\n");
       out.write("                            </th>\n");
       out.write("                            <th scope=\"col\">\n");
       out.write("                                <a ");
       if (_jspx_meth_c_if_7(_jspx_page_context))
         return;
-      out.write("  id=\"product-filter\" href=\"javascript:void();\"\n");
-      out.write("                                                                     >Products");
+      out.write(" id=\"start-date-filter\" \n");
+      out.write("                                    href=\"javascript:void()\">Start date\n");
+      out.write("                                ");
       if (_jspx_meth_c_if_8(_jspx_page_context))
         return;
-      out.write("</a\n");
-      out.write("                                                                     >\n");
+      out.write("</a>\n");
       out.write("                            </th>\n");
       out.write("                            <th scope=\"col\">\n");
       out.write("                                <a ");
       if (_jspx_meth_c_if_9(_jspx_page_context))
         return;
-      out.write(" id=\"start-date-filter\" href=\"javascript:void()\"\n");
-      out.write("                                                                   >Start date");
+      out.write("  id=\"end-date-filter\" \n");
+      out.write("                                    href=\"javascript:void()\">End date\n");
+      out.write("                                ");
       if (_jspx_meth_c_if_10(_jspx_page_context))
         return;
-      out.write("</a\n");
-      out.write("                                                                   >\n");
-      out.write("                            </th>\n");
-      out.write("                            <th scope=\"col\">\n");
-      out.write("                                <a ");
-      if (_jspx_meth_c_if_11(_jspx_page_context))
-        return;
-      out.write("  id=\"end-date-filter\" href=\"javascript:void()\"\n");
-      out.write("                                                                 >End date");
-      if (_jspx_meth_c_if_12(_jspx_page_context))
-        return;
-      out.write("</a\n");
-      out.write("                                                                 >\n");
+      out.write("</a>\n");
       out.write("                            </th>\n");
       out.write("                            <th scope=\"col\">\n");
       out.write("                                <select class=\"status-select\" name=\"\" id=\"status-filter\">\n");
@@ -241,7 +228,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       out.write("        ");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "../footer_full.jsp", out, false);
       out.write("\n");
-      out.write("        <script src=\"asset/script/staff/manage_contracts.js\"></script>\n");
+      out.write("        <script src=\"asset/script/customer/manage_contract.js\"></script>\n");
       out.write("        <script>\n");
       out.write("                            createPager(\"page-list\", ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${page}", java.lang.String.class, (PageContext)_jspx_page_context, null));
@@ -273,7 +260,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_0.setPageContext(_jspx_page_context);
     _jspx_th_c_if_0.setParent(null);
-    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${query_option == 'customername'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${query_option == 'contractid'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
     if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -325,11 +312,14 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_2 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_2.setPageContext(_jspx_page_context);
     _jspx_th_c_if_2.setParent(null);
-    _jspx_th_c_if_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${query_option == 'personalid'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'id'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_2 = _jspx_th_c_if_2.doStartTag();
     if (_jspx_eval_c_if_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write("selected");
+        out.write(" \n");
+        out.write("                                    title=\"");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_2.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -351,11 +341,14 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_3 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_3.setPageContext(_jspx_page_context);
     _jspx_th_c_if_3.setParent(null);
-    _jspx_th_c_if_3.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${query_option == 'contractid'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_3.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'name'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_3 = _jspx_th_c_if_3.doStartTag();
     if (_jspx_eval_c_if_3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write("selected");
+        out.write(" \n");
+        out.write("                                    title=\"");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_3.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -377,13 +370,13 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_4 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_4.setPageContext(_jspx_page_context);
     _jspx_th_c_if_4.setParent(null);
-    _jspx_th_c_if_4.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'id'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_4.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'name'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_4 = _jspx_th_c_if_4.doStartTag();
     if (_jspx_eval_c_if_4 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write(" title=\"");
+        out.write(':');
+        out.write(' ');
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_4.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -405,11 +398,12 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_5 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_5.setPageContext(_jspx_page_context);
     _jspx_th_c_if_5.setParent(null);
-    _jspx_th_c_if_5.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'name'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_5.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'product'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_5 = _jspx_th_c_if_5.doStartTag();
     if (_jspx_eval_c_if_5 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write(" title=\"");
+        out.write(" \n");
+        out.write("                                    title=\"");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
         out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_5.doAfterBody();
@@ -433,7 +427,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_6 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_6.setPageContext(_jspx_page_context);
     _jspx_th_c_if_6.setParent(null);
-    _jspx_th_c_if_6.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'name'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_6.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'product'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_6 = _jspx_th_c_if_6.doStartTag();
     if (_jspx_eval_c_if_6 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -461,11 +455,12 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_7 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_7.setPageContext(_jspx_page_context);
     _jspx_th_c_if_7.setParent(null);
-    _jspx_th_c_if_7.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'product'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_7.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'start'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_7 = _jspx_th_c_if_7.doStartTag();
     if (_jspx_eval_c_if_7 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write(" title=\"");
+        out.write(" \n");
+        out.write("                                    title=\"");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
         out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_7.doAfterBody();
@@ -489,7 +484,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_8 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_8.setPageContext(_jspx_page_context);
     _jspx_th_c_if_8.setParent(null);
-    _jspx_th_c_if_8.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'product'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_8.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'start'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_8 = _jspx_th_c_if_8.doStartTag();
     if (_jspx_eval_c_if_8 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -517,11 +512,12 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_9 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_9.setPageContext(_jspx_page_context);
     _jspx_th_c_if_9.setParent(null);
-    _jspx_th_c_if_9.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'start'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_9.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'end'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_9 = _jspx_th_c_if_9.doStartTag();
     if (_jspx_eval_c_if_9 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
-        out.write(" title=\"");
+        out.write(" \n");
+        out.write("                                    title=\"");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
         out.write('"');
         int evalDoAfterBody = _jspx_th_c_if_9.doAfterBody();
@@ -545,7 +541,7 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_10 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_10.setPageContext(_jspx_page_context);
     _jspx_th_c_if_10.setParent(null);
-    _jspx_th_c_if_10.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'start'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_10.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'end'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_10 = _jspx_th_c_if_10.doStartTag();
     if (_jspx_eval_c_if_10 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -562,62 +558,6 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
       return true;
     }
     _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_10);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_if_11(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_11 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_11.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_11.setParent(null);
-    _jspx_th_c_if_11.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby == 'end'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_11 = _jspx_th_c_if_11.doStartTag();
-    if (_jspx_eval_c_if_11 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write(" title=\"");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write('"');
-        int evalDoAfterBody = _jspx_th_c_if_11.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_11.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_11);
-      return true;
-    }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_11);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_if_12(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_12 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_12.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_12.setParent(null);
-    _jspx_th_c_if_12.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${orderby ==  'end'}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_12 = _jspx_th_c_if_12.doStartTag();
-    if (_jspx_eval_c_if_12 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write(':');
-        out.write(' ');
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${ordertype}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        int evalDoAfterBody = _jspx_th_c_if_12.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_12.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_12);
-      return true;
-    }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_12);
     return false;
   }
 
@@ -638,9 +578,10 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
         do {
           out.write("\n");
           out.write("                                    <option ");
-          if (_jspx_meth_c_if_13((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+          if (_jspx_meth_c_if_11((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
-          out.write(" value=\"");
+          out.write(" \n");
+          out.write("                                            value=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${statuscode.statusCode}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("\">\n");
           out.write("                                        ");
@@ -667,29 +608,29 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
     return false;
   }
 
-  private boolean _jspx_meth_c_if_13(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+  private boolean _jspx_meth_c_if_11(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_13 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_13.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_13.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
-    _jspx_th_c_if_13.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${status == statuscode.statusCode}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_13 = _jspx_th_c_if_13.doStartTag();
-    if (_jspx_eval_c_if_13 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_11 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_11.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_11.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_c_if_11.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${status == statuscode.statusCode}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_11 = _jspx_th_c_if_11.doStartTag();
+    if (_jspx_eval_c_if_11 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("selected");
-        int evalDoAfterBody = _jspx_th_c_if_13.doAfterBody();
+        int evalDoAfterBody = _jspx_th_c_if_11.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
       } while (true);
     }
-    if (_jspx_th_c_if_13.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_13);
+    if (_jspx_th_c_if_11.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_11);
       return true;
     }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_13);
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_11);
     return false;
   }
 
@@ -752,9 +693,15 @@ public final class manage_002dcontract_jsp extends org.apache.jasper.runtime.Htt
           out.write("\n");
           out.write("                                    </td>\n");
           out.write("                                    <td>\n");
-          out.write("                                        <a href=\"staff/contract/detail?id=");
+          out.write("                                        <a href=\"customer/contract/detail?id=");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contract.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("\">Detail</a>\n");
+          out.write("                                    </td>\n");
+          out.write("                                    <td>\n");
+          out.write("                                        <a href=\"customer/history/compensation/request?contractid=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contract.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\">Request compensation</a>\n");
+          out.write("                                    </td>\n");
           out.write("                                </tr>\n");
           out.write("                            ");
           int evalDoAfterBody = _jspx_th_c_forEach_1.doAfterBody();
