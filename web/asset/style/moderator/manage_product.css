@@ -10,7 +10,7 @@ and open the template in the editor.
 
 main{
     margin-left: 20em;
-    margin-top: 10em;
+    margin-top: 6em;
     margin-bottom:  10em;
 }
 .dashboard-card {
@@ -24,6 +24,7 @@ main{
 .service-title{
     /* margin-right: 1em; */
     padding-right:30px ;
+    font-size: 28px;
 }
 .product-image-cover {
     height: 15rem;
