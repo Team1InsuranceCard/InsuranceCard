@@ -111,7 +111,7 @@
                                 </c:forEach>
                             </select>
                         </th>
-                        <th scope="col" colspan="2">Action</th>
+                        <th scope="col">Action</th>
                         </thead>
                         <tbody>
                             <c:forEach var="contractMap" items="${contract_list}">
@@ -163,10 +163,6 @@
                                     </td>
                                     <td>
                                         <a href="customer/contract/detail?id=${contract.id}">Detail</a>
-                                    </td>
-                                    <td>
-                                        <a href="customer/history/compensation/request?contractid=${contract.id}">Request compensation</a>
-                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

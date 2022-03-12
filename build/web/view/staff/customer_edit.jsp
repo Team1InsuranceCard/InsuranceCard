@@ -30,7 +30,7 @@
                     <p class="mess-box__mess">Success! Your submission has been saved!</p>
                 </div>
 
-                <form action="staff/customer/edit" method="POST">                 
+                <form action="staff/customer/edit" method="POST" autocomplete="off">                 
                     <input type="hidden" name="aid" value="${requestScope.aid}">
 
                     <div class="section">
@@ -38,10 +38,8 @@
 
                         <div class="section__main">
                             <div class="section__item">
-                                <label class="section__label" for="email">Email</label>
-
+                                <p class="section__label">Email</p>
                                 <input
-                                    id="email"
                                     class="section__input"
                                     type="text"
                                     name="email"
@@ -52,9 +50,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="status">Status</label>
-
-                                <select name="status" class="section__input" id="status" required>
+                                <p class="section__label">Status</p>
+                                <select name="status" class="section__input" required>
                                     <option ${requestScope.status == 0 ? "selected" : ""} 
                                         value="0">Inactive</option>
                                     <option ${requestScope.status == 1 ? "selected" : ""}
@@ -71,10 +68,8 @@
 
                         <div class="section__main">
                             <div class="section__item">
-                                <label class="section__label" for="fname">First Name</label>
-
+                                <p class="section__label">First Name</p>
                                 <input
-                                    id="fname"
                                     class="section__input"
                                     type="text"
                                     name="fname"
@@ -85,10 +80,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="pid">Personal ID</label>
-
+                                <p class="section__label">Personal ID</p>
                                 <input
-                                    id="pid"
                                     class="section__input"
                                     type="text"
                                     name="pid"
@@ -101,10 +94,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="lname">Last Name</label>
-
+                                <p class="section__label">Last Name</p>
                                 <input
-                                    id="lname"
                                     class="section__input"
                                     type="text"
                                     name="lname"
@@ -115,8 +106,7 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="province">Province</label>
-
+                                <p class="section__label">Province</p>
                                 <select class="section__input" 
                                         name="calc_shipping_provinces" 
                                         id="province" 
@@ -133,10 +123,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="dob">Date of Birth</label>
-
+                                <p class="section__label">Date of Birth</p>
                                 <input
-                                    id="dob"
                                     class="section__input"
                                     type="date"
                                     name="dob"
@@ -146,8 +134,7 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="district">District</label>
-
+                                <p class="section__label">District</p>
                                 <select class="section__input" 
                                         name="calc_shipping_district" 
                                         id="district" required>
@@ -162,10 +149,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="phone">Phone</label>
-
+                                <p class="section__label">Phone</p>
                                 <input
-                                    id="phone"
                                     class="section__input"
                                     type="text"
                                     name="phone"
@@ -176,10 +161,8 @@
                             </div>
 
                             <div class="section__item">
-                                <label class="section__label" for="address">Address</label>
-
+                                <p class="section__label">Address</p>
                                 <input
-                                    id="address"
                                     class="section__input"
                                     type="text"
                                     name="address"
