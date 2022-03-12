@@ -22,21 +22,17 @@
             sizes="16x16"
             />
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link rel="stylesheet" href="asset/style/homepage.css" />
         <!--Font Awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
         <link
             rel="stylesheet"
-            href="asset/style/customer/customer_dashboard.css"
+            href="asset/style/moderator/manage_product.css"
             />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"crossorigin="anonymous">
 
         <style>
             main{
-                <c:if test="${role || !empty mod_account.userName}">
-                    margin-left: 20em;
-                </c:if>
-
+                margin-left: 20em;
                 margin-top: 10em;
                 margin-bottom:  10em;
             }
@@ -48,7 +44,9 @@
         <main>
             <div class="container" >
                 <div class="dashboard-card dashboard-service-card">
-                    <div class="service-title"><h2>Our services</h2></div>
+                    <div class="service-title">
+                        <h2>Our services</h2>
+                    </div>
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${products}" var="product">
                             <div class="col">
