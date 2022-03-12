@@ -4,26 +4,22 @@
 <link rel="stylesheet" href="${root}/asset/style/header_staff_mod.css" />
 <header>
     <div class="header-staff">
-        <a href="${root}/homepage" class="brand">
+        <a href="${root}/moderator/dashboard" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
         <div class="header-element">
-            <a href="" class="icon-header">
-                <img src="${root}/asset/image/icon_bell.png" />
-            </a>
-
-            <a href="" class="icon-header">
+            <a href="${root}/change-password" class="icon-header">
                 <img src="${root}/asset/image/icon_user.png" />
             </a>
 
-            <a href="logout" class="icon-header">
+            <a href="${root}/logout" class="icon-header">
                 <img src="${root}/asset/image/icon_logout.png" />
             </a>
         </div>
     </div>
 
-    <div class="sidebar-staff">
+    <div class="sidebar-staff" id="sidebarStaff">
         <ul>
             <li>
                 <a class="sidebar-item" 

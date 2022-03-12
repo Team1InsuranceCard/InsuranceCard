@@ -207,6 +207,10 @@
         <servlet-name>CreateProduct</servlet-name>
         <servlet-class>controller.moderator.CreateProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <servlet-class>controller.moderator.UpdateStaff</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -394,6 +398,10 @@
     <servlet-mapping>
         <servlet-name>CreateProduct</servlet-name>
         <url-pattern>/moderator/product/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <url-pattern>/moderator/staff/update</url-pattern>    
     </servlet-mapping>
     <session-config>
         <session-timeout>
