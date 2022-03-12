@@ -34,7 +34,26 @@ public class ExecutePaymentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String paymentId = request.getParameter("paymentId");
+        String payerId = request.getParameter("PayerID");
+ 
+        try {
+            PaymentServices paymentServices = new PaymentServices();
+            Payment payment = paymentServices.executePayment(paymentId, payerId);
+             
+            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+            Transaction transaction = payment.getTransactions().get(0);
+             
+            request.setAttribute("payer", payerInfo);
+            request.setAttribute("transaction", transaction);          
+ 
+            request.getRequestDispatcher("view/customer/paypal-success.jsp").forward(request, response);
+             
+        } catch (PayPalRESTException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            ex.printStackTrace();
+            request.getRequestDispatcher("errorPaypal.jsp").forward(request, response);
+        }
     }
 
     /**
