@@ -5,12 +5,20 @@
  */
 package controller;
 
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Details;
+import com.paypal.api.payments.Item;
+import com.paypal.api.payments.ItemList;
+import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Contract;
 
@@ -44,4 +52,19 @@ public class PaymentServices {
         return null;
  
     }
+    private Payer getPayerInformation() {
+        Payer payer = new Payer();
+        payer.setPaymentMethod("paypal");
+
+        PayerInfo payerInfo = new PayerInfo();
+        payerInfo.setFirstName("William")
+                .setLastName("Peterson")
+                .setEmail("william.peterson@company.com");
+
+        payer.setPayerInfo(payerInfo);
+
+        return payer;
+    }
+
+    
 }
