@@ -27,8 +27,8 @@ import model.Contract;
  * @author quynm
  */
 public class PaymentServices {
-    private static final String CLIENT_ID = "AbZO9q8O7I5RPDVawBkofhFkP6xW80rrjeDqoDXct5V8TErb5ZQJpZthsGqDS-36ZxcsC9O4GkV2_WGJ";
-    private static final String CLIENT_SECRET = "EFJbuxnBcCTVMQ_wu8AJ7ZyV73sE6QURypM3g-Vz9jumGChz6-5jS2QrVh8AoO4aE4na0Im5X8YJq2OD";
+    private static final String CLIENT_ID = "AfXI8bXa--uC5ks36CAQwK-2pptjTeqD8JCudoogI28L4EKqR2f1lDjhDRmJujsl3axKTWRJmPI3qwX1";
+    private static final String CLIENT_SECRET = "EAoedCE8S7ygtqwP_P3ycXgxEokYlq8JJpelAra6EVvvPcyfZWdxIQEQMZ40I8xt14T0lE_ZP4G7md3m";
     private static final String MODE = "sandbox";
  
     public String authorizePayment(Contract contract)        
@@ -74,17 +74,18 @@ public class PaymentServices {
     }
 
     private List<Transaction> getTransactionInformation(Contract contract) {
+        //convert fee to usd
+        double usdContractFee = (double) contract.getContractFee() / 23000.0;
+        
         Details details = new Details();
         details.setShipping("0");
-        details.setSubtotal("0");
+        //format of the amount must be USD xx.xx
+        details.setSubtotal(String.format("%.2f", usdContractFee));
         details.setTax("0");
 
-        //convert fee to usd
-        double usdContractFee = contract.getContractFee() / 23000.0;
-        
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(usdContractFee + "");
+        amount.setTotal(String.format("%.2f", usdContractFee));
         amount.setDetails(details);
 
         Transaction transaction = new Transaction();
@@ -97,7 +98,7 @@ public class PaymentServices {
         Item item = new Item();
         item.setCurrency("USD");
         item.setName(contract.getProduct().getTitle());
-        item.setPrice(usdContractFee + "");
+        item.setPrice(String.format("%.2f", usdContractFee));
         item.setTax("0");
         item.setQuantity("1");
 

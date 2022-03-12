@@ -51,14 +51,14 @@ public class ReviewPaymentController extends HttpServlet {
             request.setAttribute("transaction", transaction);
             request.setAttribute("shippingAddress", shippingAddress);
              
-            String url = "payment_review.jsp?paymentId=" + paymentId + "&PayerID=" + payerId;
+            String url = "view/payment_review.jsp?paymentId=" + paymentId + "&PayerID=" + payerId;
              
             request.getRequestDispatcher(url).forward(request, response);
              
         } catch (PayPalRESTException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
             ex.printStackTrace();
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("errorPaypal.jsp").forward(request, response);
         }      
     }
 
