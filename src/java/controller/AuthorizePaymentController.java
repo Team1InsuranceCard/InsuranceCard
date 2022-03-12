@@ -6,6 +6,7 @@
 package controller;
 
 import com.paypal.base.rest.PayPalRESTException;
+import dao.AccountDBContext;
 import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Contract;
 
 /**
@@ -57,9 +59,12 @@ public class AuthorizePaymentController extends HttpServlet {
         if (customerID == null || customerID.isEmpty()) {
             customerID = "0";
         }
+        AccountDBContext adb = new AccountDBContext();
+        Account account = adb.getAccount(Integer.parseInt(customerID));
         
         ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetailByCustomer(Integer.parseInt(customerID), Integer.parseInt(contractID));
+        Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
+        contract.getCustomer().setAccount(account);
  
         try {
             PaymentServices paymentServices = new PaymentServices();
