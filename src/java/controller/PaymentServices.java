@@ -34,22 +34,21 @@ public class PaymentServices {
     public String authorizePayment(Contract contract)        
             throws PayPalRESTException {       
  
-//        Payer payer = getPayerInformation();
-//        RedirectUrls redirectUrls = getRedirectURLs();
-//        List<Transaction> listTransaction = getTransactionInformation(contract);
+        Payer payer = getPayerInformation();
+        RedirectUrls redirectUrls = getRedirectURLs(contract);
+        List<Transaction> listTransaction = getTransactionInformation(contract);
          
         Payment requestPayment = new Payment();
-//        requestPayment.setTransactions(listTransaction);
-//        requestPayment.setRedirectUrls(redirectUrls);
-//        requestPayment.setPayer(payer);
+        requestPayment.setTransactions(listTransaction);
+        requestPayment.setRedirectUrls(redirectUrls);
+        requestPayment.setPayer(payer);
         requestPayment.setIntent("authorize");
  
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
  
         Payment approvedPayment = requestPayment.create(apiContext);
  
-//        return getApprovalLink(approvedPayment);
-        return null;
+        return getApprovalLink(approvedPayment);
  
     }
     private Payer getPayerInformation() {
@@ -66,10 +65,10 @@ public class PaymentServices {
         return payer;
     }
 
-    private RedirectUrls getRedirectURLs() {
+    private RedirectUrls getRedirectURLs(Contract contract) {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/Paypal/cancel.html");
-        redirectUrls.setReturnUrl("http://localhost:8080/Paypal/review_payment");
+        redirectUrls.setCancelUrl("http://localhost:8080/insurancecard/customer/contract/detail?id="+contract.getId());
+        redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/review_payment");
 
         return redirectUrls;
     }
