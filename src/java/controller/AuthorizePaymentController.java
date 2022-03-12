@@ -75,7 +75,7 @@ public class AuthorizePaymentController extends HttpServlet {
         } catch (PayPalRESTException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
             ex.printStackTrace();
-            request.getRequestDispatcher("errorPaypal.jsp").forward(request, response);
+            request.getRequestDispatcher("view/errorPaypal.jsp").forward(request, response);
         }
     }
 
