@@ -82,6 +82,7 @@
                        id="btnCancel" class="btnCancel">CANCEL</a>
                     <a href="customer/contract/detail?id=${requestScope.contract.id}"
                        id="btnSave" class="btnCheckout btnInvisible">SAVE</a>
+
                     <form id="checkout-form" action="authorize_payment" method="POST">
                         <input type="hidden" name="contractid" value="${requestScope.contract.id}"/>
                         <input type="hidden" name="customerid" value="${requestScope.contract.customer.account.id}"/>
