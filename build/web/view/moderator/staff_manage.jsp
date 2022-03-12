@@ -87,6 +87,24 @@
                 color: #000000;
                 margin-left: 0.75rem;
             }
+
+            sectin .row .btn {
+                text-align: right;
+            }
+            
+            .btn-add {
+                background: #549bc8;
+                color: #FFF9EC;
+                border-radius: 10px;
+                padding: 0.75rem 2rem;
+                font-size: 18px;
+            }
+            
+            .btn-add:hover {
+                background-color: #2f5f7e;
+                color: #FFFFFF;
+                text-decoration: none;
+            }
         </style>
     </head>
 
@@ -99,10 +117,12 @@
 
         <section>
             <div class="row">
-                <h3 class="col-md-5 title">Manage Staff</h3>
-                <a href="moderator/staff/create" class="col-md-5">
-                    Add New Staff
-                </a>
+                <h3 class="col-md-8 title">Manage Staff${requestScope.num}</h3>
+                <div class="col-md-3 btn">
+                    <a href="moderator/staff/create" class=" btn-add">
+                        Add New Staff
+                    </a>
+                </div>
             </div>
 
             <table class="table table-hover">

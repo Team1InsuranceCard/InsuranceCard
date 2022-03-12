@@ -185,6 +185,38 @@ public class ProductDBContext extends DBContext {
         return null;
     }
 
+    public ArrayList<Product> getProductsByMod() {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String sql_Select_Product = "SELECT [ID]\n"
+                    + "      ,[Title]\n"
+                    + "      ,[Description]\n"
+                    + "      ,[Price]\n"
+                    + "      ,[ImageURL]\n"
+                    + "      ,[Status]\n"
+                    + "      ,[isDelete]\n"
+                    + "  FROM [Product]\n"
+                    + " WHERE isDelete = 0";
+            PreparedStatement psm_Select_Product = connection.prepareStatement(sql_Select_Product);
+            ResultSet rs = psm_Select_Product.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("ID"));
+                product.setTitle(rs.getString("Title"));
+                product.setDescription(rs.getString("Description"));
+                product.setPrice(rs.getFloat("Price"));
+                product.setImageURL(rs.getString("ImageURL"));
+                product.setStatus(rs.getShort("Status"));
+                product.setIsDelete(rs.getBoolean("isDelete"));
+
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
     public ArrayList<Product> getProductsByCustomer(int customerID) {
         try {
             ArrayList<Product> products = new ArrayList<>();

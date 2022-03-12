@@ -1,3 +1,9 @@
+<%-- 
+    Document   : manage-product
+    Created on : Mar 12, 2022, 9:54:10 AM
+    Author     : quynm
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set value="${account.role}" var="role"/>
@@ -16,51 +22,23 @@
             sizes="16x16"
             />
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link rel="stylesheet" href="asset/style/homepage.css" />
         <!--Font Awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
         <link
             rel="stylesheet"
-            href="asset/style/customer/customer_dashboard.css"
+            href="asset/style/moderator/manage_product.css"
             />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"crossorigin="anonymous">
-
-        <style>
-            main{
-                <c:if test="${role || !empty mod_account.userName}">
-                    margin-left: 20em;
-                </c:if>
-
-                margin-top: 10em;
-                margin-bottom:  10em;
-            }
-
-        </style>
     </head>
     <body>
-        <c:choose>
-<!--            
-            <c:when test="${!empty mod_account.userName}">
-                <jsp:include page="header_moderator.jsp" />
-            </c:when>
-            -->
-            <c:when test="${empty role}">
-                <jsp:include page="header_common.jsp" >
-                    <jsp:param name="currentscreen" value="product"/>
-                </jsp:include>
-            </c:when>
-            <c:when test="${role}">
-                <jsp:include page="header_staff.jsp" />
-            </c:when>
-            <c:when test="${!role}">
-                <jsp:include page="header_customer.jsp" />
-            </c:when>
-        </c:choose>
-
+        <jsp:include page="../header_moderator.jsp" />
         <main>
             <div class="container" >
+                <div class="service-title">
+                    <h2>List of products</h2>
+                </div>
+                <hr/>
                 <div class="dashboard-card dashboard-service-card">
-                    <div class="service-title"><h2>Our services</h2></div>
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${products}" var="product">
                             <div class="col">
@@ -77,9 +55,14 @@
                                                 ${product.description}
                                             </p>
                                         </div>
-                                        <a href="product/detail?productid=${product.id}" class="btn btn-primary go-to-button"
-                                           >More</a
-                                        >
+                                        <a href="moderator/product/update?productid=${product.id}" 
+                                           class="btn btn-primary update-button">
+                                            Update
+                                        </a>
+                                        <a onclick="confirmBox('Are you sure you want to delete this product?', 'moderator/product/delete?productid=${product.id}')"
+                                           class="btn btn-primary go-to-button">
+                                            Delete
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -88,6 +71,15 @@
                 </div>
             </div>
         </main>
-        <jsp:include page="footer_full.jsp" />
+        <jsp:include page="../footer_full.jsp" />
+
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+        </script>
+
     </body>
 </html>

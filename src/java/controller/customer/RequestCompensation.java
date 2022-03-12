@@ -75,6 +75,9 @@ public class RequestCompensation extends HttpServlet {
         int contractID = Integer.parseInt(raw_contractId);
         ContractDBContext contractDBC = new ContractDBContext();
         Contract contract = contractDBC.getContractDetailByCustomer(account.getId(), contractID);
+        if (contract == null) {
+            response.getWriter().print("<h1>Please Select an active contract to make compensation base on</h1>");
+        }
 
         request.setAttribute("contract", contract);
         request.getRequestDispatcher("../../../view/customer/request_compensation.jsp").forward(request, response);

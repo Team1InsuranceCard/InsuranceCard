@@ -15,7 +15,8 @@
         <title>InsuranceCard</title>
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="../../asset/style/customer/contract_information.css" rel="stylesheet" type="text/css"/>-->
+        <link href="../../asset/style/customer/contract_info.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <base href="${pageContext.servletContext.contextPath}/">

@@ -6,12 +6,6 @@
   margin: 0 60px 30px 60px;
 }
 
-.mess-box--success {
-  background-color: #dff0d8;
-  border: 1px solid #d6e9c6;
-  color: #3c763d;
-}
-
 .mess-box__icon {
   margin-left: 40px;
   margin-right: 20px;
@@ -20,6 +14,16 @@
 .mess-box__mess {
   font-size: 18px;
   font-weight: bold;
+}
+
+.mess-box__link {
+    color: inherit;
+}
+
+.mess-box--success {
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
 }
 
 .mess-box--danger {
