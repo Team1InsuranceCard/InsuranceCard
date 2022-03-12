@@ -74,7 +74,43 @@ public class PaymentServices {
         return redirectUrls;
     }
 
-    
+    private List<Transaction> getTransactionInformation(Contract contract) {
+        Details details = new Details();
+        details.setShipping("0");
+        details.setSubtotal("0");
+        details.setTax("0");
+
+        //convert fee to usd
+        double usdContractFee = contract.getContractFee() / 23000.0;
+        
+        Amount amount = new Amount();
+        amount.setCurrency("USD");
+        amount.setTotal(usdContractFee + "");
+        amount.setDetails(details);
+
+        Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setDescription(contract.getProduct().getTitle());
+
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<>();
+
+        Item item = new Item();
+        item.setCurrency("USD");
+        item.setName(contract.getProduct().getTitle());
+        item.setPrice(usdContractFee + "");
+        item.setTax("0");
+        item.setQuantity("1");
+
+        items.add(item);
+        itemList.setItems(items);
+        transaction.setItemList(itemList);
+
+        List<Transaction> listTransaction = new ArrayList<>();
+        listTransaction.add(transaction);
+
+        return listTransaction;
+    }
 
     private String getApprovalLink(Payment approvedPayment) {
         List<Links> links = approvedPayment.getLinks();
