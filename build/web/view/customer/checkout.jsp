@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-lg-3 right">
                         <h3 class="group-title">Payment detail</h3>
-                        <img src="asset/image/Full_Logo.png"/>
+                        <img class="logo-icon" src="asset/image/Full_Logo.png"/>
                         <div class="content">
                             <p>
                                 <b>Supplier: </b> <span>Team 1 SE1517 - InsuranceCard</span>
