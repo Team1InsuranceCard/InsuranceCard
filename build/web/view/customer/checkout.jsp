@@ -33,7 +33,7 @@
                                 <label for="paypal">Paypal</label>
                             </span>
                             <img class="img-method"
-                                src="asset/image/customer/checkout/paypal_logo.png"/>
+                                 src="asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row invisible-row" id="paypal-desc">
@@ -48,7 +48,7 @@
                                 <label for="cash">Cash</label>
                             </span>
                             <img class="img-method"
-                                src="asset/image/customer/checkout/cash_logo.png"/>
+                                 src="asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row invisible-row" id="cash-desc">
@@ -78,9 +78,9 @@
                             </p>
                         </div>
                     </div>
-                    <input type="submit" id="btnCancel" 
-                           class="btnCancel" value="CANCEL"/>
-                    <input type="submit" id="btnCheckout" 
+                    <a href="customer/contract/detail?id=${requestScope.contract.id}"
+                       id="btnCancel" class="btnCancel">CANCEL</a>
+                    <input type="button" id="btnCheckout" 
                            class="btnCheckout btnDisable"
                            value="PAY" disabled/>
                 </div>
