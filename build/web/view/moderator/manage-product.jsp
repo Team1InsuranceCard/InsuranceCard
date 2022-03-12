@@ -34,10 +34,11 @@
         <jsp:include page="../header_moderator.jsp" />
         <main>
             <div class="container" >
+                <div class="service-title">
+                    <h2>List of products</h2>
+                </div>
+                <hr/>
                 <div class="dashboard-card dashboard-service-card">
-                    <div class="service-title">
-                        <h2>List of products</h2>
-                    </div>
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${products}" var="product">
                             <div class="col">
@@ -71,7 +72,7 @@
             </div>
         </main>
         <jsp:include page="../footer_full.jsp" />
-        
+
         <script>
             function confirmBox(mess, url) {
                 if (confirm(mess)) {
