@@ -36,7 +36,7 @@
             <div class="container" >
                 <div class="dashboard-card dashboard-service-card">
                     <div class="service-title">
-                        <h2>Our services</h2>
+                        <h2>List of products</h2>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-3">
                         <c:forEach items="${products}" var="product">
