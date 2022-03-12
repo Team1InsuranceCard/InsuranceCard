@@ -35,7 +35,7 @@ public class PaymentServices {
             throws PayPalRESTException {       
  
         Payer payer = getPayerInformation();
-        RedirectUrls redirectUrls = getRedirectURLs(contract);
+        RedirectUrls redirectUrls = getRedirectURLs();
         List<Transaction> listTransaction = getTransactionInformation(contract);
          
         Payment requestPayment = new Payment();
@@ -65,10 +65,10 @@ public class PaymentServices {
         return payer;
     }
 
-    private RedirectUrls getRedirectURLs(Contract contract) {
+    private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("http://localhost:8080/insurancecard/homepage");
-        redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/execute_payment");
+        redirectUrls.setReturnUrl("http://localhost:8080/insurancecard/review_payment");
 
         return redirectUrls;
     }
