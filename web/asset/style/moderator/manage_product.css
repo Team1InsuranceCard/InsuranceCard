@@ -38,6 +38,10 @@ main{
     background-color: #5c2941;
     border-color: #5c2941;
 }
+.service-sub-card .update-button{
+    background-color: green;
+    border-color: green;
+}
 
 .service-sub-card .card-title {
     min-height: 72px;
