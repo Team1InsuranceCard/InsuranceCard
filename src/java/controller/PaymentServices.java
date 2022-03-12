@@ -76,6 +76,20 @@ public class PaymentServices {
 
     
 
+    private String getApprovalLink(Payment approvedPayment) {
+        List<Links> links = approvedPayment.getLinks();
+        String approvalLink = null;
+
+        for (Links link : links) {
+            if (link.getRel().equalsIgnoreCase("approval_url")) {
+                approvalLink = link.getHref();
+                break;
+            }
+        }
+
+        return approvalLink;
+    }
+
     public Payment getPaymentDetails(String paymentId) throws PayPalRESTException {
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
         return Payment.get(apiContext, paymentId);
