@@ -25,12 +25,13 @@
             <div class="content_container">
                 <div class="row">
                     <div class="col-lg-8 left">
+                        <h3 class="group-title">Payment methods</h3>
                         <div class="method-row">
                             <span class="method-title">
                                 <input type="radio" id="paypal" value="Paypal"/>
                                 <label for="paypal">Paypal</label>
                             </span>
-                            <img src="/asset/image/customer/checkout/paypal_logo.png"/>
+                            <img src="asset/image/customer/checkout/paypal_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row">
@@ -44,7 +45,7 @@
                                 <input type="radio" id="cash" value="Cash"/>
                                 <label for="cash">Cash</label>
                             </span>
-                            <img src="/asset/image/customer/checkout/cash_logo.png"/>
+                            <img src="asset/image/customer/checkout/cash_logo.png"/>
                         </div>
                         <hr/>
                         <div class="method-row">
@@ -55,7 +56,8 @@
                         </div>
                     </div>
                     <div class="col-lg-4 right">
-                        <img src="/asset/image/Full_Logo.png"/>
+                        <h3 class="group-title">Payment detail</h3>
+                        <img src="asset/image/Full_Logo.png"/>
                         <div class="content">
                             <p>
                                 <b>Supplier: </b> <span>Team 1 SE1517 - InsuranceCard</span>

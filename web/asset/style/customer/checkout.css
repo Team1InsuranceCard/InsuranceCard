@@ -8,3 +8,84 @@ and open the template in the editor.
     Author     : quynm
 */
 
+:root{
+    --color1: #ffdccc00;
+    --color2: #fc6376;
+    --color3: #fdb1a6;
+    --color4: #5c2941;
+}
+
+.content_container{
+    margin-bottom: 20px;
+    margin-top: 140px;
+}
+.group-title{
+    display: block;
+    font-size: 24px;
+    margin-top: 20px;
+    padding: 10px;
+}
+.left{
+    display: block;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #bbb;
+}
+
+.left a, 
+.left a:hover{
+    text-decoration: none;
+    color: var(--color2);
+    font-weight: bold;
+}
+
+.left .label-input{
+    display: inline-block;
+    width: 20%;
+}
+
+.right .content{
+    padding: 15px;
+}
+
+.btnCheckout{
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: green;
+    color: #fff;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+.btnCancel{
+    display: inline-block;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 0 5px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    color: red;
+    font-weight: bold;
+    min-width: 120px;
+}
+.btnCancel:hover{
+    background: red;
+    color: #fff;
+}
+
+.btnDisable{
+    opacity: 50%;
+    cursor: default;
+}
