@@ -58,7 +58,7 @@
                                            class="btn btn-primary go-to-button">
                                             Update
                                         </a>
-                                        <a href="moderator/product/delete?productid=${product.id}" 
+                                        <a onclick="confirmBox('Are you sure you want to delete this product?', 'moderator/product/delete?productid=${product.id}')"
                                            class="btn btn-primary go-to-button">
                                             Delete
                                         </a>
@@ -71,5 +71,14 @@
             </div>
         </main>
         <jsp:include page="../footer_full.jsp" />
+        
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+        </script>
+
     </body>
 </html>
