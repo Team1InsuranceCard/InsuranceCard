@@ -29,7 +29,7 @@
                         <div class="method-row">
                             <span class="method-title">
                                 <input type="radio" id="paypal" value="Paypal" 
-                                       name="method" onclick="paypalClick()"/>
+                                       name="method" onclick="methodClick()"/>
                                 <label for="paypal">Paypal</label>
                             </span>
                             <img class="img-method"
@@ -44,7 +44,7 @@
                         <div class="method-row">
                             <span class="method-title">
                                 <input type="radio" id="cash" value="Cash" 
-                                       name="method" onclick="cashClick()"/>
+                                       name="method" onclick="methodClick()"/>
                                 <label for="cash">Cash</label>
                             </span>
                             <img class="img-method"
