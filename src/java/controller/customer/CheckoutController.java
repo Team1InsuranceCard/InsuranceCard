@@ -35,18 +35,28 @@ public class CheckoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         String contractID = request.getParameter("contractid").trim();
-        if(contractID == null || contractID.isEmpty())
+        if (contractID == null || contractID.isEmpty()) {
             contractID = "0";
+        }
         Account account = (Account) request.getSession().getAttribute("account");
-        
-        ContractDBContext cdb = new ContractDBContext();
-        Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
-        //Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
-        
-        request.setAttribute("contract", contract);
-        request.getRequestDispatcher("../view/customer/checkout.jsp").forward(request, response);
+
+        if (account != null) {
+            ContractDBContext cdb = new ContractDBContext();
+            Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
+            //Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
+
+            if (contract != null) {
+                request.setAttribute("contract", contract);
+                request.getRequestDispatcher("../view/customer/checkout.jsp").forward(request, response);
+            } else{
+                response.sendRedirect("../customer/contract/view");
+            }
+        } else {
+            response.sendRedirect("../login");
+        }
+
     }
 
     /**
@@ -60,7 +70,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
