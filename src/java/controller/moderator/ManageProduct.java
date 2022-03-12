@@ -38,7 +38,7 @@ public class ManageProduct extends HttpServlet {
         ArrayList<Product> products = productDBC.getProductsByMod();
 
         request.setAttribute("products", products);
-        request.getRequestDispatcher("view/moderator/manage-product.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/moderator/manage-product.jsp").forward(request, response);
     }
 
     /**
