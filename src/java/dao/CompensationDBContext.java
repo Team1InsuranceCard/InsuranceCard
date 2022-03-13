@@ -61,11 +61,12 @@ public class CompensationDBContext extends DBContext {
                 + "		INNER JOIN Contract ON Accident.ContractID = Contract.ID\n"
                 + "		INNER JOIN Product ON Product.ID = Contract.ProductID\n"
                 + "		INNER JOIN ContractStatusCode ON ContractStatusCode.StatusCode=Contract.Status\n"
-                + "	WHERE Compensation.isDelete = 0 AND Compensation.ID = ?";
+                + "	WHERE Compensation.isDelete = 0 AND Compensation.ID = ? AND Contract.CustomerID = ?";
         try {
             PreparedStatement psm_select_compesation = connection.prepareStatement(sql_select_compensation);
             int i = 0;
             psm_select_compesation.setInt(++i, compensationID);
+            psm_select_compesation.setInt(++i, customerID);
             ResultSet rs_select_compensation = psm_select_compesation.executeQuery();
             if (rs_select_compensation.next()) {
                 Compensation compensation = new Compensation();
