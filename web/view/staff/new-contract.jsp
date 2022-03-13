@@ -82,8 +82,8 @@
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
                                    name="licensePlate" onchange="fillRightLicensePlate()"
-                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{3}\.[0-9]{2}$"
-                                   placeholder="License plate (in vehicle registration)"
+                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{5}$"
+                                   placeholder="License plate (Eg: 30-P2123.45 / 30-P21234)"
                                    value="${requestScope.licensePlateSent ne null ?
                                             requestScope.licensePlateSent : ""}"/><br/>
                             <label for="txt9" class="label-input">Chassis number:</label>
