@@ -11,10 +11,9 @@
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
-<!--        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <!--        <meta charset="UTF-8">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- include libraries(jQuery, bootstrap) -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"  crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -25,7 +24,7 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
         <script src="asset/script/summernote.js"></script>
-        
+
         <style>
             main {
                 margin-top: 73px;
@@ -44,12 +43,14 @@
                 min-width: 90px;
                 text-align: center;
                 box-sizing: content-box;
+                margin-top: 2em;
             }
 
             .btn--primary {
                 background-color: #4FCD5C;
                 color: #fff;
                 transition: all 0.2s;
+                border-radius: 6px;
                 /*display: inline-block;*/
             }
 
@@ -62,6 +63,7 @@
                 color: #000;
                 text-decoration: none;
                 transition: all 0.2s;
+                border-radius: 6px;
                 /*display: inline-block;*/
             }
 
@@ -131,15 +133,19 @@
                 float: right;
             }
 
-            .img input {
-                /*height: 2em;*/
-                border-radius: 8px;
-                padding: 5px;
-                border: none;
-                background: rgba(253, 177, 166, 0.7);
-                font-weight: bold;
-                font-size: 18px;
-                color: rgba(252, 99, 118, 1);
+            /*            .img input {
+                            height: 2em;
+                            border-radius: 8px;
+                            padding: 5px;
+                            border: none;
+                            background: rgba(253, 177, 166, 0.7);
+                            font-weight: bold;
+                            font-size: 18px;
+                            color: rgba(252, 99, 118, 1);
+                        }*/
+
+            .product-top {
+                margin-bottom: 1em;
             }
         </style>
     </head>
@@ -154,13 +160,12 @@
             <form action="/moderator/product/update" method="POST">
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-6 justify-content-between top-right">
-                        <div class="row col-lg-12 btn">
-                            <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
-                            <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
-                        </div>
+
                         <div class="row col-lg-12 align-items-start img">
-                            <img class="col-lg-10" src="asset/image/moderator/image show.png" alt=""/>
-                            <input class="col-lg-2 align-self-center" type="button" value="Upload"/>
+                            <img class="row col-lg-12" src="asset/image/moderator/image show.png" id="output-cover-img" style="max-width: 70%"/>
+                            <input class="row col-lg-12 align-self-center cover-openfile" id="choose-img" type='file' 
+                                   onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                            <input type="hidden" id="cover-url" name="photo">
                         </div>
                     </div>
                     <div class="row col-lg-6 top-left">
@@ -192,7 +197,7 @@
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
                             <label for="sel_status" class="col-lg-3">
-                                <p>Decision</p>
+                                <p>Status</p>
                             </label>
                             <select id="sel_status" name="status" class="col-lg-8" required>
                                 <option value="0">Inactive</option>
@@ -216,8 +221,10 @@
                 </div>
 
                 <div class="row product-bot">
-                    <div class="col-lg-12 text">
-                        <textarea class="summernote" name="..."></textarea>
+                    <textarea class="summernote" id="smnote" name="content_detail"></textarea>
+                    <div class="row col-lg-12 btn">
+                        <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
+                        <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
                     </div>
                 </div>
             </form>
@@ -225,7 +232,25 @@
 
         <!--summernote-->
         <script>
-            $('#[textarea]').summernote('code', "String data from database");
+            //truyen lai du lieu cu trong db vao "String data from database"
+            $(#smnote).summernote('code', "String data from database");
+        </script>
+
+        <!--upload image-->
+        <script>
+            function doImgUpload(fileInputId, urlout, imgout) {
+                var form = new FormData();
+                const outputURL = document.getElementById(urlout);
+                const outputImg = document.getElementById(imgout);
+                form.append("image", fileInputId.files[0]);
+                fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
+                    method: "post",
+                    body: form
+                }).then(data => data.json()).then(data => {
+                    outputURL.value = data.data.url;
+                    outputImg.src = data.data.url;
+                });
+            }
         </script>
 
         <footer>
