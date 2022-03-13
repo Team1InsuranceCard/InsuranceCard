@@ -232,6 +232,7 @@
 
                 <div class="row col-lg-12 product-bot">
                     <div class="row col-lg-12">
+                        <div hidden id="detail">${requestScope.product.contentDetail}</div>
                         <textarea class="summernote" id="smnote" name="content_detail"></textarea>
                     </div>
                     <div class="row col-lg-12 btn">
@@ -244,8 +245,8 @@
 
         <!--summernote-->
         <script>
-            //truyen lai du lieu cu trong db vao "String data from database"
-            $(#smnote).summernote('code', ${requestScope.product.contentDetail});
+            var detail = document.getElementById("detail").innerHTML;
+            $('#smnote').summernote('code', detail);
         </script>
 
         <!--upload image-->
