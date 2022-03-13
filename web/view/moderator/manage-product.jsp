@@ -36,6 +36,7 @@
             <div class="container" >
                 <div class="service-title">
                     <h2>List of products</h2>
+                    <a href="moderator/product/create" class="btn btn-primary btn-new">+ Create new product</a>
                 </div>
                 <hr/>
                 <div class="dashboard-card dashboard-service-card">
