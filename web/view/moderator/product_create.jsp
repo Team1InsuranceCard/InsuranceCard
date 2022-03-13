@@ -28,15 +28,41 @@
 
         <script>
             function create() {
-                var msg = "sucess";
-                sessionStorage.setItem("msg", msg);
-                document.getElementById("myForm").submit();
-            }
+                var title = document.getElementById("title").value;
+                var price = document.getElementById("input").value;
+                var description = document.getElementById("description").value;
+                var detail = document.getElementById("detail").value;
+                var img = document.getElementById("choose-img").value;
 
+                if (title.length == 0 || price.length == 0 ||
+                        description.length == 0 || detail.length == 0
+                        || img.length==0) {
+                    Swal.fire({
+                        position: 'top',
+                        timer: 2000,
+                        text: "Fill all the information!",
+                        icon: 'error',
+                        showCancelButton: true,
+                        cancelButtonColor: '#1F74B6',
+                        cancelButtonText: 'OK',
+                        showConfirmButton: false
+                    })
+                } else {
+                    var msg = "sucess";
+                    sessionStorage.setItem("msg", msg);
+                    document.getElementById("myForm").submit();
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <script>
+            var msg = sessionStorage.getItem("msg");
             if (msg == "sucess") {
                 Swal.fire({
                     position: 'top',
-                    title: msg,
+                    title: 'Create successfully!',
                     text: "Continue or back to list product?",
                     icon: 'success',
                     showCancelButton: true,
@@ -46,15 +72,13 @@
                     cancelButtonText: 'Back'
                 }).then((result) => {
                     if (!result.isConfirmed) {
-                        window.location.href = "product";
+                        window.location.href = "moderator/product";
                     }
                 })
                 sessionStorage.removeItem("msg");
             }
         </script>
-    </head>
 
-    <body>
         <header>
             <jsp:include page="../header_moderator.jsp">
                 <jsp:param name="currentscreen" value="product"/>
@@ -62,13 +86,13 @@
         </header>
         <section>
 
-            <form if="myForm" action="moderator/product/create" method="POST">
+            <form id="myForm" action="moderator/product/create" method="POST">
                 <div class="row">
                     <div class=" col-md-6">
                         <h2 class="title">New Product</h2>
                     </div>
                     <div class="submit-above col-md-6">
-                        <input type="submit" onclick="create()" value="Create"/>
+                        <input type="button" onclick="create()" value="Create"/>
                     </div>
                 </div>
 
@@ -86,7 +110,7 @@
                     <div class="col-md-7">
                         <div class="row">
                             <p class="col-md-4 label">Title:</p>
-                            <input class="col-md-8 input" type="text" 
+                            <input class="col-md-8 input" type="text" id="title"
                                    placeholder="Bảo hiểm Bảo Việt"
                                    name="title" required/>
                         </div>
@@ -104,19 +128,18 @@
                             <p class="col-md-4 label">Description:</p>
                             <textarea class="col-md-8 textarea" type="text"
                                       placeholder="Bảo hiểm tự nguyện"
+                                      id ="description"
                                       name="description" required></textarea>
                         </div>
                     </div>
                 </div>
 
                 <p style="font-weight:500;font-size:18px;">Content detail: </p>
-                <textarea class="summernote" name="contentdetail"></textarea>
-                <script>
-                    $('#[textarea]').summernote('code', "String data from database");
-                </script>
+                <textarea id="detail" class="summernote"
+                          name="contentdetail" required></textarea>
 
                 <div class="submit">
-                    <input type="submit" onclick="create()" value="Create"/>
+                    <input type="button" onclick="create()" value="Create"/>
                 </div>
             </form>
         </section>
