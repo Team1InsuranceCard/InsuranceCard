@@ -296,4 +296,42 @@ public class ProductDBContext extends DBContext {
         }
         return check;
     }
+
+    public void createProduct(Product product) {
+        try {
+            String sql = "INSERT INTO [Product]\n"
+                    + "           ([Title]\n"
+                    + "           ,[Description]\n"
+                    + "           ,[Price]\n"
+                    + "           ,[ImageURL]\n"
+                    + "           ,[Status]\n"
+                    + "           ,[isDelete]\n"
+                    + "           ,[ContentDetail]\n"
+                    + "           ,[StartDate])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, product.getTitle());
+            stm.setString(2, product.getDescription());
+            stm.setDouble(3, product.getPrice());
+            stm.setString(4, product.getImageURL());
+            stm.setShort(5, product.getStatus());
+            stm.setBoolean(6, product.isIsDelete());
+            stm.setString(7, product.getContentDetail());
+            stm.setTimestamp(8, product.getStartDate());
+            
+            stm.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
