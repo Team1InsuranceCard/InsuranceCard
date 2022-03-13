@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Compensation;
 
 /**
@@ -33,10 +34,14 @@ public class CompensationDetail extends HttpServlet {
             throws ServletException, IOException {
         String raw_compensationID = request.getParameter("compensationid");
         int compensationID = Integer.parseInt(raw_compensationID);
-        
+        Account account = (Account) request.getSession().getAttribute("account");
+        int accountId = 0 ;
+        if(account != null){
+            accountId = account.getId();
+        }
         CompensationDBContext compensationDBContext = new CompensationDBContext();
-        Compensation compensation = compensationDBContext.getCompensationByCustomer(compensationID, 0);
-        
+        Compensation compensation = compensationDBContext.getCompensationByCustomer(compensationID, accountId);
+
         request.setAttribute("compensation", compensation);
         request.getRequestDispatcher("../../../view/customer/compensation_detail.jsp").forward(request, response);
     }
