@@ -22,6 +22,10 @@ main{
 .dashboard-service-card {
   padding: 2em;
 }
+.service-title{
+    display: flex;
+    justify-content: space-between
+}
 .service-title h2{
     padding-right:30px ;
     font-size: 28px;
