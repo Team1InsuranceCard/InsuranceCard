@@ -138,6 +138,18 @@
                     <table class="content-card-table table table-borderless">
                         <tbody>
                             <tr>
+                                <th>View Detail</th>
+                                <td> <a
+                                        type="button"                    
+                                        class="import-attachment-button"
+                                        href="customer/history/accident?id=${compensation.accident.id}"
+                                        >
+                                        Detail
+                                    </a></td>
+                                <th></th>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <th>Title</th>
                                 <td>${compensation.accident.title}</td>
                                 <th>Date</th>

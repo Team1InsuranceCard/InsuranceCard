@@ -34,6 +34,7 @@
                 background-color: #4FCD5C;
                 color: #fff;
                 transition: all 0.2s;
+                /*display: inline-block;*/
             }
 
             .btn--primary:hover {
@@ -45,20 +46,80 @@
                 color: #000;
                 text-decoration: none;
                 transition: all 0.2s;
+                /*display: inline-block;*/
             }
 
             .btn--secondary:hover {
                 background: rgba(231, 102, 102, 0.8);
                 color: #fff;
             }
-            
+
             .section__img {
                 height: 10em;
                 background-color: black;
             }
-            
+
             .section_upload {
                 margin-top: 7em;
+            }
+
+            .text input{
+                margin-top: 0.7em;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                padding: 15px 25px;
+                border: solid #000;
+                background: rgba(253, 177, 166, 0.7);
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+                width: 100%;
+                height: 3.5rem;
+            }
+
+            .text textarea {
+                margin-top: 1em;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                padding: 15px 25px;
+                border: solid #000;
+                background: rgba(253, 177, 166, 0.7);
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+                width: 100%;
+                height: 11rem;
+                resize: none;
+            }
+            
+            .text select {
+                margin-top: 0.7em;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                padding: 15px 25px;
+                border: solid #000;
+                background: rgba(253, 177, 166, 0.7);
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+                width: 100%;
+                height: 3.5rem;
+            }
+
+            .text p {
+                margin-top: 1.5em;
+                float: right;
+            }
+
+            .img input {
+                /*height: 2em;*/
+                border-radius: 8px;
+                padding: 5px;
+                border: none;
+                background: rgba(253, 177, 166, 0.7);
+                font-weight: bold;
+                font-size: 18px;
+                color: rgba(252, 99, 118, 1);
             }
         </style>
     </head>
@@ -72,24 +133,65 @@
         <main>
             <form action="/moderator/product/update" method="POST">
                 <div class="row col-lg-12 product-top">
-                    <div class="row col-lg-6">
-                        <div class="row col-lg-9 header__btn justify-content-between">
-                            <input class="col-lg-2 btn btn--primary" 
-                                   type="submit" value="Submit" />
-
-                            <a class="col-lg-2 btn btn--secondary"
-                               onclick="confirmBox('Are you sure you want to cancel?', 'staff/compensation/resolve-compensation?id=${requestScope.compensation.id}')">Cancel</a>
+                    <div class="row col-lg-6 justify-content-between top-right">
+                        <div class="row col-lg-10 btn">
+                            <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
+                            <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
                         </div>
-                        
-                        <div class="row col-lg-9 section__img">
-                            
-                        </div>
-                        <div class="row col-lg-3 section_upload">
-                            <a>Import image</a>
+                        <div class="row col-lg-12 align-items-center img">
+                            <img class="col-lg-10" src="asset/image/moderator/image show.png" alt=""/>
+                            <input class="col-lg-2 align-self-center" type="button" value="Upload"/>
                         </div>
                     </div>
-                    <div class="row col-lg-12">
-
+                    <div class="row col-lg-6 top-left">
+                        <div class="row col-lg-12 justify-content-between text">
+                            <label for="txt_title" class="col-lg-3">
+                                <p>Title</p>
+                            </label>
+                            <input
+                                type="text"
+                                name="title"
+                                id ="txt_title"
+                                placeholder="Title"
+                                class="col-lg-8"
+                                required
+                                />
+                        </div>
+                        <div class="row col-lg-12 justify-content-between text">
+                            <label for="txt_price" class="col-lg-3">
+                                <p>Price</p>
+                            </label>
+                            <input
+                                type="text"
+                                name="price"
+                                id ="txt_price"
+                                placeholder="Price"
+                                class="col-lg-8"
+                                required
+                                />
+                        </div>
+                        <div class="row col-lg-12 justify-content-between text">
+                            <label for="sel_status" class="col-lg-3">
+                                <p>Decision</p>
+                            </label>
+                            <select id="sel_status" name="status" class="col-lg-8" required>
+                                <option value="0">Inactive</option>
+                                <option value="1">Active</option>
+                            </select>
+                        </div>
+                        <div class="row col-lg-12 justify-content-between text">
+                            <label for="txt_desc" class="col-lg-3">
+                                <p>Description</p>
+                            </label>
+                            <textarea
+                                type="text"
+                                name="description"
+                                placeholder="Description"
+                                id ="txt_desc"
+                                class="col-lg-8"
+                                required
+                                ></textarea>
+                        </div>
                     </div>
                 </div>
             </form>
