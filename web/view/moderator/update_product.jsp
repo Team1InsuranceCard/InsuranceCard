@@ -54,6 +54,10 @@
                 color: #fff;
             }
 
+            .btn input {
+                margin-right: 3em;
+            }
+            
             .section__img {
                 height: 10em;
                 background-color: black;
@@ -134,11 +138,11 @@
             <form action="/moderator/product/update" method="POST">
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-6 justify-content-between top-right">
-                        <div class="row col-lg-10 btn">
+                        <div class="row col-lg-12 btn">
                             <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
                             <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
                         </div>
-                        <div class="row col-lg-12 align-items-center img">
+                        <div class="row col-lg-12 align-items-start img">
                             <img class="col-lg-10" src="asset/image/moderator/image show.png" alt=""/>
                             <input class="col-lg-2 align-self-center" type="button" value="Upload"/>
                         </div>
@@ -193,6 +197,10 @@
                                 ></textarea>
                         </div>
                     </div>
+                </div>
+                
+                <div >
+                    
                 </div>
             </form>
         </main>
