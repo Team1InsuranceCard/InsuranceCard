@@ -23,7 +23,35 @@
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/moderator/product_create.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
+        <script>
+            function create() {
+                var msg = "sucess";
+                sessionStorage.setItem("msg", msg);
+                document.getElementById("myForm").submit();
+            }
+
+            if (msg == "sucess") {
+                Swal.fire({
+                    position: 'top',
+                    title: msg,
+                    text: "Continue or back to list product?",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Continue',
+                    cancelButtonText: 'Back'
+                }).then((result) => {
+                    if (!result.isConfirmed) {
+                        window.location.href = "product";
+                    }
+                })
+                sessionStorage.removeItem("msg");
+            }
+        </script>
     </head>
 
     <body>
@@ -34,13 +62,13 @@
         </header>
         <section>
 
-            <form action="/moderator/product/create/" method="POST">
+            <form if="myForm" action="moderator/product/create" method="POST">
                 <div class="row">
                     <div class=" col-md-6">
                         <h2 class="title">New Product</h2>
                     </div>
                     <div class="submit-above col-md-6">
-                        <input type="submit" value="Create"/>
+                        <input type="submit" onclick="create()" value="Create"/>
                     </div>
                 </div>
 
@@ -50,7 +78,7 @@
                              id="output-cover-img" style="max-width: 70%"/>
 
                         <input class="cover-openfile" id="choose-img" type='file' 
-                               onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                               onchange="doImgUpload(this, 'cover-url', 'output-cover-img')" required>
 
                         <input   type="hidden" id="cover-url"  name="photo">
                     </div>
@@ -88,7 +116,7 @@
                 </script>
 
                 <div class="submit">
-                    <input type="submit" value="Create"/>
+                    <input type="submit" onclick="create()" value="Create"/>
                 </div>
             </form>
         </section>
@@ -232,7 +260,7 @@
                 {
                     KetQua = KetQua.substring(0, KetQua.length - 1);
                 }
-                KetQua = KetQua.substring(1, 2).toUpperCase() + KetQua.substring(2) + "đồng";
+                KetQua = KetQua.substring(1, 2).toUpperCase() + KetQua.substring(2) + " đồng";
                 return KetQua;
             }
 
