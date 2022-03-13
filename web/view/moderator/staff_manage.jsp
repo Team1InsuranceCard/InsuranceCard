@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </form>
-
+            <h5 style="color:#FB6376;">${requestScope.msg}</h5>
             <table class="table table-hover">
                 <thead>
                     <tr>
