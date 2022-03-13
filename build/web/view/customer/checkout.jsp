@@ -80,9 +80,17 @@
                     </div>
                     <a href="customer/contract/detail?id=${requestScope.contract.id}"
                        id="btnCancel" class="btnCancel">CANCEL</a>
-                    <input type="button" id="btnCheckout" 
-                           class="btnCheckout btnDisable"
-                           value="PAY" disabled/>
+                    <a href="customer/contract/detail?id=${requestScope.contract.id}"
+                       id="btnSave" class="btnCheckout btnInvisible">SAVE</a>
+
+                    <form id="checkout-form" action="authorize_payment" method="POST">
+                        <input type="hidden" name="contractid" value="${requestScope.contract.id}"/>
+                        <input type="hidden" name="customerid" value="${requestScope.contract.customer.account.id}"/>
+                        <input type="submit" id="btnCheckout" 
+                               class="btnCheckout btnInvisible"
+                               value="PAY"/>
+                    </form>
+
                 </div>
             </div>
         </div>
