@@ -215,6 +215,10 @@
         <servlet-name>ManageProduct</servlet-name>
         <servlet-class>controller.moderator.ManageProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>controller.customer.CheckoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
         <url-pattern>/staff/customer/detail</url-pattern>
@@ -410,6 +414,10 @@
     <servlet-mapping>
         <servlet-name>ManageProduct</servlet-name>
         <url-pattern>/moderator/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/customer/checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
