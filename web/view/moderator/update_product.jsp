@@ -25,6 +25,7 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
         <script src="asset/script/summernote.js"></script>
+        
         <style>
             main {
                 margin-top: 73px;
