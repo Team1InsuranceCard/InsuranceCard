@@ -220,8 +220,10 @@
                     </div>
                 </div>
 
-                <div class="row product-bot">
-                    <textarea class="summernote" id="smnote" name="content_detail"></textarea>
+                <div class="row col-lg-12 product-bot">
+                    <div class="row col-lg-12">
+                        <textarea class="summernote" id="smnote" name="content_detail"></textarea>
+                    </div>
                     <div class="row col-lg-12 btn">
                         <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
                         <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
