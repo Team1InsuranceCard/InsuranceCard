@@ -33,7 +33,7 @@ public class ContractDBContext extends DBContext {
         int total = 0;
         String sql_select_totalcontract = "SELECT COUNT(Contract.[ID]) AS NumberContract\n"
                 + "  FROM [Contract]\n"
-                + "  WHERE Contract.Status IN (1) AND Contract.isDelete = 0";
+                + "  WHERE  Contract.isDelete = 0";
         PreparedStatement psm_select_totalcontract;
         try {
             psm_select_totalcontract = connection.prepareStatement(sql_select_totalcontract);
