@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller;
 
+import com.paypal.base.rest.PayPalRESTException;
+import dao.AccountDBContext;
 import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +21,8 @@ import model.Contract;
  *
  * @author quynm
  */
-public class CheckoutController extends HttpServlet {
+public class AuthorizePaymentController extends HttpServlet {
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -33,32 +36,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-        String contractID = request.getParameter("contractid").trim();
-        if (contractID == null || contractID.isEmpty()) {
-            contractID = "0";
-        }
-        Account account = (Account) request.getSession().getAttribute("account");
-
-//        if (true) {
-        if (account != null) {
-            ContractDBContext cdb = new ContractDBContext();
-            Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
-//            Contract contract = cdb.getContractDetailByCustomer(4, Integer.parseInt(contractID));
-
-            if (contract != null) {
-                contract.getCustomer().setAccount(account);
-                request.setAttribute("contract", contract);
-                request.getRequestDispatcher("../view/customer/checkout.jsp").forward(request, response);
-            } else{
-                response.sendRedirect("../customer/contract/view");
-            }
-        } else {
-            response.sendRedirect("../login");
-        }
-
+        
     }
 
     /**
@@ -72,7 +50,33 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        String contractID = request.getParameter("contractid").trim();
+        if (contractID == null || contractID.isEmpty()) {
+            contractID = "0";
+        }
+        String customerID = request.getParameter("customerid").trim();
+        if (customerID == null || customerID.isEmpty()) {
+            customerID = "0";
+        }
+        AccountDBContext adb = new AccountDBContext();
+        Account account = adb.getAccount(Integer.parseInt(customerID));
+        
+        ContractDBContext cdb = new ContractDBContext();
+        Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
+        contract.getCustomer().setAccount(account);
+ 
+        try {
+            PaymentServices paymentServices = new PaymentServices();
+            String approvalLink = paymentServices.authorizePayment(contract);
+ 
+            response.sendRedirect(approvalLink);
+             
+        } catch (PayPalRESTException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            ex.printStackTrace();
+            request.getRequestDispatcher("view/errorPaypal.jsp").forward(request, response);
+        }
     }
 
     /**
