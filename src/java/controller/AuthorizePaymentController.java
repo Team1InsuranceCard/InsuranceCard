@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller;
 
-import dao.CompensationDBContext;
+import com.paypal.base.rest.PayPalRESTException;
+import dao.AccountDBContext;
+import dao.ContractDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,38 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
-import model.Compensation;
+import model.Contract;
 
 /**
  *
- * @author area1
+ * @author quynm
  */
-public class CompensationDetail extends HttpServlet {
+public class AuthorizePaymentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String raw_compensationID = request.getParameter("compensationid");
-        int compensationID = Integer.parseInt(raw_compensationID);
-        Account account = (Account) request.getSession().getAttribute("account");
-        int accountId = 0 ;
-        if(account != null){
-            accountId = account.getId();
-        }
-        CompensationDBContext compensationDBContext = new CompensationDBContext();
-        Compensation compensation = compensationDBContext.getCompensationByCustomer(compensationID, accountId);
-
-        request.setAttribute("compensation", compensation);
-        request.getRequestDispatcher("../../../view/customer/compensation_detail.jsp").forward(request, response);
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -58,7 +36,7 @@ public class CompensationDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -72,7 +50,33 @@ public class CompensationDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String contractID = request.getParameter("contractid").trim();
+        if (contractID == null || contractID.isEmpty()) {
+            contractID = "0";
+        }
+        String customerID = request.getParameter("customerid").trim();
+        if (customerID == null || customerID.isEmpty()) {
+            customerID = "0";
+        }
+        AccountDBContext adb = new AccountDBContext();
+        Account account = adb.getAccount(Integer.parseInt(customerID));
+        
+        ContractDBContext cdb = new ContractDBContext();
+        Contract contract = cdb.getContractDetailByCustomer(account.getId(), Integer.parseInt(contractID));
+        contract.getCustomer().setAccount(account);
+ 
+        try {
+            PaymentServices paymentServices = new PaymentServices();
+            String approvalLink = paymentServices.authorizePayment(contract);
+ 
+            response.sendRedirect(approvalLink);
+             
+        } catch (PayPalRESTException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            ex.printStackTrace();
+            request.getRequestDispatcher("view/errorPaypal.jsp").forward(request, response);
+        }
     }
 
     /**

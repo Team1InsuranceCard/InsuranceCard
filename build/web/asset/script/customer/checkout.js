@@ -10,27 +10,32 @@ function methodClick() {
     var paypalDesc = document.getElementById("paypal-desc");
     var cashDesc = document.getElementById("cash-desc");
     var btnCheckout = document.getElementById("btnCheckout");
+    var btnSave = document.getElementById("btnSave");
 
     if (paypalRadio.prop("checked")) {
         paypalDesc.classList.remove("invisible-row");
         cashDesc.classList.add("invisible-row");
-        btnCheckout.value = "PAY";
-        btnCheckout.disabled = false;
-        if (btnCheckout.classList.contains("btnDisable")) {
-            btnCheckout.classList.remove("btnDisable");
+        if (btnCheckout.classList.contains("btnInvisible")) {
+            btnCheckout.classList.remove("btnInvisible");
+        }
+        if (!btnSave.classList.contains("btnInvisible")) {
+            btnSave.classList.add("btnInvisible");
         }
     } else if (cashRadio.prop("checked")) {
         paypalDesc.classList.add("invisible-row");
         cashDesc.classList.remove("invisible-row");
-        btnCheckout.value = "SAVE";
-        btnCheckout.disabled = false;
-        if (btnCheckout.classList.contains("btnDisable")) {
-            btnCheckout.classList.remove("btnDisable");
+        if (!btnCheckout.classList.contains("btnInvisible")) {
+            btnCheckout.classList.add("btnInvisible");
+        }
+        if (btnSave.classList.contains("btnInvisible")) {
+            btnSave.classList.remove("btnInvisible");
         }
     } else {
-        btnCheckout.disabled = true;
-        if (!btnCheckout.classList.contains("btnDisable")) {
-            btnCheckout.classList.add("btnDisable");
+        if (!btnCheckout.classList.contains("btnInvisible")) {
+            btnCheckout.classList.add("btnInvisible");
+        }
+        if (!btnSave.classList.contains("btnInvisible")) {
+            btnSave.classList.add("btnInvisible");
         }
         if (!cashDesc.classList.contains("invisible-row"))
             cashDesc.classList.add("invisible-row");
