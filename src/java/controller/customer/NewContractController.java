@@ -202,7 +202,7 @@ public class NewContractController extends HttpServlet {
         ddb.insertDelivery(delivery);
         
         //redirect to checkout page
-
+        response.sendRedirect("../checkout?contractid="+contract.getId());
     }
 
     /**
