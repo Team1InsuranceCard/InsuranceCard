@@ -19,41 +19,13 @@
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
         <script src="../../asset/script/summernote.js"></script>
+        <script src="../../asset/script/imgupload.js"></script>
 
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../asset/style/moderator/product_create.css" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <script>
-            function create() {
-                var title = document.getElementById("title").value;
-                var price = document.getElementById("input").value;
-                var description = document.getElementById("description").value;
-                var detail = document.getElementById("detail").value;
-                var img = document.getElementById("choose-img").value;
-
-                if (title.length == 0 || price.length == 0 ||
-                        description.length == 0 || detail.length == 0
-                        || img.length==0) {
-                    Swal.fire({
-                        position: 'top',
-                        timer: 2000,
-                        text: "Fill all the information!",
-                        icon: 'error',
-                        showCancelButton: true,
-                        cancelButtonColor: '#1F74B6',
-                        cancelButtonText: 'OK',
-                        showConfirmButton: false
-                    })
-                } else {
-                    var msg = "sucess";
-                    sessionStorage.setItem("msg", msg);
-                    document.getElementById("myForm").submit();
-                }
-            }
-        </script>
     </head>
 
     <body>
@@ -149,6 +121,47 @@
         </footer>
 
         <script>
+//            function doImgUpload(fileInputId, urlout, imgout) {
+//                var form = new FormData();
+//                const outputURL = document.getElementById(urlout);
+//                const outputImg = document.getElementById(imgout);
+//                form.append("image", fileInputId.files[0]);
+//                fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
+//                    method: "post",
+//                    body: form
+//                }).then(data => data.json()).then(data => {
+//                    outputURL.value = data.data.url;
+//                    outputImg.src = data.data.url;
+//                });
+//            }
+
+            function create() {
+                var title = document.getElementById("title").value;
+                var price = document.getElementById("input").value;
+                var description = document.getElementById("description").value;
+                var detail = document.getElementById("detail").value;
+                var img = document.getElementById("choose-img").value;
+
+                if (title.length == 0 || price.length == 0 ||
+                        description.length == 0 || detail.length == 0
+                        || img.length == 0) {
+                    Swal.fire({
+                        position: 'top',
+                        timer: 2000,
+                        text: "Fill all the information!",
+                        icon: 'error',
+                        showCancelButton: true,
+                        cancelButtonColor: '#1F74B6',
+                        cancelButtonText: 'OK',
+                        showConfirmButton: false
+                    })
+                } else {
+                    var msg = "sucess";
+                    sessionStorage.setItem("msg", msg);
+                    document.getElementById("myForm").submit();
+                }
+            }
+
             var ChuSo = new Array(" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín ");
             var Tien = new Array("", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ");
             function DocSo3ChuSo(baso)
