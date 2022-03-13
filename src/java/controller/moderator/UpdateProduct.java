@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
+package controller.moderator;
 
-import dao.CompensationDBContext;
+import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
-import model.Compensation;
+import model.Product;
 
 /**
  *
- * @author area1
+ * @author ADMIN
  */
-public class CompensationDetail extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +31,7 @@ public class CompensationDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String raw_compensationID = request.getParameter("compensationid");
-        int compensationID = Integer.parseInt(raw_compensationID);
-        Account account = (Account) request.getSession().getAttribute("account");
-        int accountId = 0 ;
-        if(account != null){
-            accountId = account.getId();
-        }
-        CompensationDBContext compensationDBContext = new CompensationDBContext();
-        Compensation compensation = compensationDBContext.getCompensationByCustomer(compensationID, accountId);
-
-        request.setAttribute("compensation", compensation);
-        request.getRequestDispatcher("../../../view/customer/compensation_detail.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +46,14 @@ public class CompensationDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        int productid = Integer.parseInt(request.getParameter("productid"));
+        ProductDBContext dbP = new ProductDBContext();
+        Product product = dbP.getProduct(productid);
+        
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/summernote.html").forward(request, response);
     }
 
     /**
@@ -72,7 +67,7 @@ public class CompensationDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
     }
 
     /**

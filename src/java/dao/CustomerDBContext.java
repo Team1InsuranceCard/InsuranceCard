@@ -30,7 +30,7 @@ public class CustomerDBContext extends DBContext {
 
         String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n"
                 + "  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n"
-                + "  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
+                + "  WHERE CUSTOMER.isDelete = 0 ";
         try {
             PreparedStatement psm_select_totalcustomer = connection.prepareStatement(sql_select_totalcustomer);
             ResultSet rs_select_totalcustomer = psm_select_totalcustomer.executeQuery();

@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Compensation;
 import model.CompensationStatusCode;
 import model.Contract;
@@ -56,22 +57,27 @@ public class ResolveCompensation extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        int id = Integer.parseInt(request.getParameter("id"));
-        CompensationDBContext dbCompensation = new CompensationDBContext();
-        Compensation compensation = dbCompensation.getCompensation(id);
-        ContractDBContext dbContract = new ContractDBContext();
-        Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
-        int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
-        PaymentMethodDBContext dbPayMethod = new PaymentMethodDBContext();
-        PaymentMethod paymentMethod = dbPayMethod.getPaymentMethod(contract.getId());
-        
-        
-        //Contract info
-        request.setAttribute("compensation", compensation);
-        request.setAttribute("contract", contract);
-        request.setAttribute("term", term);
-        request.setAttribute("paymentMethod", paymentMethod);
-        request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
+        Account acc = (Account) request.getSession().getAttribute("account");
+        if (acc != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            CompensationDBContext dbCompensation = new CompensationDBContext();
+            Compensation compensation = dbCompensation.getCompensation(id);
+            ContractDBContext dbContract = new ContractDBContext();
+            Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
+            int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
+            PaymentMethodDBContext dbPayMethod = new PaymentMethodDBContext();
+            PaymentMethod paymentMethod = dbPayMethod.getPaymentMethod(contract.getId());
+
+            //Contract info
+            request.setAttribute("compensation", compensation);
+            request.setAttribute("contract", contract);
+            request.setAttribute("term", term);
+            request.setAttribute("paymentMethod", paymentMethod);
+            request.getRequestDispatcher("../../view/staff/resolve_compensation.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/insurancecard/login");
+        }
+
     }
 
     /**
@@ -89,7 +95,7 @@ public class ResolveCompensation extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         int decision = Integer.parseInt(request.getParameter("decision"));
         String resolveNote = request.getParameter("resolve_note");
-        
+
         CompensationDBContext dbC = new CompensationDBContext();
         Compensation compensation = dbC.getCompensation(id);
         StatusCodeDBContext dbSC = new StatusCodeDBContext();
@@ -98,14 +104,13 @@ public class ResolveCompensation extends HttpServlet {
         compensation.setResolveNote(resolveNote);
         compensation.setResolveDate(Timestamp.valueOf(LocalDateTime.now()));
         dbC.updateStatusCompensation(compensation);
-        
+
         ContractDBContext dbContract = new ContractDBContext();
         Contract contract = dbContract.staffGetContractDetail(compensation.getAccident().getContract().getId());
         int term = contract.getEndDate().getYear() - contract.getStartDate().getYear();
         PaymentMethodDBContext dbPayMethod = new PaymentMethodDBContext();
         PaymentMethod paymentMethod = dbPayMethod.getPaymentMethod(contract.getId());
-        
-        
+
         //Contract info
         request.setAttribute("contract", contract);
         request.setAttribute("term", term);
