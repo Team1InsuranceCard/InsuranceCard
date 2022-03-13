@@ -87,7 +87,7 @@
         <a href="homepage">
             <img src="asset/image/Full_Logo.png" alt="logo"/>
         </a>
-        <form action="resetPass" method="POST">
+        <form action="reset-pass" method="POST">
             <div class="container">
                 <div>
                     <p id="title">
