@@ -10,6 +10,21 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+<!--        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <!-- include libraries(jQuery, bootstrap) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"  crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <!-- include summernote css/js -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+        <script src="asset/script/summernote.js"></script>
         <style>
             main {
                 margin-top: 73px;
@@ -57,7 +72,7 @@
             .btn input {
                 margin-right: 3em;
             }
-            
+
             .section__img {
                 height: 10em;
                 background-color: black;
@@ -95,7 +110,7 @@
                 height: 11rem;
                 resize: none;
             }
-            
+
             .text select {
                 margin-top: 0.7em;
                 margin-bottom: 10px;
@@ -198,12 +213,19 @@
                         </div>
                     </div>
                 </div>
-                
-                <div >
-                    
+
+                <div class="row product-bot">
+                    <div class="col-lg-12 text">
+                        <textarea class="summernote" name="..."></textarea>
+                    </div>
                 </div>
             </form>
         </main>
+
+        <!--summernote-->
+        <script>
+            $('#[textarea]').summernote('code', "String data from database");
+        </script>
 
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
