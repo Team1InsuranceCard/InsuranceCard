@@ -22,90 +22,10 @@
 
         <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="../../asset/style/moderator/product_create.css" rel="stylesheet" type="text/css"/>
         <base href="${pageContext.servletContext.contextPath}/">
-
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-                color: #5C2941;
-            }
-
-            section {
-                margin: 6rem 5rem 3rem 22rem;
-            }
-
-            .title {
-                margin-bottom: 2rem;
-            }
-
-            .label {
-                margin-bottom: 3rem;
-                font-weight: 500;
-                font-size: 18px;
-            }
-
-            .row .input, .textarea {
-                background-color: #FFE8E5;
-                border: 2px solid #000000;
-                box-sizing: border-box;
-                border-radius: 10px;
-            }
-
-            .row .input, .textarea {
-                width: 27rem;
-                height: 3rem;
-            }
-
-            .row .textarea {
-                height: 8rem;
-                resize: none;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-            }
-
-            .up-img {
-                margin-bottom: 3rem;
-            }
-
-            #output-cover-img {
-                margin-bottom: 0.75rem;
-            }
-
-            ::placeholder {
-                font-style: italic;
-            }
-
-            #money {
-                text-align: center;
-                color: #E92649;
-            }
-
-            .note-editable {
-                background-color: #FFE8E5;
-            }
-
-            .submit {
-                margin-top: 3rem;
-                text-align: center;
-            }
-
-            .submit input {
-                width: 7rem;
-                height: 3rem;
-                border: 2px solid #000000;
-                border-radius: 10px;
-                background-color: #59cc96;
-                color: #FFFFFF;
-                font-size: 20px;
-                font-weight: 600;
-            }
-
-            .submit input:hover {
-                background-color: #377c5c;
-            }
-        </style>
     </head>
+
     <body>
         <header>
             <jsp:include page="../header_moderator.jsp">
@@ -113,61 +33,64 @@
             </jsp:include>
         </header>
         <section>
-            <div class="row">
-                <div class=" col-md-4">
-                    <h2 class="title">New Product</h2>
+
+            <form action="/moderator/product/create/" method="POST">
+                <div class="row">
+                    <div class=" col-md-6">
+                        <h2 class="title">New Product</h2>
+                    </div>
+                    <div class="submit-above col-md-6">
+                        <input type="submit" value="Create"/>
+                    </div>
                 </div>
-                <div class="submit col-md-5">
+
+                <div class="row">
+                    <div class="col-md-5 up-img">
+                        <img src="https://via.placeholder.com/400x300?text=Waiting+until+image+change" 
+                             id="output-cover-img" style="max-width: 70%"/>
+
+                        <input class="cover-openfile" id="choose-img" type='file' 
+                               onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+
+                        <input   type="hidden" id="cover-url"  name="photo">
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="row">
+                            <p class="col-md-4 label">Title:</p>
+                            <input class="col-md-8 input" type="text" 
+                                   placeholder="Bảo hiểm Bảo Việt"
+                                   name="title" required/>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 label">Price:</p>
+                            <input class="col-md-8 input" type="number" id="input"
+                                   placeholder="100000" onchange="money()"
+                                   min="1" name="price" required/>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 label"></p>
+                            <p class="col-md-8" id="money"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 label">Description:</p>
+                            <textarea class="col-md-8 textarea" type="text"
+                                      placeholder="Bảo hiểm tự nguyện"
+                                      name="description" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-weight:500;font-size:18px;">Content detail: </p>
+                <textarea class="summernote" name="contentdetail"></textarea>
+                <script>
+                    $('#[textarea]').summernote('code', "String data from database");
+                </script>
+
+                <div class="submit">
                     <input type="submit" value="Create"/>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-5 up-img">
-                    <img src="https://via.placeholder.com/400x300?text=Waiting+until+image+change" 
-                         id="output-cover-img" style="max-width: 70%"/>
-
-                    <input class="cover-openfile" id="choose-img" type='file' 
-                           onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
-
-                    <input   type="hidden" id="cover-url"  name="photo">
-                </div>
-
-                <div class="col-md-7">
-                    <div class="row">
-                        <p class="col-md-4 label">Title:</p>
-                        <input class="col-md-8 input" type="text" 
-                               placeholder="Bảo hiểm Bảo Việt"
-                               name="title" required/>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-4 label">Price:</p>
-                        <input class="col-md-8 input" type="number" id="input"
-                               placeholder="100000" onchange="money()"
-                               min="1" name="price" required/>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-4 label"></p>
-                        <p class="col-md-8" id="money"></p>
-                    </div>
-                    <div class="row">
-                        <p class="col-md-4 label">Description:</p>
-                        <textarea class="col-md-8 textarea" type="text"
-                                  placeholder="Bảo hiểm tự nguyện"
-                                  name="description" required></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <p style="font-weight:500;font-size:18px;">Content detail: </p>
-            <textarea class="summernote" name="contentdetail"></textarea>
-            <script>
-                $('#[textarea]').summernote('code', "String data from database");
-            </script>
-
-            <div class="submit">
-                <input type="submit" value="Create"/>
-            </div>
+            </form>
         </section>
 
         <footer>
