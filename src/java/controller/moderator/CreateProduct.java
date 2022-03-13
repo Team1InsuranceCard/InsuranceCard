@@ -72,7 +72,6 @@ public class CreateProduct extends HttpServlet {
         
         ProductDBContext pdb = new ProductDBContext();
         pdb.createProduct(product);
-        request.setAttribute("msg", "Create successfully!");
         request.getRequestDispatcher("../../view/moderator/product_create.jsp").forward(request, response);
     }
 
