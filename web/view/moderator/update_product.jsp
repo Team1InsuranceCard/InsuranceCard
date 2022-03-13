@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -162,7 +163,14 @@
                     <div class="row col-lg-6 justify-content-between top-right">
 
                         <div class="row col-lg-12 align-items-start img">
-                            <img class="row col-lg-12" src="asset/image/moderator/image show.png" id="output-cover-img" style="max-width: 70%"/>
+                            <img class="row col-lg-12" 
+                                 <c:if test="${requestScope.product.imageURL == null}">
+                                 src="asset/image/moderator/image show.png" 
+                                 </c:if>
+                                 <c:if test="${requestScope.product.imageURL != null}">
+                                     src="${requestScope.product.imageURL}" 
+                                 </c:if>
+                                 id="output-cover-img" style="max-width: 70%"/>
                             <input class="row col-lg-12 align-self-center cover-openfile" id="choose-img" type='file' 
                                    onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
                             <input type="hidden" id="cover-url" name="photo">
@@ -179,6 +187,7 @@
                                 id ="txt_title"
                                 placeholder="Title"
                                 class="col-lg-8"
+                                value="${requestScope.product.title}"
                                 required
                                 />
                         </div>
@@ -192,6 +201,7 @@
                                 id ="txt_price"
                                 placeholder="Price"
                                 class="col-lg-8"
+                                value="${requestScope.product.price}"
                                 required
                                 />
                         </div>
@@ -215,7 +225,7 @@
                                 id ="txt_desc"
                                 class="col-lg-8"
                                 required
-                                ></textarea>
+                                >${requestScope.product.description}</textarea>
                         </div>
                     </div>
                 </div>
@@ -235,7 +245,7 @@
         <!--summernote-->
         <script>
             //truyen lai du lieu cu trong db vao "String data from database"
-            $(#smnote).summernote('code', "String data from database");
+            $(#smnote).summernote('code', ${requestScope.product.contentDetail});
         </script>
 
         <!--upload image-->
