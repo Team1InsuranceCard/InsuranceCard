@@ -13,7 +13,7 @@
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
         <!--        <meta charset="UTF-8">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <!-- include libraries(jQuery, bootstrap) -->
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"  crossorigin="anonymous">
@@ -32,14 +32,13 @@
                 margin-left: 290px;
                 padding: 35px 45px 50px;
                 color: #5C2941;
-
             }
 
             .header__btn {
                 margin: 1em;
             }
 
-            .btn {
+            .btn--box {
                 border: none;
                 font-size: 18px;
                 border-radius: 4px;
@@ -75,12 +74,12 @@
                 color: #fff;
             }
 
-            .btn input {
+            .btn--box input {
                 margin-right: 3em;
                 border: #4FCD5C outset;
             }
 
-            .btn a {
+            .btn--box a {
                 padding: 2px 6.5em;
                 border: #FB6376 outset;
             }
@@ -184,7 +183,7 @@
                              <c:if test="${requestScope.product.imageURL != null}">
                                  src="${requestScope.product.imageURL}" 
                              </c:if>
-                             id="output-cover-img" style="max-width: 70%"/>
+                             id="output-cover-img" style="max-width: 70%;"/>
 
                         <input class="cover-openfile" id="choose-img" type='file' 
                                onchange="doImgUpload(this, 'cover-url', 'output-cover-img')" required>
@@ -264,13 +263,13 @@
 
                 <div class="row col-lg-12 product-bot">
                     <div class="row col-lg-12">
-                        <label for="smnote" class="col-lg-3">
+                        <label for="smnote" class="col-lg-12">
                             <p>Content detail</p>
                         </label>
                         <div hidden id="detail">${requestScope.product.contentDetail}</div>
-                        <textarea class="summernote" id="smnote" name="content_detail"></textarea>
+                        <div class="col-lg-12"><textarea id="smnote" class="summernote" name="content_detail" required></textarea></div>
                     </div>
-                    <div class="row col-lg-12 btn">
+                    <div class="row col-lg-12 justify-content-around btn--box">
                         <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
                         <a class="col-lg-3 btn--secondary" 
                            onclick="confirmBox('Are you sure you want to cancel? Your changes will not be saved.', 'moderator/product')"
