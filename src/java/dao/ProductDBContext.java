@@ -425,8 +425,20 @@ public class ProductDBContext extends DBContext {
             stm_update_time.setInt(1, product.getId());
             stm_update_time.setTimestamp(2, product.getUpdateDate());
             stm_update_time.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
