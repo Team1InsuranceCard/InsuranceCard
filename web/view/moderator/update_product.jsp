@@ -103,7 +103,7 @@
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
-                height: 3.5rem;
+                height: 3rem;
             }
 
             .text textarea {
@@ -116,7 +116,7 @@
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
-                height: 11rem;
+                height: 10rem;
                 resize: none;
             }
 
@@ -134,7 +134,7 @@
             }
 
             p {
-                margin-top: 1.5em;
+                margin-top: 1em;
                 font-weight: 500;
                 font-size: 18px;
             }
@@ -182,7 +182,6 @@
         </header>
 
         <main>
-            <h2 class="title">Update Product</h2>
             <form action="moderator/product/update" method="POST"
                   onSubmit="return submitForm(this);">
                 <div class="row col-lg-12 product-top">
@@ -260,8 +259,8 @@
                                 <p>Status</p>
                             </label>
                             <select id="sel_status" name="status" class="col-lg-8" required>
-                                <option value="0">Inactive</option>
-                                <option value="1">Active</option>
+                                <option value="0" ${requestScope.product.statusCode.statusCode == 0 ? "selected" : ""}>Inactive</option>
+                                <option value="1" ${requestScope.prodcut.statusCode.statusCode == 1 ? "selected" : ""}>Active</option>
                             </select>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
@@ -282,7 +281,7 @@
 
                 <div class="row col-lg-12 product-bot">
                     <div class="row col-lg-12">
-                        <label for="smnote" class="col-lg-12">
+                        <label for="smnote">
                             <p>Content detail</p>
                         </label>
                         <div hidden id="detail">${requestScope.product.contentDetail}</div>
@@ -291,8 +290,7 @@
                     <div class="row col-lg-12 justify-content-around btn--box">
                         <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
                         <a class="col-lg-3 btn--secondary" 
-                           onclick="confirmBox('Are you sure you want to cancel? Your changes will not be saved.', 'moderator/product')"
-                           >Cancel</a>
+                           onclick="confirmBox('Are you sure you want to cancel? Your changes will not be saved.', 'moderator/product')">Cancel</a>
                     </div>
                 </div>
             </form>
