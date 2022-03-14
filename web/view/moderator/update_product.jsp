@@ -183,7 +183,7 @@
 
         <main>
             <h2 class="title">Update Product</h2>
-            <form action="/moderator/product/update" method="POST"
+            <form action="moderator/product/update" method="POST"
                   onSubmit="return submitForm(this);">
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-5 up-img top-left">
@@ -251,8 +251,8 @@
                                    value="${requestScope.product.price}"
                                    min="1" name="price" required/>
                         </div>
-                        <div class="row">
-                            <p class="col-md-4 label"></p>
+                        <div class="row col-lg-12 justify-content-between">
+                            <p class="col-md-3 label"></p>
                             <p class="col-md-8" id="money"></p>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
