@@ -6,6 +6,7 @@
 package controller.moderator;
 
 import dao.ProductDBContext;
+import dao.StatusCodeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
+import model.ProductStatusCode;
 
 /**
  *
@@ -77,12 +79,15 @@ public class UpdateProduct extends HttpServlet {
         String raw_photo = request.getParameter("photo");
         Double price = Double.parseDouble(request.getParameter("price"));
         String description = request.getParameter("description");
-        Short status = Short.parseShort(request.getParameter("status"));
+        Short raw_status = Short.parseShort(request.getParameter("status"));
         String content_detai = request.getParameter("content_detail");
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = myDateObj.format(dtf);
         Timestamp ts = Timestamp.valueOf(formattedDate);
+        
+        StatusCodeDBContext dbSC = new StatusCodeDBContext();
+        ProductStatusCode status = dbSC.getProductStatusCode(raw_status);
         
         String photo = "";
         if (raw_photo.equals("")) {
@@ -93,7 +98,7 @@ public class UpdateProduct extends HttpServlet {
         product.setImageURL(photo);
         product.setPrice(price);
         product.setDescription(description);
-        product.setStatus(status);
+        product.setStatusCode(status);
         product.setContentDetail(content_detai);
         product.setUpdateDate(ts);
         product.getUpdateTime().add(ts);
