@@ -16,6 +16,48 @@
         <link href="../../asset/style/moderator/staff_manage.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
         <base href="${pageContext.servletContext.contextPath}/">
+
+        <script>
+            function createPagger(url, div, before, pageIndex, after, gap, totalPage) {
+                var container = document.getElementById(div);
+                if (totalPage > 1) {
+                    if (pageIndex - 1 > 0) {
+                        container.innerHTML += '<a class="move" href="' + url + 'page=' + before + '"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                    } else {
+                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
+                    }
+
+                    if (pageIndex - gap > 1) {
+                        container.innerHTML += '<a href="' + url + 'page=1"><span class="iconify" data-icon="bx:first-page"></span></a>';
+                    }
+
+                    for (var i = pageIndex - gap; i < pageIndex; i++) {
+                        if (i > 0) {
+                            container.innerHTML += '<a href="' + url + 'page=' + i + '">' + i + '</a>';
+                        }
+                    }
+
+                    container.innerHTML += '<span class="page">' + pageIndex + '</span>';
+
+                    for (var i = pageIndex + 1; i <= pageIndex + gap; i++) {
+                        if (i <= totalPage) {
+                            container.innerHTML += '<a href="' + url + 'page=' + i + '">' + i + '</a>';
+                        }
+                    }
+
+                    if (pageIndex + gap < totalPage) {
+                        container.innerHTML += '<a href="' + url + 'page=' + totalPage + '"><span class="iconify" data-icon="bx:last-page"></span></a>';
+                    }
+
+                    if (pageIndex + 1 <= totalPage) {
+                        container.innerHTML += '<a class="move" href="' + url + 'page=' + after + '"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                    } else {
+                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
+                    }
+                }
+            }
+
+        </script>
     </head>
 
     <body>
@@ -126,58 +168,15 @@
             </div>
 
             <script>
-                createPagger('moderator/staff/view?${rs.staffID}${rs.name}${rs.phone}${rs.status}${rs.email}',
-                        'pagging', ${requestScope.pageIndex},
-                        2, ${requestScope.totalPage});
+                createPagger('moderator/staff/view?${rs.staffID}${rs.name}${rs.phone}${rs.status}${rs.email}', 
+                'pagging',
+                ${requestScope.pageIndex-1}, ${requestScope.pageIndex},
+                ${requestScope.pageIndex+1}, 2, ${requestScope.totalPage});
             </script> 
         </section>
 
         <footer>
             <jsp:include page="../footer_full.jsp"></jsp:include>
         </footer>
-
-        <script>
-            function createPagger(url, div, pageIndex, gap, totalPage) {
-                var before = pageIndex - 1;
-                var after = pageIndex + 1;
-                var container = document.getElementById(div);
-
-                if (totalPage > 1) {
-                    if (pageIndex - 1 > 0) {
-                        container.innerHTML += '<a class="move" href="' + url + 'page=' + before + '"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
-                    } else {
-                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-left"></span></a>';
-                    }
-
-                    if (pageIndex - gap > 1) {
-                        container.innerHTML += '<a href="' + url + 'page=1"><span class="iconify" data-icon="bx:first-page"></span></a>';
-                    }
-
-                    for (var i = pageIndex - gap; i < pageIndex; i++) {
-                        if (i > 0) {
-                            container.innerHTML += '<a href="' + url + 'page=' + i + '">' + i + '</a>';
-                        }
-                    }
-
-                    container.innerHTML += '<span class="page">' + pageIndex + '</span>';
-
-                    for (var i = pageIndex + 1; i <= pageIndex + gap; i++) {
-                        if (i <= totalPage) {
-                            container.innerHTML += '<a href="' + url + 'page=' + i + '">' + i + '</a>';
-                        }
-                    }
-
-                    if (pageIndex + gap < totalPage) {
-                        container.innerHTML += '<a href="' + url + 'page=' + totalPage + '"><span class="iconify" data-icon="bx:last-page"></span></a>';
-                    }
-
-                    if (pageIndex + 1 <= totalPage) {
-                        container.innerHTML += '<a class="move" href="' + url + 'page=' + after + '"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
-                    } else {
-                        container.innerHTML += '<a class="move" onclick="return false;"><span class="iconify" data-icon="codicon:triangle-right"></span></a>';
-                    }
-                }
-            }
-        </script>
     </body>
 </html>

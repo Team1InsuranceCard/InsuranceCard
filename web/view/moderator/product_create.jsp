@@ -121,28 +121,25 @@
         </footer>
 
         <script>
-//            function doImgUpload(fileInputId, urlout, imgout) {
-//                var form = new FormData();
-//                const outputURL = document.getElementById(urlout);
-//                const outputImg = document.getElementById(imgout);
-//                form.append("image", fileInputId.files[0]);
-//                fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
-//                    method: "post",
-//                    body: form
-//                }).then(data => data.json()).then(data => {
-//                    outputURL.value = data.data.url;
-//                    outputImg.src = data.data.url;
-//                });
-//            }
-
             function create() {
                 var title = document.getElementById("title").value;
-                var price = document.getElementById("input").value;
+                var price = document.getElementById("input").value/1;
                 var description = document.getElementById("description").value;
                 var detail = document.getElementById("detail").value;
                 var img = document.getElementById("choose-img").value;
 
-                if (title.length == 0 || price.length == 0 ||
+                if (Number.isInteger(price) == false) {
+                    Swal.fire({
+                        position: 'top',
+                        timer: 2000,
+                        text: "Price must be a number!",
+                        icon: 'error',
+                        showCancelButton: true,
+                        cancelButtonColor: '#1F74B6',
+                        cancelButtonText: 'OK',
+                        showConfirmButton: false
+                    })
+                } else if (title.length == 0 || price.length == 0 ||
                         description.length == 0 || detail.length == 0
                         || img.length == 0) {
                     Swal.fire({
