@@ -30,7 +30,9 @@
             main {
                 margin-top: 73px;
                 margin-left: 290px;
-                padding: 35px 45px 50px
+                padding: 35px 45px 50px;
+                color: #5C2941;
+
             }
 
             .header__btn {
@@ -75,6 +77,12 @@
 
             .btn input {
                 margin-right: 3em;
+                border: #4FCD5C outset;
+            }
+
+            .btn a {
+                padding: 2px 6.5em;
+                border: #FB6376 outset;
             }
 
             .section__img {
@@ -93,7 +101,6 @@
                 padding: 15px 25px;
                 border: solid #000;
                 background: rgba(253, 177, 166, 0.7);
-                color: #000;
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
@@ -107,7 +114,6 @@
                 padding: 15px 25px;
                 border: solid #000;
                 background: rgba(253, 177, 166, 0.7);
-                color: #000;
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
@@ -122,16 +128,16 @@
                 padding: 15px 25px;
                 border: solid #000;
                 background: rgba(253, 177, 166, 0.7);
-                color: #000;
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
                 height: 3.5rem;
             }
 
-            .text p {
+            p {
                 margin-top: 1.5em;
-                float: right;
+                font-weight: 500;
+                font-size: 18px;
             }
 
             /*            .img input {
@@ -148,6 +154,14 @@
             .product-top {
                 margin-bottom: 1em;
             }
+
+            #output-cover-img {
+                margin-bottom: 0.75rem;
+            }
+            
+            .up-img {
+                margin-bottom: 3rem;
+            }
         </style>
     </head>
     <body>
@@ -158,25 +172,43 @@
         </header>
 
         <main>
-            <form action="/moderator/product/update" method="POST">
+            <h2 class="title">Update Product</h2>
+            <form action="/moderator/product/update" method="POST"
+                  onSubmit="return submitForm(this);">
                 <div class="row col-lg-12 product-top">
-                    <div class="row col-lg-6 justify-content-between top-right">
-
-                        <div class="row col-lg-12 align-items-start img">
-                            <img class="row col-lg-12" 
-                                 <c:if test="${requestScope.product.imageURL == null}">
+                    <div class="row col-lg-5 up-img top-left">
+                        <img class="row col-lg-12" 
+                             <c:if test="${requestScope.product.imageURL == null}">
                                  src="asset/image/moderator/image show.png" 
-                                 </c:if>
-                                 <c:if test="${requestScope.product.imageURL != null}">
-                                     src="${requestScope.product.imageURL}" 
-                                 </c:if>
-                                 id="output-cover-img" style="max-width: 70%"/>
-                            <input class="row col-lg-12 align-self-center cover-openfile" id="choose-img" type='file' 
-                                   onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
-                            <input type="hidden" id="cover-url" name="photo">
-                        </div>
+                             </c:if>
+                             <c:if test="${requestScope.product.imageURL != null}">
+                                 src="${requestScope.product.imageURL}" 
+                             </c:if>
+                             id="output-cover-img" style="max-width: 70%"/>
+
+                        <input class="cover-openfile" id="choose-img" type='file' 
+                               onchange="doImgUpload(this, 'cover-url', 'output-cover-img')" required>
+
+                        <input   type="hidden" id="cover-url"  name="photo">
                     </div>
-                    <div class="row col-lg-6 top-left">
+                    <!--                    <div class="row col-lg-6 justify-content-between top-right">
+                    
+                                            <div class="row col-lg-12 align-items-start img">
+                                                <img class="row col-lg-12" 
+                    <c:if test="${requestScope.product.imageURL == null}">
+                        src="asset/image/moderator/image show.png" 
+                    </c:if>
+                    <c:if test="${requestScope.product.imageURL != null}">
+                        src="${requestScope.product.imageURL}" 
+                    </c:if>
+                    id="output-cover-img"/>
+               <input class="row col-lg-12 align-self-center cover-openfile" id="choose-img" type='file' 
+                      onchange="doImgUpload(this, 'cover-url', 'output-cover-img')" style="max-width: 70%;">
+               <input type="hidden" id="cover-url" name="photo">
+           </div>
+
+       </div>-->
+                    <div class="row col-lg-7 top-right">
                         <div class="row col-lg-12 justify-content-between text">
                             <label for="txt_title" class="col-lg-3">
                                 <p>Title</p>
@@ -232,12 +264,17 @@
 
                 <div class="row col-lg-12 product-bot">
                     <div class="row col-lg-12">
+                        <label for="smnote" class="col-lg-3">
+                            <p>Content detail</p>
+                        </label>
                         <div hidden id="detail">${requestScope.product.contentDetail}</div>
                         <textarea class="summernote" id="smnote" name="content_detail"></textarea>
                     </div>
                     <div class="row col-lg-12 btn">
                         <input class="col-lg-3 btn--primary" type="submit" value="Submit"/>
-                        <input class="col-lg-3 btn--secondary" type="button" value="Cancel"/>
+                        <a class="col-lg-3 btn--secondary" 
+                           onclick="confirmBox('Are you sure you want to cancel? Your changes will not be saved.', 'moderator/product')"
+                           >Cancel</a>
                     </div>
                 </div>
             </form>
@@ -263,6 +300,19 @@
                     outputURL.value = data.data.url;
                     outputImg.src = data.data.url;
                 });
+            }
+        </script>
+
+        <!-- confirm box -->
+        <script>
+            function confirmBox(mess, url) {
+                if (confirm(mess)) {
+                    location.href = url;
+                }
+            }
+
+            function submitForm() {
+                return confirm('Do you really want to submit the form?');
             }
         </script>
 
