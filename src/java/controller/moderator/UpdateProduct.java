@@ -53,7 +53,6 @@ public class UpdateProduct extends HttpServlet {
         
         request.setAttribute("product", product);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
-        request.getRequestDispatcher("../../view/summernote.html").forward(request, response);
     }
 
     /**
@@ -68,6 +67,9 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        Product product = (Product) request.getAttribute("product");
+        
+        
     }
 
     /**
