@@ -71,8 +71,13 @@
                 <input type="hidden" name="id" value="${requestScope.contractID}"/>
                 <div class="product-label">
                     <div class="row">
-                        <p class="col-md-7 label-title">${c.product.title}</p>
-                        <div class="submit col-md-5">
+                        <p class="col-md-6 label-title">${c.product.title}</p>
+                        <div class="submit col-md-6">
+                            <a onclick="payment()" class="btn-payment">
+                                <span class="iconify icon" data-icon="fluent:payment-16-regular">
+                                </span>
+                                Payment
+                            </a>
                             <a onclick="renew()" class="btn-renew">
                                 <span class="iconify icon" 
                                       data-icon="ic:baseline-autorenew">
@@ -325,6 +330,11 @@
 
                 <input type="hidden" name="btn" value="${requestScope.btn}"/>
                 <div class="submit under">
+                    <a onclick="payment()" class="btn-payment">
+                        <span class="iconify icon" data-icon="fluent:payment-16-regular">
+                        </span>
+                        Payment
+                    </a>
                     <a onclick="renew()" class="btn-renew">
                         <span class="iconify icon" 
                               data-icon="ic:baseline-autorenew">
@@ -352,6 +362,23 @@
             </footer>
 
             <script>
+                function payment() {
+                    if (${s} == 2) {
+                        window.location.href = "customer/checkout?contractid=" + ${c.id};
+                    } else {
+                        Swal.fire({
+                            timer: 2000,
+                            position: 'top',
+                            text: "You only can payment when contract is processing!",
+                            icon: 'error',
+                            showCancelButton: true,
+                            cancelButtonColor: '#FD8291',
+                            cancelButtonText: 'OK',
+                            showConfirmButton: false
+                        })
+                    }
+                }
+
                 function renew() {
                     var check = ${requestScope.checkRenew};
                     var proStatus = ${requestScope.pro};

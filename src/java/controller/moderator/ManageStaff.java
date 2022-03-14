@@ -75,7 +75,7 @@ public class ManageStaff extends HttpServlet {
         request.setAttribute("inputPhone", phone.equals("")?"":phone);
         request.setAttribute("inputStatus", status.equals("")?"":status);
         request.setAttribute("inputEmail", email.equals("")?"":email);
-        request.setAttribute("msg", count==0?"No st":"");
+        request.setAttribute("msg", count==0?"No staffs":"");
         request.getRequestDispatcher("../../view/moderator/staff_manage.jsp").forward(request, response);
     }
 
