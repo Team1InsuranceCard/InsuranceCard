@@ -56,7 +56,7 @@ public class UpdateProduct extends HttpServlet {
         int productid = Integer.parseInt(request.getParameter("productid"));
         ProductDBContext dbP = new ProductDBContext();
         Product product = dbP.getProductToUpdate(productid);
-        
+
         request.setAttribute("product", product);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
     }
@@ -73,8 +73,10 @@ public class UpdateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        Product product = (Product) request.getAttribute("product");
-        
+        int productid = Integer.parseInt(request.getParameter("id"));
+        ProductDBContext dbP = new ProductDBContext();
+        Product product = dbP.getProductToUpdate(productid);
+
         String title = request.getParameter("title");
         String raw_photo = request.getParameter("photo");
         Double price = Double.parseDouble(request.getParameter("price"));
@@ -85,15 +87,15 @@ public class UpdateProduct extends HttpServlet {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = myDateObj.format(dtf);
         Timestamp ts = Timestamp.valueOf(formattedDate);
-        
+
         StatusCodeDBContext dbSC = new StatusCodeDBContext();
         ProductStatusCode status = dbSC.getProductStatusCode(raw_status);
-        
+
         String photo = "";
         if (raw_photo.equals("")) {
             photo = product.getImageURL();
         }
-        
+
         product.setTitle(title);
         product.setImageURL(photo);
         product.setPrice(price);
@@ -102,8 +104,7 @@ public class UpdateProduct extends HttpServlet {
         product.setContentDetail(content_detai);
         product.setUpdateDate(ts);
         product.getUpdateTime().add(ts);
-        
-        ProductDBContext dbP = new ProductDBContext();
+
         dbP.updateProduct(product);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
     }
