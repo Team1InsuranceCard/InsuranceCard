@@ -8,6 +8,10 @@ package controller.moderator;
 import dao.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +53,7 @@ public class UpdateProduct extends HttpServlet {
 //        processRequest(request, response);
         int productid = Integer.parseInt(request.getParameter("productid"));
         ProductDBContext dbP = new ProductDBContext();
-        Product product = dbP.getProduct(productid);
+        Product product = dbP.getProductToUpdate(productid);
         
         request.setAttribute("product", product);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
@@ -69,7 +73,34 @@ public class UpdateProduct extends HttpServlet {
 //        processRequest(request, response);
         Product product = (Product) request.getAttribute("product");
         
+        String title = request.getParameter("title");
+        String raw_photo = request.getParameter("photo");
+        Double price = Double.parseDouble(request.getParameter("price"));
+        String description = request.getParameter("description");
+        Short status = Short.parseShort(request.getParameter("status"));
+        String content_detai = request.getParameter("content_detail");
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = myDateObj.format(dtf);
+        Timestamp ts = Timestamp.valueOf(formattedDate);
         
+        String photo = "";
+        if (raw_photo.equals("")) {
+            photo = product.getImageURL();
+        }
+        
+        product.setTitle(title);
+        product.setImageURL(photo);
+        product.setPrice(price);
+        product.setDescription(description);
+        product.setStatus(status);
+        product.setContentDetail(content_detai);
+        product.setUpdateDate(ts);
+        product.getUpdateTime().add(ts);
+        
+        ProductDBContext dbP = new ProductDBContext();
+        dbP.updateProduct(product);
+        request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
     }
 
     /**
