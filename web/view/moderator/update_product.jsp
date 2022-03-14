@@ -184,6 +184,7 @@
         <main>
             <form action="moderator/product/update" method="POST"
                   onSubmit="return submitForm(this);">
+                <input type="hidden" name="id" value="${requestScope.product.id}" />
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-5 up-img top-left">
                         <img class="row col-lg-12" 
@@ -259,8 +260,8 @@
                                 <p>Status</p>
                             </label>
                             <select id="sel_status" name="status" class="col-lg-8" required>
-                                <option value="0" ${requestScope.product.statusCode.statusCode == 0 ? "selected" : ""}>Inactive</option>
-                                <option value="1" ${requestScope.prodcut.statusCode.statusCode == 1 ? "selected" : ""}>Active</option>
+                                <option ${requestScope.product.statusCode.statusCode == 0 ? "selected" : ""} value="0" >Inactive</option>
+                                <option ${requestScope.prodcut.statusCode.statusCode == 1 ? "selected" : ""} value="1" >Active</option>
                             </select>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
