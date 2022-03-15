@@ -401,7 +401,7 @@ public class ProductDBContext extends DBContext {
             stm_product.setString(2, product.getDescription());
             stm_product.setDouble(3, product.getPrice());
             stm_product.setString(4, product.getImageURL());
-            stm_product.setShort(5, product.getStatus());
+            stm_product.setShort(5, product.getStatusCode().getStatusCode());
             stm_product.setString(6, product.getContentDetail());
             stm_product.setTimestamp(7, product.getStartDate());
             stm_product.setInt(8, product.getId());
