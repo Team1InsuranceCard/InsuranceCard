@@ -285,9 +285,9 @@
                         <div class="row col-lg-6 section__item">
                             <div class="col-lg-6 section__title">Decision</div>
                             <select id="decision" name="decision" class="col-lg-6 section__input" required>
-                                <option value="2">Pending</option>
-                                <option value="1">Accept</option>
-                                <option value="0">Reject</option>
+                                <option value="2" ${requestScope.compensation.status.statusCode == 2 ? "selected" : ""}>Pending</option>
+                                <option value="1" ${requestScope.compensation.status.statusCode == 1 ? "selected" : ""}>Accept</option>
+                                <option value="0" ${requestScope.compensation.status.statusCode == 0 ? "selected" : ""}>Reject</option>
                             </select>
                         </div>
 
