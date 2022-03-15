@@ -18,8 +18,7 @@
         <url-pattern>/moderator/product/create</url-pattern>
         <url-pattern>/moderator/staff/*</url-pattern>
         <url-pattern>/moderator/dashboard</url-pattern>
-        <url-pattern>/moderator/product/*</url-pattern>
-        
+        <url-pattern>/moderator/product/*</url-pattern> 
     </filter-mapping>
     <filter-mapping>
         <filter-name>SetEncodeUTF8</filter-name>
