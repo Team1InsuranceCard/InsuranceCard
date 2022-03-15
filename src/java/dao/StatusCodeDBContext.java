@@ -113,18 +113,18 @@ public class StatusCodeDBContext extends DBContext {
         return null;
     }
 
-    public ProductStatusCode getProductStatusCode(short code) {
+    public ProductStatusCode getProductStatusCode(int code) {
         try {
             String sql = "SELECT [StatusCode]\n"
                     + "      ,[StatusName]\n"
                     + "  FROM [ProductStatusCode]\n"
                     + "  WHERE [StatusCode] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setShort(1, code);
+            stm.setInt(1, code);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 ProductStatusCode psc = new ProductStatusCode();
-                psc.setStatusCode(code);
+                psc.setStatusCode(rs.getShort("StatusCode"));
                 psc.setStatusName(rs.getString("StatusName"));
                 return psc;
             }

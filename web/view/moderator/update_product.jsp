@@ -116,7 +116,7 @@
                 font-weight: bold;
                 font-size: 18px;
                 width: 100%;
-                height: 10rem;
+                height: 8rem;
                 resize: none;
             }
 
@@ -172,6 +172,15 @@
                 text-align: center;
                 color: #E92649;
             }
+
+            .radio--btn input {
+                height: 1em;
+            }
+            
+            .radio--btn label {
+                height: 1em;
+                margin-left: -3em;
+            }
         </style>
     </head>
     <body>
@@ -188,12 +197,7 @@
                 <div class="row col-lg-12 product-top">
                     <div class="row col-lg-5 up-img top-left">
                         <img class="row col-lg-12" 
-                             <c:if test="${requestScope.product.imageURL == null}">
-                                 src="asset/image/moderator/image show.png" 
-                             </c:if>
-                             <c:if test="${requestScope.product.imageURL != null}">
-                                 src="${requestScope.product.imageURL}" 
-                             </c:if>
+                             src="${requestScope.product.imageURL}" 
                              id="output-cover-img" style="max-width: 70%;"/>
 
                         <input class="cover-openfile" id="choose-img" type="file" 
@@ -237,15 +241,6 @@
                             <label for="txt_price" class="col-lg-3">
                                 <p>Price</p>
                             </label>
-                            <!--                            <input
-                                                            type="text"
-                                                            name="price"
-                                                            id ="txt_price"
-                                                            placeholder="Price"
-                                                            class="col-lg-8"
-                                                            value="${requestScope.product.price}"
-                                                            required
-                                                            />-->
                             <input class="col-md-8" type="number" id="txt_price"
                                    onchange="money()"
                                    value="${requestScope.product.price}"
@@ -256,13 +251,14 @@
                             <p class="col-md-8" id="money"></p>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
-                            <label for="sel_status" class="col-lg-3">
-                                <p>Status</p>
-                            </label>
-                            <select id="sel_status" name="status" class="col-lg-8" required>
-                                <option ${requestScope.product.statusCode.statusCode == 0 ? "selected" : ""} value="0" >Inactive</option>
-                                <option ${requestScope.prodcut.statusCode.statusCode == 1 ? "selected" : ""} value="1" >Active</option>
-                            </select>
+                            <p class="col-lg-3">Status</p>
+                            <div class="col-lg-8 justify-content-between radio--btn">
+                                <input type="radio" id="inactive" name="status" class="col-lg-4" ${requestScope.product.statusCode.statusCode == 0 ? "checked" : ""} value="0">
+                                <label for="inactive">Inactive</label>
+                                <input type="radio" id="active" name="status" class="col-lg-4" ${requestScope.product.statusCode.statusCode == 1 ? "checked" : ""} value="1">
+                                <label for="active">Active</label>
+                            </div>
+
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
                             <label for="txt_desc" class="col-lg-3">
