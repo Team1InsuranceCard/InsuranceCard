@@ -237,15 +237,6 @@
                             <label for="txt_price" class="col-lg-3">
                                 <p>Price</p>
                             </label>
-                            <!--                            <input
-                                                            type="text"
-                                                            name="price"
-                                                            id ="txt_price"
-                                                            placeholder="Price"
-                                                            class="col-lg-8"
-                                                            value="${requestScope.product.price}"
-                                                            required
-                                                            />-->
                             <input class="col-md-8" type="number" id="txt_price"
                                    onchange="money()"
                                    value="${requestScope.product.price}"
@@ -260,8 +251,10 @@
                                 <p>Status</p>
                             </label>
                             <select id="sel_status" name="status" class="col-lg-8" required>
-                                <option ${requestScope.product.statusCode.statusCode == 0 ? "selected" : ""} value="0" >Inactive</option>
-                                <option ${requestScope.prodcut.statusCode.statusCode == 1 ? "selected" : ""} value="1" >Active</option>
+                                <option ${requestScope.product.statusCode.statusCode == "0" ? "selected" : ""} 
+                                    value="0" >Inactive</option>
+                                <option ${requestScope.prodcut.statusCode.statusCode == "1" ? "selected" : ""} 
+                                    value="1" >Active</option>
                             </select>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
