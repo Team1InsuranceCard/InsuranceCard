@@ -27,7 +27,7 @@
 
         <style>
             main{
-                <c:if test="${role || !empty mod_account.userName}">
+                <c:if test="${role}">
                     margin-left: 20em;
                 </c:if>
 
