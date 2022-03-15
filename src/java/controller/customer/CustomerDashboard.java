@@ -69,7 +69,6 @@ public class CustomerDashboard extends HttpServlet {
             throws ServletException, IOException {
         //        processRequest(request, response);
         HttpSession session = request.getSession();
-        try {
             Account account = (Account) session.getAttribute("account");
             int customerID = account.getId();
             ProductDBContext productDBC = new ProductDBContext();
@@ -91,10 +90,7 @@ public class CustomerDashboard extends HttpServlet {
             request.setAttribute("customer_staff", customerStaff);
             request.setAttribute("buyable_products", buyableProducts);
             request.getRequestDispatcher("../view/customer/customer_dashboard.jsp").forward(request, response);
-        } catch (NullPointerException ex) {
-//            response.getWriter().print("<h1>Please login first</h1>");
-            response.sendRedirect("../login");
-        }
+        
     }
 
     /**
