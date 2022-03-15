@@ -2,6 +2,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <link
+        rel="icon"
+        href="${pageContext.servletContext.contextPath}/asset/image/favicon.png"
+        type="image/png"
+        sizes="16x16"
+        />
     <jsp:include page="../header_moderator.jsp">
         <jsp:param name="currentscreen" value="customer" />
     </jsp:include>
@@ -10,7 +16,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link rel="icon" href="asset/image/favicon.png" type="image/png" sizes="16x16">
         <link rel="stylesheet" href="asset/style/moderator/staff_update.css" />
     </head>
     <body>
