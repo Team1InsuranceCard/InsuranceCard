@@ -86,6 +86,7 @@ header {
   padding: 14px 4px;
   text-decoration: none;
   display: block;
+  transition: all 0.1s;
 }
 
 .sidebar-staff .sidebar-item:hover,
