@@ -405,19 +405,12 @@ public class ProductDBContext extends DBContext {
             stm_product.setString(6, product.getContentDetail());
             stm_product.setTimestamp(7, product.getStartDate());
             stm_product.setInt(8, product.getId());
-
-//            //get product id
-//            String sql_get_id = "select @@IDENTITY as pid";
-//            PreparedStatement stm_get_id = connection.prepareStatement(sql_get_id);
-//            ResultSet rs_get_id = stm_get_id.executeQuery();
-//            if (rs_get_id.next()) {
-//                cus.getAccount().setId(rs_get_id.getInt("aid"));
-//            }
+            stm_product.executeUpdate();
 
             //insert product_update_time
             String sql_update_time = "INSERT INTO [ProductUpdateTime]\n"
                     + "           ([ProductID]\n"
-                    + "           ,[UpdateTime]\n"
+                    + "           ,[UpdateTime])\n"
                     + "     VALUES\n"
                     + "           (?\n"
                     + "           ,?)";
