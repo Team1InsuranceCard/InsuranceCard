@@ -106,7 +106,8 @@ public class PaymentDBContext extends DBContext {
                     + "  FROM [Payment]\n"
                     + "  INNER JOIN Contract\n"
                     + "  ON Contract.ID = Payment.ContractID\n"
-                    + "  WHERE CustomerID = ?";
+                    + "  WHERE CustomerID = ?\n"
+                    + "  and PaidDate is not null";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cusID);

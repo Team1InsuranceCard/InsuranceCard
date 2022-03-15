@@ -177,7 +177,11 @@
                         <div class="col-lg-7 section__right">
                             <div class="row col-lg-12 section__item">
                                 <div class="col-lg-12 section__title justify-content-center">Image</div>
-                                <img class="col-lg-12 section__img" src="${requestScope.contract.certImage}"/>
+                                <!--<img class="col-lg-12 section__img" src="${requestScope.contract.certImage}"/>-->
+                                <img src="${requestScope.contract.certImage ne null ?
+                                                        requestScope.contract.certImage :
+                                                        "https://via.placeholder.com/400x300?text=No+file+uploaded"}" 
+                                                 id="output-cover-img" style="max-width: 60%"/>
                             </div>
 
                         </div>          
@@ -303,11 +307,7 @@
                 </div>
 
                 <div class="row header__btn justify-content-around">
-                    <input class="col-lg-2 btn btn--primary <%--${(requestScope.contract.statusCode.statusCode == 0 
-                                                     || requestScope.contract.statusCode.statusCode == 1)
-                                                     && requestScope.contract.product.statusCode.statusCode == 1
-                                                     && requestScope.check
-                                                     ? '' : 'btn--disabled'}--%>" 
+                    <input class="col-lg-2 btn btn--primary" 
                            type="submit" value="Submit" />
 
                     <a class="col-lg-2 btn btn--secondary"
