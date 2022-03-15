@@ -250,10 +250,10 @@
                                 <p class="col-lg-3">Status</p>
                             
                             <select id="sel_status" name="status" class="col-lg-8" required>
-                                <option ${requestScope.product.statusCode.statusCode == "0" ? "selected" : ""} 
-                                    value="0" >Inactive</option>
-                                <option ${requestScope.prodcut.statusCode.statusCode == "1" ? "selected" : ""} 
-                                    value="1" >Active</option>
+                                <option ${(requestScope.product.statusCode.statusCode == 0) ? "selected" : ""} 
+                                    value="0" >Inactive + ${requestScope.product.statusCode.statusCode}</option>
+                                <option ${(requestScope.prodcut.statusCode.statusCode == 1) ? "selected" : ""} 
+                                    value="1" >Active + ${requestScope.product.statusCode.statusCode}</option>
                             </select>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
