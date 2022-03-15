@@ -247,9 +247,8 @@
                             <p class="col-md-8" id="money"></p>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">
-                            <label for="sel_status" class="col-lg-3">
-                                <p>Status</p>
-                            </label>
+                                <p class="col-lg-3">Status</p>
+                            
                             <select id="sel_status" name="status" class="col-lg-8" required>
                                 <option ${requestScope.product.statusCode.statusCode == "0" ? "selected" : ""} 
                                     value="0" >Inactive</option>
