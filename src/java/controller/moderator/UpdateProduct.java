@@ -81,7 +81,7 @@ public class UpdateProduct extends HttpServlet {
         String raw_photo = request.getParameter("photo");
         Double price = Double.parseDouble(request.getParameter("price"));
         String description = request.getParameter("description");
-        Short raw_status = Short.parseShort(request.getParameter("status"));
+        int raw_status = Integer.parseInt(request.getParameter("status"));
         String content_detai = request.getParameter("content_detail");
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -106,6 +106,7 @@ public class UpdateProduct extends HttpServlet {
         product.getUpdateTime().add(ts);
 
         dbP.updateProduct(product);
+        request.setAttribute("product", product);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
     }
 
