@@ -25,6 +25,7 @@
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="history"/>
+                <jsp:param name="currenthistory" value="payment"/>
             </jsp:include>
         </header>
 
