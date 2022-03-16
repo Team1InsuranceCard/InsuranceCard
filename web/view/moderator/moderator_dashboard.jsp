@@ -253,7 +253,7 @@
                 <div class="row"></div>
             </div>
         </main>
-
+        <jsp:include page="../footer_full.jsp" />
         <script>
             var xValues = [];
             var yValues = [];
@@ -307,44 +307,44 @@
 
             <c:forEach items="${top10_staffs}" var="staff_NumContracts">
             xValues.push("${staff_NumContracts.key.account.id} - ${staff_NumContracts.key.firstName} ${staff_NumContracts.key.lastName}");
-            yValues.push(${staff_NumContracts.value});
-            barColors.push(randomColor());
+                yValues.push(${staff_NumContracts.value});
+                barColors.push(randomColor());
             </c:forEach>
 
-            function randomColor() {
-                var r = Math.floor(Math.random() * 255);
-                var g = Math.floor(Math.random() * 255);
-                var b = Math.floor(Math.random() * 255);
-                return "rgb(" + r + "," + g + "," + b + ")";
-            }
+                function randomColor() {
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+                    return "rgb(" + r + "," + g + "," + b + ")";
+                }
 
-            new Chart("staffChart", {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [
-                        {
-                            backgroundColor: barColors,
-                            data: yValues,
-                        },
-                    ],
-                },
-                options: {
-                    plugins: {legend: {display: false}},
-                    scales: {
-                        x: {
-                            ticks: {
-                                display: false,
+                new Chart("staffChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [
+                            {
+                                backgroundColor: barColors,
+                                data: yValues,
                             },
-                        },
-                        y: {
-                            ticks: {
-                                color: "#fff9ec",
+                        ],
+                    },
+                    options: {
+                        plugins: {legend: {display: false}},
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false,
+                                },
+                            },
+                            y: {
+                                ticks: {
+                                    color: "#fff9ec",
+                                },
                             },
                         },
                     },
-                },
-            });
+                });
         </script>
     </body>
 </html>
