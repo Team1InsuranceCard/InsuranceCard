@@ -15,7 +15,6 @@
     <filter-mapping>
         <filter-name>ModeratorSessionRequired</filter-name>
         <url-pattern>/moderator/</url-pattern>
-        <url-pattern>/moderator/product/create</url-pattern>
         <url-pattern>/moderator/staff/*</url-pattern>
         <url-pattern>/moderator/dashboard</url-pattern>
         <url-pattern>/moderator/product/*</url-pattern> 
