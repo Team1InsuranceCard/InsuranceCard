@@ -8,6 +8,17 @@
         <filter-name>SetEncodeUTF8</filter-name>
         <filter-class>filter.SetEncodeUTF8</filter-class>
     </filter>
+    <filter>
+        <filter-name>ModeratorSessionRequired</filter-name>
+        <filter-class>filter.ModeratorSessionRequired</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ModeratorSessionRequired</filter-name>
+        <url-pattern>/moderator/</url-pattern>
+        <url-pattern>/moderator/staff/*</url-pattern>
+        <url-pattern>/moderator/dashboard</url-pattern>
+        <url-pattern>/moderator/product/*</url-pattern> 
+    </filter-mapping>
     <filter-mapping>
         <filter-name>SetEncodeUTF8</filter-name>
         <url-pattern>/*</url-pattern>
@@ -15,7 +26,11 @@
     <filter-mapping>
         <filter-name>UserAuthorization</filter-name>
         <url-pattern>/customer/*</url-pattern>
-        <url-pattern>/staff/*</url-pattern>
+         <url-pattern>/staff/*</url-pattern>
+         <url-pattern>/authorize_payment</url-pattern>
+         <url-pattern>/cancel-contract</url-pattern>
+         <url-pattern>/change-password</url-pattern>
+         <url-pattern>/execute_payment</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>ViewCustomer</servlet-name>

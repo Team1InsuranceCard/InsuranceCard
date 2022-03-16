@@ -5,12 +5,10 @@
  */
 package filter;
 
-import dao.FeatureDBContext;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,16 +16,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Moderator;
 
 /**
  *
  * @author area1
  */
-public class UserAuthorization implements Filter {
+public class ModeratorSessionRequired implements Filter {
 
     private static final boolean debug = true;
 
@@ -36,22 +33,41 @@ public class UserAuthorization implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public UserAuthorization() {
+    public ModeratorSessionRequired() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("setEncode:DoBeforeProcessing");
+            log("ModeratorSessionRequired:DoBeforeProcessing");
         }
 
-//        httpResp.getWriter().print("<h1>"+ rootPath +"</h1>");
+        // Write code here to process the request and/or response before
+        // the rest of the filter chain is invoked.
+        // For example, a logging filter might log items on the request object,
+        // such as the parameters.
+        /*
+	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
+	    String name = (String)en.nextElement();
+	    String values[] = request.getParameterValues(name);
+	    int n = values.length;
+	    StringBuffer buf = new StringBuffer();
+	    buf.append(name);
+	    buf.append("=");
+	    for(int i=0; i < n; i++) {
+	        buf.append(values[i]);
+	        if (i < n-1)
+	            buf.append(",");
+	    }
+	    log(buf.toString());
+	}
+         */
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("setEncode:DoAfterProcessing");
+            log("ModeratorSessionRequired:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -87,7 +103,7 @@ public class UserAuthorization implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("setEncode:doFilter()");
+            log("ModeratorSessionRequired:doFilter()");
         }
 
         doBeforeProcessing(request, response);
@@ -97,29 +113,11 @@ public class UserAuthorization implements Filter {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
             HttpSession session = httpReq.getSession();
-
-            FeatureDBContext featureDBC = new FeatureDBContext();
-            String rootPath = httpReq.getContextPath();
-            String currentURL = httpReq.getServletPath();
-            boolean isAuthorization = false;
-            Account account_customer_staff = (Account) session.getAttribute("account");
-//            Moderator account_moderator = (Moderator) session.getAttribute("mod_account");
-            if (account_customer_staff != null) {
-                if (account_customer_staff.isRole()) {
-                    isAuthorization = featureDBC.isAuthor("staff", currentURL);
+                if (session.getAttribute("mod_account") != null) {
+                    chain.doFilter(request, response);
                 } else {
-                    isAuthorization = featureDBC.isAuthor("customer", currentURL);
-                }
-            } else {
-                httpResp.sendRedirect(httpReq.getContextPath() + "/login");
-            }
-            if (isAuthorization) {
-//            if (true) {
-                chain.doFilter(request, response);
-            } else {
-                httpResp.getWriter().print("<h1>You do not have access</h1>");
-            }
-
+                    httpResp.sendRedirect(httpReq.getContextPath() + "/moderator/login");
+                }         
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
@@ -172,7 +170,7 @@ public class UserAuthorization implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("setEncode:Initializing filter");
+                log("ModeratorSessionRequired:Initializing filter");
             }
         }
     }
@@ -183,9 +181,9 @@ public class UserAuthorization implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("setEncode()");
+            return ("ModeratorSessionRequired()");
         }
-        StringBuffer sb = new StringBuffer("setEncode(");
+        StringBuffer sb = new StringBuffer("ModeratorSessionRequired(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

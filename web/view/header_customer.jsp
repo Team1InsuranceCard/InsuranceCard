@@ -14,7 +14,7 @@
 <header>
     <nav class="navbar navbar-expand-lg fixed-top header_customer">
         <div class="container header-element">
-            <a class="navbar-brand" href="${root}/homepage"> 
+            <a class="navbar-brand" href="${root}/customer/dashboard"> 
                 <img
                     class="logo-icon"
                     src="${root}/asset/image/icon_car.png"
