@@ -47,9 +47,14 @@
     var nav = document.getElementById('sidebarStaff'),
             anchor = nav.getElementsByTagName('a'),
             current = "${root}/staff/" + window.location.pathname.split('/')[3];
-    for (var i = 0; i < anchor.length; i++) {
-        if (anchor[i].href.toString().includes(current)) {
-            anchor[i].classList.add("active");
+
+    if (window.location.pathname.split('/')[2] === "cancel-contract") {
+        anchor[2].classList.add("active");
+    } else {
+        for (var i = 0; i < anchor.length; i++) {
+            if (anchor[i].href.toString().includes(current)) {
+                anchor[i].classList.add("active");
+            }
         }
     }
 </script>
