@@ -546,12 +546,11 @@ public class CustomerDBContext extends DBContext {
             ps_cus.setString(2, cus.getLastName());
             ps_cus.setString(3, cus.getAddress());
             ps_cus.setDate(4, cus.getDob());
-            ps_cus.setTimestamp(5, cus.getJoinDate());
-            ps_cus.setString(6, cus.getPhone());
-            ps_cus.setString(7, cus.getPersonalID());
-            ps_cus.setString(8, cus.getProvince());
-            ps_cus.setString(9, cus.getDistrict());
-            ps_cus.setInt(10, acc.getId());
+            ps_cus.setString(5, cus.getPhone());
+            ps_cus.setString(6, cus.getPersonalID());
+            ps_cus.setString(7, cus.getProvince());
+            ps_cus.setString(8, cus.getDistrict());
+            ps_cus.setInt(9, acc.getId());
             ps_cus.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {

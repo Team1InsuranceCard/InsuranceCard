@@ -3,6 +3,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <link
+        rel="icon"
+        href="${pageContext.servletContext.contextPath}/asset/image/favicon.png"
+        type="image/png"
+        sizes="16x16"
+        />
     <jsp:include page="../header_staff.jsp">
         <jsp:param name="currentscreen" value="customer" />
     </jsp:include>
@@ -11,12 +17,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link
-            rel="icon"
-            href="asset/image/favicon.png"
-            type="image/png"
-            sizes="16x16"
-            />
         <link rel="stylesheet" href="asset/style/staff/renew_contract.css" />
     </head>
     <body>
@@ -35,7 +35,7 @@
                                type="submit" value="Renew" />
 
                         <a class="btn btn--secondary"
-                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/view')">Cancel</a>
+                           onclick="confirmBox('Are you sure you want to cancel?', 'staff/contract/detail?id=${requestScope.contract.id}')">Cancel</a>
                     </div>
                 </div>
 

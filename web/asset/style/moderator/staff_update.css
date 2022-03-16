@@ -48,10 +48,10 @@ main {
 }
 
 .card__heading {
-  font-weight: 600;
+  font-weight: 500;
   margin: 10px 0 50px 20px;
   color: #5c2941;
-  font-size: 35px;
+  font-size: 2rem;
 }
 
 .card__form {
@@ -71,8 +71,7 @@ main {
   background-color: #f7f7f7;
   border: solid 1px #e6e6e6;
   border-radius: 13px;
-  padding: 8px 15px 8px 10px;
-  cursor: pointer;
+  padding: 8px 15px;
 }
 
 .card__item:focus-within {
@@ -81,17 +80,19 @@ main {
 }
 
 .card__label {
-  font-size: 15px;
-  font-weight: 600;
-  padding-bottom: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: 18px;
   color: #393939;
   min-height: 30px;
   display: block;
+  cursor: pointer;
 }
 
 .card__item:focus-within .card__label {
   color: #fc6376;
-  font-size: 18px;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .card__input {
@@ -102,6 +103,7 @@ main {
   font-size: 18px;
   color: #555555;
   width: 100%;
+  cursor: pointer;
 }
 
 .card__input:focus {
@@ -109,7 +111,7 @@ main {
 }
 
 .card__input option {
-  font-size: 15px;
+  font-size: 1.1rem;
 }
 
 .card__btn {
@@ -126,6 +128,7 @@ main {
   min-width: 100px;
   text-align: center;
   box-sizing: content-box;
+  cursor: pointer;
 }
 
 .btn--primary {

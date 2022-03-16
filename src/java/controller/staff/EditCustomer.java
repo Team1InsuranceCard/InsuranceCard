@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.AccountStatusCode;
 import model.Customer;
 import model.CustomerStaff;
 
@@ -41,17 +42,7 @@ public class EditCustomer extends HttpServlet {
         Customer cus = cusStaff.getCustomer();
 
         // set attribute
-        request.setAttribute("aid", id);
-        request.setAttribute("email", cus.getAccount().getEmail());
-        request.setAttribute("status", cus.getAccount().getStatus());
-        request.setAttribute("fname", cus.getFirstName());
-        request.setAttribute("pid", cus.getPersonalID());
-        request.setAttribute("lname", cus.getLastName());
-        request.setAttribute("province", cus.getProvince());
-        request.setAttribute("dob", cus.getDob());
-        request.setAttribute("district", cus.getDistrict());
-        request.setAttribute("phone", cus.getPhone());
-        request.setAttribute("address", cus.getAddress());
+        request.setAttribute("cus", cus);
         request.getRequestDispatcher("../../view/staff/customer_edit.jsp").forward(request, response);
     }
 
@@ -65,13 +56,10 @@ public class EditCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
+        Customer cus = new Customer();
+        
         int cusId = Integer.parseInt(request.getParameter("aid"));
-
-        CustomerDBContext cusDb = new CustomerDBContext();
-        CustomerStaff cusStaff = cusDb.viewCustomer(cusId);
-        Customer cus = cusStaff.getCustomer();
-
         String email = request.getParameter("email");
         short status = Short.parseShort(request.getParameter("status"));
         String fname = request.getParameter("fname");
@@ -84,14 +72,17 @@ public class EditCustomer extends HttpServlet {
         String address = request.getParameter("address");
         Boolean isExistEmail = false;
         Boolean isSuccess = false;
+        
+        AccountStatusCode accStatus = new AccountStatusCode();
+        accStatus.setStatusCode(status);
 
-        Account cusAcc = new Account();
-        cusAcc.setId(cusId);
-        cusAcc.setEmail(email);
-        cusAcc.setStatus(status);
+        Account acc = new Account();
+        acc.setId(cusId);
+        acc.setEmail(email);
+        acc.setStatusCode(accStatus);
 
         // cus
-        cus.setAccount(cusAcc);
+        cus.setAccount(acc);
         cus.setFirstName(fname);
         cus.setLastName(lname);
         cus.setAddress(address);
@@ -108,7 +99,7 @@ public class EditCustomer extends HttpServlet {
         AccountDBContext accDB = new AccountDBContext();
         // check if exist account is active with same email
         // true => notify user and re-input
-        if (accDB.checkExistCusAccEmail(cusAcc)) {
+        if (accDB.checkExistCusAccEmail(acc)) {
             isExistEmail = true;
         } else {
             CustomerDBContext cusDB = new CustomerDBContext();
@@ -116,17 +107,7 @@ public class EditCustomer extends HttpServlet {
             isSuccess = true;
         }
         
-        request.setAttribute("aid", cusId);
-        request.setAttribute("email", email);
-        request.setAttribute("status", status);
-        request.setAttribute("fname", fname);
-        request.setAttribute("pid", pid);
-        request.setAttribute("lname", lname);
-        request.setAttribute("province", province);
-        request.setAttribute("dob", dob);
-        request.setAttribute("district", district);
-        request.setAttribute("phone", phone);
-        request.setAttribute("address", address);
+        request.setAttribute("cus", cus);
         request.setAttribute("isExistEmail", isExistEmail);
         request.setAttribute("isSuccess", isSuccess);
         request.getRequestDispatcher("../../view/staff/customer_edit.jsp").forward(request, response);

@@ -5,7 +5,7 @@ body {
 }
 
 main {
-  margin: 150px 48px 64px;
+  margin: 160px 60px 70px;
   display: flex;
 }
 
@@ -23,27 +23,29 @@ main {
 }
 
 .menu__item {
-  padding: 16px;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
   font-size: 17.6px;
+  border-left: 6.4px solid #fff;
 }
 
 .menu__item--active,
 .menu__item:hover {
   background-color: #f7fafc;
-  border-left: 6.4px solid #fc6376;
+  border-left-color: #fc6376;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+  text-decoration: none;
+  color: #000;
 }
 
 .menu__icon {
   margin-right: 12.8px;
 }
 
-.menu__heading, 
-.menu__heading:hover {
-  text-decoration: none;
+.menu__heading {  
   color: #000;
+  margin: 0;
 }
 
 .section {
