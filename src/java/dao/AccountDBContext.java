@@ -88,7 +88,8 @@ public class AccountDBContext extends DBContext {
         try {
             String sql = "select ID, Email, [Password], [Role], [asc].StatusCode, [asc].StatusName\n"
                     + "from Account a inner join AccountStatusCode [asc] on a.[Status] = [asc].StatusCode\n"
-                    + "where Email = ? and [Password] = ?";
+                    + "where BINARY_CHECKSUM([Email]) = BINARY_CHECKSUM(?)\n"
+                    + "      AND BINARY_CHECKSUM([Password]) = BINARY_CHECKSUM(?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, user);
             stm.setString(2, pass);

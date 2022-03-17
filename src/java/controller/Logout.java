@@ -50,7 +50,10 @@ public class Logout extends HttpServlet {
         if (session.getAttribute("account") != null) {
             session.invalidate();
             response.sendRedirect("login");
-        } else{
+        } else if (session.getAttribute("mod_account") != null) {
+            session.invalidate();
+            response.sendRedirect("moderator/login");
+        } else {
             response.sendRedirect("login");
         }
     }

@@ -24,7 +24,7 @@
             </c:if>
             <c:if test="${sessionScope.account == null}">
                 <jsp:include page="../header_common.jsp">
-                    <jsp:param name="currentscreen" value="contact" />
+                    <jsp:param name="currentscreen" value="contract" />
                 </jsp:include>
             </c:if>
         </header>
