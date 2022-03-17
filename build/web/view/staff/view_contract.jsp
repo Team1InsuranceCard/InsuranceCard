@@ -26,7 +26,7 @@
 
                 <div class="header__btn">
                     <button class="btn btn--success ${requestScope.contract.statusCode.statusCode == 2 ? '' : 'btn--disabled'}"
-                            onclick="confirmBox('Are you sure you want to pay?', 'staff/contract/pay')">
+                            onclick="confirmBox('Are you sure you want to pay?', 'staff/contract/pay?id=${requestScope.contract.id}')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_cash.png"></img>
                         <div class="btn__text">Payment</div>
                     </button>
@@ -45,8 +45,11 @@
                         <div class="btn__text">Update</div>
                     </a>
 
-                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 1 ? '' : 'btn--disabled'}" 
-                       onclick="confirmBox('Are you sure you want to cancel this contract?', 'staff/contract/cancel?id=${requestScope.contract.id}')">
+                    <a class="btn btn--danger ${requestScope.contract.statusCode.statusCode == 0 
+                                                || requestScope.contract.statusCode.statusCode == 4
+                                                || requestScope.contract.statusCode.statusCode == 5 
+                                                ? 'btn--disabled' : ''}" 
+                       onclick="confirmBox('Are you sure you want to cancel this contract?', 'cancel-contract?id=${requestScope.contract.id}')">
                         <img class="btn__icon" src="asset/image/staff/view_contract/icon_close.png"></img>
                         <div class="btn__text">Cancel</div>
                     </a>

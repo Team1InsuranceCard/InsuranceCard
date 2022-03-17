@@ -19,7 +19,7 @@
         <header>
             <c:if test="${sessionScope.account != null}">
                 <jsp:include page="../header_customer.jsp">
-                    <jsp:param name="currentscreen" value="contacts" />
+                    <jsp:param name="currentscreen" value="contact" />
                 </jsp:include>
             </c:if>
             <c:if test="${sessionScope.account == null}">

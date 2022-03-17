@@ -23,13 +23,13 @@
         <jsp:include page="../header_customer.jsp">
             <jsp:param name="currentscreen" value="contract" />
         </jsp:include>
-            <div class="container">
-                <h2 class="title">NEW CONTRACT</h2>
-                <form method="POST" action="customer/contract/create">
-                    <div class="content_container">
-                        <div class="row">
-                            <div class="col-lg-8 left">
-                                <h3 class="group-title">1. OWNER'S INFORMATION</h3>
+        <div class="container">
+            <h2 class="title">NEW CONTRACT</h2>
+            <form method="POST" action="customer/contract/create">
+                <div class="content_container">
+                    <div class="row">
+                        <div class="col-lg-8 left">
+                            <h3 class="group-title">1. OWNER'S INFORMATION</h3>
                             <c:if test="${sessionScope.account ne null}">
                                 <div class="quick-checkbox">
                                     <input id="chk-1" type="checkbox" 
@@ -85,7 +85,26 @@
                                    name="engine"
                                    placeholder="Engine number (in vehicle registration)"/><br/>
                             <label>Registration certificate:</label><br/>
-                            <jsp:include page="/uploadimage.html"></jsp:include>
+                            <img src="https://via.placeholder.com/400x300?text=Waiting+until+image+change" 
+                                 id="output-cover-img" style="max-width: 70%"/>
+                            <input class="cover-openfile" id="choose-img" type='file' 
+                                   onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                            <input   type="hidden" id="cover-url"  name="photo">
+                            <script>
+                                function doImgUpload(fileInputId, urlout, imgout) {
+                                    var form = new FormData();
+                                    const outputURL = document.getElementById(urlout);
+                                    const outputImg = document.getElementById(imgout);
+                                    form.append("image", fileInputId.files[0]);
+                                    fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
+                                        method: "post",
+                                        body: form
+                                    }).then(data => data.json()).then(data => {
+                                        outputURL.value = data.data.url;
+                                        outputImg.src = data.data.url;
+                                    });
+                                }
+                            </script>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">

@@ -3,6 +3,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <link
+        rel="icon"
+        href="${pageContext.servletContext.contextPath}/asset/image/favicon.png"
+        type="image/png"
+        sizes="16x16"
+        />
     <jsp:include page="../header_customer.jsp">
         <jsp:param name="currentscreen" value="customer" />
     </jsp:include>
@@ -11,48 +17,34 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link
-            rel="icon"
-            href="asset/image/favicon.png"
-            type="image/png"
-            sizes="16x16"
-            />
         <link rel="stylesheet" href="asset/style/customer/view_info.css" />
     </head>
     <body>
         <main>
             <div class="menu">
-                <div class="menu__item menu__item--active">
+                <a class="menu__item menu__item--active" href="cus/info" >
                     <img
                         src="asset/image/customer/view_info/icon_profile.png"
                         class="menu__icon"
                         />
-                    <a href="cus/info" class="menu__heading">Personal Information</a>
-                </div>
+                    <p class="menu__heading">Personal Information</p>
+                </a>
 
-                <div class="menu__item">
+                <a class="menu__item" href="change-password" >
                     <img
                         src="asset/image/customer/view_info/icon_lockKey.png"
                         class="menu__icon"
                         />
-                    <a href="password/change" class="menu__heading">Password</a>
-                </div>
+                    <p class="menu__heading">Password</p>
+                </a>
 
-                <div class="menu__item">
-                    <img
-                        src="asset/image/customer/view_info/icon_bell.png"
-                        class="menu__icon"
-                        />
-                    <a href="" class="menu__heading">Notifications</a>
-                </div>
-
-                <div class="menu__item">
+                <a class="menu__item" href="logout" >
                     <img
                         src="asset/image/customer/view_info/icon_logout.png"
                         class="menu__icon"
                         />
-                    <a href="logout" class="menu__heading">Logout</a>
-                </div>
+                    <p class="menu__heading">Logout</p>
+                </a>
             </div>
 
             <div class="section">
