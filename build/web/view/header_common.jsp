@@ -27,7 +27,7 @@
                 <a  class="nav-link nav-custom-link <c:if test="${current == 'product'}">active</c:if>" href="${root}/product">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-custom-link <c:if test="${current == 'contract'}">active</c:if>" href="${root}/contact">Contact</a>
+                    <a class="nav-link nav-custom-link <c:if test="${current == 'contact'}">active</c:if>" href="${root}/contact">Contact</a>
             </li>
         </ul>
 

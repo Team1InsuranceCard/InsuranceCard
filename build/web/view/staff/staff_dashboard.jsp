@@ -11,8 +11,6 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
         <link href="asset/style/staff/staff_dashboard.css" rel="stylesheet" type="text/css"/>
-<!--        <style>
-        </style>-->
     </head>
     <body>
         <jsp:include page="../header_staff.jsp">
@@ -55,12 +53,12 @@
                                 <h3>${sessionScope.unhold1}</h3>
                             </div>
                             <div class="col-9 unholded">
-                                <a href="#">
+                                <a href="staff/customer/view">
                                     <h4>Unholded</h4>
                                 </a>
                             </div>
                             <div class="col-1 arrow">
-                                <a href="#">
+                                <a href="staff/customer/view">
                                     <img src="asset/image/staff/Arrow.png" alt="arrow"/>
                                 </a>
                             </div>
@@ -81,12 +79,12 @@
                                 <h3>${sessionScope.unhold2}</h3>
                             </div>
                             <div class="col-9 unholded">
-                                <a href="#">
+                                <a href="staff/contract/view">
                                     <h4>Unholded</h4>
                                 </a>
                             </div>
                             <div class="col-1 arrow">
-                                <a href="#">
+                                <a href="staff/contract/view">
                                     <img src="asset/image/staff/Arrow.png" alt="arrow"/>
                                 </a>
                             </div>
@@ -109,12 +107,12 @@
                                 <h3>${sessionScope.unhold3}</h3>
                             </div>
                             <div class="col-8 unholded">
-                                <a href="#">
+                                <a href="staff/compensation">
                                     <h4>Unholded</h4>
                                 </a>
                             </div>
                             <div class="col-2 arrow">
-                                <a href="#">
+                                <a href="staff/compensation">
                                     <img src="asset/image/staff/Arrow.png" alt="arrow"/>
                                 </a>
                             </div>
@@ -134,12 +132,12 @@
                                 <h3>${sessionScope.unhold4}</h3>
                             </div>
                             <div class="col-8 unholded">
-                                <a href="#">
+                                <a href="staff/contract/view">
                                     <h4>Unholded</h4>
                                 </a>
                             </div>
                             <div class="col-2 arrow">
-                                <a href="#">
+                                <a href="staff/contract/view">
                                     <img src="asset/image/staff/Arrow.png" alt="arrow"/>
                                 </a>
                             </div>

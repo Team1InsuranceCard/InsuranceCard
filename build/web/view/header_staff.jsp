@@ -5,20 +5,16 @@
 
 <header>
     <div class="header-staff">
-        <a href="${root}/homepage" class="brand">
+        <a href="${root}/staff/dashboard" class="brand">
             <img src="${root}/asset/image/icon_car.png" class="brand-logo" />
             <p class="brand-title">InsuranceCard</p>
         </a>
         <div class="header-element">
-            <a href="" class="icon-header">
-                <img src="${root}/asset/image/icon_bell.png" />
-            </a>
-
-            <a href="" class="icon-header">
+            <a href="${root}/change-password" class="icon-header">
                 <img src="${root}/asset/image/icon_user.png" />
             </a>
 
-            <a href="logout" class="icon-header">
+            <a href="${root}/logout" class="icon-header">
                 <img src="${root}/asset/image/icon_logout.png" />
             </a>
         </div>
@@ -51,9 +47,14 @@
     var nav = document.getElementById('sidebarStaff'),
             anchor = nav.getElementsByTagName('a'),
             current = "${root}/staff/" + window.location.pathname.split('/')[3];
-    for (var i = 0; i < anchor.length; i++) {
-        if (anchor[i].href.toString().includes(current)) {
-            anchor[i].classList.add("active");
+
+    if (window.location.pathname.split('/')[2] === "cancel-contract") {
+        anchor[2].classList.add("active");
+    } else {
+        for (var i = 0; i < anchor.length; i++) {
+            if (anchor[i].href.toString().includes(current)) {
+                anchor[i].classList.add("active");
+            }
         }
     }
 </script>

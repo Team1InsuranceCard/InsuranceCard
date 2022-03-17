@@ -3,6 +3,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+    <link
+        rel="icon"
+        href="${pageContext.servletContext.contextPath}/asset/image/favicon.png"
+        type="image/png"
+        sizes="16x16"
+        />
     <jsp:include page="../header_customer.jsp">
         <jsp:param name="currentscreen" value="customer" />
     </jsp:include>
@@ -11,19 +17,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Insurance Card</title>
         <base href="${pageContext.servletContext.contextPath}/" />
-        <link
-            rel="icon"
-            href="asset/image/favicon.png"
-            type="image/png"
-            sizes="16x16"
-            />
         <link rel="stylesheet" href="asset/style/customer/compensation_his.css" />
     </head>
     <body>
         <main>
             <div class="header">
                 <h1 class="header__title">Compensation History</h1>
-                <a href="" class="header__btn">Request compensation</a>
             </div>
 
             <form class="filter">
@@ -93,7 +92,7 @@
                                                  '4BBDDF')};">${c.status.statusName}</td>
                             <td>${c.accident.contract.id}</td>
                             <td>
-                                <a href="customer/history/compensation?id=${c.driverName}" 
+                                <a href="customer/history/compensation/detail?compensationid=${c.id}" 
                                    class="table-btn">View</a>
                             </td>
                         </tr>
@@ -129,7 +128,7 @@
                                 + '&status=' + status
                                 + '">1</a></li>';
                     }
-                    
+
                     if (pageIndex - gap > 2) {
                         container.innerHTML += '<li class="paging__item"><span class="paging__icon paging__icon--disabled">. . .</span></li>';
                     }
@@ -157,7 +156,7 @@
                                     + '&status=' + status + '">' + i + '</a></li>';
                         }
                     }
-                    
+
                     if (pageIndex + gap < totalPage - 1) {
                         container.innerHTML += '<li class="paging__item"><span class="paging__icon  paging__icon--disabled">. . .</span></li>';
                     }
