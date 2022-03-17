@@ -157,35 +157,35 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="dashboard-card dashboard-service-card">
-                    <div class="service-title"><h2>Current service</h2></div>
-                    <div class="row row-cols-1 row-cols-lg-3 card-deck">
-                        <c:forEach items="${current_products}" var="eachproduct">
-                            <div class="col">
-                                <div class="service-sub-card card">
-                                    <img 
-                                        class="card-img-top product-image-cover"
-                                        src="${eachproduct.imageURL}"
-                                        alt="${eachproduct.title}"
-                                        />
-                                    <div class="card-body">
-                                        <h5 class="card-title">${eachproduct.title}</h5>
-                                        <div class="wrapper-desciption-service">
-                                            <p class="card-text desciption-service-text">
-                                                ${eachproduct.description}
-                                            </p>
+                <c:if test="${!empty current_products}">
+                    <div class="dashboard-card dashboard-service-card">
+                        <div class="service-title"><h2>Current service</h2></div>
+                        <div class="row row-cols-1 row-cols-lg-3 card-deck">
+                            <c:forEach items="${current_products}" var="eachproduct">
+                                <div class="col">
+                                    <div class="service-sub-card card">
+                                        <img 
+                                            class="card-img-top product-image-cover"
+                                            src="${eachproduct.imageURL}"
+                                            alt="${eachproduct.title}"
+                                            />
+                                        <div class="card-body">
+                                            <h5 class="card-title">${eachproduct.title}</h5>
+                                            <div class="wrapper-desciption-service">
+                                                <p class="card-text desciption-service-text">
+                                                    ${eachproduct.description}
+                                                </p>
+                                            </div>
+                                            <a href="product/detail?productid=${eachproduct.id}" class="btn btn-primary go-to-button"
+                                               >More</a
+                                            >
                                         </div>
-                                        <a href="product/detail?productid=${eachproduct.id}" class="btn btn-primary go-to-button"
-                                           >More</a
-                                        >
                                     </div>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
                     </div>
-                </div>
-
+                </c:if>
                 <div class="dashboard-card dashboard-service-card">
                     <div class="service-title"><h2>Explore more service</h2></div>
                     <div class="card-deck row row-cols-1 row-cols-lg-3">
