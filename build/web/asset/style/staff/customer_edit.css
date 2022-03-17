@@ -7,21 +7,21 @@ body {
 main {
     margin-top: 73px;
     margin-left: 290px;
-    padding: 50px 50px 70px 60px;
+    padding: 50px 60px 70px;
 }
 
 .card {
     background-color: #fff;
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 30px 40px;
+    padding: 40px;
 }
 
 .card__heading {
-    font-weight: 700;
+    font-weight: 600;
     margin: 10px 0 40px 20px;
     color: #5c2941;
-    font-size: 30px;
+    font-size: 1.8rem;
 }
 
 .mess-box {
@@ -55,7 +55,7 @@ main {
 }
 
 .section {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .section__main {
@@ -66,19 +66,21 @@ main {
 
 .section__heading {
     color: #5c2941;
-    padding-bottom: 2px;
+    padding-bottom: 6px;
     border-bottom: 0.8px solid #5c294180;
-    margin: 0 20px 25px 20px;
+    margin: 0 20px 30px 20px;
+    font-weight: 400;
+    font-size: 1.6rem;
 }
 
 .section__item {
-    margin: 0 5px 15px 5px;
+    margin: 0 5px 20px 5px;
     max-width: 360px;
     flex: 45%;
     background-color: #f7f7f7;
     border: solid 1px #e6e6e6;
     border-radius: 13px;
-    padding: 5px 15px 8px 10px;
+    padding: 8px 15px;
     cursor: pointer;
 }
 
@@ -88,15 +90,17 @@ main {
 }
 
 .section__label {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-bottom: 18px;
     color: #393939;
+    min-height: 30px;
+    display: block;
 }
 
 .section__item:focus-within .section__label {
     color: #fc6376;
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
 .section__input {
@@ -114,13 +118,13 @@ main {
 }
 
 .section__input option {
-    font-size: 15px;
+    font-size: 1.1rem;
 }
 
 .form-btn {
     display: flex;
     justify-content: flex-end;
-    margin: 25px 150px 30px 0;
+    margin: 35px 130px 30px 0;
 }
 
 .btn {
@@ -131,6 +135,7 @@ main {
     min-width: 100px;
     text-align: center;
     box-sizing: content-box;
+    cursor: pointer;
 }
 
 .btn--primary {

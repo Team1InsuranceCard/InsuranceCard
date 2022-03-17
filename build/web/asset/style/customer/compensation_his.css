@@ -23,19 +23,6 @@ main {
     font-size: 35px;
 }
 
-.header__btn {
-    text-decoration: none;
-    background-color: #588eb1;
-    color: #fff9ec;
-    transition: all 0.2s;
-    padding: 12px 10px;
-    border-radius: 5px;
-    width: 150px;
-    text-align: center;
-    line-height: 1.02;
-    font-size: 17px;
-}
-
 .header__btn:hover {
     text-decoration: none;
     background-color: #a94442;

@@ -22,7 +22,7 @@ body {
 main {
     margin-top: 73px;
     margin-left: 290px;
-    padding: 50px 50px 70px 60px;
+    padding: 50px 60px 70px;
 }
 
 .card {
@@ -33,11 +33,11 @@ main {
 }
 
 .card__heading {
-    font-weight: 700;
+    font-weight: 600;
     margin: 10px 0 50px 20px;
     color: #5c2941;
-    font-size: 30px;
-    padding-bottom: 2px;
+    font-size: 1.8rem;
+    padding-bottom: 6px;
     border-bottom: 0.8px solid #5c294180;
 }
 
@@ -85,8 +85,7 @@ main {
     background-color: #f7f7f7;
     border: solid 1px #e6e6e6;
     border-radius: 13px;
-    padding: 5px 15px 8px 10px;
-    cursor: pointer;
+    padding: 8px 15px;
 }
 
 .form__item:focus-within {
@@ -95,15 +94,19 @@ main {
 }
 
 .form__label {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-bottom: 18px;
     color: #393939;
+    display: block;
+    cursor: pointer;
+    min-height: 30px;
 }
 
 .form__item:focus-within .form__label {
     color: #fc6376;
-    font-size: 18px;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .form__input {
@@ -111,9 +114,10 @@ main {
     border: none;
     background-color: inherit;
     border-radius: 3px;
-    font-size: 18px;
+    font-size: 1.1rem;
     color: #555555;
     width: 100%;
+    cursor: pointer;
 }
 
 .form__input:focus {
@@ -139,6 +143,7 @@ main {
     min-width: 100px;
     text-align: center;
     box-sizing: content-box;
+    cursor: pointer;
 }
 
 .btn--primary {
