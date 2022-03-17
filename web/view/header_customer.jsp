@@ -52,7 +52,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a <c:if test="${current == 'contacts'}">class="active"</c:if> href="${root}/contact">Contacts</a>
+                        <a <c:if test="${current == 'contact'}">class="active"</c:if> href="${root}/contact">Contacts</a>
                     </li>
                 </ul>
                 <div class="navbar-nav">
