@@ -48,10 +48,12 @@
                 <jsp:include page="header_staff.jsp" />
             </c:when>
             <c:when test="${!role}">
-                <jsp:include page="header_customer.jsp" />
+                <jsp:include page="header_customer.jsp" >
+                    <jsp:param name="currentscreen" value="dashboard"/>
+                </jsp:include>
             </c:when>
-        </c:choose>
 
+        </c:choose>
         <main>
             <div class="container" >
                 <div class="dashboard-card dashboard-service-card">

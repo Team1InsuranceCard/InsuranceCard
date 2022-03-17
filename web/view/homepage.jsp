@@ -94,7 +94,7 @@
                         <div class="col md-4 card-image-custom">
                             <div class="card">
                                 <img
-                                    src="https://via.placeholder.com/468x60?text=Visit+Blogging.com+Now"
+                                    src="asset/image/cute_dog_cat/cho_ngau_det.jpg"
                                     alt=""
                                     class="card-img-top"
                                     />
@@ -103,7 +103,7 @@
                         <div class="col md-4 card-image-custom">
                             <div class="card">
                                 <img
-                                    src="https://via.placeholder.com/468x60?text=Visit+Blogging.com+Now"
+                                    src="asset/image/cute_dog_cat/cho_ngay_tho.jpg"
                                     alt=""
                                     class="card-img-top"
                                     />
@@ -112,7 +112,7 @@
                         <div class="col md-4 card-image-custom">
                             <div class="card">
                                 <img
-                                    src="https://via.placeholder.com/468x60?text=Visit+Blogging.com+Now"
+                                    src="asset/image/cute_dog_cat/Bat-Cuoi-Truoc-Nhung-07.jpg"
                                     alt=""
                                     class="card-img-top"
                                     />
@@ -123,7 +123,7 @@
                         <div class="col md-4 card-image-custom">
                             <div class="card">
                                 <img
-                                    src="https://via.placeholder.com/468x60?text=Visit+Blogging.com+Now"
+                                    src="asset/image/cute_dog_cat/shiba_nhec.jpg"
                                     alt=""
                                     class="card-img-top"
                                     />
@@ -132,7 +132,7 @@
                         <div class="col md-4 card-image-custom">
                             <div class="card">
                                 <img
-                                    src="https://via.placeholder.com/468x60?text=Visit+Blogging.com+Now"
+                                    src="asset/image/cute_dog_cat/anh-meo-cute.jpg"
                                     alt=""
                                     class="card-img-top"
                                     />

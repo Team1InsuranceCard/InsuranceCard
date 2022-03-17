@@ -47,7 +47,9 @@
     var nav = document.getElementById('sidebarStaff'),
             anchor = nav.getElementsByTagName('a'),
             current = "${root}/staff/" + window.location.pathname.split('/')[3];
-
+    if(window.location.pathname.includes("product")){
+        anchor[0].classList.add("active");
+    }
     if (window.location.pathname.split('/')[2] === "cancel-contract") {
         anchor[2].classList.add("active");
     } else {
