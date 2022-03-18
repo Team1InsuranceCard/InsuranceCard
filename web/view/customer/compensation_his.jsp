@@ -10,7 +10,8 @@
         sizes="16x16"
         />
     <jsp:include page="../header_customer.jsp">
-        <jsp:param name="currentscreen" value="customer" />
+        <jsp:param name="currentscreen" value="history" />
+        <jsp:param name="currenthistory" value="compensation" />
     </jsp:include>
 
     <head>
