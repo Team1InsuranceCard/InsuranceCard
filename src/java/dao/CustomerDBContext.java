@@ -30,7 +30,7 @@ public class CustomerDBContext extends DBContext {
 
         String sql_select_totalcustomer = "SELECT Count(Customer.[AccountID]) AS NumberCustomer\n"
                 + "  FROM [Customer] INNER JOIN Account ON Customer.AccountID = Account.ID\n"
-                + "  WHERE CUSTOMER.isDelete = 0 AND Account.Status IN (1) ";
+                + "  WHERE CUSTOMER.isDelete = 0 ";
         try {
             PreparedStatement psm_select_totalcustomer = connection.prepareStatement(sql_select_totalcustomer);
             ResultSet rs_select_totalcustomer = psm_select_totalcustomer.executeQuery();
@@ -82,71 +82,6 @@ public class CustomerDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
-    }
-
-    public Account getCustomerByEmailNGoogleID(String email, String googleID) {
-        try {
-            // Customer customer = new Customer();
-            connection.setAutoCommit(false);
-            String sql_select_account = "SELECT [ID]\n"
-                    + "      ,[Email]\n"
-                    + "      ,[Password]\n"
-                    + "      ,[Role]\n"
-                    + "      ,[Status]\n"
-                    + "      ,[GoogleID]\n"
-                    + "  FROM [Account]\n"
-                    + "  WHERE (Email=? OR GoogleID=?) AND Status=1 AND isDelete=0";
-            PreparedStatement psm_select_account = connection.prepareStatement(sql_select_account);
-            psm_select_account.setNString(1, email);
-            psm_select_account.setNString(2, googleID);
-            ResultSet rs_select_account = psm_select_account.executeQuery();
-            Account account = null;
-            // Boolean isAccountExist = false;
-            if (rs_select_account.next()) {
-                account = new Account();
-                account.setId(rs_select_account.getInt("ID"));
-                account.setEmail(rs_select_account.getString("Email"));
-                account.setPassword(rs_select_account.getString("Password"));
-                account.setRole(rs_select_account.getBoolean("Role"));
-                account.setStatus(rs_select_account.getShort("Status"));
-                String gettingGoogleID = rs_select_account.getString("GoogleID");
-                if (gettingGoogleID == null) {
-                    gettingGoogleID = "";
-                }
-                account.setGoogleID(gettingGoogleID);
-                // isAccountExist = true;
-            }
-            if (account != null && (account.getGoogleID().isEmpty() || account.getGoogleID() == null)) {
-                String sql_update_googleID = "UPDATE [Account]\n"
-                        + "   SET[GoogleID] = ?\n"
-                        + " WHERE ID=?";
-                PreparedStatement psm_update_googleID = connection.prepareStatement(sql_update_googleID);
-                psm_update_googleID.setString(1, googleID);
-                psm_update_googleID.setInt(2, account.getId());
-                psm_update_googleID.executeUpdate();
-                account.setGoogleID(googleID);
-                // customer.setAccount(account);;
-                // query get Info Customer from AccountID
-                ////
-            }
-            connection.commit();
-            return account;
-        } catch (SQLException ex) {
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
         return null;
     }
 
@@ -611,12 +546,11 @@ public class CustomerDBContext extends DBContext {
             ps_cus.setString(2, cus.getLastName());
             ps_cus.setString(3, cus.getAddress());
             ps_cus.setDate(4, cus.getDob());
-            ps_cus.setTimestamp(5, cus.getJoinDate());
-            ps_cus.setString(6, cus.getPhone());
-            ps_cus.setString(7, cus.getPersonalID());
-            ps_cus.setString(8, cus.getProvince());
-            ps_cus.setString(9, cus.getDistrict());
-            ps_cus.setInt(10, acc.getId());
+            ps_cus.setString(5, cus.getPhone());
+            ps_cus.setString(6, cus.getPersonalID());
+            ps_cus.setString(7, cus.getProvince());
+            ps_cus.setString(8, cus.getDistrict());
+            ps_cus.setInt(9, acc.getId());
             ps_cus.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {

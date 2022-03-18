@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountStatusCode;
 import model.Product;
 import model.ProductStatusCode;
 import model.Staff;
@@ -172,6 +174,9 @@ public class StaffDBContext extends DBContext {
             while (rs.next()) {
                 if (s == null) {
                     s = new Staff();
+                    AccountStatusCode statusCode = new AccountStatusCode();
+                    statusCode.setStatusCode(rs.getShort("Status"));
+
                     Account a = new Account();
                     a.setId(accountId);
                     a.setEmail(rs.getString("Email"));
@@ -179,6 +184,8 @@ public class StaffDBContext extends DBContext {
                     a.setRole(rs.getBoolean("Role"));
                     a.setStatus(rs.getByte("Status"));
                     a.setGoogleID(rs.getString("GoogleID"));
+                    a.setStatusCode(statusCode);
+
                     s.setAccount(a);
                     s.setFirstName(rs.getString("FirstName"));
                     s.setLastName(rs.getString("LastName"));
@@ -494,6 +501,247 @@ public class StaffDBContext extends DBContext {
                 Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
 
+    public int countStaffRecord(int staffID, String name, String phone,
+            String status, String email) {
+        ArrayList<Staff> staffs = new ArrayList<>();
+        try {
+            String table_rowNum = "With s as(\n"
+                    + "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, AccountID\n"
+                    + "	      ,FirstName, LastName, Phone, Email, [Status] \n"
+                    + "       FROM [Staff]\n"
+                    + "       INNER JOIN Account ON Account.ID = Staff.AccountID\n"
+                    + "       WHERE Staff.isDelete = 0";
+
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (staffID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = staffID + "";
+                params.put(countParam, param);
+            }
+            if (!name.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = name;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = name;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!status.isEmpty()) {
+                table_rowNum += " AND [Status] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = status;
+                params.put(countParam, param);
+            }
+            if (!email.isEmpty()) {
+                table_rowNum += " AND [Email] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = email;
+                params.put(countParam, param);
+            }
+
+            String sql = table_rowNum += ")SELECT COUNT(AccountID) as [total staff]\n"
+                    + "			   FROM  s";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total staff");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<Staff> manageStaff(int staffID, String name, String status,
+            String phone, String email, int pageIndex, int pageSize) {
+        ArrayList<Staff> staffs = new ArrayList<>();
+        try {
+            String table_rowNum = "With s as (\n"
+                    + "SELECT ROW_NUMBER() OVER (ORDER BY [AccountID] ASC) as rownum, AccountID\n"
+                    + "			 ,FirstName, LastName, Phone, Email, [StatusCode], [StatusName] \n"
+                    + "         FROM [Staff]\n"
+                    + "         INNER JOIN Account ON Account.ID = Staff.AccountID\n"
+                    + "         INNER JOIN AccountStatusCode ON AccountStatusCode.StatusCode = Account.Status\n"
+                    + "         WHERE Staff.isDelete = 0 ";
+
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (staffID != 0) {
+                table_rowNum += " AND [AccountID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "Integer";
+                param[1] = staffID + "";
+                params.put(countParam, param);
+            }
+            if (!name.isEmpty()) {
+                table_rowNum += " AND ([FirstName] like '%'+?+'%' OR [LastName] like '%'+?+'%') ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = name;
+                params.put(countParam, param);
+
+                countParam++;
+                param[0] = "String";
+                param[1] = name;
+                params.put(countParam, param);
+            }
+            if (!phone.isEmpty()) {
+                table_rowNum += " AND [Phone] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = phone;
+                params.put(countParam, param);
+            }
+            if (!status.isEmpty()) {
+                table_rowNum += " AND [Status] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = status;
+                params.put(countParam, param);
+            }
+            if (!email.isEmpty()) {
+                table_rowNum += " AND [Email] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = "String";
+                param[1] = email;
+                params.put(countParam, param);
+            }
+
+            String sql = table_rowNum += ")SELECT [AccountID]\n"
+                    + "      ,[FirstName]\n"
+                    + "      ,[LastName]\n"
+                    + "      ,[Phone]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[StatusCode]\n"
+                    + "      ,[StatusName]\n"
+                    + "  FROM s\n"
+                    + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+                if (value[0].equals("Integer")) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals("String")) {
+                    stm.setString(key, value[1]);
+                }
+            }
+            stm.setInt(params.size() + 1, pageIndex);
+            stm.setInt(params.size() + 2, pageSize);
+            stm.setInt(params.size() + 3, pageIndex);
+            stm.setInt(params.size() + 4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            AccountStatusCode sc;
+            Account a;
+            Staff s;
+            while (rs.next()) {
+                sc = new AccountStatusCode();
+                sc.setStatusCode(rs.getShort("StatusCode"));
+                sc.setStatusName(rs.getString("StatusName"));
+
+                a = new Account();
+                a.setId(rs.getInt("AccountID"));
+                a.setEmail(rs.getString("Email"));
+                a.setStatusCode(sc);
+
+                s = new Staff();
+                s.setAccount(a);
+                s.setFirstName(rs.getString("FirstName"));
+                s.setLastName(rs.getString("LastName"));
+                s.setPhone(rs.getString("Phone"));
+
+                staffs.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return staffs;
+    }
+
+    public void modUpdateStaff(Staff staff) {
+        try {
+            connection.setAutoCommit(false);
+
+            // update acc info
+            String sql_upd_acc = "update Account\n"
+                    + "set Email = ?\n"
+                    + "	, Status = ?\n"
+                    + "where ID = ?";
+            PreparedStatement ps_upd_acc = connection.prepareStatement(sql_upd_acc);
+            ps_upd_acc.setString(1, staff.getAccount().getEmail());
+            ps_upd_acc.setShort(2, staff.getAccount().getStatusCode().getStatusCode());
+            ps_upd_acc.setInt(3, staff.getAccount().getId());
+            ps_upd_acc.executeUpdate();
+
+            // update staff info
+            String sql_upd_staff = "update Staff\n"
+                    + "set FirstName = ?\n"
+                    + "	, LastName = ?\n"
+                    + "	, Phone = ?\n"
+                    + "where AccountID = ?";
+            PreparedStatement ps_upd_staff = connection.prepareStatement(sql_upd_staff);
+            ps_upd_staff.setString(1, staff.getFirstName());
+            ps_upd_staff.setString(2, staff.getLastName());
+            ps_upd_staff.setString(3, staff.getPhone());
+            ps_upd_staff.setInt(4, staff.getAccount().getId());
+            ps_upd_staff.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StaffDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

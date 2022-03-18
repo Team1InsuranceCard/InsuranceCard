@@ -21,6 +21,21 @@ import model.ProductStatusCode;
  */
 public class ProductDBContext extends DBContext {
 
+    public void setIsDelete(boolean isDelete, int productID) {
+        String sql_update_status_product = "UPDATE [Product]\n"
+                + "   SET isDelete = ?\n"
+                + " WHERE Product.ID = ?";
+        try {
+            PreparedStatement psm_update_status_product = connection.prepareStatement(sql_update_status_product);
+            int i = 0;
+            psm_update_status_product.setBoolean(++i, isDelete);
+            psm_update_status_product.setInt(++i, productID);
+            psm_update_status_product.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Product> getTop3ProductsRankByContract() {
         ArrayList<Product> top10Product = new ArrayList<>();
         String sql_select_top10product = "SELECT TOP 3 COUNT(Contract.ID) AS NumberContracts,\n"
@@ -170,6 +185,38 @@ public class ProductDBContext extends DBContext {
         return null;
     }
 
+    public ArrayList<Product> getProductsByMod() {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String sql_Select_Product = "SELECT [ID]\n"
+                    + "      ,[Title]\n"
+                    + "      ,[Description]\n"
+                    + "      ,[Price]\n"
+                    + "      ,[ImageURL]\n"
+                    + "      ,[Status]\n"
+                    + "      ,[isDelete]\n"
+                    + "  FROM [Product]\n"
+                    + " WHERE isDelete = 0";
+            PreparedStatement psm_Select_Product = connection.prepareStatement(sql_Select_Product);
+            ResultSet rs = psm_Select_Product.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("ID"));
+                product.setTitle(rs.getString("Title"));
+                product.setDescription(rs.getString("Description"));
+                product.setPrice(rs.getFloat("Price"));
+                product.setImageURL(rs.getString("ImageURL"));
+                product.setStatus(rs.getShort("Status"));
+                product.setIsDelete(rs.getBoolean("isDelete"));
+
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
     public ArrayList<Product> getProductsByCustomer(int customerID) {
         try {
             ArrayList<Product> products = new ArrayList<>();
@@ -248,5 +295,143 @@ public class ProductDBContext extends DBContext {
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return check;
+    }
+
+    public void createProduct(Product product) {
+        try {
+            String sql = "INSERT INTO [Product]\n"
+                    + "           ([Title]\n"
+                    + "           ,[Description]\n"
+                    + "           ,[Price]\n"
+                    + "           ,[ImageURL]\n"
+                    + "           ,[Status]\n"
+                    + "           ,[isDelete]\n"
+                    + "           ,[ContentDetail]\n"
+                    + "           ,[StartDate])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, product.getTitle());
+            stm.setString(2, product.getDescription());
+            stm.setDouble(3, product.getPrice());
+            stm.setString(4, product.getImageURL());
+            stm.setShort(5, product.getStatus());
+            stm.setBoolean(6, product.isIsDelete());
+            stm.setString(7, product.getContentDetail());
+            stm.setTimestamp(8, product.getStartDate());
+
+            stm.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Product getProductToUpdate(int proId) {
+        try {
+            String sql = "SELECT [ID]\n"
+                    + ",[Title]\n"
+                    + ",[Description]\n"
+                    + ",[Price]\n"
+                    + ",[ImageURL]\n"
+                    + ",[StatusCode]\n"
+                    + ",[StatusName]\n"
+                    + ",p.[isDelete]\n"
+                    + ",[ContentDetail]\n"
+                    + ",[StartDate]\n"
+                    + ",[UpdateTime]\n"
+                    + "FROM [Product] p JOIN [ProductStatusCode] psc ON p.Status = psc.StatusCode\n"
+                    + "				left join [ProductUpdateTime] put on p.[ID] = put.[ProductID]\n"
+                    + "\n"
+                    + "WHERE p.ID = ? AND (p.isDelete = 0 OR p.isDelete is NULL)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, proId);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Product product = new Product();
+                product.setId(proId);
+                product.setTitle(rs.getString("Title"));
+                product.setImageURL(rs.getString("ImageURL"));
+
+                ProductStatusCode statusCode = new ProductStatusCode();
+                statusCode.setStatusCode(rs.getShort("StatusCode"));
+                statusCode.setStatusName(rs.getString("StatusName"));
+
+                product.setStatusCode(statusCode);
+                product.setDescription(rs.getString("Description"));
+                product.setStartDate(rs.getTimestamp("StartDate"));
+                product.setPrice(rs.getDouble("Price"));
+                product.setContentDetail(rs.getString("ContentDetail"));
+                product.setUpdateDate(rs.getTimestamp("UpdateTime"));
+//                if (product.getUpdateDate() != null) {
+//                    product.getUpdateTime().add(product.getUpdateDate());
+//
+//                }
+                return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void updateProduct(Product product) {
+        try {
+            connection.setAutoCommit(false);
+            //update product
+            String sql_product = "UPDATE [Product]\n"
+                    + "   SET [Title] = ?\n"
+                    + "      ,[Description] = ?\n"
+                    + "      ,[Price] = ?\n"
+                    + "      ,[ImageURL] = ?\n"
+                    + "      ,[Status] = ?\n"
+                    + "      ,[ContentDetail] = ?\n"
+                    + "      ,[StartDate] = ?\n"
+                    + " WHERE [ID] = ?";
+            PreparedStatement stm_product = connection.prepareStatement(sql_product);
+            stm_product.setString(1, product.getTitle());
+            stm_product.setString(2, product.getDescription());
+            stm_product.setDouble(3, product.getPrice());
+            stm_product.setString(4, product.getImageURL());
+            stm_product.setShort(5, product.getStatusCode().getStatusCode());
+            stm_product.setString(6, product.getContentDetail());
+            stm_product.setTimestamp(7, product.getStartDate());
+            stm_product.setInt(8, product.getId());
+            stm_product.executeUpdate();
+
+            //insert product_update_time
+            String sql_update_time = "INSERT INTO [ProductUpdateTime]\n"
+                    + "           ([ProductID]\n"
+                    + "           ,[UpdateTime])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?)";
+            PreparedStatement stm_update_time = connection.prepareStatement(sql_update_time);
+            stm_update_time.setInt(1, product.getId());
+            stm_update_time.setTimestamp(2, product.getUpdateDate());
+            stm_update_time.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

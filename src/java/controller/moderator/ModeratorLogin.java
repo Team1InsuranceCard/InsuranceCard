@@ -33,6 +33,7 @@ public class ModeratorLogin extends HttpServlet {
                 request.setAttribute("remember", "yes");
             }
         }
+
         request.getRequestDispatcher("../view/moderator/login.jsp").forward(request, response);
     }
 

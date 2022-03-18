@@ -7,6 +7,7 @@ package controller.staff;
 
 import dao.CompensationDBContext;
 import dao.ContractDBContext;
+import dao.DeliveryDBContext;
 import dao.PaymentDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Compensation;
 import model.Contract;
+import model.Delivery;
 import model.Payment;
 
 /**
@@ -44,10 +46,14 @@ public class ViewContract extends HttpServlet {
 
         CompensationDBContext comDB = new CompensationDBContext();
         ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
+        
+        DeliveryDBContext delDB = new DeliveryDBContext();
+        Delivery delivery = delDB.getDeliveryByContract(id);
 
         request.setAttribute("contract", contract);
         request.setAttribute("payments", payments);
         request.setAttribute("compensations", compensations);
+        request.setAttribute("delivery", delivery);
         request.getRequestDispatcher("../../view/staff/view_contract.jsp").forward(request, response);
     }
 

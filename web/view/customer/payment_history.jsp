@@ -25,6 +25,7 @@
         <header>
             <jsp:include page="../header_customer.jsp">
                 <jsp:param name="currentscreen" value="history"/>
+                <jsp:param name="currenthistory" value="payment"/>
             </jsp:include>
         </header>
 
@@ -38,6 +39,7 @@
                         <span class="iconify icon-search" onclick="search()"
                               data-icon="bx:search-alt">
                         </span>
+                        <input type="submit" hidden/>
                         <a href="customer/history/payment"
                            style="margin-left:0.5rem;text-decoration:underline;">
                             All</a>
@@ -100,7 +102,7 @@
             </div>
 
             <script>
-                createPagger('customer/history/payment', 'pagging',
+                createPagger('customer/history/payment?${requestScope.date_page}', 'pagging',
                 ${requestScope.pageIndex-1}, ${requestScope.pageIndex},
                 ${requestScope.pageIndex+1}, 2, ${requestScope.totalPage});
             </script> 

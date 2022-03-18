@@ -24,7 +24,7 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <link rel="stylesheet" href="asset/style/product_detail.css" />
         <style>
             main {
-                <c:if test="${role || !empty mod_account.userName}">
+                <c:if test="${role}">
                     margin-left: 20em;
                 </c:if>
                 /* margin-left: 20em; */
@@ -35,17 +35,18 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     </head>
     <body>
         <c:choose>
-            <c:when test="${!empty mod_account.userName}">
-                <jsp:include page="header_moderator.jsp" />
-            </c:when>
             <c:when test="${empty role}">
-                <jsp:include page="header_common.jsp" />
+                <jsp:include page="header_common.jsp" >
+                    <jsp:param name="currentscreen" value="product"/>
+                </jsp:include>
             </c:when>
             <c:when test="${role}">
                 <jsp:include page="header_staff.jsp" />
             </c:when>
             <c:when test="${!role}">
-                <jsp:include page="header_customer.jsp" />
+                <jsp:include page="header_customer.jsp" >
+                    <jsp:param name="currentscreen" value="dashboard"/>
+                </jsp:include>
             </c:when>
 
         </c:choose>
@@ -103,7 +104,7 @@ area1 --%> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
                         </div>
                     </div>
                 </div>
-                <c:if test="${empty account || !account.role }" >
+                <c:if test="${!empty account && !account.role }" >
                     <div class="row">
                         <a role="button" href="customer/contract/create?productID=${product.id}" class="btn btn-info btn-lg m-auto"
                            >Create Contract Now</a

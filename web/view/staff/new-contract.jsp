@@ -82,8 +82,8 @@
                             <label for="txt3" class="label-input">License plate (*):</label>
                             <input id="txt3" class="inputdata" type="text" required
                                    name="licensePlate" onchange="fillRightLicensePlate()"
-                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{3}\.[0-9]{2}$"
-                                   placeholder="License plate (in vehicle registration)"
+                                   pattern="^[0-9]{2}-[A-Za-z][0-9]{4}\.[0-9]{2}|[0-9]{2}[A-Za-z][0-9]{5}$"
+                                   placeholder="License plate (Eg: 30-P2123.45 / 30-P21234)"
                                    value="${requestScope.licensePlateSent ne null ?
                                             requestScope.licensePlateSent : ""}"/><br/>
                             <label for="txt9" class="label-input">Chassis number:</label>
@@ -99,7 +99,26 @@
                                    value="${requestScope.engineSent ne null ?
                                             requestScope.engineSent : ""}"/><br/>
                             <label>Registration certificate:</label><br/>
-                            <jsp:include page="/uploadimage.html"></jsp:include>
+                            <img src="https://via.placeholder.com/400x300?text=Waiting+until+image+change" 
+                                 id="output-cover-img" style="max-width: 70%"/>
+                            <input class="cover-openfile" id="choose-img" type='file' 
+                                   onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                            <input   type="hidden" id="cover-url"  name="photo">
+                            <script>
+                                function doImgUpload(fileInputId, urlout, imgout) {
+                                    var form = new FormData();
+                                    const outputURL = document.getElementById(urlout);
+                                    const outputImg = document.getElementById(imgout);
+                                    form.append("image", fileInputId.files[0]);
+                                    fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
+                                        method: "post",
+                                        body: form
+                                    }).then(data => data.json()).then(data => {
+                                        outputURL.value = data.data.url;
+                                        outputImg.src = data.data.url;
+                                    });
+                                }
+                            </script>
                             <h3 class="group-title">3. INSURANCE SERVICE INFORMATION</h3>
                             <div class="row-input">
                                 <span class="row-input1">

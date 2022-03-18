@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
-        <filter-name>setEncode</filter-name>
-        <filter-class>filter.setEncode</filter-class>
+        <filter-name>UserAuthorization</filter-name>
+        <filter-class>filter.UserAuthorization</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SetEncodeUTF8</filter-name>
+        <filter-class>filter.SetEncodeUTF8</filter-class>
+    </filter>
+    <filter>
+        <filter-name>ModeratorSessionRequired</filter-name>
+        <filter-class>filter.ModeratorSessionRequired</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>setEncode</filter-name>
+        <filter-name>ModeratorSessionRequired</filter-name>
+        <url-pattern>/moderator/</url-pattern>
+        <url-pattern>/moderator/staff/*</url-pattern>
+        <url-pattern>/moderator/dashboard</url-pattern>
+        <url-pattern>/moderator/product/*</url-pattern> 
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SetEncodeUTF8</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserAuthorization</filter-name>
+        <url-pattern>/customer/*</url-pattern>
+         <url-pattern>/staff/*</url-pattern>
+         <url-pattern>/authorize_payment</url-pattern>
+         <url-pattern>/cancel-contract</url-pattern>
+         <url-pattern>/execute_payment</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>ViewCustomer</servlet-name>
@@ -122,7 +145,7 @@
     </servlet>
     <servlet>
         <description>
-</description>
+        </description>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>controller.ResetPassword</servlet-class>
     </servlet>
@@ -145,6 +168,82 @@
     <servlet>
         <servlet-name>Contact</servlet-name>
         <servlet-class>controller.customer.Contact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestCompensation</servlet-name>
+        <servlet-class>controller.customer.RequestCompensation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>controller.moderator.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResolveCompensation</servlet-name>
+        <servlet-class>controller.staff.ResolveCompensation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CusCompensationHis</servlet-name>
+        <servlet-class>controller.customer.CompensationHis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCompensation</servlet-name>
+        <servlet-class>controller.staff.ManageCompensation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompensationDetail</servlet-name>
+        <servlet-class>controller.customer.CompensationDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelRequestCompensation</servlet-name>
+        <servlet-class>controller.customer.CancelRequestCompensation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CusAccidentHis</servlet-name>
+        <servlet-class>controller.customer.AccidentHis</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageContractController</servlet-name>
+        <servlet-class>controller.customer.ManageContractController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelContractController</servlet-name>
+        <servlet-class>controller.CancelContractController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageStaff</servlet-name>
+        <servlet-class>controller.moderator.ManageStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProduct</servlet-name>
+        <servlet-class>controller.moderator.CreateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <servlet-class>controller.moderator.UpdateStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageProduct</servlet-name>
+        <servlet-class>controller.moderator.ManageProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>controller.customer.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <servlet-class>controller.AuthorizePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExecutePaymentController</servlet-name>
+        <servlet-class>controller.ExecutePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProduct</servlet-name>
+        <servlet-class>controller.moderator.UpdateProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCustomer</servlet-name>
@@ -281,6 +380,82 @@
     <servlet-mapping>
         <servlet-name>Contact</servlet-name>
         <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/change-password</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestCompensation</servlet-name>
+        <url-pattern>/customer/history/compensation/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/moderator/product/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResolveCompensation</servlet-name>
+        <url-pattern>/staff/compensation/resolve-compensation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CusCompensationHis</servlet-name>
+        <url-pattern>/customer/history/compensation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCompensation</servlet-name>
+        <url-pattern>/staff/compensation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompensationDetail</servlet-name>
+        <url-pattern>/customer/history/compensation/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelRequestCompensation</servlet-name>
+        <url-pattern>/customer/history/compensation/cancel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CusAccidentHis</servlet-name>
+        <url-pattern>/customer/history/accident</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageContractController</servlet-name>
+        <url-pattern>/customer/contract/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelContractController</servlet-name>
+        <url-pattern>/cancel-contract</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageStaff</servlet-name>
+        <url-pattern>/moderator/staff/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProduct</servlet-name>
+        <url-pattern>/moderator/product/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModUpdateStaff</servlet-name>
+        <url-pattern>/moderator/staff/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProduct</servlet-name>
+        <url-pattern>/moderator/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/customer/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <url-pattern>/authorize_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExecutePaymentController</servlet-name>
+        <url-pattern>/execute_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProduct</servlet-name>
+        <url-pattern>/moderator/product/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
