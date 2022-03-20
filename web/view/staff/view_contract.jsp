@@ -296,114 +296,136 @@
                 <h2 class="section__heading">Payment history</h2>
 
                 <div class="section__main">
-                    <table class="section__table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Start date</th>
-                                <th>Paid date</th>
-                                <th>Payment method</th>
-                                <th>Amount</th>
-                                <th>Note</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.payments}" var="pay">
-                                <tr>
-                                    <td>${pay.id}</td>
-                                    <td>
-                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
-                                                        value = "${pay.startDate}" />
-                                    </td>
-                                    <td>
-                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
-                                                        value = "${pay.paidDate}" />
-                                    </td>
-                                    <td>${pay.paymentMethod2.paymentMethod}</td>
-                                    <td>${pay.amount}</td>
-                                    <td>${pay.note}</td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                    <c:choose>
+                        <c:when test="${requestScope.payments.size() == 0 
+                                        || empty requestScope.payments}">
+                                <p class="warn-text">You don't have any payments yet.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <table class="section__table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Start date</th>
+                                        <th>Paid date</th>
+                                        <th>Payment method</th>
+                                        <th>Amount</th>
+                                        <th>Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.payments}" var="pay">
+                                        <tr>
+                                            <td>${pay.id}</td>
+                                            <td>
+                                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                                value = "${pay.startDate}" />
+                                            </td>
+                                            <td>
+                                                <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                                value = "${pay.paidDate}" />
+                                            </td>
+                                            <td>${pay.paymentMethod2.paymentMethod}</td>
+                                            <td>${pay.amount}</td>
+                                            <td>${pay.note}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>   
                 </div>
             </div>
+        </div>
 
-            <div class="section">
-                <h2 class="section__heading">Compensation history</h2>
+        <div class="section">
+            <h2 class="section__heading">Compensation history</h2>
 
-                <div class="section__main">
-                    <table class="section__table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Created date</th>
-                                <th>Resolve date</th>
-                                <th>Status</th>
-                                <th>Detail</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.compensations}" var="com">
+            <div class="section__main">
+                <c:choose>
+                    <c:when test="${requestScope.compensations.size() == 0 
+                                    || empty requestScope.compensations}">
+                            <p class="warn-text">You don't have any compensation yet.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <table class="section__table">
+                            <thead>
                                 <tr>
-                                    <td>${com.id}</td>
-                                    <td>
-                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
-                                                        value = "${com.createDate}" />
-                                    </td>
-                                    <td>
-                                        <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
-                                                        value = "${com.resolveDate}" />
-                                    </td>
-                                    <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
-                                        ${com.status.statusName}</td>
-                                    <td class="not-hightlight"><a class="table-btn" href="">View</a></td>
+                                    <th>ID</th>
+                                    <th>Created date</th>
+                                    <th>Resolve date</th>
+                                    <th>Status</th>
+                                    <th>Detail</th>
                                 </tr>
-                            </c:forEach>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${requestScope.compensations}" var="com">
+                                    <tr>
+                                        <td>${com.id}</td>
+                                        <td>
+                                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                            value = "${com.createDate}" />
+                                        </td>
+                                        <td>
+                                            <fmt:formatDate pattern = "HH:mm:ss dd-MM-yyyy"  
+                                                            value = "${com.resolveDate}" />
+                                        </td>
+                                        <td style="color: #${com.status.statusCode == 0 ? 'D62A25' : '1AC36B'}">
+                                            ${com.status.statusName}</td>
+                                        <td class="not-hightlight">
+                                            <a class="table-btn" 
+                                               href="customer/history/compensation/detail?compensationid=${com.id}">
+                                                View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                        </table>
+                    </c:otherwise>
+                </c:choose>   
             </div>
-        </main>
+        </div>
+    </main>
 
-        <!-- confirm box -->
-        <script>
-            function confirmBox(mess, url) {
-                if (confirm(mess)) {
-                    location.href = url;
-                }
+    <!-- confirm box -->
+    <script>
+        function confirmBox(mess, url) {
+            if (confirm(mess)) {
+                location.href = url;
             }
-        </script>
+        }
+    </script>
 
-        <script>
-            const contractStatus = document.getElementById("contractStatus");
-            const contractStatusID = ${requestScope.contract.statusCode.statusCode};
+    <script>
+        const contractStatus = document.getElementById("contractStatus");
+        const contractStatusID = ${requestScope.contract.statusCode.statusCode};
 
-            if (contractStatusID === 0) {
-                contractStatus.style.color = "#D62A25";
-            } else if (contractStatusID === 1) {
-                contractStatus.style.color = "#1AC36B";
-            } else if (contractStatusID === 2) {
-                contractStatus.style.color = "#4BBDDF";
-            } else if (contractStatusID === 3) {
-                contractStatus.style.color = "#FFC107";
-            } else if (contractStatusID === 4) {
-                contractStatus.style.color = "#FD671F";
-            } else {
-                contractStatus.style.color = "#7B0B0B";
-            }
+        if (contractStatusID === 0) {
+            contractStatus.style.color = "#D62A25";
+        } else if (contractStatusID === 1) {
+            contractStatus.style.color = "#1AC36B";
+        } else if (contractStatusID === 2) {
+            contractStatus.style.color = "#4BBDDF";
+        } else if (contractStatusID === 3) {
+            contractStatus.style.color = "#FFC107";
+        } else if (contractStatusID === 4) {
+            contractStatus.style.color = "#FD671F";
+        } else {
+            contractStatus.style.color = "#7B0B0B";
+        }
 
-            const productStatus = document.getElementById("productStatus");
-            const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
+        const productStatus = document.getElementById("productStatus");
+        const productStatusID = ${requestScope.contract.product.statusCode.statusCode};
 
-            if (productStatusID === 0) {
-                productStatus.style.color = "#D62A25";
-            } else {
-                productStatus.style.color = "#1AC36B";
-            }
-        </script>
-    </body>
+        if (productStatusID === 0) {
+            productStatus.style.color = "#D62A25";
+        } else {
+            productStatus.style.color = "#1AC36B";
+        }
+    </script>
+</body>
 
-    <jsp:include page="../footer_full.jsp">
-        <jsp:param name="currentscreen" value="customer" />
-    </jsp:include>
+<jsp:include page="../footer_full.jsp">
+    <jsp:param name="currentscreen" value="customer" />
+</jsp:include>
 </html>
