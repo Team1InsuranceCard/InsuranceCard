@@ -89,7 +89,7 @@ public class UpdatePersonalInfo extends HttpServlet {
         CustomerStaff cusStaff = dbC.viewCustomer(accountId);
         Customer cus = cusStaff.getCustomer();
 
-        short raw_status = cus.getAccount().getStatus();
+        short raw_status = cus.getAccount().getStatusCode().getStatusCode();
         request.setAttribute("raw", raw_status);
         String status = transStatus(raw_status);
         String staff = staffName(cusStaff.getStaff());
