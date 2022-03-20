@@ -26,83 +26,93 @@
                 <h1 class="header__title">Compensation History</h1>
             </div>
 
-            <form class="filter">
-                <div class="filter__search">
-                    <img src="asset/image/customer/compensation_his/icon_magnifier.png" class="filter__icon" />
-                    <input
-                        type="text"
-                        name="search"
-                        class="filter__input"
-                        placeholder="Search..."
-                        value="${requestScope.search}"
-                        />
-                </div>
+            <c:choose>
+                <c:when test="${requestScope.compensations.size() == 0 
+                                || empty requestScope.compensations}">
+                        <p class="warn-text">You don't have any compensation yet.</p>
+                </c:when>
+                <c:otherwise>
+                    <form class="filter">
+                        <div class="filter__search">
+                            <img src="asset/image/customer/compensation_his/icon_magnifier.png" class="filter__icon" />
+                            <input
+                                type="text"
+                                name="search"
+                                class="filter__input"
+                                placeholder="Search..."
+                                value="${requestScope.search}"
+                                />
+                        </div>
 
-                <div class="filter__advance">
-                    <button class="filter__icon-btn" type="submit">
-                        <img src="asset/image/customer/compensation_his/icon_filters.png" class="filter__icon"></img>
-                    </button>
+                        <div class="filter__advance">
+                            <button class="filter__icon-btn" type="submit">
+                                <img src="asset/image/customer/compensation_his/icon_filters.png" class="filter__icon"></img>
+                            </button>
 
-                    <div class="filter__item">
-                        <div class="filter__text">From</div>
-                        <input type="date" 
-                               name="from" 
-                               value="${requestScope.from}"
-                               class="filter__input"></input>
-                    </div>
+                            <div class="filter__item">
+                                <div class="filter__text">From</div>
+                                <input type="date" 
+                                       name="from" 
+                                       value="${requestScope.from}"
+                                       class="filter__input"></input>
+                            </div>
 
-                    <div class="filter__item">
-                        <div class="filter__text">To</div>
-                        <input type="date" 
-                               name="to"
-                               value="${requestScope.to}"
-                               class="filter__input"></input>
-                    </div>
+                            <div class="filter__item">
+                                <div class="filter__text">To</div>
+                                <input type="date" 
+                                       name="to"
+                                       value="${requestScope.to}"
+                                       class="filter__input"></input>
+                            </div>
 
-                    <div class="filter__item">
-                        <div class="filter__text">Status</div>
-                        <select class="filter__input" name="status">
-                            <option value="-1" ${requestScope.status == -1 ? 'selected' : ''}>All</option>
-                            <option value="0" ${requestScope.status == 0 ? 'selected' : ''}>Deny</option>
-                            <option value="1" ${requestScope.status == 1 ? 'selected' : ''}>Accept</option>
-                            <option value="2" ${requestScope.status == 2 ? 'selected' : ''}>Pending</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
+                            <div class="filter__item">
+                                <div class="filter__text">Status</div>
+                                <select class="filter__input" name="status">
+                                    <option value="-1" ${requestScope.status == -1 ? 'selected' : ''}>All</option>
+                                    <option value="0" ${requestScope.status == 0 ? 'selected' : ''}>Deny</option>
+                                    <option value="1" ${requestScope.status == 1 ? 'selected' : ''}>Accept</option>
+                                    <option value="2" ${requestScope.status == 2 ? 'selected' : ''}>Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Driver</th>
-                        <th>Created Date</th>
-                        <th>Resolve Date</th>
-                        <th>Status</th>
-                        <th>Contract</th>
-                        <th>Detail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${requestScope.compensations}" var="c">
-                        <tr>
-                            <td class="text-left">${c.driverName}</td>
-                            <td class="text-left">${c.createDate}</td>
-                            <td class="text-left">${c.resolveDate}</td>
-                            <td style="color: #${c.status.statusCode == 0 ? 'D62A25' : 
-                                                 (c.status.statusCode == 1 ? '1AC36B' : 
-                                                 '4BBDDF')};">${c.status.statusName}</td>
-                            <td>${c.accident.contract.id}</td>
-                            <td>
-                                <a href="customer/history/compensation/detail?compensationid=${c.id}" 
-                                   class="table-btn">View</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Driver</th>
+                                <th>Created Date</th>
+                                <th>Resolve Date</th>
+                                <th>Status</th>
+                                <th>Contract</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.compensations}" var="c">
+                                <tr>
+                                    <td class="text-left">${c.driverName}</td>
+                                    <td class="text-left">${c.createDate}</td>
+                                    <td class="text-left">${c.resolveDate}</td>
+                                    <td style="color: #${c.status.statusCode == 0 ? 'D62A25' : 
+                                                         (c.status.statusCode == 1 ? '1AC36B' : 
+                                                         '4BBDDF')};">${c.status.statusName}</td>
+                                    <td>${c.accident.contract.id}</td>
+                                    <td>
+                                        <a href="customer/history/compensation/detail?compensationid=${c.id}" 
+                                           class="table-btn">View</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
 
-            <ul class="paging" id="pagging">
-            </ul>
+                    <ul class="paging" id="pagging">
+                    </ul>
+                </c:otherwise>
+            </c:choose>
+
+
         </main>
 
         <script>

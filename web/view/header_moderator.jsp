@@ -31,7 +31,7 @@
             </li>
             <li>
                 <a class="sidebar-item" 
-                   href="${root}/moderator/staff">Staff</a>        
+                   href="${root}/moderator/staff/view">Staff</a>        
             </li>
         </ul>
     </div>
