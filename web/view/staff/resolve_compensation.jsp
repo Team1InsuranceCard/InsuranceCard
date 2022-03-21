@@ -311,7 +311,7 @@
                            type="submit" value="Submit" />
 
                     <a class="col-lg-2 btn btn--secondary"
-                       onclick="confirmBox('Are you sure you want to cancel?', 'staff/compensation/resolve-compensation?id=${requestScope.compensation.id}')">Cancel</a>
+                       href="staff/compensation">Cancel</a>
                 </div>
             </form>
         </main>

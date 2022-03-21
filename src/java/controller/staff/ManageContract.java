@@ -112,7 +112,7 @@ public class ManageContract extends HttpServlet {
         int totalPage = PaginationModule.calcTotalPage(totalRecord, 20);
         request.setAttribute("query_option", queryOption);
         request.setAttribute("contract_list", contractList);
-        request.setAttribute("status_codes", statusCodes);
+        request.setAttribute("status_code", statusCodes);
         request.setAttribute("query", query);
         request.setAttribute("status", contractStatusCode);
         request.setAttribute("ordertype", orderType);

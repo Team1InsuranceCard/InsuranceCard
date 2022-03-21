@@ -132,7 +132,7 @@
                                 <h3>${sessionScope.unhold4}</h3>
                             </div>
                             <div class="col-8 unholded">
-                                <a href="staff/contract/view">
+                                <a href="staff/contract/view?status=3">
                                     <h4>Unholded</h4>
                                 </a>
                             </div>
