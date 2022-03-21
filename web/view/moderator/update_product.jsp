@@ -25,163 +25,8 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
         <script src="asset/script/summernote.js"></script>
-
-        <style>
-            main {
-                margin-top: 73px;
-                margin-left: 290px;
-                padding: 35px 45px 50px;
-                color: #5C2941;
-            }
-
-            .header__btn {
-                margin: 1em;
-            }
-
-            .btn--box {
-                border: none;
-                font-size: 18px;
-                border-radius: 4px;
-                min-width: 90px;
-                text-align: center;
-                box-sizing: content-box;
-                margin-top: 2em;
-            }
-
-            .btn--primary {
-                background-color: #4FCD5C;
-                color: #fff;
-                transition: all 0.2s;
-                border-radius: 6px;
-                /*display: inline-block;*/
-            }
-
-            .btn--primary:hover {
-                background: rgba(79, 205, 92, 0.8);
-            }
-
-            .btn--secondary {
-                background-color: #E76666;
-                color: #000;
-                text-decoration: none;
-                transition: all 0.2s;
-                border-radius: 6px;
-                /*display: inline-block;*/
-            }
-
-            .btn--secondary:hover {
-                background: rgba(231, 102, 102, 0.8);
-                color: #fff;
-            }
-
-            .btn--box input {
-                margin-right: 3em;
-                border: #4FCD5C outset;
-            }
-
-            .btn--box a {
-                padding: 2px 6.5em;
-                border: #FB6376 outset;
-            }
-
-            .section__img {
-                height: 10em;
-                background-color: black;
-            }
-
-            .section_upload {
-                margin-top: 7em;
-            }
-
-            .text input{
-                margin-top: 0.7em;
-                margin-bottom: 10px;
-                border-radius: 8px;
-                padding: 15px 25px;
-                border: solid #000;
-                background: rgba(253, 177, 166, 0.7);
-                font-weight: bold;
-                font-size: 18px;
-                width: 100%;
-                height: 3rem;
-            }
-
-            .text textarea {
-                margin-top: 1em;
-                margin-bottom: 10px;
-                border-radius: 8px;
-                padding: 15px 25px;
-                border: solid #000;
-                background: rgba(253, 177, 166, 0.7);
-                font-weight: bold;
-                font-size: 18px;
-                width: 100%;
-                height: 8rem;
-                resize: none;
-            }
-
-            .text select {
-                margin-top: 0.7em;
-                margin-bottom: 10px;
-                border-radius: 8px;
-                padding: 15px 25px;
-                border: solid #000;
-                background: rgba(253, 177, 166, 0.7);
-                font-weight: bold;
-                font-size: 18px;
-                width: 100%;
-                height: 3.5rem;
-            }
-
-            p {
-                margin-top: 1em;
-                font-weight: 500;
-                font-size: 18px;
-            }
-
-            /*            .img input {
-                            height: 2em;
-                            border-radius: 8px;
-                            padding: 5px;
-                            border: none;
-                            background: rgba(253, 177, 166, 0.7);
-                            font-weight: bold;
-                            font-size: 18px;
-                            color: rgba(252, 99, 118, 1);
-                        }*/
-
-            .product-top {
-                margin-bottom: 1em;
-            }
-
-            #output-cover-img {
-                margin-bottom: 0.75rem;
-            }
-
-            .up-img {
-                margin-bottom: 3rem;
-            }
-
-            .label {
-                margin-bottom: 3rem;
-                font-weight: 500;
-                font-size: 18px;
-            }
-
-            #money {
-                text-align: center;
-                color: #E92649;
-            }
-
-            .radio--btn input {
-                height: 1em;
-            }
-            
-            .radio--btn label {
-                height: 1em;
-                margin-left: -3em;
-            }
-        </style>
+        <link href="asset/style/moderator/update_product.css" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body>
         <header>
@@ -191,6 +36,12 @@
         </header>
 
         <main>
+            <div class="mess-box mess-box--success" 
+                 style="${requestScope.isSuccess ? "display:flex;" : "display:none;"}">
+                <img src="asset/image/staff/customer_create_edit/icon_approve.png" class="mess-box__icon" />
+                <p class="mess-box__mess">Your changes have been successfully saved</p>
+            </div>
+
             <form action="moderator/product/update" method="POST"
                   onSubmit="return submitForm(this);">
                 <input type="hidden" name="id" value="${requestScope.product.id}" />
@@ -247,7 +98,7 @@
                                    min="1" name="price" required/>
                         </div>
                         <div class="row col-lg-12 justify-content-between">
-                            <p class="col-md-3 label"></p>
+                            <p class="col-md-3 label">In words</p>
                             <p class="col-md-8" id="money"></p>
                         </div>
                         <div class="row col-lg-12 justify-content-between text">

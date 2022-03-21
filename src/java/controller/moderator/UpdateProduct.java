@@ -76,6 +76,7 @@ public class UpdateProduct extends HttpServlet {
         int productid = Integer.parseInt(request.getParameter("id"));
         ProductDBContext dbP = new ProductDBContext();
         Product product = dbP.getProductToUpdate(productid);
+        boolean isSuccess = true;
 
         String title = request.getParameter("title");
         String raw_photo = request.getParameter("photo");
@@ -107,6 +108,7 @@ public class UpdateProduct extends HttpServlet {
 
         dbP.updateProduct(product);
         request.setAttribute("product", product);
+        request.setAttribute("isSuccess", isSuccess);
         request.getRequestDispatcher("../../view/moderator/update_product.jsp").forward(request, response);
     }
 
