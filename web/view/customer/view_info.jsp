@@ -22,7 +22,7 @@
     <body>
         <main>
             <div class="menu">
-                <a class="menu__item menu__item--active" href="cus/info" >
+                <a class="menu__item menu__item--active" href="customer/info" >
                     <img
                         src="asset/image/customer/view_info/icon_profile.png"
                         class="menu__icon"

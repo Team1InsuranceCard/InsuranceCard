@@ -386,9 +386,9 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
-    public HashMap<Integer, Contract> getContractsByCustomer(int cusID, String query, String queryChoose, 
-            int pageIndex, String contractStatus, String orderby,String ordertype) {
+
+    public HashMap<Integer, Contract> getContractsByCustomer(int cusID, String query, String queryChoose,
+            int pageIndex, String contractStatus, String orderby, String ordertype) {
         int[] recordFromTo = PaginationModule.calcFromToRecord(pageIndex, 10);
         HashMap<Integer, Contract> contracts = new HashMap<>();
         if (query == null) {
@@ -499,7 +499,7 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
+
     public int totalContractsByCustomer(int cusId, String query, String queryChoose, String contractStatus) {
         int totalContract = 0;
         if (query == null) {
@@ -645,7 +645,7 @@ public class ContractDBContext extends DBContext {
                 ProductStatusCode psc = new ProductStatusCode();
                 psc.setStatusCode(rs.getShort("proStaCode"));
                 psc.setStatusName(rs.getString("proStaName"));
-                
+
                 Product product = new Product();
                 product.setId(rs.getInt("ProID"));
                 product.setTitle(rs.getString("Title"));
@@ -1052,7 +1052,7 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
-    
+
     public void customerContractPaymentPaypal(int contractID) {
         try {
             connection.setAutoCommit(false);
@@ -1065,7 +1065,7 @@ public class ContractDBContext extends DBContext {
             PreparedStatement ps_payment = connection.prepareStatement(sql_payment);
             ps_payment.setInt(1, contractID);
             ps_payment.executeUpdate();
-            
+
             // update contract status
             String sql_contract = "update Contract\n"
                     + " set Status = 1\n"
@@ -1323,11 +1323,12 @@ public class ContractDBContext extends DBContext {
                     + "from Contract\n"
                     + "where ProductID = ?\n"
                     + "	and CustomerID = ?\n"
-                    + "	and (Status = 2 \n"
+                    + "	and (Status = 2\n"
                     + "		or (select count(ID) \n"
                     + "			from Contract where ProductID = ?\n"
                     + "							and CustomerID = ?\n"
-                    + "							and Status = 1) > 1)";
+                    + "							and Status = 1\n"
+                    + "							and datediff(day, GETDATE(), EndDate) > 7) > 0)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, contract.getProduct().getId());
             ps.setInt(2, contract.getCustomer().getAccount().getId());
@@ -1410,7 +1411,7 @@ public class ContractDBContext extends DBContext {
             }
         }
     }
-    
+
     public void cancelContract(Contract contract) {
         try {
             connection.setAutoCommit(false);
@@ -1418,7 +1419,7 @@ public class ContractDBContext extends DBContext {
             String sql_contract = "UPDATE [Contract]\n"
                     + "   SET [CancelComment] = ?\n"
                     + "      ,[CancelReason] = ?\n"
-                    + "      ,[Status] = 4\n" 
+                    + "      ,[Status] = 4\n"
                     + "      ,[CancelDate] = GETDATE()\n"
                     + "      ,[CancelRequestDate] = GETDATE()\n"
                     + " WHERE [ID] = ? ";
