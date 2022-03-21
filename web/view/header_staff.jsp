@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="${root}/asset/script/google_login.js" defer></script>
 <link rel="stylesheet" href="${root}/asset/style/header_staff_mod.css" />
 
 <header>
@@ -14,7 +15,7 @@
                 <img src="${root}/asset/image/icon_user.png" />
             </a>
 
-            <a href="${root}/logout" class="icon-header">
+            <a onclick="signOut();" href="${root}/logout" class="icon-header">
                 <img src="${root}/asset/image/icon_logout.png" />
             </a>
         </div>
