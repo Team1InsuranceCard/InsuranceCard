@@ -144,6 +144,12 @@ main {
   border-radius: 4px 4px 0 0;
 }
 
+.warn-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: italic;
+}
+
 .section__main {
   font-size: 18px;
   padding: 20px 30px;
