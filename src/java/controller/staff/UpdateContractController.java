@@ -7,34 +7,25 @@ package controller.staff;
 
 import dao.AccountDBContext;
 import dao.BrandDBContext;
-import dao.CompensationDBContext;
 import dao.ContractDBContext;
 import dao.CustomerDBContext;
 import dao.DeliveryDBContext;
-import dao.PaymentDBContext;
 import dao.ProductDBContext;
 import dao.StaffDBContext;
 import dao.StatusCodeDBContext;
 import dao.VehicleTypeDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Brand;
-import model.Compensation;
 import model.Contract;
-import model.ContractStatusCode;
 import model.Customer;
 import model.Delivery;
-import model.Payment;
 import model.Product;
 import model.Staff;
 import model.VehicleType;
@@ -63,11 +54,11 @@ public class UpdateContractController extends HttpServlet {
         Contract contract = contractDB.staffGetContractDetail(id);
 
         if (contract != null) {
-            PaymentDBContext payDB = new PaymentDBContext();
-            ArrayList<Payment> payments = payDB.getContractPayments(id);
-
-            CompensationDBContext comDB = new CompensationDBContext();
-            ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
+//            PaymentDBContext payDB = new PaymentDBContext();
+//            ArrayList<Payment> payments = payDB.getContractPayments(id);
+//
+//            CompensationDBContext comDB = new CompensationDBContext();
+//            ArrayList<Compensation> compensations = comDB.getContractCompensations(id);
 
             StaffDBContext sdb = new StaffDBContext();
             ArrayList<Staff> staffs = sdb.getStaffs();
@@ -84,8 +75,8 @@ public class UpdateContractController extends HttpServlet {
             ArrayList<Brand> brands = bdb.getBrands();
 
             request.setAttribute("contract", contract);
-            request.setAttribute("payments", payments);
-            request.setAttribute("compensations", compensations);
+//            request.setAttribute("payments", payments);
+//            request.setAttribute("compensations", compensations);
             request.setAttribute("staffs", staffs);
             request.setAttribute("contractType", type);
             request.setAttribute("vehicleTypes", vehicleTypes);
