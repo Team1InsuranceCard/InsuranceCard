@@ -52,7 +52,7 @@ public class ManageCompensation extends HttpServlet {
         }
         int pageIndex = Integer.parseInt(raw_pageIndex);
         HashMap<Integer, Compensation> compensations = compensationDBC
-                .getCompensationsByStaff(18, query, queryChoose, pageIndex, compensationStatus, orderby, ordertype);
+                .getCompensationsByStaff(account.getId(), query, queryChoose, pageIndex, compensationStatus, orderby, ordertype);
         int totalRecord = compensationDBC.totalCompensationsByStaff(account.getId()
                 , query, queryChoose, compensationStatus);
         

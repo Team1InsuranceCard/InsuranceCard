@@ -36,7 +36,7 @@
                     <div class="col">
                         <div class="compensation-header"><h2>Compensation</h2></div>
                     </div>
-                    <div class="col">
+<!--                    <div class="col">
                         <c:if test="${compensation.status.statusCode == 2}">
                             <button type="button" class="btn btn-danger float-right"
                                     onclick="if (window.confirm('Do you want to cancel this Compensation?'))
@@ -44,7 +44,7 @@
                                 Cancel request
                             </button>
                         </c:if>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row border rounded compensation-card">
                     <div class="title-card">
