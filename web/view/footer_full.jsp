@@ -55,7 +55,7 @@
                     <i class="fab fa-twitter"></i>
                     <i class="far fa-envelope"></i>
                 </div>
-                <a href="#" class="footer-btn-contact">Contact Us</a>
+                <a href="${pageContext.request.contextPath}/contact" class="footer-btn-contact">Contact Us</a>
             </div>
         </div>
         <div class="footer-copyright">
